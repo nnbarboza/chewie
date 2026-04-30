@@ -2,7 +2,8 @@
   "name": "Chewie Care",
   "short_name": "Chewie",
   "description": "App de cuidados de Chewie el hámster 🐹",
-  "start_url": "/index.html",
+  "start_url": "/chewie/",
+  "scope": "/chewie/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#FBF5EC",
@@ -10,13 +11,13 @@
   "lang": "es",
   "icons": [
     {
-      "src": "img/icon.png",
+      "src": "/chewie/img/icon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "img/icon.png",
+      "src": "/chewie/img/icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
