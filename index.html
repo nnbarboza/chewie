@@ -55,12 +55,17 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .care-when.ok{color:var(--g)}.care-when.warn{color:var(--w)}.care-when.alert{color:var(--r)}
 .fpills{display:flex;gap:3px;margin-top:3px;flex-wrap:wrap}
 .fpill{font-size:10px;background:var(--sand);border-radius:20px;padding:2px 6px;color:var(--text2)}
-.badge-wrap{flex-shrink:0;text-align:right;min-width:82px}
-.badge{border-radius:20px;padding:4px 9px;font-size:11px;font-weight:700;white-space:nowrap;display:inline-flex;align-items:center;gap:3px}
-.badge.ok{background:var(--gbg);color:var(--gtx)}
-.badge.warn{background:var(--wbg);color:var(--wtx)}
-.badge.alert{background:var(--rbg);color:var(--rtx)}
-.badge-sub{font-size:10px;color:var(--text3);margin-top:3px}
+.badge-wrap{flex-shrink:0;text-align:right;min-width:90px}
+.badge{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.badge-dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;flex-shrink:0}
+.badge-txt{font-size:12px;font-weight:700}
+.badge.ok .badge-dot{background:var(--gbg);color:var(--g)}
+.badge.ok .badge-txt{color:var(--g)}
+.badge.warn .badge-dot{background:#F5A623;color:#fff}
+.badge.warn .badge-txt{color:#D4860A}
+.badge.alert .badge-dot{background:#E87878;color:#fff}
+.badge.alert .badge-txt{color:var(--r)}
+.badge-sub{font-size:10px;color:var(--text3);margin-top:4px}
 .shop-banner{margin:10px 12px 0;background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:11px 13px;display:flex;align-items:center;gap:10px;cursor:pointer}
 .shop-img{width:46px;height:46px;border-radius:12px;font-size:28px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
 .shop-img img{width:100%;height:100%;object-fit:cover}
@@ -133,7 +138,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
   <div class="hero">
     <div class="hero-greeting">¡Hola, humana de 🩷</div>
-    <div class="hero-name">·Chewie·</div>
+    <div style="margin:4px auto 0;max-width:200px">
+      <img src="img/title.png" alt="Chewie" style="width:100%;height:auto;display:block" onerror="this.outerHTML='<div class=\'hero-name\'>·Chewie·</div>'">
+    </div>
   </div>
   <div class="hamster-area">
     <div class="score-left">
@@ -162,24 +169,24 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <div style="color:var(--text3);font-size:18px">›</div>
   </div>
   <div class="bottom-nav">
-    <div class="nav-item active" onclick="goScreen('s-home')">
-      <div class="nav-icon">🏠</div>
+    <div class="nav-item active" id="nav-inicio" onclick="goScreen('s-home')">
+      <div class="nav-icon"><img src="img/nav_inicio.png" alt="Inicio" style="width:26px;height:26px;object-fit:contain" onerror="this.outerHTML='🏠'"></div>
       <div class="nav-lbl" style="color:var(--accent)">Inicio</div>
     </div>
-    <div class="nav-item" onclick="goScreen('s-history')">
-      <div class="nav-icon">📅</div>
+    <div class="nav-item" id="nav-historial" onclick="goScreen('s-history')">
+      <div class="nav-icon"><img src="img/nav_historial.png" alt="Historial" style="width:26px;height:26px;object-fit:contain" onerror="this.outerHTML='📅'"></div>
       <div class="nav-lbl">Historial</div>
     </div>
     <div class="nav-plus-wrap" onclick="quickReg()">
       <div class="nav-plus">+</div>
       <div class="nav-lbl" style="margin-top:4px">Añadir</div>
     </div>
-    <div class="nav-item" onclick="goScreen('s-profile')">
-      <div class="nav-icon">💡</div>
+    <div class="nav-item" id="nav-consejos" onclick="openChatGPT()">
+      <div class="nav-icon"><img src="img/nav_consejos.png" alt="Consejos" style="width:26px;height:26px;object-fit:contain" onerror="this.outerHTML='💡'"></div>
       <div class="nav-lbl">Consejos</div>
     </div>
-    <div class="nav-item" onclick="goScreen('s-profile')">
-      <div class="nav-icon">🐹</div>
+    <div class="nav-item" id="nav-perfil" onclick="goScreen('s-profile')">
+      <div class="nav-icon"><img src="img/nav_perfil.png" alt="Perfil" style="width:26px;height:26px;object-fit:contain" onerror="this.outerHTML='🐹'"></div>
       <div class="nav-lbl">Perfil</div>
     </div>
   </div>
@@ -380,10 +387,13 @@ function getStatus(cat){
   if(h>cat.freqH)return'warn';
   return'ok';
 }
-function badgeHtml(s){
-  if(s==='ok')return'<span class="badge ok">✓ ¡Al día!</span>';
-  if(s==='warn')return'<span class="badge warn">! Pendiente</span>';
-  return'<span class="badge alert">! ¡Necesario!</span>';
+function badgeHtml(s,lastTs){
+  if(s==='ok')return'<span class="badge ok"><span class="badge-dot">✓</span><span class="badge-txt">¡Al día!</span></span>';
+  if(s==='warn'){
+    var txt=lastTs?fmtDate(lastTs):'Pendiente';
+    return'<span class="badge warn"><span class="badge-dot">!</span><span class="badge-txt">'+txt+'</span></span>';
+  }
+  return'<span class="badge alert"><span class="badge-dot">!</span><span class="badge-txt">¡Necesario!</span></span>';
 }
 function fmtDate(ts){
   if(!ts)return'Sin registros';
@@ -459,7 +469,7 @@ function renderHome(){
     // Badge
     const bw=document.createElement('div');
     bw.className='badge-wrap';
-    bw.innerHTML=badgeHtml(status)+'<div class="badge-sub">'+cat.freq+'</div>';
+    bw.innerHTML=badgeHtml(status, last?last.ts:null)+'<div class="badge-sub">'+cat.freq+'</div>';
 
     row.appendChild(iconWrap);
     row.appendChild(info);
@@ -515,7 +525,7 @@ function openDetail(cat){
   const last=logs.length?logs[logs.length-1]:null;
   document.getElementById('det-last-val').textContent=last?fmtDate(last.ts):'Sin registros';
   document.getElementById('det-last-sub').textContent=last?fmtFull(last.ts):'Empieza registrando ahora';
-  document.getElementById('det-badge').innerHTML=badgeHtml(getStatus(cat));
+  document.getElementById('det-badge').innerHTML=badgeHtml(getStatus(cat), last?last.ts:null);
   const fw=document.getElementById('food-wrap');
   const fg=document.getElementById('food-grid');
   const nw=document.getElementById('note-wrap');
@@ -559,7 +569,7 @@ document.getElementById('reg-btn').onclick=function(){
   const last=state[curCat.id].logs[state[curCat.id].logs.length-1];
   document.getElementById('det-last-val').textContent=fmtDate(last.ts);
   document.getElementById('det-last-sub').textContent=fmtFull(last.ts);
-  document.getElementById('det-badge').innerHTML=badgeHtml(getStatus(curCat));
+  document.getElementById('det-badge').innerHTML=badgeHtml(getStatus(curCat), last.ts);
   buildChart();
   this.textContent='✓ ¡Registrado!';this.style.background='#5A9E5A';
   var btn=this;
@@ -797,6 +807,11 @@ function confirmImport(){
   pendingImportData=null;
   alert('✅ Importados: '+cuidados+' cuidados y '+gastos+' gastos.');
   renderProfile();
+}
+
+function openChatGPT(){
+  window.location.href='chatgpt://';
+  setTimeout(function(){window.open('https://chatgpt.com','_blank');},500);
 }
 
 function quickReg(){
