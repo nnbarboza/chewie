@@ -552,8 +552,8 @@ function syncToSheets(payload){
   var params=Object.keys(payload).map(function(k){
     return encodeURIComponent(k)+'='+encodeURIComponent(payload[k]);
   }).join('&');
-  var img=new Image();
-  img.src=SCRIPT_URL+'?'+params;
+  fetch(SCRIPT_URL+'?'+params,{method:'GET',mode:'no-cors'})
+    .catch(function(){});
 }
 
 document.getElementById('reg-btn').onclick=function(){
