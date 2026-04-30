@@ -71,8 +71,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .shop-img img{width:100%;height:100%;object-fit:cover}
 .bottom-nav{display:flex;background:var(--card);border-top:1px solid var(--border);padding:8px 0 4px;margin-top:12px;position:sticky;bottom:0;z-index:10}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:4px 0}
-.nav-icon{width:30px;height:30px;display:flex;align-items:center;justify-content:center}
-.nav-icon img{width:30px;height:30px;object-fit:contain}
+.nav-icon{width:42px;height:42px;display:flex;align-items:center;justify-content:center}
+.nav-icon img{width:42px;height:42px;object-fit:contain}
 .nav-lbl{font-size:10px;color:var(--text3)}
 .nav-item.active .nav-lbl{color:var(--accent);font-weight:600}
 .nav-plus-wrap{display:flex;flex-direction:column;align-items:center;cursor:pointer}
@@ -546,6 +546,17 @@ function openDetail(cat){
   buildChart();
 }
 
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbzKoEORFb4pifwfzRwR4QYqN-wGecc_TI1p-Mv7YmmUFl42J3o2xT8ExI-q_LuCR0Yy/exec';
+
+function syncToSheets(payload){
+  fetch(SCRIPT_URL,{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(payload)
+  }).catch(function(){/* silencioso si no hay red */});
+}
+
 document.getElementById('reg-btn').onclick=function(){
   const entry={ts:Date.now()};
   if(selFoods.length)entry.type=selFoods.join(', ');
@@ -554,6 +565,15 @@ document.getElementById('reg-btn').onclick=function(){
   state[curCat.id].logs.push(entry);
   if(state[curCat.id].logs.length>200)state[curCat.id].logs=state[curCat.id].logs.slice(-200);
   save();
+  // Sync a Google Sheets
+  var d=new Date(entry.ts);
+  syncToSheets({
+    type:'cuidado',
+    fecha:d.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}),
+    hora:d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}),
+    categoria:curCat.name,
+    detalle:[entry.type,entry.note].filter(Boolean).join(' | ')
+  });
   document.querySelectorAll('.ftog').forEach(function(x){x.classList.remove('on');});
   selFoods=[];document.getElementById('det-note').value='';
   const last=state[curCat.id].logs[state[curCat.id].logs.length-1];
@@ -639,7 +659,17 @@ function saveExp(){
   const cat=document.getElementById('ec').value,desc=document.getElementById('ed').value.trim(),
     amount=parseFloat(document.getElementById('ea').value),date=document.getElementById('ef').value;
   if(!amount||amount<=0||!date){alert('Rellena importe y fecha');return;}
-  expenses.push({category:cat,description:desc,amount,date});saveExpenses();closeExp();renderExpenses();
+  expenses.push({category:cat,description:desc,amount,date});
+  saveExpenses();
+  // Sync a Google Sheets
+  syncToSheets({
+    type:'gasto',
+    fecha:new Date(date).toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}),
+    categoria:cat,
+    descripcion:desc,
+    importe:amount
+  });
+  closeExp();renderExpenses();
 }
 function delExp(i){if(!confirm('¿Eliminar?'))return;expenses.splice(i,1);saveExpenses();renderExpenses();}
 
