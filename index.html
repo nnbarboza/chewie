@@ -546,15 +546,14 @@ function openDetail(cat){
   buildChart();
 }
 
-const SCRIPT_URL='https://script.google.com/macros/s/AKfycbzKoEORFb4pifwfzRwR4QYqN-wGecc_TI1p-Mv7YmmUFl42J3o2xT8ExI-q_LuCR0Yy/exec';
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbwrFa5jMZ45pLWqOsBojWB4MaHyd7NkW3nhwHd_vXN01qPUbESZUm9h9-g321yFJKjg/exec';
 
 function syncToSheets(payload){
-  fetch(SCRIPT_URL,{
-    method:'POST',
-    mode:'no-cors',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify(payload)
-  }).catch(function(){/* silencioso si no hay red */});
+  var params=Object.keys(payload).map(function(k){
+    return encodeURIComponent(k)+'='+encodeURIComponent(payload[k]);
+  }).join('&');
+  var img=new Image();
+  img.src=SCRIPT_URL+'?'+params;
 }
 
 document.getElementById('reg-btn').onclick=function(){
