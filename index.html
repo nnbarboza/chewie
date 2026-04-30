@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="/chewie/">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Chewie">
+<link rel="apple-touch-icon" href="img/icon.png">
+<title>Chewie Care</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FBF5EC;--card:#FFF;--text:#3D2B1F;--text2:#8A6A55;--text3:#B8937A;
+  --border:#EDE0D0;--sand:#F0E0C8;--accent:#E87878;
+  --g:#5A9E5A;--gbg:#EDF7ED;--gtx:#1A4A1A;
+  --w:#D4860A;--wbg:#FFF4DC;--wtx:#6B3D00;
+  --r:#C94040;--rbg:#FFEAEA;--rtx:#6B0000;
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);max-width:390px;margin:0 auto;min-height:100vh;overflow-x:hidden}
+.screen{display:none;width:100%}.screen.active{display:block}
+.top-bar{background:var(--bg);padding:12px 16px 0;display:flex;align-items:center;justify-content:space-between}
+.icon-btn{width:38px;height:38px;border-radius:12px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:var(--text2);flex-shrink:0}
+.hero{padding:4px 16px 6px;text-align:center}
+.hero-greeting{font-size:12px;color:var(--text2)}
+.hero-name{font-size:32px;font-weight:700;color:#5C3A1E;letter-spacing:-.5px}
+.hamster-area{position:relative;display:flex;justify-content:center;align-items:flex-end;height:158px;margin:0 16px 6px}
+.ham-circle{width:148px;height:148px;border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;transition:background .4s;font-size:80px;line-height:148px;text-align:center}
+.ham-circle img{width:100%;height:100%;object-fit:cover;display:block}
+.speech-bubble{position:absolute;right:6px;top:4px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:8px 11px;max-width:128px;font-size:11px;color:var(--text);z-index:2}
+.speech-bubble strong{display:block;font-size:12px;color:#4A2C1A;margin-bottom:1px}
+.speech-bubble::before{content:'';position:absolute;left:-8px;top:14px;border:4px solid transparent;border-right-color:var(--border)}
+.speech-bubble::after{content:'';position:absolute;left:-6px;top:15px;border:3.5px solid transparent;border-right-color:#fff}
+.score-left{position:absolute;left:10px;top:16px;display:flex;flex-direction:column;align-items:center;gap:3px}
+.score-ring{position:relative;width:52px;height:52px}
+.score-ring svg{width:52px;height:52px}
+.score-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--g)}
+.score-lbl{font-size:10px;color:var(--text2);text-align:center;max-width:58px;line-height:1.2}
+.section-title{padding:0 16px 7px;font-size:13px;font-weight:600;color:var(--text2);display:flex;align-items:center;gap:5px}
+.section-title::before,.section-title::after{content:'🌿';font-size:11px}
+.care-list{padding:0 12px;display:flex;flex-direction:column;gap:7px}
+.care-row{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:transform .1s}
+.care-row:active{transform:scale(.98)}
+.care-row.s-alert{border-color:#F7C1C1;background:#FFFAFA}
+.care-row.s-warn{border-color:#FAC775;background:#FFFDF5}
+.care-row.s-ok{border-color:#C0DD97;background:#F7FBF2}
+.cat-icon{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;overflow:hidden}
+.cat-icon img{width:100%;height:100%;object-fit:cover}
+.care-info{flex:1;min-width:0}
+.care-name{font-size:14px;font-weight:700;color:var(--text)}
+.care-chevron{color:var(--text3);font-size:12px;font-weight:400}
+.care-when{font-size:12px;margin-top:1px;font-weight:500}
+.care-when.ok{color:var(--g)}.care-when.warn{color:var(--w)}.care-when.alert{color:var(--r)}
+.fpills{display:flex;gap:3px;margin-top:3px;flex-wrap:wrap}
+.fpill{font-size:10px;background:var(--sand);border-radius:20px;padding:2px 6px;color:var(--text2)}
+.badge-wrap{flex-shrink:0;text-align:right;min-width:82px}
+.badge{border-radius:20px;padding:4px 9px;font-size:11px;font-weight:700;white-space:nowrap;display:inline-flex;align-items:center;gap:3px}
+.badge.ok{background:var(--gbg);color:var(--gtx)}
+.badge.warn{background:var(--wbg);color:var(--wtx)}
+.badge.alert{background:var(--rbg);color:var(--rtx)}
+.badge-sub{font-size:10px;color:var(--text3);margin-top:3px}
+.shop-banner{margin:10px 12px 0;background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:11px 13px;display:flex;align-items:center;gap:10px;cursor:pointer}
+.shop-img{width:46px;height:46px;border-radius:12px;font-size:28px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+.shop-img img{width:100%;height:100%;object-fit:cover}
+.bottom-nav{display:flex;background:var(--card);border-top:1px solid var(--border);padding:8px 0 4px;margin-top:12px;position:sticky;bottom:0;z-index:10}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:4px 0}
+.nav-icon{font-size:22px;width:26px;height:26px;display:flex;align-items:center;justify-content:center}
+.nav-lbl{font-size:10px;color:var(--text3)}
+.nav-item.active .nav-lbl{color:var(--accent);font-weight:600}
+.nav-plus-wrap{display:flex;flex-direction:column;align-items:center;cursor:pointer}
+.nav-plus{width:48px;height:48px;border-radius:50%;background:var(--accent);margin-top:-16px;box-shadow:0 2px 10px rgba(232,120,120,.45);display:flex;align-items:center;justify-content:center;font-size:26px;color:white}
+.det-header{padding:10px 16px 0;text-align:center}
+.det-icon{width:64px;height:64px;border-radius:18px;margin:0 auto 6px;font-size:36px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.det-icon img{width:100%;height:100%;object-fit:cover}
+.det-title{font-size:21px;font-weight:700}
+.det-freq{font-size:12px;color:var(--text2);margin-top:2px}
+.last-card{margin:9px 14px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:10px 13px;display:flex;justify-content:space-between;align-items:center}
+.last-lbl{font-size:12px;color:var(--text2)}.last-val{font-size:14px;font-weight:600}.last-sub{font-size:11px;color:var(--text3)}
+.reg-sec{margin:0 14px 10px}
+.food-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:9px}
+.ftog{background:var(--card);border:1.5px solid var(--border);border-radius:11px;padding:9px 7px;text-align:center;cursor:pointer;font-size:13px;color:var(--text)}
+.ftog.on{background:#FFF0E8;border-color:#E87878;color:#7A2A2A;font-weight:600}
+.free-note{width:100%;border:1.5px solid var(--border);border-radius:11px;padding:10px 12px;font-size:13px;font-family:inherit;color:var(--text);background:var(--card);resize:none;margin-bottom:9px}
+.free-note:focus{outline:none;border-color:var(--accent)}
+.reg-btn{display:block;width:100%;background:var(--accent);color:white;border:none;border-radius:13px;padding:12px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit}
+.chart-sec{margin:0 14px;padding-bottom:20px}
+.chart-tabs{display:flex;gap:7px;margin-bottom:9px}
+.chtab{flex:1;padding:6px;border-radius:10px;border:1px solid var(--border);background:var(--card);font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;text-align:center}
+.chtab.active{background:var(--accent);border-color:var(--accent);color:white}
+.chart-wrap{position:relative;width:100%;height:150px}
+.exp-header{padding:8px 14px 10px}
+.exp-header h2{font-size:19px;font-weight:700}
+.stats-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 14px 10px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:10px 12px}
+.stat-lbl{font-size:11px;color:var(--text2);margin-bottom:2px}
+.stat-val{font-size:20px;font-weight:700}
+.stat-sub{font-size:11px;color:var(--text3)}
+.add-btn{display:block;width:calc(100% - 28px);margin:0 14px 10px;background:var(--accent);color:white;border:none;border-radius:13px;padding:11px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+.exp-list{padding:0 14px;display:flex;flex-direction:column;gap:7px;padding-bottom:20px}
+.exp-row{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:10px 12px;display:flex;align-items:center;gap:10px}
+.exp-dot{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:100;align-items:flex-end;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:var(--bg);border-radius:20px 20px 0 0;padding:18px 16px 28px;width:100%;max-width:390px;max-height:85vh;overflow-y:auto}
+.modal h3{font-size:17px;font-weight:700;margin-bottom:14px}
+.modal-close{float:right;font-size:20px;cursor:pointer;color:var(--text2)}
+.flabel{font-size:12px;color:var(--text2);margin-bottom:4px;display:block;margin-top:10px}
+.finput{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:9px 11px;font-size:14px;font-family:inherit;color:var(--text);background:var(--card)}
+.finput:focus{outline:none;border-color:var(--accent)}
+.save-btn{display:block;width:100%;background:var(--accent);color:white;border:none;border-radius:13px;padding:12px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:14px}
+.empty{text-align:center;padding:30px 20px;color:var(--text2);font-size:13px}
+/* CSV buttons */
+.csv-section{margin:12px 14px 0;display:flex;flex-direction:column;gap:8px}
+.csv-btn{display:flex;align-items:center;gap:10px;background:var(--card);border:1.5px solid var(--border);border-radius:13px;padding:12px 14px;cursor:pointer;font-size:14px;font-weight:600;color:var(--text);width:100%;text-align:left}
+.csv-btn span{font-size:22px}
+.csv-btn small{display:block;font-size:11px;font-weight:400;color:var(--text2);margin-top:1px}
+.csv-btn.import{border-color:#C0DD97}
+</style>
+</head>
+<body>
+
+<!-- HOME -->
+<div id="s-home" class="screen active">
+  <div class="top-bar">
+    <div style="width:38px"></div>
+    <div></div>
+    <div class="icon-btn" style="position:relative">
+      <div style="position:absolute;top:7px;right:7px;width:7px;height:7px;background:var(--accent);border-radius:50%"></div>
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8A6A55" stroke-width="2" stroke-linecap="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </div>
+  </div>
+  <div class="hero">
+    <div class="hero-greeting">¡Hola, humana de 🩷</div>
+    <div class="hero-name">·Chewie·</div>
+  </div>
+  <div class="hamster-area">
+    <div class="score-left">
+      <div class="score-ring">
+        <svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="22" fill="none" stroke="#EDE0D0" stroke-width="5"/><circle id="score-arc" cx="26" cy="26" r="22" fill="none" stroke="#5A9E5A" stroke-width="5" stroke-linecap="round" stroke-dasharray="138 138" stroke-dashoffset="138" transform="rotate(-90 26 26)"/></svg>
+        <div class="score-pct" id="score-pct">—</div>
+      </div>
+      <div class="score-lbl" id="score-lbl">...</div>
+      <div style="text-align:center;margin-top:3px">🩷</div>
+    </div>
+    <div class="ham-circle" id="ham-circle"><span style="font-size:80px">🐹</span></div>
+    <div class="speech-bubble" id="speech-bub">
+      <div style="font-size:15px;margin-bottom:2px">✨</div>
+      <strong>Cargando...</strong>
+      <span>Un momento</span>
+    </div>
+  </div>
+  <div class="section-title">Estado de cuidados</div>
+  <div class="care-list" id="care-list"></div>
+  <div class="shop-banner" onclick="goScreen('s-expenses')">
+    <div class="shop-img" id="shop-img-wrap"><span style="font-size:28px">🛍️</span></div>
+    <div style="flex:1">
+      <strong style="font-size:14px;font-weight:700;display:block">Mis compras</strong>
+      <span style="font-size:12px;color:var(--text2)">Control de gastos de Chewie</span>
+    </div>
+    <div style="color:var(--text3);font-size:18px">›</div>
+  </div>
+  <div class="bottom-nav">
+    <div class="nav-item active" onclick="goScreen('s-home')">
+      <div class="nav-icon">🏠</div>
+      <div class="nav-lbl" style="color:var(--accent)">Inicio</div>
+    </div>
+    <div class="nav-item" onclick="goScreen('s-history')">
+      <div class="nav-icon">📅</div>
+      <div class="nav-lbl">Historial</div>
+    </div>
+    <div class="nav-plus-wrap" onclick="quickReg()">
+      <div class="nav-plus">+</div>
+      <div class="nav-lbl" style="margin-top:4px">Añadir</div>
+    </div>
+    <div class="nav-item" onclick="goScreen('s-profile')">
+      <div class="nav-icon">💡</div>
+      <div class="nav-lbl">Consejos</div>
+    </div>
+    <div class="nav-item" onclick="goScreen('s-profile')">
+      <div class="nav-icon">🐹</div>
+      <div class="nav-lbl">Perfil</div>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL -->
+<div id="s-detail" class="screen">
+  <div class="top-bar"><div class="icon-btn" onclick="goScreen('s-home')">←</div><div></div><div style="width:38px"></div></div>
+  <div class="det-header">
+    <div class="det-icon" id="det-icon-wrap"><span style="font-size:36px">📋</span></div>
+    <div class="det-title" id="det-title"></div>
+    <div class="det-freq" id="det-freq"></div>
+  </div>
+  <div class="last-card">
+    <div><div class="last-lbl">Último registro</div><div class="last-val" id="det-last-val">—</div><div class="last-sub" id="det-last-sub"></div></div>
+    <div id="det-badge"></div>
+  </div>
+  <div class="reg-sec">
+    <div id="food-wrap" style="display:none">
+      <div style="font-size:12px;color:var(--text2);margin-bottom:6px">¿Qué le has dado?</div>
+      <div class="food-grid" id="food-grid"></div>
+    </div>
+    <div id="note-wrap" style="display:none">
+      <div style="font-size:12px;color:var(--text2);margin-bottom:5px" id="note-lbl">Notas</div>
+      <textarea class="free-note" id="det-note" rows="2" placeholder="Escribe aquí..."></textarea>
+    </div>
+    <button class="reg-btn" id="reg-btn">Registrar</button>
+  </div>
+  <div class="chart-sec">
+    <div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:7px">Historial de registros</div>
+    <div class="chart-tabs">
+      <div class="chtab active" id="tab-m" onclick="switchTab('month')">Último mes</div>
+      <div class="chtab" id="tab-y" onclick="switchTab('year')">Último año</div>
+    </div>
+    <div class="chart-wrap"><canvas id="det-chart"></canvas></div>
+  </div>
+</div>
+
+<!-- EXPENSES -->
+<div id="s-expenses" class="screen">
+  <div class="top-bar"><div class="icon-btn" onclick="goScreen('s-home')">←</div><div></div><div style="width:38px"></div></div>
+  <div class="exp-header"><h2>🛍️ Mis compras</h2><p style="font-size:12px;color:var(--text2)">Control de gastos de Chewie</p></div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-lbl">Total gastado</div><div class="stat-val" id="exp-total">0 €</div><div class="stat-sub">histórico</div></div>
+    <div class="stat-card"><div class="stat-lbl">Este mes</div><div class="stat-val" id="exp-month">0 €</div><div class="stat-sub" id="exp-mlbl">—</div></div>
+  </div>
+  <button class="add-btn" onclick="openExp()">+ Añadir gasto</button>
+  <div class="exp-list" id="exp-list"></div>
+</div>
+
+<!-- HISTORY -->
+<div id="s-history" class="screen">
+  <div class="top-bar"><div class="icon-btn" onclick="goScreen('s-home')">←</div><div></div><div style="width:38px"></div></div>
+  <div style="padding:12px 16px"><h2 style="font-size:19px;font-weight:700">📅 Historial completo</h2></div>
+  <div id="hist-list" style="padding:0 14px;padding-bottom:20px;display:flex;flex-direction:column;gap:8px"></div>
+</div>
+
+<!-- PROFILE -->
+<div id="s-profile" class="screen">
+  <div class="top-bar"><div class="icon-btn" onclick="goScreen('s-home')">←</div><div></div><div style="width:38px"></div></div>
+  <div style="padding:20px 16px;text-align:center">
+    <div id="profile-ham" style="width:90px;height:90px;border-radius:50%;margin:0 auto 10px;font-size:60px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#F0FFF0">🐹</div>
+    <div style="font-size:24px;font-weight:700;color:#5C3A1E">Chewie</div>
+    <div style="font-size:13px;color:var(--text2);margin-top:4px">Hámster sirio · Tu mejor amigo 🐹</div>
+  </div>
+  <div style="padding:0 14px 10px">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px">
+      <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text2)">Estadísticas de cuidado</div>
+      <div id="prof-stats"></div>
+    </div>
+  </div>
+
+  <!-- CSV EXPORT / IMPORT -->
+  <div style="padding:0 14px 6px;font-size:13px;font-weight:600;color:var(--text2)">💾 Copia de seguridad</div>
+  <div class="csv-section" style="padding-bottom:30px">
+    <button class="csv-btn" onclick="exportCSV()">
+      <span>📤</span>
+      <div><div>Exportar datos</div><small>Descarga un CSV con todos los registros y gastos</small></div>
+    </button>
+    <label class="csv-btn import" style="cursor:pointer">
+      <span>📥</span>
+      <div><div>Importar datos</div><small>Restaura desde un CSV exportado anteriormente</small></div>
+      <input type="file" accept=".csv" style="display:none" onchange="importCSV(event)">
+    </label>
+  </div>
+</div>
+
+<!-- EXPENSE MODAL -->
+<div class="modal-bg" id="exp-modal">
+  <div class="modal">
+    <span class="modal-close" onclick="closeExp()">✕</span>
+    <h3>Añadir gasto</h3>
+    <label class="flabel">Categoría</label>
+    <select class="finput" id="ec">
+      <option>🍚 Comida</option><option>💧 Agua/bebedero</option><option>🏖️ Arena</option>
+      <option>🧹 Limpieza</option><option>🪵 Roer/juguetes</option><option>🏠 Decoración</option>
+      <option>🏥 Veterinario</option><option>🧸 Accesorios</option><option>📦 Otro</option>
+    </select>
+    <label class="flabel">Descripción</label>
+    <input class="finput" type="text" id="ed" placeholder="Ej: Bolsa de pienso">
+    <label class="flabel">Importe (€)</label>
+    <input class="finput" type="number" id="ea" placeholder="0.00" step="0.01" min="0">
+    <label class="flabel">Fecha</label>
+    <input class="finput" type="date" id="ef">
+    <button class="save-btn" onclick="saveExp()">Guardar gasto</button>
+  </div>
+</div>
+
+<!-- IMPORT CONFIRM MODAL -->
+<div class="modal-bg" id="import-modal">
+  <div class="modal">
+    <h3>⚠️ Confirmar importación</h3>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:16px">Se añadirán los registros del CSV a los datos actuales (no se borrarán los existentes). ¿Continuar?</p>
+    <div style="display:flex;gap:8px">
+      <button class="save-btn" style="background:var(--g);margin-top:0" onclick="confirmImport()">Sí, importar</button>
+      <button class="save-btn" style="background:var(--text3);margin-top:0" onclick="cancelImport()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const CATS=[
+  {id:'food', emoji:'🍚', bg:'#FFE8E0', name:'Comida',           freqH:24,  freq:'Cada día',        foods:['Pienso','Gusano','Fruta','Verdura','Chuche','Otro']},
+  {id:'water',emoji:'💧', bg:'#E0F0FF', name:'Agua',             freqH:48,  freq:'Cada 2 días'},
+  {id:'sand', emoji:'🏖️', bg:'#F0E8FF', name:'Arena',            freqH:72,  freq:'Cada 3 días'},
+  {id:'clean',emoji:'🧹', bg:'#E0F5EE', name:'Limpieza',         freqH:720, freq:'1 vez al mes',    note:'¿Qué limpiaste?'},
+  {id:'gnaw', emoji:'🪵', bg:'#FFF0DC', name:'Roer',             freqH:168, freq:'Según necesidad', note:'¿Qué le pusiste para roer?'},
+  {id:'deco', emoji:'🏠', bg:'#FFE8F0', name:'Nueva decoración', freqH:720, freq:'Según necesidad', note:'¿Qué decoración añadiste?'},
+];
+
+const MOODS=[
+  {min:6, img:'dying',   bg:'#FFEAEA', title:'¡Me estoy muriendo!', sub:'¡Necesito todo ya!',   icon:'💀'},
+  {min:4, img:'dying',   bg:'#FFE0E0', title:'¡Muchas cosas!',      sub:'¡Atiéndeme, porfa!',   icon:'😭'},
+  {min:3, img:'vworry',  bg:'#FFE8D8', title:'Muy preocupado...',   sub:'Faltan varias cosas',  icon:'😟'},
+  {min:2, img:'worry',   bg:'#FFF0DC', title:'Algo va mal...',      sub:'Revisa mis cuidados',  icon:'😕'},
+];
+const SPECIAL=[
+  {id:'food',  img:'hungry',  bg:'#FFF5E0', title:'Tengo hambrecita',      sub:'¡Dame de comer!',      icon:'🍚'},
+  {id:'water', img:'thirsty', bg:'#EEF8FF', title:'Dame agüita',           sub:'¡Tengo seeed!',        icon:'💧'},
+  {id:'sand',  img:'meon',    bg:'#FFFDE0', title:'¡Tengo pipi!',          sub:'¡Cambia mi arena!',    icon:'💛'},
+  {id:'clean', img:'dirty',   bg:'#F0FFE8', title:'¡Huele mal!',           sub:'Necesito limpieza',    icon:'🦟'},
+  {id:'gnaw',  img:'toothed', bg:'#FFF0E8', title:'¡Quiero morder cosas!', sub:'Dame algo para roer',  icon:'🪵'},
+  {id:'deco',  img:'bored',   bg:'#F0F0FF', title:'¡Me aburro!',           sub:'Quiero algo nuevo',    icon:'😴'},
+];
+const HAPPY={img:'happy', bg:'#F0FFF0', title:'¡Todo perfecto!', sub:'¡Buen trabajo, humana!', icon:'💚'};
+
+// Nombres de imagen exactos según tus archivos
+const IMG_URLS={
+  thirsty: 'img/hamster_sediento.png',
+  worry:   'img/hamster_preocupado.png',
+  vworry:  'img/hamster_muy_preocupado.png',
+  dying:   'img/hamster_moribundo.png',
+  hungry:  'img/hamster_hambriento.png',
+  bored:   'img/hamster_aburrido.png',
+  toothed: 'img/hamster_dientudo.png',
+  happy:   'img/hamster_feliz.png',
+  dirty:   'img/hamster_sucio.png',
+  meon:    'img/hamster_meon.png',
+  morib:   'img/hamster_moribundo.png',
+};
+const CAT_IMGS={
+  food:  'img/comida.png',
+  water: 'img/agua.png',
+  sand:  'img/arena.png',
+  clean: 'img/limpieza.png',
+  gnaw:  'img/roer.png',
+  deco:  'img/decoracion.png',
+  shop:  'img/compras.png',
+};
+
+let state={}, expenses=[], curCat=null, curTab='month', chart=null, selFoods=[];
+let pendingImportData=null;
+
+function load(){
+  try{const s=localStorage.getItem('chw6');if(s)state=JSON.parse(s);}catch(e){}
+  try{const e=localStorage.getItem('chw6e');if(e)expenses=JSON.parse(e);}catch(e){}
+  CATS.forEach(c=>{if(!state[c.id])state[c.id]={logs:[]};});
+}
+function save(){try{localStorage.setItem('chw6',JSON.stringify(state));}catch(e){}}
+function saveExpenses(){try{localStorage.setItem('chw6e',JSON.stringify(expenses));}catch(e){}}
+
+function goScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(id==='s-home'){if(chart){chart.destroy();chart=null;}renderHome();}
+  if(id==='s-expenses')renderExpenses();
+  if(id==='s-history')renderHistory();
+  if(id==='s-profile')renderProfile();
+}
+
+function hoursAgo(ts){return(Date.now()-ts)/3600000;}
+function getStatus(cat){
+  const logs=state[cat.id].logs;
+  if(!logs.length)return'alert';
+  const h=hoursAgo(logs[logs.length-1].ts);
+  if(h>cat.freqH*1.5)return'alert';
+  if(h>cat.freqH)return'warn';
+  return'ok';
+}
+function badgeHtml(s){
+  if(s==='ok')return'<span class="badge ok">✓ ¡Al día!</span>';
+  if(s==='warn')return'<span class="badge warn">! Pendiente</span>';
+  return'<span class="badge alert">! ¡Necesario!</span>';
+}
+function fmtDate(ts){
+  if(!ts)return'Sin registros';
+  const diff=Math.floor((Date.now()-ts)/86400000);
+  const d=new Date(ts);
+  if(diff===0)return'Hoy, '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+  if(diff===1)return'Ayer, '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+  return'Hace '+diff+' día'+(diff>1?'s':'');
+}
+function fmtFull(ts){
+  if(!ts)return'';
+  return new Date(ts).toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+
+// Crea imagen con fallback robusto (sin outerHTML en template strings)
+function makeImg(src, alt, w, h, radius){
+  var img=document.createElement('img');
+  img.src=src; img.alt=alt;
+  img.style.cssText='width:'+w+';height:'+h+';object-fit:cover;'+(radius?'border-radius:'+radius+';':'');
+  img.onerror=function(){
+    var sp=document.createElement('span');
+    sp.textContent=alt; sp.style.fontSize='26px';
+    if(this.parentNode)this.parentNode.replaceChild(sp,this);
+  };
+  return img;
+}
+
+function getMood(){
+  const statuses=CATS.map(c=>getStatus(c));
+  const alerts=statuses.filter(x=>x==='alert').length;
+  for(const m of MOODS){if(alerts>=m.min)return m;}
+  for(const sp of SPECIAL){
+    const idx=CATS.findIndex(c=>c.id===sp.id);
+    if(statuses[idx]!=='ok')return sp;
+  }
+  return HAPPY;
+}
+
+function renderHome(){
+  const list=document.getElementById('care-list');
+  list.innerHTML='';
+  let okCount=0;
+  CATS.forEach(cat=>{
+    const logs=state[cat.id].logs;
+    const last=logs.length?logs[logs.length-1]:null;
+    const status=getStatus(cat);
+    if(status==='ok')okCount++;
+
+    const row=document.createElement('div');
+    row.className='care-row s-'+status;
+
+    // Icon
+    const iconWrap=document.createElement('div');
+    iconWrap.className='cat-icon';
+    iconWrap.style.background=cat.bg;
+    if(CAT_IMGS[cat.id]){
+      iconWrap.appendChild(makeImg(CAT_IMGS[cat.id], cat.emoji, '100%','100%',''));
+    } else {
+      iconWrap.innerHTML='<span style="font-size:26px">'+cat.emoji+'</span>';
+    }
+
+    // Info
+    const info=document.createElement('div');
+    info.className='care-info';
+    let extra='';
+    if(cat.foods&&last&&last.type)
+      extra='<div class="fpills">'+last.type.split(', ').map(t=>'<span class="fpill">'+t+'</span>').join('')+'</div>';
+    if(last&&last.note)
+      extra+='<div style="font-size:10px;color:var(--text2);margin-top:2px;font-style:italic">"'+last.note+'"</div>';
+    info.innerHTML='<div class="care-name">'+cat.name+' <span class="care-chevron">›</span></div>'
+      +'<div class="care-when '+status+'">'+fmtDate(last?last.ts:null)+'</div>'+extra;
+
+    // Badge
+    const bw=document.createElement('div');
+    bw.className='badge-wrap';
+    bw.innerHTML=badgeHtml(status)+'<div class="badge-sub">'+cat.freq+'</div>';
+
+    row.appendChild(iconWrap);
+    row.appendChild(info);
+    row.appendChild(bw);
+    row.onclick=function(){openDetail(cat);};
+    list.appendChild(row);
+  });
+
+  // Score
+  const pct=Math.round((okCount/CATS.length)*100);
+  document.getElementById('score-pct').textContent=pct+'%';
+  const circ=2*Math.PI*22;
+  document.getElementById('score-arc').setAttribute('stroke-dashoffset',(circ*(1-pct/100)).toFixed(1));
+  document.getElementById('score-lbl').textContent=pct===100?'¡Perfecto!':pct>=67?'Casi todo ok':'Pendientes';
+
+  // Mood hamster
+  const mood=getMood();
+  const hc=document.getElementById('ham-circle');
+  hc.style.background=mood.bg;
+  hc.innerHTML='';
+  if(IMG_URLS[mood.img]){
+    var mimg=makeImg(IMG_URLS[mood.img],'Chewie','100%','100%','');
+    mimg.onerror=function(){hc.innerHTML='<span style="font-size:80px;line-height:148px">🐹</span>';};
+    hc.appendChild(mimg);
+  } else {
+    hc.innerHTML='<span style="font-size:80px;line-height:148px">🐹</span>';
+  }
+  document.getElementById('speech-bub').innerHTML=
+    '<div style="font-size:15px;margin-bottom:2px">'+mood.icon+'</div><strong>'+mood.title+'</strong><span>'+mood.sub+'</span>';
+
+  // Shop banner
+  const shopWrap=document.getElementById('shop-img-wrap');
+  shopWrap.innerHTML='';
+  var simg=makeImg(CAT_IMGS.shop,'🛍️','100%','100%','12px');
+  simg.onerror=function(){shopWrap.innerHTML='<span style="font-size:28px">🛍️</span>';};
+  shopWrap.appendChild(simg);
+}
+
+function openDetail(cat){
+  curCat=cat; selFoods=[];
+  goScreen('s-detail');
+  const diw=document.getElementById('det-icon-wrap');
+  diw.style.background=cat.bg;
+  diw.innerHTML='';
+  if(CAT_IMGS[cat.id]){
+    diw.appendChild(makeImg(CAT_IMGS[cat.id],cat.emoji,'100%','100%',''));
+  } else {
+    diw.innerHTML='<span style="font-size:36px">'+cat.emoji+'</span>';
+  }
+  document.getElementById('det-title').textContent=cat.name;
+  document.getElementById('det-freq').textContent=cat.freq;
+  const logs=state[cat.id].logs;
+  const last=logs.length?logs[logs.length-1]:null;
+  document.getElementById('det-last-val').textContent=last?fmtDate(last.ts):'Sin registros';
+  document.getElementById('det-last-sub').textContent=last?fmtFull(last.ts):'Empieza registrando ahora';
+  document.getElementById('det-badge').innerHTML=badgeHtml(getStatus(cat));
+  const fw=document.getElementById('food-wrap');
+  const fg=document.getElementById('food-grid');
+  const nw=document.getElementById('note-wrap');
+  document.getElementById('det-note').value='';
+  if(cat.foods){
+    fw.style.display='block';nw.style.display='none';
+    fg.innerHTML='';
+    cat.foods.forEach(function(t){
+      const d=document.createElement('div');
+      d.className='ftog';d.textContent=t;d.dataset.t=t;
+      d.onclick=function(){
+        this.classList.toggle('on');
+        selFoods=Array.from(document.querySelectorAll('.ftog.on')).map(function(x){return x.dataset.t;});
+      };
+      fg.appendChild(d);
+    });
+  } else if(cat.note){
+    fw.style.display='none';nw.style.display='block';
+    document.getElementById('note-lbl').textContent=cat.note;
+  } else {
+    fw.style.display='none';nw.style.display='none';
+  }
+  document.getElementById('reg-btn').textContent='Registrar '+cat.name;
+  document.getElementById('reg-btn').style.background='';
+  curTab='month';
+  document.getElementById('tab-m').className='chtab active';
+  document.getElementById('tab-y').className='chtab';
+  buildChart();
+}
+
+document.getElementById('reg-btn').onclick=function(){
+  const entry={ts:Date.now()};
+  if(selFoods.length)entry.type=selFoods.join(', ');
+  const note=document.getElementById('det-note').value.trim();
+  if(note)entry.note=note;
+  state[curCat.id].logs.push(entry);
+  if(state[curCat.id].logs.length>200)state[curCat.id].logs=state[curCat.id].logs.slice(-200);
+  save();
+  document.querySelectorAll('.ftog').forEach(function(x){x.classList.remove('on');});
+  selFoods=[];document.getElementById('det-note').value='';
+  const last=state[curCat.id].logs[state[curCat.id].logs.length-1];
+  document.getElementById('det-last-val').textContent=fmtDate(last.ts);
+  document.getElementById('det-last-sub').textContent=fmtFull(last.ts);
+  document.getElementById('det-badge').innerHTML=badgeHtml(getStatus(curCat));
+  buildChart();
+  this.textContent='✓ ¡Registrado!';this.style.background='#5A9E5A';
+  var btn=this;
+  setTimeout(function(){btn.textContent='Registrar '+curCat.name;btn.style.background='';},2200);
+};
+
+function switchTab(t){
+  curTab=t;
+  document.getElementById('tab-m').className='chtab'+(t==='month'?' active':'');
+  document.getElementById('tab-y').className='chtab'+(t==='year'?' active':'');
+  buildChart();
+}
+
+function buildChart(){
+  if(chart){chart.destroy();chart=null;}
+  const logs=state[curCat.id].logs;
+  const now=Date.now();
+  let labels=[],data=[];
+  if(curTab==='month'){
+    for(let i=29;i>=0;i--){
+      const d=new Date(now-i*86400000);
+      labels.push(i===0?'Hoy':i%5===0?(d.getDate()+'/'+(d.getMonth()+1)):'');
+      const ds=new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime();
+      data.push(logs.filter(function(l){return l.ts>=ds&&l.ts<ds+86400000;}).length);
+    }
+  } else {
+    const mn=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+    for(let i=11;i>=0;i--){
+      const d=new Date(now);d.setMonth(d.getMonth()-i);
+      labels.push(mn[d.getMonth()]);
+      const ms=new Date(d.getFullYear(),d.getMonth(),1).getTime();
+      const me=new Date(d.getFullYear(),d.getMonth()+1,1).getTime();
+      data.push(logs.filter(function(l){return l.ts>=ms&&l.ts<me;}).length);
+    }
+  }
+  chart=new Chart(document.getElementById('det-chart'),{
+    type:'bar',
+    data:{labels,datasets:[{label:'Registros',data,backgroundColor:data.map(function(v){return v>0?'#E87878':'#EDE0D0';}),borderRadius:5,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{title:function(i){return i[0].label;},label:function(i){return i.raw+' registro'+(i.raw!==1?'s':'');}}}},
+      scales:{x:{ticks:{font:{size:9},color:'#B8937A',maxRotation:0},grid:{display:false}},
+        y:{ticks:{font:{size:10},color:'#B8937A',stepSize:1,precision:0},grid:{color:'#F0E0C8'},min:0,suggestedMax:Math.max(3,...data)+1}}}
+  });
+}
+
+function renderExpenses(){
+  const now=new Date();
+  const mStart=new Date(now.getFullYear(),now.getMonth(),1).getTime();
+  const total=expenses.reduce(function(s,e){return s+(parseFloat(e.amount)||0);},0);
+  const mTotal=expenses.filter(function(e){return new Date(e.date).getTime()>=mStart;}).reduce(function(s,e){return s+(parseFloat(e.amount)||0);},0);
+  document.getElementById('exp-total').textContent=total.toFixed(2)+' €';
+  document.getElementById('exp-month').textContent=mTotal.toFixed(2)+' €';
+  document.getElementById('exp-mlbl').textContent=now.toLocaleDateString('es-ES',{month:'long'});
+  const list=document.getElementById('exp-list');
+  if(!expenses.length){list.innerHTML='<div class="empty"><div style="font-size:36px;margin-bottom:8px">🛍️</div>Sin gastos registrados aún.</div>';return;}
+  const cc={'🍚':'#FFE8E0','💧':'#E0F0FF','🏖️':'#F0E8FF','🧹':'#E0F5EE','🪵':'#FFF0DC','🏠':'#FFE8F0','🏥':'#FFD8D8','🧸':'#FFE8F8','📦':'#E8E8E8'};
+  function catColor(c){for(var k in cc)if(c.startsWith(k))return cc[k];return'#F0E0C8';}
+  list.innerHTML=[...expenses].sort(function(a,b){return new Date(b.date)-new Date(a.date);}).map(function(e,i){
+    return'<div class="exp-row">'
+      +'<div class="exp-dot" style="background:'+catColor(e.category)+'">'+e.category.split(' ')[0]+'</div>'
+      +'<div style="flex:1;min-width:0"><strong style="font-size:13px;font-weight:600;display:block">'+( e.description||e.category)+'</strong>'
+      +'<span style="font-size:11px;color:var(--text2)">'+e.category+' · '+new Date(e.date).toLocaleDateString('es-ES',{day:'numeric',month:'short',year:'numeric'})+'</span></div>'
+      +'<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">'
+      +'<div style="font-size:15px;font-weight:700">'+parseFloat(e.amount).toFixed(2)+' €</div>'
+      +'<div style="font-size:10px;color:var(--r);cursor:pointer" onclick="delExp('+expenses.indexOf(e)+')">✕</div>'
+      +'</div></div>';
+  }).join('');
+}
+
+function openExp(){
+  document.getElementById('ef').value=new Date().toISOString().split('T')[0];
+  document.getElementById('ed').value='';document.getElementById('ea').value='';
+  document.getElementById('exp-modal').classList.add('open');
+}
+function closeExp(){document.getElementById('exp-modal').classList.remove('open');}
+function saveExp(){
+  const cat=document.getElementById('ec').value,desc=document.getElementById('ed').value.trim(),
+    amount=parseFloat(document.getElementById('ea').value),date=document.getElementById('ef').value;
+  if(!amount||amount<=0||!date){alert('Rellena importe y fecha');return;}
+  expenses.push({category:cat,description:desc,amount,date});saveExpenses();closeExp();renderExpenses();
+}
+function delExp(i){if(!confirm('¿Eliminar?'))return;expenses.splice(i,1);saveExpenses();renderExpenses();}
+
+function renderHistory(){
+  const all=[];
+  CATS.forEach(function(cat){
+    state[cat.id].logs.forEach(function(l){
+      all.push(Object.assign({},l,{catName:cat.name,emoji:cat.emoji,bg:cat.bg,iconUrl:CAT_IMGS[cat.id]}));
+    });
+  });
+  all.sort(function(a,b){return b.ts-a.ts;});
+  const list=document.getElementById('hist-list');
+  if(!all.length){list.innerHTML='<div class="empty"><div style="font-size:36px;margin-bottom:8px">📅</div>Sin registros aún.</div>';return;}
+  list.innerHTML='';
+  all.forEach(function(e){
+    const sub=[e.type,e.note].filter(Boolean).join(' · ');
+    const row=document.createElement('div');
+    row.className='exp-row';
+    const dot=document.createElement('div');
+    dot.className='exp-dot';dot.style.background=e.bg;dot.style.padding='0';
+    if(e.iconUrl){
+      dot.appendChild(makeImg(e.iconUrl,e.emoji,'34px','34px','8px'));
+    } else {
+      dot.innerHTML='<span style="font-size:20px">'+e.emoji+'</span>';
+    }
+    row.appendChild(dot);
+    const info=document.createElement('div');
+    info.style.cssText='flex:1;min-width:0';
+    info.innerHTML='<strong style="font-size:13px;font-weight:600;display:block">'+e.catName+'</strong>'
+      +'<span style="font-size:11px;color:var(--text2)">'+fmtFull(e.ts)+(sub?' · '+sub:'')+'</span>';
+    row.appendChild(info);
+    list.appendChild(row);
+  });
+}
+
+function renderProfile(){
+  const ham=document.getElementById('profile-ham');
+  ham.innerHTML='';
+  var himg=makeImg(IMG_URLS.happy,'🐹','90px','90px','50%');
+  himg.onerror=function(){ham.innerHTML='🐹';};
+  ham.appendChild(himg);
+
+  document.getElementById('prof-stats').innerHTML=CATS.map(function(cat){
+    const imgTag=CAT_IMGS[cat.id]
+      ?'<img src="'+CAT_IMGS[cat.id]+'" style="width:20px;height:20px;border-radius:5px;object-fit:cover" onerror="this.outerHTML=\''+cat.emoji+'\'">'
+      :'<span>'+cat.emoji+'</span>';
+    return'<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:0.5px solid var(--border)">'
+      +'<span style="font-size:13px;display:flex;align-items:center;gap:6px">'+imgTag+' '+cat.name+'</span>'
+      +'<span style="font-size:13px;font-weight:600;color:var(--text2)">'+state[cat.id].logs.length+' veces</span>'
+      +'</div>';
+  }).join('');
+}
+
+// ── CSV EXPORT ──────────────────────────────────────────────
+function exportCSV(){
+  let rows=['TIPO,CATEGORIA,FECHA,HORA,DETALLE,IMPORTE'];
+
+  // Registros de cuidado
+  CATS.forEach(function(cat){
+    state[cat.id].logs.forEach(function(l){
+      const d=new Date(l.ts);
+      const fecha=d.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'});
+      const hora=d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+      const detalle=[l.type,l.note].filter(Boolean).join(' | ');
+      rows.push(['cuidado',cat.name,fecha,hora,'"'+(detalle||'')+'"-'].join(','));
+    });
+  });
+
+  // Gastos
+  expenses.forEach(function(e){
+    const d=new Date(e.date);
+    const fecha=d.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'});
+    rows.push(['gasto',e.category,fecha,'-','"'+(e.description||'')+'"-',parseFloat(e.amount).toFixed(2)].join(','));
+  });
+
+  const csv=rows.join('\n');
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='chewie_datos_'+new Date().toISOString().split('T')[0]+'.csv';
+  document.body.appendChild(a);a.click();
+  setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},1000);
+}
+
+// ── CSV IMPORT ──────────────────────────────────────────────
+function importCSV(event){
+  const file=event.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    pendingImportData=e.target.result;
+    document.getElementById('import-modal').classList.add('open');
+  };
+  reader.readAsText(file,'UTF-8');
+  event.target.value=''; // reset input
+}
+
+function cancelImport(){
+  pendingImportData=null;
+  document.getElementById('import-modal').classList.remove('open');
+}
+
+function confirmImport(){
+  document.getElementById('import-modal').classList.remove('open');
+  if(!pendingImportData)return;
+  const lines=pendingImportData.replace(/^\uFEFF/,'').split('\n').filter(function(l){return l.trim()&&!l.startsWith('TIPO');});
+  let cuidados=0, gastos=0;
+
+  lines.forEach(function(line){
+    // Parse CSV respetando campos entre comillas
+    const cols=[];
+    let cur='',inQ=false;
+    for(var i=0;i<line.length;i++){
+      if(line[i]==='"'){inQ=!inQ;}
+      else if(line[i]===','&&!inQ){cols.push(cur.trim());cur='';}
+      else cur+=line[i];
+    }
+    cols.push(cur.trim());
+
+    const tipo=cols[0];
+    if(tipo==='cuidado'){
+      const catName=cols[1];
+      const cat=CATS.find(function(c){return c.name===catName;});
+      if(!cat)return;
+      // Reconstruir timestamp desde fecha+hora
+      const parts=(cols[2]||'').split('/'); // dd/mm/yyyy
+      const hParts=(cols[3]||'00:00').split(':');
+      if(parts.length<3)return;
+      const d=new Date(parseInt(parts[2]),parseInt(parts[1])-1,parseInt(parts[0]),parseInt(hParts[0]||0),parseInt(hParts[1]||0));
+      if(isNaN(d.getTime()))return;
+      const detalle=(cols[4]||'').replace(/^"|"$/g,'');
+      const entry={ts:d.getTime()};
+      if(detalle)entry.note=detalle;
+      state[cat.id].logs.push(entry);
+      cuidados++;
+    } else if(tipo==='gasto'){
+      const fecha=(cols[2]||'').split('/');
+      if(fecha.length<3)return;
+      const dateStr=fecha[2]+'-'+(fecha[1].padStart(2,'0'))+'-'+(fecha[0].padStart(2,'0'));
+      const desc=(cols[4]||'').replace(/^"|"$/g,'');
+      const amount=parseFloat((cols[5]||'0').replace('-',''))||0;
+      expenses.push({category:cols[1],description:desc,amount:amount,date:dateStr});
+      gastos++;
+    }
+  });
+
+  // Ordenar logs
+  CATS.forEach(function(cat){
+    state[cat.id].logs.sort(function(a,b){return a.ts-b.ts;});
+    if(state[cat.id].logs.length>200)state[cat.id].logs=state[cat.id].logs.slice(-200);
+  });
+
+  save();saveExpenses();
+  pendingImportData=null;
+  alert('✅ Importados: '+cuidados+' cuidados y '+gastos+' gastos.');
+  renderProfile();
+}
+
+function quickReg(){
+  const pending=CATS.find(function(c){return getStatus(c)==='alert';})||CATS.find(function(c){return getStatus(c)==='warn';})||CATS[0];
+  openDetail(pending);
+}
+
+load();renderHome();
+</script>
+</body>
+</html>
