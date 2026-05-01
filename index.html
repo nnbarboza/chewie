@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <base href="/chewie/">
 <link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Chewie">
@@ -21,10 +22,8 @@
 }
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);max-width:390px;margin:0 auto;min-height:100vh;overflow-x:hidden}
 .screen{display:none;width:100%}.screen.active{display:block}
-.top-bar{background:var(--bg);padding:12px 16px 0;display:flex;align-items:center;justify-content:space-between}
 .icon-btn{width:38px;height:38px;border-radius:12px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:var(--text2);flex-shrink:0}
-.hero{padding:4px 16px 6px;text-align:center}
-.hero-greeting{font-size:12px;color:var(--text2)}
+.top-bar{background:var(--bg);padding:12px 16px 0;display:flex;align-items:center;justify-content:space-between}
 .hero-name{font-size:32px;font-weight:700;color:#5C3A1E;letter-spacing:-.5px}
 .hamster-area{position:relative;display:flex;justify-content:center;align-items:flex-end;height:148px;margin:4px 16px 6px}
 .ham-circle{width:148px;height:148px;border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;transition:background .4s;font-size:80px;line-height:148px;text-align:center}
@@ -96,10 +95,20 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .chtab{flex:1;padding:6px;border-radius:10px;border:1px solid var(--border);background:var(--card);font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;text-align:center}
 .chtab.active{background:var(--accent);border-color:var(--accent);color:white}
 .chart-wrap{position:relative;width:100%;height:150px}
+/* Weekly calendar */
+.week-cal{margin:0 14px 10px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:10px}
+.week-cal-title{font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px}
+.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center}
+.week-day-lbl{font-size:9px;color:var(--text3);margin-bottom:3px;font-weight:600}
+.week-cell{min-height:42px;border-radius:8px;background:var(--bg);border:1px solid var(--border);font-size:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:2px}
+.week-cell.today{border-color:var(--accent);background:#FFF5F5}
+.week-cell .meal-emoji{font-size:13px}
+/* Expenses */
 .exp-header{padding:8px 14px 10px}
 .exp-header h2{font-size:19px;font-weight:700}
 .stats-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 14px 10px}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:10px 12px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:10px 12px;cursor:pointer;transition:border-color .2s}
+.stat-card:active{border-color:var(--accent)}
 .stat-lbl{font-size:11px;color:var(--text2);margin-bottom:2px}
 .stat-val{font-size:20px;font-weight:700}
 .stat-sub{font-size:11px;color:var(--text3)}
@@ -107,6 +116,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .exp-list{padding:0 14px;display:flex;flex-direction:column;gap:7px;padding-bottom:20px}
 .exp-row{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:10px 12px;display:flex;align-items:center;gap:10px}
 .exp-dot{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+/* Curiosidades */
+.curio-card{margin:12px 14px;background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:20px 16px;min-height:200px;display:flex;flex-direction:column;justify-content:space-between}
+.curio-num{font-size:11px;color:var(--text3);margin-bottom:8px}
+.curio-text{font-size:14px;line-height:1.6;color:var(--text);flex:1}
+.curio-consejo{margin-top:12px;background:var(--sand);border-radius:10px;padding:8px 10px;font-size:12px;color:var(--text2)}
+.curio-nav{display:flex;justify-content:space-between;align-items:center;margin:0 14px 20px}
+.curio-btn{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;color:var(--text)}
+/* Modal */
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:100;align-items:flex-end;justify-content:center}
 .modal-bg.open{display:flex}
 .modal{background:var(--bg);border-radius:20px 20px 0 0;padding:18px 16px 28px;width:100%;max-width:390px;max-height:85vh;overflow-y:auto}
@@ -117,12 +134,16 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .finput:focus{outline:none;border-color:var(--accent)}
 .save-btn{display:block;width:100%;background:var(--accent);color:white;border:none;border-radius:13px;padding:12px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:14px}
 .empty{text-align:center;padding:30px 20px;color:var(--text2);font-size:13px}
-/* CSV buttons */
 .csv-section{margin:12px 14px 0;display:flex;flex-direction:column;gap:8px}
 .csv-btn{display:flex;align-items:center;gap:10px;background:var(--card);border:1.5px solid var(--border);border-radius:13px;padding:12px 14px;cursor:pointer;font-size:14px;font-weight:600;color:var(--text);width:100%;text-align:left}
 .csv-btn span{font-size:22px}
 .csv-btn small{display:block;font-size:11px;font-weight:400;color:var(--text2);margin-top:1px}
 .csv-btn.import{border-color:#C0DD97}
+/* Pie chart overlay */
+.chart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center}
+.chart-overlay.open{display:flex}
+.chart-box{background:var(--card);border-radius:20px;padding:20px;width:340px;max-height:90vh;overflow-y:auto}
+.chart-box h3{font-size:16px;font-weight:700;margin-bottom:14px;text-align:center}
 </style>
 </head>
 <body>
@@ -159,12 +180,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <div style="color:var(--text3);font-size:18px">›</div>
   </div>
   <div class="bottom-nav">
-    <div class="nav-item active" id="nav-inicio" onclick="goScreen('s-home')">
-      <div class="nav-icon"><img src="img/nav_inicio.png" alt="Inicio" style="width:26px;height:26px;object-fit:contain" onerror="this.outerHTML='🏠'"></div>
-      <div class="nav-lbl" style="color:var(--accent)">Inicio</div>
+    <div class="nav-item active" id="nav-inicio" onclick="goScreen('s-curiosidades')">
+      <div class="nav-icon"><img src="img/nav_inicio.png" alt="Curiosidades" onerror="this.outerHTML='🌟'"></div>
+      <div class="nav-lbl" style="color:var(--accent)">Curiosidades</div>
     </div>
     <div class="nav-item" id="nav-historial" onclick="goScreen('s-history')">
-      <div class="nav-icon"><img src="img/nav_historial.png" alt="Historial" style="width:26px;height:26px;object-fit:contain" onerror="this.outerHTML='📅'"></div>
+      <div class="nav-icon"><img src="img/nav_historial.png" alt="Historial" onerror="this.outerHTML='📅'"></div>
       <div class="nav-lbl">Historial</div>
     </div>
     <div class="nav-plus-wrap" onclick="quickReg()">
@@ -172,13 +193,29 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <div class="nav-lbl" style="margin-top:4px">Añadir</div>
     </div>
     <div class="nav-item" id="nav-consejos" onclick="openChatGPT()">
-      <div class="nav-icon"><img src="img/nav_consejos.png" alt="Consejos" style="width:26px;height:26px;object-fit:contain" onerror="this.outerHTML='💡'"></div>
+      <div class="nav-icon"><img src="img/nav_consejos.png" alt="Consejos" onerror="this.outerHTML='💡'"></div>
       <div class="nav-lbl">Consejos</div>
     </div>
     <div class="nav-item" id="nav-perfil" onclick="goScreen('s-profile')">
-      <div class="nav-icon"><img src="img/nav_perfil.png" alt="Perfil" style="width:26px;height:26px;object-fit:contain" onerror="this.outerHTML='🐹'"></div>
+      <div class="nav-icon"><img src="img/nav_perfil.png" alt="Perfil" onerror="this.outerHTML='🐹'"></div>
       <div class="nav-lbl">Perfil</div>
     </div>
+  </div>
+</div>
+
+<!-- CURIOSIDADES -->
+<div id="s-curiosidades" class="screen">
+  <div class="top-bar"><div class="icon-btn" onclick="goScreen('s-home')">←</div><div style="font-size:15px;font-weight:700">🌟 Curiosidades</div><div style="width:38px"></div></div>
+  <div style="padding:10px 14px 4px;font-size:12px;color:var(--text2)" id="curio-date"></div>
+  <div class="curio-card" id="curio-card">
+    <div class="curio-num" id="curio-num"></div>
+    <div class="curio-text" id="curio-text"></div>
+    <div class="curio-consejo" id="curio-consejo"></div>
+  </div>
+  <div class="curio-nav">
+    <button class="curio-btn" onclick="curioNav(-1)">← Anterior</button>
+    <span style="font-size:11px;color:var(--text3)" id="curio-counter"></span>
+    <button class="curio-btn" onclick="curioNav(1)">Siguiente →</button>
   </div>
 </div>
 
@@ -193,6 +230,13 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <div class="last-card">
     <div><div class="last-lbl">Último registro</div><div class="last-val" id="det-last-val">—</div><div class="last-sub" id="det-last-sub"></div></div>
     <div id="det-badge"></div>
+  </div>
+  <!-- Weekly calendar (only for food) -->
+  <div id="week-cal-wrap" style="display:none">
+    <div class="week-cal">
+      <div class="week-cal-title">🗓️ Esta semana</div>
+      <div class="week-grid" id="week-grid"></div>
+    </div>
   </div>
   <div class="reg-sec">
     <div id="food-wrap" style="display:none">
@@ -220,11 +264,25 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <div class="top-bar"><div class="icon-btn" onclick="goScreen('s-home')">←</div><div></div><div style="width:38px"></div></div>
   <div class="exp-header"><h2>🛍️ Mis compras</h2><p style="font-size:12px;color:var(--text2)">Control de gastos de Chewie</p></div>
   <div class="stats-row">
-    <div class="stat-card"><div class="stat-lbl">Total gastado</div><div class="stat-val" id="exp-total">0 €</div><div class="stat-sub">histórico</div></div>
-    <div class="stat-card"><div class="stat-lbl">Este mes</div><div class="stat-val" id="exp-month">0 €</div><div class="stat-sub" id="exp-mlbl">—</div></div>
+    <div class="stat-card" onclick="showPieChart('total')"><div class="stat-lbl">Total gastado</div><div class="stat-val" id="exp-total">0 €</div><div class="stat-sub">ver desglose →</div></div>
+    <div class="stat-card" onclick="showPieChart('month')"><div class="stat-lbl">Este mes</div><div class="stat-val" id="exp-month">0 €</div><div class="stat-sub" id="exp-mlbl">ver desglose →</div></div>
+  </div>
+  <div style="margin:0 14px 10px;background:var(--card);border:1px solid var(--border);border-radius:13px;padding:12px">
+    <div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px">📊 Gastos mensuales</div>
+    <div style="position:relative;height:160px"><canvas id="exp-monthly-chart"></canvas></div>
   </div>
   <button class="add-btn" onclick="openExp()">+ Añadir gasto</button>
   <div class="exp-list" id="exp-list"></div>
+</div>
+
+<!-- PIE CHART OVERLAY -->
+<div class="chart-overlay" id="pie-overlay">
+  <div class="chart-box">
+    <h3 id="pie-title">Desglose de gastos</h3>
+    <div style="position:relative;height:200px;margin-bottom:10px"><canvas id="pie-chart"></canvas></div>
+    <div id="pie-legend" style="display:flex;flex-direction:column;gap:5px;font-size:12px"></div>
+    <button onclick="closePieChart()" style="margin-top:14px;width:100%;padding:10px;border:none;border-radius:10px;background:var(--sand);font-size:14px;font-weight:600;cursor:pointer">Cerrar</button>
+  </div>
 </div>
 
 <!-- HISTORY -->
@@ -248,8 +306,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <div id="prof-stats"></div>
     </div>
   </div>
-
-  <!-- CSV EXPORT / IMPORT -->
   <div style="padding:0 14px 6px;font-size:13px;font-weight:600;color:var(--text2)">💾 Copia de seguridad</div>
   <div class="csv-section" style="padding-bottom:30px">
     <button class="csv-btn" onclick="exportCSV()">
@@ -271,9 +327,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <h3>Añadir gasto</h3>
     <label class="flabel">Categoría</label>
     <select class="finput" id="ec">
-      <option>🍚 Comida</option><option>💧 Agua/bebedero</option><option>🏖️ Arena</option>
-      <option>🧹 Limpieza</option><option>🪵 Roer/juguetes</option><option>🏠 Decoración</option>
-      <option>🏥 Veterinario</option><option>🧸 Accesorios</option><option>📦 Otro</option>
+      <option>🍚 Comida</option>
+      <option>🏖️ Arena</option>
+      <option>🪵 Juguetes / Roer</option>
+      <option>🏠 Decoración</option>
+      <option>💧 Sprays</option>
+      <option>🌿 Sustrato</option>
+      <option>🏡 Jaula y accesorios</option>
+      <option>📦 Otro</option>
     </select>
     <label class="flabel">Descripción</label>
     <input class="finput" type="text" id="ed" placeholder="Ej: Bolsa de pienso">
@@ -289,7 +350,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 <div class="modal-bg" id="import-modal">
   <div class="modal">
     <h3>⚠️ Confirmar importación</h3>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:16px">Se añadirán los registros del CSV a los datos actuales (no se borrarán los existentes). ¿Continuar?</p>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:16px">Se añadirán los registros del CSV a los datos actuales. ¿Continuar?</p>
     <div style="display:flex;gap:8px">
       <button class="save-btn" style="background:var(--g);margin-top:0" onclick="confirmImport()">Sí, importar</button>
       <button class="save-btn" style="background:var(--text3);margin-top:0" onclick="cancelImport()">Cancelar</button>
@@ -299,14 +360,25 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
+// ── CONSTANTS ─────────────────────────────────────────────
+const RESET_HOUR = 7; // 7am = día nuevo
+
 const CATS=[
-  {id:'food', emoji:'🍚', bg:'#FFE8E0', name:'Comida',           freqH:24,  freq:'Cada día',        foods:['Pienso','Gusano','Fruta','Verdura','Chuche','Otro']},
-  {id:'water',emoji:'💧', bg:'#E0F0FF', name:'Agua',             freqH:48,  freq:'Cada 2 días'},
-  {id:'sand', emoji:'🏖️', bg:'#F0E8FF', name:'Arena',            freqH:72,  freq:'Cada 3 días'},
-  {id:'clean',emoji:'🧹', bg:'#E0F5EE', name:'Limpieza',         freqH:720, freq:'1 vez al mes',    note:'¿Qué limpiaste?'},
-  {id:'gnaw', emoji:'🪵', bg:'#FFF0DC', name:'Roer',             freqH:168, freq:'Según necesidad', note:'¿Qué le pusiste para roer?'},
-  {id:'deco', emoji:'🏠', bg:'#FFE8F0', name:'Nueva decoración', freqH:720, freq:'Según necesidad', note:'¿Qué decoración añadiste?'},
+  {id:'food', emoji:'🍚', bg:'#FFE8E0', name:'Comida',           freqDays:1,   freq:'Cada día',        foods:['Pienso','Gusano (${r}left)','Fruta (${r}left)','Verdura (${r}left)','Chuche (${r}left)','Spray']},
+  {id:'water',emoji:'💧', bg:'#E0F0FF', name:'Agua',             freqDays:2,   freq:'Cada 2 días'},
+  {id:'sand', emoji:'🏖️', bg:'#F0E8FF', name:'Arena',            freqDays:3,   freq:'Cada 3 días'},
+  {id:'clean',emoji:'🧹', bg:'#E0F5EE', name:'Limpieza',         freqDays:30,  freq:'1 vez al mes',    note:'¿Qué limpiaste?'},
+  {id:'gnaw', emoji:'🪵', bg:'#FFF0DC', name:'Roer',             freqDays:7,   freq:'Según necesidad', note:'¿Qué le pusiste para roer?'},
+  {id:'deco', emoji:'🏠', bg:'#FFE8F0', name:'Nueva decoración', freqDays:30,  freq:'Según necesidad', note:'¿Qué decoración añadiste?'},
 ];
+
+// Weekly food minimums (per week Mon-Sun)
+const FOOD_WEEKLY = {
+  'Gusano':2, 'Fruta':2, 'Verdura':2, 'Chuche':3
+};
+const FOOD_EMOJIS = {
+  'Pienso':'🌾','Gusano':'🪱','Fruta':'🍓','Verdura':'🥦','Chuche':'🍬','Spray':'💦'
+};
 
 const MOODS=[
   {min:6, img:'dying',   bg:'#FFEAEA', title:'¡Me estoy muriendo!', sub:'¡Necesito todo ya!',   icon:'💀'},
@@ -324,32 +396,23 @@ const SPECIAL=[
 ];
 const HAPPY={img:'happy', bg:'#F0FFF0', title:'¡Todo perfecto!', sub:'¡Buen trabajo, humana!', icon:'💚'};
 
-// Nombres de imagen exactos según tus archivos
 const IMG_URLS={
-  thirsty: 'img/hamster_sediento.png',
-  worry:   'img/hamster_preocupado.png',
-  vworry:  'img/hamster_muy_preocupado.png',
-  dying:   'img/hamster_moribundo.png',
-  hungry:  'img/hamster_hambriento.png',
-  bored:   'img/hamster_aburrido.png',
-  toothed: 'img/hamster_dientudo.png',
-  happy:   'img/hamster_feliz.png',
-  dirty:   'img/hamster_sucio.png',
-  meon:    'img/hamster_meon.png',
-  morib:   'img/hamster_moribundo.png',
+  thirsty:'img/hamster_sediento.png', worry:'img/hamster_preocupado.png',
+  vworry:'img/hamster_muy_preocupado.png', dying:'img/hamster_moribundo.png',
+  hungry:'img/hamster_hambriento.png', bored:'img/hamster_aburrido.png',
+  toothed:'img/hamster_dientudo.png', happy:'img/hamster_feliz.png',
+  dirty:'img/hamster_sucio.png', meon:'img/hamster_meon.png',
 };
 const CAT_IMGS={
-  food:  'img/comida.png',
-  water: 'img/agua.png',
-  sand:  'img/arena.png',
-  clean: 'img/limpieza.png',
-  gnaw:  'img/roer.png',
-  deco:  'img/decoracion.png',
-  shop:  'img/compras.png',
+  food:'img/comida.png', water:'img/agua.png', sand:'img/arena.png',
+  clean:'img/limpieza.png', gnaw:'img/roer.png', deco:'img/decoracion.png',
+  shop:'img/compras.png',
 };
 
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbwrFa5jMZ45pLWqOsBojWB4MaHyd7NkW3nhwHd_vXN01qPUbESZUm9h9-g321yFJKjg/exec';
+
 let state={}, expenses=[], curCat=null, curTab='month', chart=null, selFoods=[];
-let pendingImportData=null;
+let pendingImportData=null, curiosidades=[], curioIdx=0, pieChartInst=null, monthlyChartInst=null;
 
 function load(){
   try{const s=localStorage.getItem('chw6');if(s)state=JSON.parse(s);}catch(e){}
@@ -359,173 +422,247 @@ function load(){
 function save(){try{localStorage.setItem('chw6',JSON.stringify(state));}catch(e){}}
 function saveExpenses(){try{localStorage.setItem('chw6e',JSON.stringify(expenses));}catch(e){}}
 
-function goScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  if(id==='s-home'){if(chart){chart.destroy();chart=null;}renderHome();}
-  if(id==='s-expenses')renderExpenses();
-  if(id==='s-history')renderHistory();
-  if(id==='s-profile')renderProfile();
+function syncToSheets(payload){
+  var params=Object.keys(payload).map(function(k){
+    return encodeURIComponent(k)+'='+encodeURIComponent(payload[k]);
+  }).join('&');
+  fetch(SCRIPT_URL+'?'+params,{method:'GET',mode:'no-cors'}).catch(function(){});
 }
 
-function hoursAgo(ts){return(Date.now()-ts)/3600000;}
+// ── DAY LOGIC (reset at 7am) ───────────────────────────────
+function getDayStart(date){
+  var d=new Date(date||Date.now());
+  var start=new Date(d.getFullYear(),d.getMonth(),d.getDate(),RESET_HOUR,0,0,0);
+  if(d<start)start=new Date(start.getTime()-86400000);
+  return start.getTime();
+}
+function daysAgoReset(ts){
+  // How many reset-days ago was ts?
+  var nowStart=getDayStart();
+  var tsStart=getDayStart(ts);
+  return Math.round((nowStart-tsStart)/86400000);
+}
 function getStatus(cat){
-  const logs=state[cat.id].logs;
+  var logs=state[cat.id].logs;
   if(!logs.length)return'alert';
-  const h=hoursAgo(logs[logs.length-1].ts);
-  if(h>cat.freqH*1.5)return'alert';
-  if(h>cat.freqH)return'warn';
+  var last=logs[logs.length-1].ts;
+  var days=daysAgoReset(last);
+  if(days>=cat.freqDays*1.5)return'alert';
+  if(days>=cat.freqDays)return'warn';
   return'ok';
 }
+
+// ── WEEK HELPERS ───────────────────────────────────────────
+function getWeekStart(date){
+  var d=new Date(date||Date.now());
+  var day=d.getDay();
+  var diff=day===0?-6:1-day; // Monday
+  var mon=new Date(d.getFullYear(),d.getMonth(),d.getDate()+diff,RESET_HOUR,0,0,0);
+  return mon.getTime();
+}
+function getWeekFoodCounts(){
+  var ws=getWeekStart();
+  var we=ws+7*86400000;
+  var counts={};
+  Object.keys(FOOD_WEEKLY).forEach(function(k){counts[k]=0;});
+  state.food.logs.forEach(function(l){
+    if(l.ts>=ws&&l.ts<we&&l.type){
+      l.type.split(', ').forEach(function(t){
+        if(counts[t]!==undefined)counts[t]++;
+      });
+    }
+  });
+  return counts;
+}
+function getRemainingFood(){
+  var counts=getWeekFoodCounts();
+  var rem={};
+  Object.keys(FOOD_WEEKLY).forEach(function(k){
+    rem[k]=Math.max(0,FOOD_WEEKLY[k]-counts[k]);
+  });
+  return rem;
+}
+
+// ── WEEKLY CALENDAR ────────────────────────────────────────
+function renderWeekCalendar(){
+  var ws=getWeekStart();
+  var we=ws+7*86400000;
+  var days=['L','M','X','J','V','S','D'];
+  var grid=document.getElementById('week-grid');
+  grid.innerHTML='';
+  // Headers
+  days.forEach(function(d){
+    var h=document.createElement('div');
+    h.className='week-day-lbl';h.textContent=d;
+    grid.appendChild(h);
+  });
+  // Cells
+  var todayStart=getDayStart();
+  for(var i=0;i<7;i++){
+    var dayTs=ws+i*86400000;
+    var dayEnd=dayTs+86400000;
+    var cell=document.createElement('div');
+    cell.className='week-cell'+(dayTs===todayStart?' today':'');
+    // Find food logs for this day
+    var dayLogs=state.food.logs.filter(function(l){return l.ts>=dayTs&&l.ts<dayEnd&&l.type;});
+    var emojis=[];
+    dayLogs.forEach(function(l){
+      l.type.split(', ').forEach(function(t){
+        var e=FOOD_EMOJIS[t];
+        if(e&&t!=='Pienso'&&emojis.indexOf(e)===-1)emojis.push(e);
+      });
+    });
+    if(emojis.length){
+      emojis.slice(0,3).forEach(function(e){
+        var sp=document.createElement('div');
+        sp.className='meal-emoji';sp.textContent=e;
+        cell.appendChild(sp);
+      });
+    } else if(dayTs<todayStart){
+      var sp=document.createElement('div');
+      sp.style.fontSize='10px';sp.style.color='#CCC';sp.textContent='—';
+      cell.appendChild(sp);
+    }
+    grid.appendChild(cell);
+  }
+}
+
 function badgeHtml(s,lastTs){
   if(s==='ok')return'<span class="badge ok"><span class="badge-dot">✓</span><span class="badge-txt">¡Al día!</span></span>';
   if(s==='warn'){
-    var txt=lastTs?fmtDate(lastTs):'Pendiente';
+    var days=lastTs?daysAgoReset(lastTs):0;
+    var txt=days===1?'Hace 1 día':days>1?'Hace '+days+' días':'Pendiente';
     return'<span class="badge warn"><span class="badge-dot">!</span><span class="badge-txt">'+txt+'</span></span>';
   }
   return'<span class="badge alert"><span class="badge-dot">!</span><span class="badge-txt">¡Necesario!</span></span>';
 }
+
 function fmtDate(ts){
   if(!ts)return'Sin registros';
-  const diff=Math.floor((Date.now()-ts)/86400000);
-  const d=new Date(ts);
-  if(diff===0)return'Hoy, '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
-  if(diff===1)return'Ayer, '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
-  return'Hace '+diff+' día'+(diff>1?'s':'');
+  var days=daysAgoReset(ts);
+  var d=new Date(ts);
+  if(days===0)return'Hoy, '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+  if(days===1)return'Ayer, '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+  return'Hace '+days+' día'+(days>1?'s':'');
 }
 function fmtFull(ts){
   if(!ts)return'';
   return new Date(ts).toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
 }
 
-// Crea imagen con fallback robusto (sin outerHTML en template strings)
-function makeImg(src, alt, w, h, radius){
+function makeImg(src,alt,w,h,radius){
   var img=document.createElement('img');
-  img.src=src; img.alt=alt;
+  img.src=src;img.alt=alt;
   img.style.cssText='width:'+w+';height:'+h+';object-fit:cover;'+(radius?'border-radius:'+radius+';':'');
   img.onerror=function(){
     var sp=document.createElement('span');
-    sp.textContent=alt; sp.style.fontSize='26px';
+    sp.textContent=alt;sp.style.fontSize='26px';
     if(this.parentNode)this.parentNode.replaceChild(sp,this);
   };
   return img;
 }
 
 function getMood(){
-  const statuses=CATS.map(c=>getStatus(c));
-  const alerts=statuses.filter(x=>x==='alert').length;
-  for(const m of MOODS){if(alerts>=m.min)return m;}
-  for(const sp of SPECIAL){
-    const idx=CATS.findIndex(c=>c.id===sp.id);
-    if(statuses[idx]!=='ok')return sp;
+  var statuses=CATS.map(function(c){return getStatus(c);});
+  var alerts=statuses.filter(function(x){return x==='alert';}).length;
+  for(var i=0;i<MOODS.length;i++){if(alerts>=MOODS[i].min)return MOODS[i];}
+  for(var i=0;i<SPECIAL.length;i++){
+    var idx=CATS.findIndex(function(c){return c.id===SPECIAL[i].id;});
+    if(statuses[idx]!=='ok')return SPECIAL[i];
   }
   return HAPPY;
 }
 
+function goScreen(id){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+  document.getElementById(id).classList.add('active');
+  if(id==='s-home'){if(chart){chart.destroy();chart=null;}renderHome();}
+  if(id==='s-expenses')renderExpenses();
+  if(id==='s-history')renderHistory();
+  if(id==='s-profile')renderProfile();
+  if(id==='s-curiosidades')renderCuriosidades();
+}
+
 function renderHome(){
-  const list=document.getElementById('care-list');
+  var list=document.getElementById('care-list');
   list.innerHTML='';
-  let okCount=0;
-  CATS.forEach(cat=>{
-    const logs=state[cat.id].logs;
-    const last=logs.length?logs[logs.length-1]:null;
-    const status=getStatus(cat);
+  var okCount=0;
+  CATS.forEach(function(cat){
+    var logs=state[cat.id].logs;
+    var last=logs.length?logs[logs.length-1]:null;
+    var status=getStatus(cat);
     if(status==='ok')okCount++;
-
-    const row=document.createElement('div');
+    var row=document.createElement('div');
     row.className='care-row s-'+status;
-
-    // Icon
-    const iconWrap=document.createElement('div');
-    iconWrap.className='cat-icon';
-    iconWrap.style.background=cat.bg;
-    if(CAT_IMGS[cat.id]){
-      iconWrap.appendChild(makeImg(CAT_IMGS[cat.id], cat.emoji, '100%','100%',''));
-    } else {
-      iconWrap.innerHTML='<span style="font-size:26px">'+cat.emoji+'</span>';
-    }
-
-    // Info
-    const info=document.createElement('div');
-    info.className='care-info';
-    let extra='';
+    var iconWrap=document.createElement('div');
+    iconWrap.className='cat-icon';iconWrap.style.background=cat.bg;
+    if(CAT_IMGS[cat.id]){iconWrap.appendChild(makeImg(CAT_IMGS[cat.id],cat.emoji,'100%','100%',''));}
+    else{iconWrap.innerHTML='<span style="font-size:26px">'+cat.emoji+'</span>';}
+    var info=document.createElement('div');info.className='care-info';
+    var extra='';
     if(cat.foods&&last&&last.type)
-      extra='<div class="fpills">'+last.type.split(', ').map(t=>'<span class="fpill">'+t+'</span>').join('')+'</div>';
-    if(last&&last.note)
-      extra+='<div style="font-size:10px;color:var(--text2);margin-top:2px;font-style:italic">"'+last.note+'"</div>';
+      extra='<div class="fpills">'+last.type.split(', ').map(function(t){return'<span class="fpill">'+t+'</span>';}).join('')+'</div>';
+    if(last&&last.note)extra+='<div style="font-size:10px;color:var(--text2);margin-top:2px;font-style:italic">"'+last.note+'"</div>';
     info.innerHTML='<div class="care-name">'+cat.name+' <span class="care-chevron">›</span></div>'
       +'<div class="care-when '+status+'">'+fmtDate(last?last.ts:null)+'</div>'+extra;
-
-    // Badge
-    const bw=document.createElement('div');
-    bw.className='badge-wrap';
-    bw.innerHTML=badgeHtml(status, last?last.ts:null)+'<div class="badge-sub">'+cat.freq+'</div>';
-
-    row.appendChild(iconWrap);
-    row.appendChild(info);
-    row.appendChild(bw);
+    var bw=document.createElement('div');bw.className='badge-wrap';
+    bw.innerHTML=badgeHtml(status,last?last.ts:null)+'<div class="badge-sub">'+cat.freq+'</div>';
+    row.appendChild(iconWrap);row.appendChild(info);row.appendChild(bw);
     row.onclick=function(){openDetail(cat);};
     list.appendChild(row);
   });
-
-  // Score
-  const pct=Math.round((okCount/CATS.length)*100);
+  var pct=Math.round((okCount/CATS.length)*100);
   document.getElementById('score-pct').textContent=pct+'%';
-  const circ=2*Math.PI*22;
+  var circ=2*Math.PI*22;
   document.getElementById('score-arc').setAttribute('stroke-dashoffset',(circ*(1-pct/100)).toFixed(1));
   document.getElementById('score-lbl').textContent=pct===100?'¡Perfecto!':pct>=67?'Casi todo ok':'Pendientes';
-
-  // Mood hamster
-  const mood=getMood();
-  const hc=document.getElementById('ham-circle');
-  hc.style.background=mood.bg;
-  hc.innerHTML='';
+  var mood=getMood();
+  var hc=document.getElementById('ham-circle');hc.style.background=mood.bg;hc.innerHTML='';
   if(IMG_URLS[mood.img]){
     var mimg=makeImg(IMG_URLS[mood.img],'Chewie','100%','100%','');
     mimg.onerror=function(){hc.innerHTML='<span style="font-size:80px;line-height:148px">🐹</span>';};
     hc.appendChild(mimg);
-  } else {
-    hc.innerHTML='<span style="font-size:80px;line-height:148px">🐹</span>';
-  }
-  document.getElementById('speech-bub').innerHTML=
-    '<div style="font-size:15px;margin-bottom:2px">'+mood.icon+'</div><strong>'+mood.title+'</strong><span>'+mood.sub+'</span>';
-
-  // Shop banner
-  const shopWrap=document.getElementById('shop-img-wrap');
-  shopWrap.innerHTML='';
+  } else {hc.innerHTML='<span style="font-size:80px;line-height:148px">🐹</span>';}
+  document.getElementById('speech-bub').innerHTML='<div style="font-size:15px;margin-bottom:2px">'+mood.icon+'</div><strong>'+mood.title+'</strong><span>'+mood.sub+'</span>';
+  var shopWrap=document.getElementById('shop-img-wrap');shopWrap.innerHTML='';
   var simg=makeImg(CAT_IMGS.shop,'🛍️','100%','100%','12px');
   simg.onerror=function(){shopWrap.innerHTML='<span style="font-size:28px">🛍️</span>';};
   shopWrap.appendChild(simg);
 }
 
 function openDetail(cat){
-  curCat=cat; selFoods=[];
+  curCat=cat;selFoods=[];
   goScreen('s-detail');
-  const diw=document.getElementById('det-icon-wrap');
-  diw.style.background=cat.bg;
-  diw.innerHTML='';
-  if(CAT_IMGS[cat.id]){
-    diw.appendChild(makeImg(CAT_IMGS[cat.id],cat.emoji,'100%','100%',''));
-  } else {
-    diw.innerHTML='<span style="font-size:36px">'+cat.emoji+'</span>';
-  }
+  var diw=document.getElementById('det-icon-wrap');diw.style.background=cat.bg;diw.innerHTML='';
+  if(CAT_IMGS[cat.id])diw.appendChild(makeImg(CAT_IMGS[cat.id],cat.emoji,'100%','100%',''));
+  else diw.innerHTML='<span style="font-size:36px">'+cat.emoji+'</span>';
   document.getElementById('det-title').textContent=cat.name;
   document.getElementById('det-freq').textContent=cat.freq;
-  const logs=state[cat.id].logs;
-  const last=logs.length?logs[logs.length-1]:null;
+  var logs=state[cat.id].logs;
+  var last=logs.length?logs[logs.length-1]:null;
   document.getElementById('det-last-val').textContent=last?fmtDate(last.ts):'Sin registros';
   document.getElementById('det-last-sub').textContent=last?fmtFull(last.ts):'Empieza registrando ahora';
-  document.getElementById('det-badge').innerHTML=badgeHtml(getStatus(cat), last?last.ts:null);
-  const fw=document.getElementById('food-wrap');
-  const fg=document.getElementById('food-grid');
-  const nw=document.getElementById('note-wrap');
+  document.getElementById('det-badge').innerHTML=badgeHtml(getStatus(cat),last?last.ts:null);
+  var fw=document.getElementById('food-wrap');
+  var fg=document.getElementById('food-grid');
+  var nw=document.getElementById('note-wrap');
+  var wcw=document.getElementById('week-cal-wrap');
   document.getElementById('det-note').value='';
-  if(cat.foods){
+  if(cat.id==='food'){
+    wcw.style.display='block';
+    renderWeekCalendar();
     fw.style.display='block';nw.style.display='none';
     fg.innerHTML='';
+    var rem=getRemainingFood();
     cat.foods.forEach(function(t){
-      const d=document.createElement('div');
-      d.className='ftog';d.textContent=t;d.dataset.t=t;
+      var baseName=t.replace(' (${r}left)','');
+      var d=document.createElement('div');
+      d.className='ftog';d.dataset.t=baseName;
+      var label=baseName;
+      if(rem[baseName]!==undefined){
+        label+=rem[baseName]>0?' ('+rem[baseName]+' restantes)':' ✓';
+      }
+      d.textContent=label;
       d.onclick=function(){
         this.classList.toggle('on');
         selFoods=Array.from(document.querySelectorAll('.ftog.on')).map(function(x){return x.dataset.t;});
@@ -533,10 +670,10 @@ function openDetail(cat){
       fg.appendChild(d);
     });
   } else if(cat.note){
-    fw.style.display='none';nw.style.display='block';
+    wcw.style.display='none';fw.style.display='none';nw.style.display='block';
     document.getElementById('note-lbl').textContent=cat.note;
   } else {
-    fw.style.display='none';nw.style.display='none';
+    wcw.style.display='none';fw.style.display='none';nw.style.display='none';
   }
   document.getElementById('reg-btn').textContent='Registrar '+cat.name;
   document.getElementById('reg-btn').style.background='';
@@ -546,25 +683,14 @@ function openDetail(cat){
   buildChart();
 }
 
-const SCRIPT_URL='https://script.google.com/macros/s/AKfycbwrFa5jMZ45pLWqOsBojWB4MaHyd7NkW3nhwHd_vXN01qPUbESZUm9h9-g321yFJKjg/exec';
-
-function syncToSheets(payload){
-  var params=Object.keys(payload).map(function(k){
-    return encodeURIComponent(k)+'='+encodeURIComponent(payload[k]);
-  }).join('&');
-  fetch(SCRIPT_URL+'?'+params,{method:'GET',mode:'no-cors'})
-    .catch(function(){});
-}
-
 document.getElementById('reg-btn').onclick=function(){
-  const entry={ts:Date.now()};
+  var entry={ts:Date.now()};
   if(selFoods.length)entry.type=selFoods.join(', ');
-  const note=document.getElementById('det-note').value.trim();
+  var note=document.getElementById('det-note').value.trim();
   if(note)entry.note=note;
   state[curCat.id].logs.push(entry);
   if(state[curCat.id].logs.length>200)state[curCat.id].logs=state[curCat.id].logs.slice(-200);
   save();
-  // Sync a Google Sheets
   var d=new Date(entry.ts);
   syncToSheets({
     type:'cuidado',
@@ -575,14 +701,26 @@ document.getElementById('reg-btn').onclick=function(){
   });
   document.querySelectorAll('.ftog').forEach(function(x){x.classList.remove('on');});
   selFoods=[];document.getElementById('det-note').value='';
-  const last=state[curCat.id].logs[state[curCat.id].logs.length-1];
+  var last=state[curCat.id].logs[state[curCat.id].logs.length-1];
   document.getElementById('det-last-val').textContent=fmtDate(last.ts);
   document.getElementById('det-last-sub').textContent=fmtFull(last.ts);
-  document.getElementById('det-badge').innerHTML=badgeHtml(getStatus(curCat), last.ts);
+  document.getElementById('det-badge').innerHTML=badgeHtml(getStatus(curCat),last.ts);
+  if(curCat.id==='food')renderWeekCalendar();
   buildChart();
-  this.textContent='✓ ¡Registrado!';this.style.background='#5A9E5A';
   var btn=this;
-  setTimeout(function(){btn.textContent='Registrar '+curCat.name;btn.style.background='';},2200);
+  btn.textContent='✓ ¡Registrado!';btn.style.background='#5A9E5A';
+  setTimeout(function(){
+    btn.textContent='Registrar '+curCat.name;btn.style.background='';
+    if(curCat.id==='food'){
+      var rem=getRemainingFood();
+      document.querySelectorAll('.ftog').forEach(function(d){
+        var name=d.dataset.t;
+        var label=name;
+        if(rem[name]!==undefined)label+=rem[name]>0?' ('+rem[name]+' restantes)':' ✓';
+        d.textContent=label;
+      });
+    }
+  },2200);
 };
 
 function switchTab(t){
@@ -591,55 +729,59 @@ function switchTab(t){
   document.getElementById('tab-y').className='chtab'+(t==='year'?' active':'');
   buildChart();
 }
-
 function buildChart(){
   if(chart){chart.destroy();chart=null;}
-  const logs=state[curCat.id].logs;
-  const now=Date.now();
-  let labels=[],data=[];
+  var logs=state[curCat.id].logs;
+  var now=Date.now();
+  var labels=[],data=[];
   if(curTab==='month'){
-    for(let i=29;i>=0;i--){
-      const d=new Date(now-i*86400000);
+    for(var i=29;i>=0;i--){
+      var d=new Date(now-i*86400000);
       labels.push(i===0?'Hoy':i%5===0?(d.getDate()+'/'+(d.getMonth()+1)):'');
-      const ds=new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime();
+      var ds=getDayStart(d.getTime());
       data.push(logs.filter(function(l){return l.ts>=ds&&l.ts<ds+86400000;}).length);
     }
   } else {
-    const mn=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-    for(let i=11;i>=0;i--){
-      const d=new Date(now);d.setMonth(d.getMonth()-i);
+    var mn=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+    for(var i=11;i>=0;i--){
+      var d=new Date(now);d.setMonth(d.getMonth()-i);
       labels.push(mn[d.getMonth()]);
-      const ms=new Date(d.getFullYear(),d.getMonth(),1).getTime();
-      const me=new Date(d.getFullYear(),d.getMonth()+1,1).getTime();
+      var ms=new Date(d.getFullYear(),d.getMonth(),1).getTime();
+      var me=new Date(d.getFullYear(),d.getMonth()+1,1).getTime();
       data.push(logs.filter(function(l){return l.ts>=ms&&l.ts<me;}).length);
     }
   }
   chart=new Chart(document.getElementById('det-chart'),{
     type:'bar',
-    data:{labels,datasets:[{label:'Registros',data,backgroundColor:data.map(function(v){return v>0?'#E87878':'#EDE0D0';}),borderRadius:5,borderSkipped:false}]},
+    data:{labels:labels,datasets:[{label:'Registros',data:data,backgroundColor:data.map(function(v){return v>0?'#E87878':'#EDE0D0';}),borderRadius:5,borderSkipped:false}]},
     options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{title:function(i){return i[0].label;},label:function(i){return i.raw+' registro'+(i.raw!==1?'s':'');}}}},
+      plugins:{legend:{display:false}},
       scales:{x:{ticks:{font:{size:9},color:'#B8937A',maxRotation:0},grid:{display:false}},
         y:{ticks:{font:{size:10},color:'#B8937A',stepSize:1,precision:0},grid:{color:'#F0E0C8'},min:0,suggestedMax:Math.max(3,...data)+1}}}
   });
 }
 
+// ── EXPENSES ───────────────────────────────────────────────
+var CAT_COLORS=['#E87878','#F5A623','#7ED321','#4A90D9','#9B59B6','#2ECC71','#E74C3C','#95A5A6'];
+var EXP_CATS=['🍚 Comida','🏖️ Arena','🪵 Juguetes / Roer','🏠 Decoración','💧 Sprays','🌿 Sustrato','🏡 Jaula y accesorios','📦 Otro'];
+
 function renderExpenses(){
-  const now=new Date();
-  const mStart=new Date(now.getFullYear(),now.getMonth(),1).getTime();
-  const total=expenses.reduce(function(s,e){return s+(parseFloat(e.amount)||0);},0);
-  const mTotal=expenses.filter(function(e){return new Date(e.date).getTime()>=mStart;}).reduce(function(s,e){return s+(parseFloat(e.amount)||0);},0);
+  var now=new Date();
+  var mStart=new Date(now.getFullYear(),now.getMonth(),1).getTime();
+  var total=expenses.reduce(function(s,e){return s+(parseFloat(e.amount)||0);},0);
+  var mTotal=expenses.filter(function(e){return new Date(e.date).getTime()>=mStart;}).reduce(function(s,e){return s+(parseFloat(e.amount)||0);},0);
   document.getElementById('exp-total').textContent=total.toFixed(2)+' €';
   document.getElementById('exp-month').textContent=mTotal.toFixed(2)+' €';
-  document.getElementById('exp-mlbl').textContent=now.toLocaleDateString('es-ES',{month:'long'});
-  const list=document.getElementById('exp-list');
+  document.getElementById('exp-mlbl').textContent=now.toLocaleDateString('es-ES',{month:'long'})+' · ver desglose →';
+  renderMonthlyChart();
+  var list=document.getElementById('exp-list');
   if(!expenses.length){list.innerHTML='<div class="empty"><div style="font-size:36px;margin-bottom:8px">🛍️</div>Sin gastos registrados aún.</div>';return;}
-  const cc={'🍚':'#FFE8E0','💧':'#E0F0FF','🏖️':'#F0E8FF','🧹':'#E0F5EE','🪵':'#FFF0DC','🏠':'#FFE8F0','🏥':'#FFD8D8','🧸':'#FFE8F8','📦':'#E8E8E8'};
+  var cc={'🍚':'#FFE8E0','🏖️':'#F0E8FF','🪵':'#FFF0DC','🏠':'#FFE8F0','💧':'#E0F0FF','🌿':'#E0F5EE','🏡':'#FFF4DC','📦':'#E8E8E8'};
   function catColor(c){for(var k in cc)if(c.startsWith(k))return cc[k];return'#F0E0C8';}
-  list.innerHTML=[...expenses].sort(function(a,b){return new Date(b.date)-new Date(a.date);}).map(function(e,i){
+  list.innerHTML=[...expenses].sort(function(a,b){return new Date(b.date)-new Date(a.date);}).map(function(e){
     return'<div class="exp-row">'
       +'<div class="exp-dot" style="background:'+catColor(e.category)+'">'+e.category.split(' ')[0]+'</div>'
-      +'<div style="flex:1;min-width:0"><strong style="font-size:13px;font-weight:600;display:block">'+( e.description||e.category)+'</strong>'
+      +'<div style="flex:1;min-width:0"><strong style="font-size:13px;font-weight:600;display:block">'+(e.description||e.category)+'</strong>'
       +'<span style="font-size:11px;color:var(--text2)">'+e.category+' · '+new Date(e.date).toLocaleDateString('es-ES',{day:'numeric',month:'short',year:'numeric'})+'</span></div>'
       +'<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">'
       +'<div style="font-size:15px;font-weight:700">'+parseFloat(e.amount).toFixed(2)+' €</div>'
@@ -648,6 +790,64 @@ function renderExpenses(){
   }).join('');
 }
 
+function renderMonthlyChart(){
+  if(monthlyChartInst){monthlyChartInst.destroy();monthlyChartInst=null;}
+  var mn=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  var now=new Date();
+  var months=[],totals=[],foodArr=[],arenaArr=[],sprayArr=[],sustratoArr=[];
+  for(var i=5;i>=0;i--){
+    var d=new Date(now.getFullYear(),now.getMonth()-i,1);
+    months.push(mn[d.getMonth()]);
+    var ms=d.getTime();
+    var me=new Date(d.getFullYear(),d.getMonth()+1,1).getTime();
+    var monthExp=expenses.filter(function(e){var t=new Date(e.date).getTime();return t>=ms&&t<me;});
+    totals.push(monthExp.reduce(function(s,e){return s+(parseFloat(e.amount)||0);},0));
+    foodArr.push(monthExp.filter(function(e){return e.category.startsWith('🍚');}).reduce(function(s,e){return s+(parseFloat(e.amount)||0);},0));
+    arenaArr.push(monthExp.filter(function(e){return e.category.startsWith('🏖️');}).reduce(function(s,e){return s+(parseFloat(e.amount)||0);},0));
+    sprayArr.push(monthExp.filter(function(e){return e.category.startsWith('💧');}).reduce(function(s,e){return s+(parseFloat(e.amount)||0);},0));
+    sustratoArr.push(monthExp.filter(function(e){return e.category.startsWith('🌿');}).reduce(function(s,e){return s+(parseFloat(e.amount)||0);},0));
+  }
+  // Media de las 4 categorías por mes
+  var mediaArr=months.map(function(_,i){return((foodArr[i]+arenaArr[i]+sprayArr[i]+sustratoArr[i])/4);});
+  monthlyChartInst=new Chart(document.getElementById('exp-monthly-chart'),{
+    type:'bar',
+    data:{labels:months,datasets:[
+      {label:'Total',data:totals,backgroundColor:'#E87878CC',borderRadius:5,borderSkipped:false,order:2},
+      {label:'Media categorías',data:mediaArr,type:'line',borderColor:'#5A9E5A',backgroundColor:'transparent',borderWidth:2,pointRadius:3,pointBackgroundColor:'#5A9E5A',tension:0.3,order:1}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,labels:{font:{size:10},boxWidth:12}}},
+      scales:{x:{ticks:{font:{size:10},color:'#B8937A'},grid:{display:false}},
+        y:{ticks:{font:{size:10},color:'#B8937A',callback:function(v){return v+'€';}},grid:{color:'#F0E0C8'},min:0}}}
+  });
+}
+
+function showPieChart(mode){
+  var now=new Date();
+  var mStart=new Date(now.getFullYear(),now.getMonth(),1).getTime();
+  var filtered=mode==='month'?expenses.filter(function(e){return new Date(e.date).getTime()>=mStart;}):expenses;
+  document.getElementById('pie-title').textContent=mode==='month'?'Desglose este mes':'Desglose total';
+  var catTotals={};
+  EXP_CATS.forEach(function(c){catTotals[c]=0;});
+  filtered.forEach(function(e){if(catTotals[e.category]!==undefined)catTotals[e.category]+=(parseFloat(e.amount)||0);});
+  var labels=[],vals=[],colors=[];
+  EXP_CATS.forEach(function(c,i){if(catTotals[c]>0){labels.push(c);vals.push(catTotals[c]);colors.push(CAT_COLORS[i]);}});
+  if(!vals.length){alert('Sin gastos para mostrar');return;}
+  if(pieChartInst){pieChartInst.destroy();pieChartInst=null;}
+  document.getElementById('pie-overlay').classList.add('open');
+  pieChartInst=new Chart(document.getElementById('pie-chart'),{
+    type:'doughnut',
+    data:{labels:labels,datasets:[{data:vals,backgroundColor:colors,borderWidth:2,borderColor:'#fff'}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}}
+  });
+  var total=vals.reduce(function(a,b){return a+b;},0);
+  document.getElementById('pie-legend').innerHTML=labels.map(function(l,i){
+    return'<div style="display:flex;align-items:center;gap:8px"><div style="width:12px;height:12px;border-radius:50%;background:'+colors[i]+';flex-shrink:0"></div>'
+      +'<span style="flex:1">'+l+'</span><span style="font-weight:700">'+vals[i].toFixed(2)+'€ ('+Math.round(vals[i]/total*100)+'%)</span></div>';
+  }).join('');
+}
+function closePieChart(){document.getElementById('pie-overlay').classList.remove('open');}
+
 function openExp(){
   document.getElementById('ef').value=new Date().toISOString().split('T')[0];
   document.getElementById('ed').value='';document.getElementById('ea').value='';
@@ -655,90 +855,73 @@ function openExp(){
 }
 function closeExp(){document.getElementById('exp-modal').classList.remove('open');}
 function saveExp(){
-  const cat=document.getElementById('ec').value,desc=document.getElementById('ed').value.trim(),
+  var cat=document.getElementById('ec').value,desc=document.getElementById('ed').value.trim(),
     amount=parseFloat(document.getElementById('ea').value),date=document.getElementById('ef').value;
   if(!amount||amount<=0||!date){alert('Rellena importe y fecha');return;}
-  expenses.push({category:cat,description:desc,amount,date});
+  expenses.push({category:cat,description:desc,amount:amount,date:date});
   saveExpenses();
-  // Sync a Google Sheets
   syncToSheets({
     type:'gasto',
     fecha:new Date(date).toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}),
-    categoria:cat,
-    descripcion:desc,
-    importe:amount
+    categoria:cat,descripcion:desc,importe:amount
   });
   closeExp();renderExpenses();
 }
 function delExp(i){if(!confirm('¿Eliminar?'))return;expenses.splice(i,1);saveExpenses();renderExpenses();}
 
-function deleteLog(catId, ts){
+// ── HISTORY ────────────────────────────────────────────────
+function deleteLog(catId,ts){
   if(!confirm('¿Eliminar este registro?'))return;
   var cat=CATS.find(function(c){return c.id===catId;});
   var log=state[catId].logs.find(function(l){return l.ts===ts;});
-  // Anular en Sheets
   if(log){
     var d=new Date(ts);
-    syncToSheets({
-      type:'cuidado',
+    syncToSheets({type:'cuidado',
       fecha:d.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}),
       hora:d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}),
-      categoria:cat?cat.name:catId,
-      detalle:'ANULADO'
-    });
+      categoria:cat?cat.name:catId,detalle:'ANULADO'});
   }
   state[catId].logs=state[catId].logs.filter(function(l){return l.ts!==ts;});
-  save();
-  renderHistory();
+  save();renderHistory();
 }
 
 function renderHistory(){
-  const all=[];
+  var all=[];
   CATS.forEach(function(cat){
     state[cat.id].logs.forEach(function(l){
       all.push(Object.assign({},l,{catId:cat.id,catName:cat.name,emoji:cat.emoji,bg:cat.bg,iconUrl:CAT_IMGS[cat.id]}));
     });
   });
   all.sort(function(a,b){return b.ts-a.ts;});
-  const list=document.getElementById('hist-list');
+  var list=document.getElementById('hist-list');
   if(!all.length){list.innerHTML='<div class="empty"><div style="font-size:36px;margin-bottom:8px">📅</div>Sin registros aún.</div>';return;}
   list.innerHTML='';
   all.forEach(function(e){
-    const sub=[e.type,e.note].filter(Boolean).join(' · ');
-    const row=document.createElement('div');
-    row.className='exp-row';
-    const dot=document.createElement('div');
-    dot.className='exp-dot';dot.style.background=e.bg;dot.style.padding='0';
-    if(e.iconUrl){
-      dot.appendChild(makeImg(e.iconUrl,e.emoji,'34px','34px','8px'));
-    } else {
-      dot.innerHTML='<span style="font-size:20px">'+e.emoji+'</span>';
-    }
+    var sub=[e.type,e.note].filter(Boolean).join(' · ');
+    var row=document.createElement('div');row.className='exp-row';
+    var dot=document.createElement('div');dot.className='exp-dot';dot.style.background=e.bg;dot.style.padding='0';
+    if(e.iconUrl)dot.appendChild(makeImg(e.iconUrl,e.emoji,'34px','34px','8px'));
+    else dot.innerHTML='<span style="font-size:20px">'+e.emoji+'</span>';
     row.appendChild(dot);
-    const info=document.createElement('div');
-    info.style.cssText='flex:1;min-width:0';
+    var info=document.createElement('div');info.style.cssText='flex:1;min-width:0';
     info.innerHTML='<strong style="font-size:13px;font-weight:600;display:block">'+e.catName+'</strong>'
       +'<span style="font-size:11px;color:var(--text2)">'+fmtFull(e.ts)+(sub?' · '+sub:'')+'</span>';
     row.appendChild(info);
-    // Botón borrar
-    const del=document.createElement('div');
+    var del=document.createElement('div');
     del.style.cssText='font-size:16px;color:var(--text3);cursor:pointer;padding:4px 6px;flex-shrink:0';
-    del.textContent='🗑️';
-    del.onclick=function(){deleteLog(e.catId, e.ts);};
+    del.textContent='🗑️';del.onclick=function(){deleteLog(e.catId,e.ts);};
     row.appendChild(del);
     list.appendChild(row);
   });
 }
 
+// ── PROFILE ────────────────────────────────────────────────
 function renderProfile(){
-  const ham=document.getElementById('profile-ham');
-  ham.innerHTML='';
+  var ham=document.getElementById('profile-ham');ham.innerHTML='';
   var himg=makeImg(IMG_URLS.happy,'🐹','90px','90px','50%');
-  himg.onerror=function(){ham.innerHTML='🐹';};
-  ham.appendChild(himg);
-
+  himg.onerror=function(){ham.innerHTML='🐹';};ham.appendChild(himg);
   document.getElementById('prof-stats').innerHTML=CATS.map(function(cat){
-    const imgTag=CAT_IMGS[cat.id]
+    var imgTag=CAT_IMGS[cat.id]
       ?'<img src="'+CAT_IMGS[cat.id]+'" style="width:20px;height:20px;border-radius:5px;object-fit:cover" onerror="this.outerHTML=\''+cat.emoji+'\'">'
       :'<span>'+cat.emoji+'</span>';
     return'<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:0.5px solid var(--border)">'
@@ -748,108 +931,99 @@ function renderProfile(){
   }).join('');
 }
 
-// ── CSV EXPORT ──────────────────────────────────────────────
-function exportCSV(){
-  let rows=['TIPO,CATEGORIA,FECHA,HORA,DETALLE,IMPORTE'];
+// ── CURIOSIDADES ───────────────────────────────────────────
+function renderCuriosidades(){
+  if(!curiosidades.length)return;
+  var today=new Date();
+  var dayOfYear=Math.floor((today-new Date(today.getFullYear(),0,0))/86400000);
+  var todayIdx=dayOfYear%curiosidades.length;
+  if(curioIdx===0)curioIdx=todayIdx;
+  showCurio(curioIdx);
+  document.getElementById('curio-date').textContent=today.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'});
+}
 
-  // Registros de cuidado
+function showCurio(idx){
+  curioIdx=((idx%curiosidades.length)+curiosidades.length)%curiosidades.length;
+  var text=curiosidades[curioIdx];
+  var consejo='';
+  var parts=text.split('Consejo:');
+  var mainText=parts[0].trim();
+  if(parts.length>1)consejo='💡 Consejo: '+parts[1].trim();
+  document.getElementById('curio-num').textContent='Curiosidad '+(curioIdx+1)+' de '+curiosidades.length;
+  document.getElementById('curio-text').textContent=mainText;
+  document.getElementById('curio-consejo').textContent=consejo;
+  document.getElementById('curio-counter').textContent=(curioIdx+1)+'/'+curiosidades.length;
+}
+function curioNav(dir){showCurio(curioIdx+dir);}
+
+// ── CSV ────────────────────────────────────────────────────
+function exportCSV(){
+  var rows=['TIPO,CATEGORIA,FECHA,HORA,DETALLE,IMPORTE'];
   CATS.forEach(function(cat){
     state[cat.id].logs.forEach(function(l){
-      const d=new Date(l.ts);
-      const fecha=d.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'});
-      const hora=d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
-      const detalle=[l.type,l.note].filter(Boolean).join(' | ');
-      rows.push(['cuidado',cat.name,fecha,hora,'"'+(detalle||'')+'"-'].join(','));
+      var d=new Date(l.ts);
+      var fecha=d.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'});
+      var hora=d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+      var detalle=[l.type,l.note].filter(Boolean).join(' | ');
+      rows.push(['cuidado',cat.name,fecha,hora,'"'+(detalle||'')+'"','-'].join(','));
     });
   });
-
-  // Gastos
   expenses.forEach(function(e){
-    const d=new Date(e.date);
-    const fecha=d.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'});
-    rows.push(['gasto',e.category,fecha,'-','"'+(e.description||'')+'"-',parseFloat(e.amount).toFixed(2)].join(','));
+    var d=new Date(e.date);
+    var fecha=d.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'});
+    rows.push(['gasto',e.category,fecha,'-','"'+(e.description||'')+'"',parseFloat(e.amount).toFixed(2)].join(','));
   });
-
-  const csv=rows.join('\n');
-  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;
+  var csv=rows.join('\n');
+  var blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');a.href=url;
   a.download='chewie_datos_'+new Date().toISOString().split('T')[0]+'.csv';
   document.body.appendChild(a);a.click();
   setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},1000);
 }
-
-// ── CSV IMPORT ──────────────────────────────────────────────
 function importCSV(event){
-  const file=event.target.files[0];
-  if(!file)return;
-  const reader=new FileReader();
-  reader.onload=function(e){
-    pendingImportData=e.target.result;
-    document.getElementById('import-modal').classList.add('open');
-  };
-  reader.readAsText(file,'UTF-8');
-  event.target.value=''; // reset input
+  var file=event.target.files[0];if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(e){pendingImportData=e.target.result;document.getElementById('import-modal').classList.add('open');};
+  reader.readAsText(file,'UTF-8');event.target.value='';
 }
-
-function cancelImport(){
-  pendingImportData=null;
-  document.getElementById('import-modal').classList.remove('open');
-}
-
+function cancelImport(){pendingImportData=null;document.getElementById('import-modal').classList.remove('open');}
 function confirmImport(){
   document.getElementById('import-modal').classList.remove('open');
   if(!pendingImportData)return;
-  const lines=pendingImportData.replace(/^\uFEFF/,'').split('\n').filter(function(l){return l.trim()&&!l.startsWith('TIPO');});
-  let cuidados=0, gastos=0;
-
+  var lines=pendingImportData.replace(/^\uFEFF/,'').split('\n').filter(function(l){return l.trim()&&!l.startsWith('TIPO');});
+  var cuidados=0,gastos=0;
   lines.forEach(function(line){
-    // Parse CSV respetando campos entre comillas
-    const cols=[];
-    let cur='',inQ=false;
+    var cols=[],cur='',inQ=false;
     for(var i=0;i<line.length;i++){
       if(line[i]==='"'){inQ=!inQ;}
       else if(line[i]===','&&!inQ){cols.push(cur.trim());cur='';}
       else cur+=line[i];
     }
     cols.push(cur.trim());
-
-    const tipo=cols[0];
+    var tipo=cols[0];
     if(tipo==='cuidado'){
-      const catName=cols[1];
-      const cat=CATS.find(function(c){return c.name===catName;});
-      if(!cat)return;
-      // Reconstruir timestamp desde fecha+hora
-      const parts=(cols[2]||'').split('/'); // dd/mm/yyyy
-      const hParts=(cols[3]||'00:00').split(':');
+      var cat=CATS.find(function(c){return c.name===cols[1];});if(!cat)return;
+      var parts=(cols[2]||'').split('/');var hParts=(cols[3]||'00:00').split(':');
       if(parts.length<3)return;
-      const d=new Date(parseInt(parts[2]),parseInt(parts[1])-1,parseInt(parts[0]),parseInt(hParts[0]||0),parseInt(hParts[1]||0));
+      var d=new Date(parseInt(parts[2]),parseInt(parts[1])-1,parseInt(parts[0]),parseInt(hParts[0]||0),parseInt(hParts[1]||0));
       if(isNaN(d.getTime()))return;
-      const detalle=(cols[4]||'').replace(/^"|"$/g,'');
-      const entry={ts:d.getTime()};
-      if(detalle)entry.note=detalle;
-      state[cat.id].logs.push(entry);
-      cuidados++;
+      var detalle=(cols[4]||'').replace(/^"|"$/g,'');
+      var entry={ts:d.getTime()};if(detalle)entry.note=detalle;
+      state[cat.id].logs.push(entry);cuidados++;
     } else if(tipo==='gasto'){
-      const fecha=(cols[2]||'').split('/');
-      if(fecha.length<3)return;
-      const dateStr=fecha[2]+'-'+(fecha[1].padStart(2,'0'))+'-'+(fecha[0].padStart(2,'0'));
-      const desc=(cols[4]||'').replace(/^"|"$/g,'');
-      const amount=parseFloat((cols[5]||'0').replace('-',''))||0;
-      expenses.push({category:cols[1],description:desc,amount:amount,date:dateStr});
-      gastos++;
+      var fecha=(cols[2]||'').split('/');if(fecha.length<3)return;
+      var dateStr=fecha[2]+'-'+(fecha[1].padStart(2,'0'))+'-'+(fecha[0].padStart(2,'0'));
+      var desc=(cols[4]||'').replace(/^"|"$/g,'');
+      var amount=parseFloat((cols[5]||'0').replace('-',''))||0;
+      expenses.push({category:cols[1],description:desc,amount:amount,date:dateStr});gastos++;
     }
   });
-
-  // Ordenar logs
   CATS.forEach(function(cat){
     state[cat.id].logs.sort(function(a,b){return a.ts-b.ts;});
     if(state[cat.id].logs.length>200)state[cat.id].logs=state[cat.id].logs.slice(-200);
   });
-
-  save();saveExpenses();
-  pendingImportData=null;
+  save();saveExpenses();pendingImportData=null;
   alert('✅ Importados: '+cuidados+' cuidados y '+gastos+' gastos.');
   renderProfile();
 }
@@ -858,13 +1032,17 @@ function openChatGPT(){
   window.location.href='chatgpt://';
   setTimeout(function(){window.open('https://chatgpt.com','_blank');},500);
 }
-
 function quickReg(){
-  const pending=CATS.find(function(c){return getStatus(c)==='alert';})||CATS.find(function(c){return getStatus(c)==='warn';})||CATS[0];
+  var pending=CATS.find(function(c){return getStatus(c)==='alert';})||CATS.find(function(c){return getStatus(c)==='warn';})||CATS[0];
   openDetail(pending);
 }
 
-load();renderHome();
+// ── INIT ───────────────────────────────────────────────────
+load();
+fetch('curiosidades.json').then(function(r){return r.json();}).then(function(data){
+  curiosidades=data;
+}).catch(function(){curiosidades=[];});
+renderHome();
 </script>
 </body>
 </html>
