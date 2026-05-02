@@ -69,14 +69,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .shop-banner{margin:10px 12px 0;background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:11px 13px;display:flex;align-items:center;gap:10px;cursor:pointer}
 .shop-img{width:46px;height:46px;border-radius:12px;font-size:28px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
 .shop-img img{width:100%;height:100%;object-fit:cover}
-.bottom-nav{display:flex;background:var(--card);border-top:1px solid var(--border);padding:8px 0 4px;margin-top:12px;position:sticky;bottom:0;z-index:10}
+.bottom-nav{display:flex;background:var(--card);border-top:1px solid var(--border);padding:8px 0 calc(20px + env(safe-area-inset-bottom)) 0;margin-top:12px;position:sticky;bottom:0;z-index:10;align-items:flex-start}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:4px 0}
 .nav-icon{width:42px;height:42px;display:flex;align-items:center;justify-content:center}
 .nav-icon img{width:42px;height:42px;object-fit:contain}
-.nav-lbl{font-size:10px;color:var(--text3)}
+.nav-lbl{font-size:10px;color:var(--text3);margin-top:2px}
 .nav-item.active .nav-lbl{color:var(--accent);font-weight:600}
-.nav-plus-wrap{display:flex;flex-direction:column;align-items:center;cursor:pointer}
-.nav-plus{width:48px;height:48px;border-radius:50%;background:var(--accent);margin-top:-16px;box-shadow:0 2px 10px rgba(232,120,120,.45);display:flex;align-items:center;justify-content:center;font-size:26px;color:white}
+.nav-plus-wrap{flex:1;display:flex;flex-direction:column;align-items:center;cursor:pointer}
+.nav-plus{width:48px;height:48px;border-radius:50%;background:var(--accent);margin-top:-12px;box-shadow:0 2px 10px rgba(232,120,120,.45);display:flex;align-items:center;justify-content:center;font-size:26px;color:white}
+.nav-plus-lbl{font-size:10px;color:var(--text3);margin-top:6px}
 .det-header{padding:10px 16px 0;text-align:center}
 .det-icon{width:64px;height:64px;border-radius:18px;margin:0 auto 6px;font-size:36px;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .det-icon img{width:100%;height:100%;object-fit:cover}
@@ -143,17 +144,16 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 /* Clean checklist */
 .clean-grid{margin:0 14px 10px}
 .clean-month-title{font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px}
-.clean-items{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
-.clean-item{display:flex;align-items:center;gap:10px;background:var(--card);border:1.5px solid var(--border);border-radius:11px;padding:9px 12px}
-.clean-item.done{border-color:#C0DD97;background:#F7FBF2}
-.clean-check{width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
-.clean-item.done .clean-check{background:var(--g);border-color:var(--g);color:white}
-.clean-year-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
-.clean-month-cell{border-radius:8px;padding:5px 3px;text-align:center;font-size:9px;font-weight:600}
-.clean-month-cell.all-ok{background:#EDF7ED;color:var(--gtx)}
-.clean-month-cell.partial{background:#FFF4DC;color:var(--wtx)}
-.clean-month-cell.empty{background:var(--bg);color:var(--text3);border:1px solid var(--border)}
-.clean-month-cell.future{background:var(--bg);color:#DDD;border:1px solid #EEE}
+.clean-week-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.clean-week-cell{min-height:62px;border-radius:8px;background:var(--bg);border:1px solid var(--border);font-size:10px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:1px;padding:4px 2px}
+.clean-week-cell.current{border-color:var(--accent);background:#FFF5F5}
+.clean-week-lbl{font-size:9px;color:var(--text3);font-weight:600;margin-bottom:2px}
+.clean-emoji-row{display:flex;flex-wrap:wrap;gap:2px;justify-content:center;font-size:13px;line-height:1.1}
+.clean-year-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.clean-month-cell{border-radius:8px;padding:8px 4px;text-align:center;background:var(--bg);border:1px solid var(--border);min-height:64px;display:flex;flex-direction:column;align-items:center;gap:2px}
+.clean-month-cell.current{border-color:var(--accent);background:#FFF5F5}
+.clean-mn-lbl{font-size:10px;font-weight:700;color:var(--text2)}
+.clean-mn-emojis{display:flex;flex-wrap:wrap;gap:1px;justify-content:center;font-size:11px;line-height:1.1}
 
 .chart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center}
 .chart-overlay.open{display:flex}
@@ -184,8 +184,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <span>Un momento</span>
     </div>
   </div>
-  <div class="section-title">Estado de cuidados</div>
-  <div class="care-list" id="care-list"></div>
+  <div class="care-list" id="care-list" style="margin-top:8px"></div>
   <div class="shop-banner" onclick="goScreen('s-expenses')">
     <div class="shop-img" id="shop-img-wrap"><span style="font-size:28px">🛍️</span></div>
     <div style="flex:1">
@@ -195,9 +194,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <div style="color:var(--text3);font-size:18px">›</div>
   </div>
   <div class="bottom-nav">
-    <div class="nav-item active" id="nav-inicio" onclick="goScreen('s-curiosidades')">
+    <div class="nav-item" id="nav-inicio" onclick="goScreen('s-curiosidades')">
       <div class="nav-icon"><img src="img/nav_inicio.png" alt="Curiosidades" onerror="this.outerHTML='🌟'"></div>
-      <div class="nav-lbl" style="color:var(--accent)">Curiosidades</div>
+      <div class="nav-lbl">Curiosidades</div>
     </div>
     <div class="nav-item" id="nav-historial" onclick="goScreen('s-history')">
       <div class="nav-icon"><img src="img/nav_historial.png" alt="Historial" onerror="this.outerHTML='📅'"></div>
@@ -205,7 +204,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <div class="nav-plus-wrap" onclick="quickReg()">
       <div class="nav-plus">+</div>
-      <div class="nav-lbl" style="margin-top:4px">Añadir</div>
+      <div class="nav-plus-lbl">Añadir</div>
     </div>
     <div class="nav-item" id="nav-consejos" onclick="openChatGPT()">
       <div class="nav-icon"><img src="img/nav_consejos.png" alt="Consejos" onerror="this.outerHTML='💡'"></div>
@@ -256,20 +255,19 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <!-- Clean checklist -->
   <div id="clean-wrap" style="display:none">
     <div class="clean-grid">
-      <div class="clean-month-title" id="clean-month-lbl">🧹 Este mes</div>
-      <div class="clean-items" id="clean-items"></div>
-      <div style="display:flex;gap:8px;margin-bottom:8px">
+      <div style="display:flex;gap:8px;margin-bottom:10px">
         <div class="chtab active" id="clean-tab-m" onclick="switchCleanTab('month')" style="flex:1;padding:6px;text-align:center;cursor:pointer">Este mes</div>
         <div class="chtab" id="clean-tab-y" onclick="switchCleanTab('year')" style="flex:1;padding:6px;text-align:center;cursor:pointer">Este año</div>
       </div>
-      <div id="clean-year-wrap" style="display:none">
-        <div class="clean-year-grid" id="clean-year-grid"></div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:10px">
+        <div class="clean-month-title" id="clean-period-lbl">🧹 Este mes</div>
+        <div id="clean-period-grid"></div>
       </div>
     </div>
   </div>
   <div class="reg-sec">
     <div id="food-wrap" style="display:none">
-      <div style="font-size:12px;color:var(--text2);margin-bottom:6px">¿Qué le has dado?</div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:6px" id="food-wrap-lbl">¿Qué le has dado?</div>
       <div class="food-grid" id="food-grid"></div>
     </div>
     <div id="note-wrap" style="display:none">
@@ -334,7 +332,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <div style="padding:0 14px 10px">
     <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px">
       <div style="font-size:13px;font-weight:600;margin-bottom:12px;color:var(--text2)">🎂 Edad de Chewie</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center;margin-bottom:12px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;text-align:center;margin-bottom:12px">
         <div style="background:var(--bg);border-radius:10px;padding:10px 6px">
           <div style="font-size:22px;font-weight:700;color:#5C3A1E" id="age-months">—</div>
           <div style="font-size:10px;color:var(--text2)">meses</div>
@@ -342,10 +340,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
         <div style="background:var(--bg);border-radius:10px;padding:10px 6px">
           <div style="font-size:22px;font-weight:700;color:#5C3A1E" id="age-weeks">—</div>
           <div style="font-size:10px;color:var(--text2)">semanas</div>
-        </div>
-        <div style="background:var(--bg);border-radius:10px;padding:10px 6px">
-          <div style="font-size:22px;font-weight:700;color:var(--accent)" id="age-bday">—</div>
-          <div style="font-size:10px;color:var(--text2)">días p/cumple</div>
         </div>
       </div>
       <div style="font-size:11px;color:var(--text3);text-align:center" id="age-next-bday"></div>
@@ -868,7 +862,7 @@ function renderHome(){
   var pct=next?((pts-lvl.min)/(next.min-lvl.min))*100:100;
   var circ=2*Math.PI*22;
   document.getElementById('score-arc').setAttribute('stroke-dashoffset',(circ*(1-pct/100)).toFixed(1));
-  document.getElementById('score-lbl').textContent='puntos';
+  document.getElementById('score-lbl').textContent='PUNTOS';
   document.getElementById('level-name').innerHTML=lvl.icon+'<br>'+lvl.name.replace(' ','<br>');
   var mood=getMood();
   var hc=document.getElementById('ham-circle');hc.style.background=mood.bg;hc.innerHTML='';
@@ -908,6 +902,7 @@ function openDetail(cat){
     renderWeekCalendar();
     fw.style.display='block';
     nw.style.display='block';
+    document.getElementById('food-wrap-lbl').textContent='¿Qué le has dado?';
     document.getElementById('note-lbl').textContent='¿Qué exactamente? (opcional)';
     fg.innerHTML='';
     var rem=getRemainingFood();
@@ -927,10 +922,10 @@ function openDetail(cat){
       fg.appendChild(d);
     });
   } else if(cat.id==='clean'){
-    wcw.style.display='none';clw.style.display='block';fw.style.display='none';nw.style.display='none';
+    wcw.style.display='none';clw.style.display='block';nw.style.display='none';
     switchCleanTab('month');
-    // Clean uses toggles like food
     fw.style.display='block';
+    document.getElementById('food-wrap-lbl').textContent='¿Qué has limpiado?';
     fg.innerHTML='';
     cat.cleans.forEach(function(t){
       var d=document.createElement('div');
@@ -1093,69 +1088,126 @@ function buildChart(){
 
 // ── CLEAN CHECKLIST ────────────────────────────────────────
 var cleanTab='month';
+var CLEAN_EMOJIS={
+  'Sustrato':'🌿','Jaula completa':'🏡','Rueda':'🎡','Bebedero':'💧','Frasco':'🫙'
+};
+
 function switchCleanTab(t){
   cleanTab=t;
   document.getElementById('clean-tab-m').className='chtab'+(t==='month'?' active':'');
   document.getElementById('clean-tab-y').className='chtab'+(t==='year'?' active':'');
-  document.getElementById('clean-year-wrap').style.display=t==='year'?'block':'none';
   if(t==='month')renderCleanMonth();
   else renderCleanYear();
 }
 
-function getCleanMonthDone(year,month){
-  // Returns set of clean types done this month
-  var ms=new Date(year,month,1).getTime();
-  var me=new Date(year,month+1,1).getTime();
-  var done={};
-  state.clean.logs.forEach(function(l){
-    if(l.ts>=ms&&l.ts<me&&l.type){
-      l.type.split(', ').forEach(function(t){done[t]=true;});
-    }
+function getCleanLogsInRange(ms,me){
+  // Returns array of {ts, types[]}
+  return state.clean.logs.filter(function(l){return l.ts>=ms&&l.ts<me&&l.type;}).map(function(l){
+    return{ts:l.ts, types:l.type.split(', ')};
   });
-  return done;
 }
 
 function renderCleanMonth(){
   var now=new Date();
-  var cleanCat=CATS.find(function(c){return c.id==='clean';});
-  var done=getCleanMonthDone(now.getFullYear(),now.getMonth());
-  var items=document.getElementById('clean-items');
-  items.innerHTML='';
-  cleanCat.cleans.forEach(function(t){
-    var isDone=!!done[t];
-    var row=document.createElement('div');
-    row.className='clean-item'+(isDone?' done':'');
-    row.innerHTML='<div class="clean-check">'+(isDone?'✓':'')+'</div>'
-      +'<div style="flex:1;font-size:13px;font-weight:600">'+t+'</div>'
-      +(isDone?'<div style="font-size:10px;color:var(--g)">✓ Este mes</div>':'<div style="font-size:10px;color:var(--r)">Pendiente</div>');
-    items.appendChild(row);
+  var year=now.getFullYear(), month=now.getMonth();
+  var firstDay=new Date(year,month,1);
+  var lastDay=new Date(year,month+1,0);
+  var grid=document.getElementById('clean-period-grid');
+  document.getElementById('clean-period-lbl').textContent='🧹 '+now.toLocaleDateString('es-ES',{month:'long',year:'numeric'});
+  // Build weeks of month
+  var weekDiv=document.createElement('div');
+  weekDiv.className='clean-week-grid';
+  // Get logs of this month
+  var monthLogs=getCleanLogsInRange(firstDay.getTime(), new Date(year,month+1,1).getTime());
+  // Group by week of month (1-5)
+  var weeks={1:[],2:[],3:[],4:[],5:[]};
+  monthLogs.forEach(function(l){
+    var d=new Date(l.ts);
+    var w=Math.ceil(d.getDate()/7);
+    if(weeks[w])weeks[w]=weeks[w].concat(l.types);
   });
-  document.getElementById('clean-month-lbl').textContent='🧹 '
-    +now.toLocaleDateString('es-ES',{month:'long',year:'numeric'});
+  var todayWeek=Math.ceil(now.getDate()/7);
+  // 4 columns (1-4 weeks); if month has 5, add 5th below
+  var weeksToShow=lastDay.getDate()>28?5:4;
+  for(var w=1;w<=weeksToShow;w++){
+    var cell=document.createElement('div');
+    cell.className='clean-week-cell'+(w===todayWeek?' current':'');
+    var lbl=document.createElement('div');
+    lbl.className='clean-week-lbl';
+    lbl.textContent='Sem '+w;
+    cell.appendChild(lbl);
+    var uniq=[];
+    weeks[w].forEach(function(t){if(uniq.indexOf(t)===-1)uniq.push(t);});
+    var em=document.createElement('div');
+    em.className='clean-emoji-row';
+    if(uniq.length){
+      uniq.forEach(function(t){
+        var sp=document.createElement('span');
+        sp.textContent=CLEAN_EMOJIS[t]||'•';
+        sp.title=t;
+        em.appendChild(sp);
+      });
+    } else {
+      em.innerHTML='<span style="color:#CCC">—</span>';
+    }
+    cell.appendChild(em);
+    weekDiv.appendChild(cell);
+  }
+  grid.innerHTML='';
+  grid.appendChild(weekDiv);
+  // Legend
+  var legend=document.createElement('div');
+  legend.style.cssText='margin-top:10px;font-size:10px;color:var(--text2);display:flex;flex-wrap:wrap;gap:8px;justify-content:center';
+  Object.keys(CLEAN_EMOJIS).forEach(function(k){
+    legend.innerHTML+='<span>'+CLEAN_EMOJIS[k]+' '+k+'</span>';
+  });
+  grid.appendChild(legend);
 }
 
 function renderCleanYear(){
   var now=new Date();
-  var cleanCat=CATS.find(function(c){return c.id==='clean';});
+  var year=now.getFullYear();
   var mn=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-  var grid=document.getElementById('clean-year-grid');
-  grid.innerHTML='';
+  var grid=document.getElementById('clean-period-grid');
+  document.getElementById('clean-period-lbl').textContent='🧹 Año '+year;
+  var yearGrid=document.createElement('div');
+  yearGrid.className='clean-year-grid';
   for(var m=0;m<12;m++){
     var cell=document.createElement('div');
-    var isFuture=m>now.getMonth()&&now.getFullYear()===new Date().getFullYear();
-    if(isFuture){
-      cell.className='clean-month-cell future';
-      cell.innerHTML='<div>'+mn[m]+'</div><div style="margin-top:2px">—</div>';
+    cell.className='clean-month-cell'+(m===now.getMonth()?' current':'');
+    var ms=new Date(year,m,1).getTime();
+    var me=new Date(year,m+1,1).getTime();
+    var monthLogs=getCleanLogsInRange(ms,me);
+    var uniq=[];
+    monthLogs.forEach(function(l){
+      l.types.forEach(function(t){if(uniq.indexOf(t)===-1)uniq.push(t);});
+    });
+    var lbl=document.createElement('div');
+    lbl.className='clean-mn-lbl';lbl.textContent=mn[m];
+    cell.appendChild(lbl);
+    var em=document.createElement('div');
+    em.className='clean-mn-emojis';
+    if(uniq.length){
+      uniq.forEach(function(t){
+        var sp=document.createElement('span');
+        sp.textContent=CLEAN_EMOJIS[t]||'•';
+        sp.title=t;
+        em.appendChild(sp);
+      });
     } else {
-      var done=getCleanMonthDone(now.getFullYear(),m);
-      var doneCount=Object.keys(done).length;
-      var total=cleanCat.cleans.length;
-      var cls=doneCount===0?'empty':doneCount>=total?'all-ok':'partial';
-      cell.className='clean-month-cell '+cls;
-      cell.innerHTML='<div>'+mn[m]+'</div><div style="margin-top:2px;font-size:11px">'+doneCount+'/'+total+'</div>';
+      em.innerHTML='<span style="color:#CCC;font-size:10px">—</span>';
     }
-    grid.appendChild(cell);
+    cell.appendChild(em);
+    yearGrid.appendChild(cell);
   }
+  grid.innerHTML='';
+  grid.appendChild(yearGrid);
+  var legend=document.createElement('div');
+  legend.style.cssText='margin-top:10px;font-size:10px;color:var(--text2);display:flex;flex-wrap:wrap;gap:8px;justify-content:center';
+  Object.keys(CLEAN_EMOJIS).forEach(function(k){
+    legend.innerHTML+='<span>'+CLEAN_EMOJIS[k]+' '+k+'</span>';
+  });
+  grid.appendChild(legend);
 }
 
 
@@ -1366,23 +1418,22 @@ function renderProfile(){
   himg.onerror=function(){ham.innerHTML='🐹';};ham.appendChild(himg);
 
   // Age counters
-  var birthday=new Date(2025,3,4); // 4 abril 2025
+  var birthday=new Date(2026,3,4); // 4 abril 2026
   var now=new Date();
   var diffMs=now-birthday;
-  var diffDays=Math.floor(diffMs/86400000);
+  var diffDays=Math.max(0,Math.floor(diffMs/86400000));
   var weeks=Math.floor(diffDays/7);
   var months=Math.floor(diffDays/30.44);
 
   // Days until next birthday
-  var nextBday=new Date(now.getFullYear(),3,4); // 4 abril este año
+  var nextBday=new Date(now.getFullYear(),3,4);
   if(nextBday<=now)nextBday=new Date(now.getFullYear()+1,3,4);
   var daysUntil=Math.ceil((nextBday-now)/86400000);
 
   document.getElementById('age-months').textContent=months;
   document.getElementById('age-weeks').textContent=weeks;
-  document.getElementById('age-bday').textContent=daysUntil;
   document.getElementById('age-next-bday').textContent=
-    '🎂 Próximo cumpleaños: 4 de abril de '+nextBday.getFullYear()+' ('+daysUntil+' días)';
+    '🎂 Próximo cumple: 4 de abril de '+nextBday.getFullYear()+' ('+daysUntil+' días)';
 
   document.getElementById('prof-stats').innerHTML=CATS.map(function(cat){
     var imgTag=CAT_IMGS[cat.id]
