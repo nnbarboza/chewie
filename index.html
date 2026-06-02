@@ -11,6 +11,9 @@
 <meta name="theme-color" content="#FBF5EC">
 <meta name="apple-mobile-web-app-title" content="Chewie">
 <link rel="apple-touch-icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
 <title>Chewie Care</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -20,6 +23,7 @@
   --g:#5A9E5A;--gbg:#EDF7ED;--gtx:#1A4A1A;
   --w:#D4860A;--wbg:#FFF4DC;--wtx:#6B3D00;
   --r:#C94040;--rbg:#FFEAEA;--rtx:#6B0000;
+  --font-d:'Fredoka','Baloo 2',system-ui,sans-serif;
 }
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);max-width:390px;margin:0 auto;min-height:100vh;overflow-x:hidden}
 .screen{display:none;width:100%}.screen.active{display:block}
@@ -159,6 +163,86 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .chart-overlay.open{display:flex}
 .chart-box{background:var(--card);border-radius:20px;padding:20px;width:340px;max-height:90vh;overflow-y:auto}
 .chart-box h3{font-size:16px;font-weight:700;margin-bottom:14px;text-align:center}
+
+/* ===== COMIDA REDISEÑO ===== */
+.det-head2{position:relative;text-align:center;padding:10px 60px 2px}
+.det-head2 .dt-title{font-family:var(--font-d);font-size:30px;font-weight:600;color:#5C3A1E;letter-spacing:-.3px;display:inline-flex;align-items:center;gap:11px;justify-content:center}
+.det-head2 .dt-title .hh{color:var(--accent);font-size:17px}
+.det-head2 .dt-sub{font-size:13px;color:var(--text2);margin-top:2px}
+.det-head2 .dt-sub b{color:var(--accent);font-weight:600}
+.det-back{position:absolute;left:16px;top:8px;width:40px;height:40px;border-radius:50%;background:#FFF;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--accent);cursor:pointer;box-shadow:0 1px 5px rgba(0,0,0,.06)}
+.det-back:active{transform:scale(.93)}
+
+.food-hero{margin:12px 14px 0;background:var(--card);border:1px solid var(--border);border-radius:24px;padding:14px;display:flex;align-items:center;gap:8px;box-shadow:0 6px 20px rgba(180,140,110,.12);position:relative;overflow:hidden}
+.food-hero .fh-img{width:118px;height:118px;flex-shrink:0;border-radius:18px;display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:72px}
+.food-hero .fh-img img{width:100%;height:100%;object-fit:contain}
+.food-hero .fh-txt{flex:1;min-width:0}
+.food-hero .fh-title{font-family:var(--font-d);font-size:19px;font-weight:600;color:#5C3A1E;line-height:1.15}
+.food-hero .fh-desc{font-size:13px;color:var(--text2);margin-top:6px;line-height:1.4}
+
+.fcard{margin:14px 14px 0;background:var(--card);border:1px solid var(--border);border-radius:24px;padding:15px 14px;box-shadow:0 5px 18px rgba(180,140,110,.09)}
+.fcard-h{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px}
+.fcard-h .fi{font-size:17px}
+.fcard-h.center{justify-content:center;font-family:var(--font-d);font-weight:600;font-size:16px;color:#5C3A1E;gap:9px}
+.fcard-h.center::before,.fcard-h.center::after{content:'〰';color:var(--accent);font-size:12px}
+
+.wk2{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center}
+.wk2 .wd{font-size:11px;color:var(--text3);font-weight:600;margin-bottom:4px}
+.wk2 .wc{aspect-ratio:1;border-radius:14px;background:var(--bg);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:21px;overflow:hidden}
+.wk2 .wc.today{border-color:var(--accent);background:#FFF1F1;box-shadow:0 0 0 2px rgba(232,120,120,.16)}
+.wk2 .wc img{width:74%;height:74%;object-fit:contain}
+.wk2 .wc .emp{color:#D8C4B0;font-size:13px}
+
+.food-chips{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.fchip{position:relative;border-radius:17px;border:1.5px solid var(--border);background:var(--card);padding:11px 6px 9px;text-align:center;cursor:pointer;transition:transform .12s,border-color .12s,box-shadow .12s}
+.fchip:active{transform:scale(.95)}
+.fchip.on{border-color:var(--accent);box-shadow:0 0 0 3px rgba(232,120,120,.15)}
+.fchip .fc-img{width:50px;height:50px;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:31px}
+.fchip .fc-img img{width:100%;height:100%;object-fit:contain}
+.fchip .fc-name{font-size:13px;font-weight:600;color:var(--text)}
+.fchip.on .fc-name{color:#7A2A2A}
+.fchip .fc-pill{display:inline-block;margin-top:5px;font-size:10px;font-weight:600;border-radius:20px;padding:2px 9px;background:var(--sand);color:var(--text2)}
+.fchip .fc-pill.done{background:var(--gbg);color:var(--g)}
+.fchip .fc-check{position:absolute;top:7px;right:7px;width:19px;height:19px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;align-items:center;justify-content:center;display:none}
+.fchip.on .fc-check{display:flex}
+.food-hint{text-align:center;font-size:12px;color:var(--text3);margin:13px 0 13px;display:flex;align-items:center;justify-content:center;gap:7px}
+.food-hint::before{content:'⭐';font-size:11px}.food-hint::after{content:'✨';font-size:11px}
+.fsave{display:block;width:100%;background:linear-gradient(135deg,#F09090,#E87878);color:#fff;border:none;border-radius:17px;padding:14px;font-size:16px;font-weight:600;font-family:var(--font-d);cursor:pointer;box-shadow:0 5px 16px rgba(232,120,120,.42);transition:transform .1s}
+.fsave:active{transform:scale(.98)}
+.fsave .pl{display:inline-flex;align-items:center;justify-content:center;width:23px;height:23px;border-radius:50%;background:rgba(255,255,255,.28);margin-right:9px;font-size:16px;vertical-align:middle;line-height:1}
+
+.dieta-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:9px}
+.dieta-tabs{display:inline-flex;background:var(--bg);border-radius:20px;padding:3px;gap:2px}
+.dieta-tab{font-size:12px;font-weight:600;color:var(--text2);padding:5px 13px;border-radius:16px;cursor:pointer}
+.dieta-tab.on{background:var(--accent);color:#fff}
+.dieta-cal{width:34px;height:34px;border-radius:11px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;flex-shrink:0}
+.dieta-body{display:flex;align-items:center;gap:13px}
+.dieta-donut{width:128px;height:128px;flex-shrink:0;position:relative}
+.dieta-legend{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}
+.dl-row{display:flex;align-items:center;gap:7px;font-size:12px}
+.dl-ic{width:18px;height:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+.dl-ic img{width:100%;height:100%;object-fit:contain}
+.dl-name{width:50px;flex-shrink:0;color:var(--text)}
+.dl-bar{flex:1;height:8px;border-radius:6px;background:var(--sand);overflow:hidden}
+.dl-bar i{display:block;height:100%;border-radius:6px;transition:width .4s}
+.dl-pct{font-size:11px;font-weight:700;color:var(--text);flex-shrink:0;width:32px;text-align:right}
+.dl-cnt{font-size:10px;color:var(--text3);flex-shrink:0}
+.dieta-empty{text-align:center;color:var(--text3);font-size:12px;padding:24px 0}
+
+.logros-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.logros-top .lt-h{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700}
+.logros-more{font-size:12px;font-weight:600;color:var(--accent);cursor:pointer}
+.logros-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.lg-chip{background:var(--bg);border:1px solid var(--border);border-radius:15px;padding:11px 7px;text-align:center;min-height:86px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px}
+.lg-chip.locked{opacity:.42}
+.lg-ic{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:25px}
+.lg-ic img{width:100%;height:100%;object-fit:contain}
+.lg-name{font-size:11px;font-weight:600;color:var(--text);line-height:1.2}
+.lg-new{font-size:10px;font-weight:700;color:var(--accent)}
+.lg-full-row{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:15px;padding:12px 14px}
+.lg-full-row.locked{opacity:.5}
+.lg-full-ic{width:44px;height:44px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:30px;background:var(--bg);border-radius:13px}
+.lg-full-ic img{width:80%;height:80%;object-fit:contain}
 </style>
 </head>
 <body>
@@ -235,54 +319,126 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
 <!-- DETAIL -->
 <div id="s-detail" class="screen">
-  <div class="top-bar"><div class="icon-btn" onclick="goScreen('s-home')">←</div><div></div><div style="width:38px"></div></div>
-  <div class="det-header">
+  <div class="det-head2">
+    <div class="det-back" onclick="goScreen('s-home')">←</div>
+    <div class="dt-title"><span class="hh">♥</span><span id="det-title"></span><span class="hh">♥</span></div>
+    <div class="dt-sub" id="det-sub"></div>
+  </div>
+
+  <!-- Big category icon (non-food only) -->
+  <div class="det-header" id="det-icon-header" style="display:none;padding-top:8px">
     <div class="det-icon" id="det-icon-wrap"><span style="font-size:36px">📋</span></div>
-    <div class="det-title" id="det-title"></div>
-    <div class="det-freq" id="det-freq"></div>
   </div>
-  <div class="last-card">
-    <div><div class="last-lbl">Último registro</div><div class="last-val" id="det-last-val">—</div><div class="last-sub" id="det-last-sub"></div></div>
-    <div id="det-badge"></div>
-  </div>
-  <!-- Weekly calendar (only for food) -->
-  <div id="week-cal-wrap" style="display:none">
-    <div class="week-cal">
-      <div class="week-cal-title">🗓️ Esta semana</div>
-      <div class="week-grid" id="week-grid"></div>
-    </div>
-  </div>
-  <!-- Clean checklist -->
-  <div id="clean-wrap" style="display:none">
-    <div class="clean-grid">
-      <div style="display:flex;gap:8px;margin-bottom:10px">
-        <div class="chtab active" id="clean-tab-m" onclick="switchCleanTab('month')" style="flex:1;padding:6px;text-align:center;cursor:pointer">Este mes</div>
-        <div class="chtab" id="clean-tab-y" onclick="switchCleanTab('year')" style="flex:1;padding:6px;text-align:center;cursor:pointer">Este año</div>
-      </div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:10px">
-        <div class="clean-month-title" id="clean-period-lbl">🧹 Este mes</div>
-        <div id="clean-period-grid"></div>
+
+  <!-- ===== FOOD-ONLY BLOCK ===== -->
+  <div id="food-detail" style="display:none">
+    <div class="food-hero">
+      <div class="fh-img" id="fh-img">🐹</div>
+      <div class="fh-txt">
+        <div class="fh-title" id="fh-title"></div>
+        <div class="fh-desc" id="fh-desc"></div>
       </div>
     </div>
+
+    <div class="fcard">
+      <div class="fcard-h"><span class="fi">🗓️</span>Esta semana</div>
+      <div class="wk2" id="week-grid"></div>
+    </div>
+
+    <div class="fcard">
+      <div class="fcard-h center">¿Qué ha comido Chewie?</div>
+      <div class="food-chips" id="food-chips"></div>
+      <div class="food-hint">Toca lo que le has dado para registrarlo</div>
+      <button class="fsave" id="reg-btn-food" onclick="registerCare(this)"><span class="pl">+</span>Guardar comidita</button>
+    </div>
+
+    <div class="fcard">
+      <div class="dieta-top">
+        <div class="fcard-h" style="margin:0"><span class="fi">📊</span>Dieta de Chewie</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="dieta-tabs">
+            <div class="dieta-tab on" id="dt-mes" onclick="setDietaPeriod('mes')">Mes</div>
+            <div class="dieta-tab" id="dt-ano" onclick="setDietaPeriod('ano')">Año</div>
+            <div class="dieta-tab" id="dt-total" onclick="setDietaPeriod('total')">Total</div>
+          </div>
+          <div class="dieta-cal" onclick="openDietaDetail()" title="Ver evolución">🗓️</div>
+        </div>
+      </div>
+      <div class="dieta-body" id="dieta-body">
+        <div class="dieta-donut"><canvas id="dieta-donut"></canvas><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none"><span style="font-size:20px">💗</span></div></div>
+        <div class="dieta-legend" id="dieta-legend"></div>
+      </div>
+    </div>
+
+    <div class="fcard" style="margin-bottom:24px">
+      <div class="logros-top">
+        <div class="lt-h"><span class="fi">🏆</span>Logros recientes</div>
+        <div class="logros-more" onclick="goScreen('s-logros')">Ver todos ›</div>
+      </div>
+      <div class="logros-grid" id="logros-recent"></div>
+    </div>
   </div>
-  <div class="reg-sec">
-    <div id="food-wrap" style="display:none">
-      <div style="font-size:12px;color:var(--text2);margin-bottom:6px" id="food-wrap-lbl">¿Qué le has dado?</div>
-      <div class="food-grid" id="food-grid"></div>
+
+  <!-- ===== NON-FOOD BLOCK (water, sand, clean, gnaw, deco) ===== -->
+  <div id="nonfood-detail">
+    <div class="last-card">
+      <div><div class="last-lbl">Último registro</div><div class="last-val" id="det-last-val">—</div><div class="last-sub" id="det-last-sub"></div></div>
+      <div id="det-badge"></div>
     </div>
-    <div id="note-wrap" style="display:none">
-      <div style="font-size:12px;color:var(--text2);margin-bottom:5px" id="note-lbl">Notas</div>
-      <textarea class="free-note" id="det-note" rows="2" placeholder="Escribe aquí..."></textarea>
+    <div id="clean-wrap" style="display:none">
+      <div class="clean-grid">
+        <div style="display:flex;gap:8px;margin-bottom:10px">
+          <div class="chtab active" id="clean-tab-m" onclick="switchCleanTab('month')" style="flex:1;padding:6px;text-align:center;cursor:pointer">Este mes</div>
+          <div class="chtab" id="clean-tab-y" onclick="switchCleanTab('year')" style="flex:1;padding:6px;text-align:center;cursor:pointer">Este año</div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:10px">
+          <div class="clean-month-title" id="clean-period-lbl">🧹 Este mes</div>
+          <div id="clean-period-grid"></div>
+        </div>
+      </div>
     </div>
-    <button class="reg-btn" id="reg-btn">Registrar</button>
+    <div class="reg-sec">
+      <div id="food-wrap" style="display:none">
+        <div style="font-size:12px;color:var(--text2);margin-bottom:6px" id="food-wrap-lbl">¿Qué le has dado?</div>
+        <div class="food-grid" id="food-grid"></div>
+      </div>
+      <div id="note-wrap" style="display:none">
+        <div style="font-size:12px;color:var(--text2);margin-bottom:5px" id="note-lbl">Notas</div>
+        <textarea class="free-note" id="det-note" rows="2" placeholder="Escribe aquí..."></textarea>
+      </div>
+      <button class="reg-btn" id="reg-btn" onclick="registerCare(this)">Registrar</button>
+    </div>
+    <div class="chart-sec">
+      <div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:7px">Historial de registros</div>
+      <div class="chart-tabs">
+        <div class="chtab active" id="tab-m" onclick="switchTab('month')">Último mes</div>
+        <div class="chtab" id="tab-y" onclick="switchTab('year')">Último año</div>
+      </div>
+      <div class="chart-wrap"><canvas id="det-chart"></canvas></div>
+    </div>
   </div>
-  <div class="chart-sec">
-    <div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:7px">Historial de registros</div>
-    <div class="chart-tabs">
-      <div class="chtab active" id="tab-m" onclick="switchTab('month')">Último mes</div>
-      <div class="chtab" id="tab-y" onclick="switchTab('year')">Último año</div>
+</div>
+
+<!-- LOGROS (full screen) -->
+<div id="s-logros" class="screen">
+  <div class="det-head2">
+    <div class="det-back" onclick="goScreen('s-home')">←</div>
+    <div class="dt-title"><span class="hh">♥</span><span>Logros</span><span class="hh">♥</span></div>
+    <div class="dt-sub" id="logros-sub"></div>
+  </div>
+  <div style="padding:8px 14px 24px;display:flex;flex-direction:column;gap:9px" id="logros-all"></div>
+</div>
+
+<!-- DIETA DETAIL OVERLAY -->
+<div class="chart-overlay" id="dieta-overlay">
+  <div class="chart-box">
+    <h3>📈 Evolución de la dieta</h3>
+    <div style="position:relative;height:220px;margin-bottom:10px"><canvas id="dieta-bar-chart"></canvas></div>
+    <div style="display:flex;gap:7px;margin-bottom:6px">
+      <div class="chtab active" id="db-week" onclick="dietaDetailMode('week')" style="flex:1">8 semanas</div>
+      <div class="chtab" id="db-month" onclick="dietaDetailMode('month')" style="flex:1">12 meses</div>
     </div>
-    <div class="chart-wrap"><canvas id="det-chart"></canvas></div>
+    <button onclick="closeDietaDetail()" style="margin-top:8px;width:100%;padding:10px;border:none;border-radius:10px;background:var(--sand);font-size:14px;font-weight:600;cursor:pointer">Cerrar</button>
   </div>
 </div>
 
@@ -461,21 +617,33 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 const RESET_HOUR = 7; // 7am = día nuevo
 
 const CATS=[
-  {id:'food', emoji:'🍚', bg:'#FFE8E0', name:'Comida',           freqDays:1,   freq:'Cada día',        foods:['Pienso','Gusano (${r}left)','Fruta (${r}left)','Verdura (${r}left)','Chuche (${r}left)','Spray']},
-  {id:'water',emoji:'💧', bg:'#E0F0FF', name:'Agua',             freqDays:2,   freq:'Cada 2 días'},
-  {id:'sand', emoji:'🏖️', bg:'#F0E8FF', name:'Arena',            freqDays:3,   freq:'Cada 3 días'},
-  {id:'clean',emoji:'🧹', bg:'#E0F5EE', name:'Limpieza',         freqDays:30,  freq:'1 vez al mes',    cleans:['Sustrato','Jaula completa','Rueda','Bebedero','Frasco']},
-  {id:'gnaw', emoji:'🪵', bg:'#FFF0DC', name:'Roer',             freqDays:7,   freq:'Según necesidad', note:'¿Qué le pusiste para roer?'},
-  {id:'deco', emoji:'🏠', bg:'#FFE8F0', name:'Nueva decoración', freqDays:30,  freq:'Según necesidad', note:'¿Qué decoración añadiste?'},
+  {id:'food', emoji:'🍚', bg:'#FFE8E0', name:'Comida',           freqDays:1,   freq:'Cada día',        tag:'Cada día con <b>amor</b>',      foods:['Fruta','Verdura','Gusano','Chuche','Semillas','Ramita']},
+  {id:'water',emoji:'💧', bg:'#E0F0FF', name:'Agua',             freqDays:2,   freq:'Cada 2 días',     tag:'Cada 2 días, bien <b>fresquita</b>'},
+  {id:'sand', emoji:'🏖️', bg:'#F0E8FF', name:'Arena',            freqDays:3,   freq:'Cada 3 días',     tag:'Cada 3 días, bien <b>limpita</b>'},
+  {id:'clean',emoji:'🧹', bg:'#E0F5EE', name:'Limpieza',         freqDays:30,  freq:'1 vez al mes',    tag:'Una vez al mes con <b>cariño</b>',   cleans:['Sustrato','Jaula completa','Rueda','Bebedero','Frasco']},
+  {id:'gnaw', emoji:'🪵', bg:'#FFF0DC', name:'Roer',             freqDays:7,   freq:'Según necesidad', tag:'Cuando lo <b>necesite</b>',          note:'¿Qué le pusiste para roer?'},
+  {id:'deco', emoji:'🏠', bg:'#FFE8F0', name:'Nueva decoración', freqDays:30,  freq:'Según necesidad', tag:'Cuando le <b>apetezca</b>',          note:'¿Qué decoración añadiste?'},
 ];
 
 // Weekly food minimums (per week Mon-Sun)
 const FOOD_WEEKLY = {
   'Gusano':2, 'Fruta':2, 'Verdura':3, 'Chuche':3
 };
+// Emoji fallbacks. Legacy 'Pienso'/'Spray' kept so old logs still render in charts.
 const FOOD_EMOJIS = {
-  'Pienso':'🌾','Gusano':'🪱','Fruta':'🍓','Verdura':'🥦','Chuche':'🍬','Spray':'💦'
+  'Fruta':'🍓','Verdura':'🥬','Gusano':'🪱','Chuche':'🍪','Semillas':'🌰','Ramita':'🌿',
+  'Pienso':'🌾','Spray':'💦'
 };
+// Custom icon designs — drop your PNGs here (img/food_*.png). Falls back to emoji if missing.
+const FOOD_IMGS = {
+  'Fruta':'img/food_fruta.png','Verdura':'img/food_verdura.png','Gusano':'img/food_gusano.png',
+  'Chuche':'img/food_chuche.png','Semillas':'img/food_semillas.png','Ramita':'img/food_ramita.png',
+  'Pienso':'img/food_semillas.png','Spray':'img/food_ramita.png'
+};
+// Display order for diet stats; legacy names fold into the new ones.
+const FOOD_ORDER = ['Fruta','Verdura','Gusano','Chuche','Semillas','Ramita'];
+const FOOD_COLORS = {'Fruta':'#F08A8A','Verdura':'#8FC46A','Gusano':'#B79CEB','Chuche':'#F5B945','Semillas':'#C9A87C','Ramita':'#7FC8A0'};
+const FOOD_LEGACY = {'Pienso':'Semillas','Spray':'Ramita'};
 
 const MOODS=[
   {min:6, img:'dying',   bg:'#FFEAEA', title:'¡Me estoy muriendo!', sub:'¡Necesito todo ya!',   icon:'💀'},
@@ -657,6 +825,7 @@ function closeLevelInfo(){document.getElementById('level-modal').classList.remov
 
 let state={}, expenses=[], curCat=null, curTab='month', chart=null, selFoods=[];
 let pendingImportData=null, curiosidades=[], curioIdx=0, pieChartInst=null, monthlyChartInst=null;
+let dietaPeriod='mes', dietaChart=null, dietaBarChart=null, dietaDetMode='week', achievements={};
 
 function load(){
   try{const s=localStorage.getItem('chw6');if(s)state=JSON.parse(s);}catch(e){}
@@ -728,44 +897,34 @@ function getRemainingFood(){
 }
 
 // ── WEEKLY CALENDAR ────────────────────────────────────────
+function normFood(t){return FOOD_LEGACY[t]||t;}
+
 function renderWeekCalendar(){
   var ws=getWeekStart();
-  var we=ws+7*86400000;
   var days=['L','M','X','J','V','S','D'];
   var grid=document.getElementById('week-grid');
+  if(!grid)return;
   grid.innerHTML='';
-  // Headers
   days.forEach(function(d){
-    var h=document.createElement('div');
-    h.className='week-day-lbl';h.textContent=d;
-    grid.appendChild(h);
+    var h=document.createElement('div');h.className='wd';h.textContent=d;grid.appendChild(h);
   });
-  // Cells
   var todayStart=getDayStart();
   for(var i=0;i<7;i++){
-    var dayTs=ws+i*86400000;
-    var dayEnd=dayTs+86400000;
+    var dayTs=ws+i*86400000, dayEnd=dayTs+86400000;
     var cell=document.createElement('div');
-    cell.className='week-cell'+(dayTs===todayStart?' today':'');
-    // Find food logs for this day
+    cell.className='wc'+(dayTs===todayStart?' today':'');
     var dayLogs=state.food.logs.filter(function(l){return l.ts>=dayTs&&l.ts<dayEnd&&l.type;});
-    var emojis=[];
+    var picked=null;
     dayLogs.forEach(function(l){
       l.type.split(', ').forEach(function(t){
-        var e=FOOD_EMOJIS[t];
-        if(e&&t!=='Pienso'&&emojis.indexOf(e)===-1)emojis.push(e);
+        var n=normFood(t);
+        if(!picked||(['Fruta','Verdura','Gusano','Chuche'].indexOf(n)!==-1&&['Semillas','Ramita'].indexOf(picked)!==-1))picked=n;
       });
     });
-    if(emojis.length){
-      emojis.slice(0,3).forEach(function(e){
-        var sp=document.createElement('div');
-        sp.className='meal-emoji';sp.textContent=e;
-        cell.appendChild(sp);
-      });
+    if(picked){
+      cell.appendChild(makeImg(FOOD_IMGS[picked]||'',FOOD_EMOJIS[picked]||'🍽️','100%','100%',''));
     } else if(dayTs<todayStart){
-      var sp=document.createElement('div');
-      sp.style.fontSize='10px';sp.style.color='#CCC';sp.textContent='—';
-      cell.appendChild(sp);
+      cell.innerHTML='<span class="emp">·</span>';
     }
     grid.appendChild(cell);
   }
@@ -825,6 +984,7 @@ function goScreen(id){
   if(id==='s-history')renderHistory();
   if(id==='s-profile')renderProfile();
   if(id==='s-curiosidades')renderCuriosidades();
+  if(id==='s-logros')renderLogrosAll();
 }
 
 function renderHome(){
@@ -881,11 +1041,33 @@ function renderHome(){
 function openDetail(cat){
   curCat=cat;selFoods=[];
   goScreen('s-detail');
+  document.getElementById('det-title').textContent=cat.name;
+  document.getElementById('det-sub').innerHTML=cat.tag||cat.freq;
+  var foodBlock=document.getElementById('food-detail');
+  var nonBlock=document.getElementById('nonfood-detail');
+  var iconHead=document.getElementById('det-icon-header');
+
+  if(cat.id==='food'){
+    foodBlock.style.display='block';
+    nonBlock.style.display='none';
+    iconHead.style.display='none';
+    renderFoodHero();
+    renderWeekCalendar();
+    renderFoodChips();
+    setDietaPeriod(dietaPeriod);
+    renderLogrosRecent();
+    var fb=document.getElementById('reg-btn-food');
+    fb.innerHTML='<span class="pl">+</span>Guardar comidita';fb.style.background='';
+    return;
+  }
+
+  // ── Non-food categories ──
+  foodBlock.style.display='none';
+  nonBlock.style.display='block';
+  iconHead.style.display='block';
   var diw=document.getElementById('det-icon-wrap');diw.style.background=cat.bg;diw.innerHTML='';
   if(CAT_IMGS[cat.id])diw.appendChild(makeImg(CAT_IMGS[cat.id],cat.emoji,'100%','100%',''));
   else diw.innerHTML='<span style="font-size:36px">'+cat.emoji+'</span>';
-  document.getElementById('det-title').textContent=cat.name;
-  document.getElementById('det-freq').textContent=cat.freq;
   var logs=state[cat.id].logs;
   var last=logs.length?logs[logs.length-1]:null;
   document.getElementById('det-last-val').textContent=last?fmtDate(last.ts):'Sin registros';
@@ -894,35 +1076,10 @@ function openDetail(cat){
   var fw=document.getElementById('food-wrap');
   var fg=document.getElementById('food-grid');
   var nw=document.getElementById('note-wrap');
-  var wcw=document.getElementById('week-cal-wrap');
   var clw=document.getElementById('clean-wrap');
   document.getElementById('det-note').value='';
-  if(cat.id==='food'){
-    wcw.style.display='block';clw.style.display='none';
-    renderWeekCalendar();
-    fw.style.display='block';
-    nw.style.display='block';
-    document.getElementById('food-wrap-lbl').textContent='¿Qué le has dado?';
-    document.getElementById('note-lbl').textContent='¿Qué exactamente? (opcional)';
-    fg.innerHTML='';
-    var rem=getRemainingFood();
-    cat.foods.forEach(function(t){
-      var baseName=t.replace(' (${r}left)','');
-      var d=document.createElement('div');
-      d.className='ftog';d.dataset.t=baseName;
-      var label=baseName;
-      if(rem[baseName]!==undefined){
-        label+=rem[baseName]>0?' ('+rem[baseName]+' restantes)':' ✓';
-      }
-      d.textContent=label;
-      d.onclick=function(){
-        this.classList.toggle('on');
-        selFoods=Array.from(document.querySelectorAll('.ftog.on')).map(function(x){return x.dataset.t;});
-      };
-      fg.appendChild(d);
-    });
-  } else if(cat.id==='clean'){
-    wcw.style.display='none';clw.style.display='block';nw.style.display='none';
+  if(cat.id==='clean'){
+    clw.style.display='block';nw.style.display='none';
     switchCleanTab('month');
     fw.style.display='block';
     document.getElementById('food-wrap-lbl').textContent='¿Qué has limpiado?';
@@ -932,34 +1089,100 @@ function openDetail(cat){
       d.className='ftog';d.dataset.t=t;d.textContent=t;
       d.onclick=function(){
         this.classList.toggle('on');
-        selFoods=Array.from(document.querySelectorAll('.ftog.on')).map(function(x){return x.dataset.t;});
+        selFoods=Array.from(document.querySelectorAll('#food-grid .ftog.on')).map(function(x){return x.dataset.t;});
       };
       fg.appendChild(d);
     });
   } else if(cat.note){
-    wcw.style.display='none';clw.style.display='none';fw.style.display='none';nw.style.display='block';
+    clw.style.display='none';fw.style.display='none';nw.style.display='block';
     document.getElementById('note-lbl').textContent=cat.note;
   } else {
-    wcw.style.display='none';clw.style.display='none';fw.style.display='none';nw.style.display='none';
+    clw.style.display='none';fw.style.display='none';nw.style.display='none';
   }
   document.getElementById('reg-btn').textContent='Registrar '+cat.name;
   document.getElementById('reg-btn').style.background='';
   curTab='month';
   document.getElementById('tab-m').className='chtab active';
   document.getElementById('tab-y').className='chtab';
-  document.getElementById('tab-m').textContent=cat.id==='food'?'Últimas 8 semanas':'Último mes';
+  document.getElementById('tab-m').textContent='Último mes';
   document.getElementById('tab-y').textContent='Último año';
   buildChart();
 }
 
-document.getElementById('reg-btn').onclick=function(){
+// ── FOOD HERO ──
+function renderFoodHero(){
+  var st=getStatus(CATS[0]);
+  var logs=state.food.logs;
+  var last=logs.length?logs[logs.length-1]:null;
+  var img,title,desc;
+  if(st==='ok'){
+    img='happy';title='Chewie está saciado';
+    desc=last?'Última comida '+fmtDate(last.ts).toLowerCase():'Su comida está al día';
+  } else {
+    img='hungry';title='Chewie tiene hambre';
+    var days=last?daysAgoReset(last.ts):null;
+    desc=days?'Hace '+days+' día'+(days>1?'s':'')+' que no registras su comida':'Aún no has registrado su comida';
+  }
+  var fh=document.getElementById('fh-img');fh.innerHTML='';
+  var mi=makeImg(IMG_URLS[img],'🐹','100%','100%','');
+  mi.onerror=function(){fh.innerHTML='🐹';};
+  fh.appendChild(mi);
+  document.getElementById('fh-title').textContent=title;
+  document.getElementById('fh-desc').textContent=desc;
+}
+
+// ── FOOD CHIPS ──
+function renderFoodChips(){
+  var grid=document.getElementById('food-chips');
+  grid.innerHTML='';
+  var rem=getRemainingFood();
+  CATS[0].foods.forEach(function(t){
+    var chip=document.createElement('div');
+    chip.className='fchip'+(selFoods.indexOf(t)!==-1?' on':'');
+    chip.dataset.t=t;
+    var ic=document.createElement('div');ic.className='fc-img';
+    ic.appendChild(makeImg(FOOD_IMGS[t]||'',FOOD_EMOJIS[t]||'🍽️','100%','100%',''));
+    var nm=document.createElement('div');nm.className='fc-name';nm.textContent=t;
+    chip.appendChild(ic);chip.appendChild(nm);
+    if(rem[t]!==undefined){
+      var pill=document.createElement('div');
+      pill.className='fc-pill'+(rem[t]===0?' done':'');
+      pill.textContent=rem[t]>0?rem[t]+' esta semana':'✓ completo';
+      chip.appendChild(pill);
+    }
+    var ck=document.createElement('div');ck.className='fc-check';ck.textContent='✓';chip.appendChild(ck);
+    chip.onclick=function(){
+      this.classList.toggle('on');
+      selFoods=Array.from(document.querySelectorAll('#food-chips .fchip.on')).map(function(x){return x.dataset.t;});
+    };
+    grid.appendChild(chip);
+  });
+}
+
+// ── UNIFIED REGISTER (food + non-food) ──
+function registerCare(btn){
+  var isFood=curCat.id==='food';
+  if(isFood){
+    selFoods=Array.from(document.querySelectorAll('#food-chips .fchip.on')).map(function(x){return x.dataset.t;});
+    if(!selFoods.length){
+      var orig=btn.innerHTML;
+      btn.innerHTML='Toca lo que ha comido 🐹';
+      setTimeout(function(){btn.innerHTML=orig;},1500);
+      return;
+    }
+  } else {
+    selFoods=Array.from(document.querySelectorAll('#food-grid .ftog.on')).map(function(x){return x.dataset.t;});
+  }
   var entry={ts:Date.now()};
   if(selFoods.length)entry.type=selFoods.join(', ');
-  var note=document.getElementById('det-note').value.trim();
-  if(note)entry.note=note;
+  if(!isFood){
+    var note=document.getElementById('det-note').value.trim();
+    if(note)entry.note=note;
+  }
   state[curCat.id].logs.push(entry);
   if(state[curCat.id].logs.length>200)state[curCat.id].logs=state[curCat.id].logs.slice(-200);
   save();
+  var pts=pointsForLog(curCat.id,entry);
   var d=new Date(entry.ts);
   syncToSheets({
     type:'cuidado',
@@ -968,29 +1191,26 @@ document.getElementById('reg-btn').onclick=function(){
     categoria:curCat.name,
     detalle:[entry.type,entry.note].filter(Boolean).join(' | ')
   });
-  document.querySelectorAll('.ftog').forEach(function(x){x.classList.remove('on');});
-  selFoods=[];document.getElementById('det-note').value='';
-  var last=state[curCat.id].logs[state[curCat.id].logs.length-1];
-  document.getElementById('det-last-val').textContent=fmtDate(last.ts);
-  document.getElementById('det-last-sub').textContent=fmtFull(last.ts);
-  document.getElementById('det-badge').innerHTML=badgeHtml(getStatus(curCat),last.ts);
-  if(curCat.id==='food')renderWeekCalendar();
-  buildChart();
-  var btn=this;
-  btn.textContent='✓ ¡Registrado!';btn.style.background='#5A9E5A';
-  setTimeout(function(){
-    btn.textContent='Registrar '+curCat.name;btn.style.background='';
-    if(curCat.id==='food'){
-      var rem=getRemainingFood();
-      document.querySelectorAll('.ftog').forEach(function(d){
-        var name=d.dataset.t;
-        var label=name;
-        if(rem[name]!==undefined)label+=rem[name]>0?' ('+rem[name]+' restantes)':' ✓';
-        d.textContent=label;
-      });
-    }
-  },2200);
-};
+  selFoods=[];
+
+  if(isFood){
+    document.querySelectorAll('#food-chips .fchip').forEach(function(x){x.classList.remove('on');});
+    renderFoodHero();renderWeekCalendar();renderFoodChips();renderDieta();
+    checkAchievements();renderLogrosRecent();
+    btn.innerHTML='✓ +'+pts+' pts';btn.style.background='linear-gradient(135deg,#5FB85F,#4F9E4F)';
+    setTimeout(function(){btn.innerHTML='<span class="pl">+</span>Guardar comidita';btn.style.background='';},2200);
+  } else {
+    document.querySelectorAll('#food-grid .ftog').forEach(function(x){x.classList.remove('on');});
+    document.getElementById('det-note').value='';
+    var last=state[curCat.id].logs[state[curCat.id].logs.length-1];
+    document.getElementById('det-last-val').textContent=fmtDate(last.ts);
+    document.getElementById('det-last-sub').textContent=fmtFull(last.ts);
+    document.getElementById('det-badge').innerHTML=badgeHtml(getStatus(curCat),last.ts);
+    buildChart();
+    btn.textContent='✓ ¡Registrado! +'+pts+' pts';btn.style.background='#5A9E5A';
+    setTimeout(function(){btn.textContent='Registrar '+curCat.name;btn.style.background='';},2200);
+  }
+}
 
 function switchTab(t){
   curTab=t;
@@ -1084,6 +1304,209 @@ function buildChart(){
           y:{ticks:{font:{size:10},color:'#B8937A',stepSize:1,precision:0},grid:{color:'#F0E0C8'},min:0,suggestedMax:Math.max(3,...data2)+1}}}
     });
   }
+}
+
+// ── DIETA (donut) ──────────────────────────────────────────
+function dietaRangeStart(period){
+  var d=new Date();
+  if(period==='mes')return new Date(d.getFullYear(),d.getMonth(),1).getTime();
+  if(period==='ano')return new Date(d.getFullYear(),0,1).getTime();
+  return 0;
+}
+function getFoodCounts(period){
+  var start=dietaRangeStart(period);
+  var counts={};FOOD_ORDER.forEach(function(f){counts[f]=0;});
+  state.food.logs.forEach(function(l){
+    if(l.ts>=start&&l.type){
+      l.type.split(', ').forEach(function(t){var n=normFood(t);if(counts[n]!==undefined)counts[n]++;});
+    }
+  });
+  return counts;
+}
+function setDietaPeriod(p){
+  dietaPeriod=p;
+  ['mes','ano','total'].forEach(function(k){
+    document.getElementById('dt-'+k).className='dieta-tab'+(k===p?' on':'');
+  });
+  renderDieta();
+}
+function renderDieta(){
+  var counts=getFoodCounts(dietaPeriod);
+  var total=FOOD_ORDER.reduce(function(s,f){return s+counts[f];},0);
+  var legend=document.getElementById('dieta-legend');
+  var body=document.getElementById('dieta-body');
+  if(dietaChart){dietaChart.destroy();dietaChart=null;}
+  var canvas=document.getElementById('dieta-donut');
+  if(!total){
+    body.style.opacity='.5';
+    dietaChart=new Chart(canvas,{type:'doughnut',data:{labels:[''],datasets:[{data:[1],backgroundColor:['#EDE0D0'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,cutout:'64%',plugins:{legend:{display:false},tooltip:{enabled:false}}}});
+    legend.innerHTML='<div class="dieta-empty">Sin comidas en este periodo todavía 🐹</div>';
+    return;
+  }
+  body.style.opacity='1';
+  var labels=[],vals=[],cols=[];
+  FOOD_ORDER.forEach(function(f){if(counts[f]>0){labels.push(f);vals.push(counts[f]);cols.push(FOOD_COLORS[f]);}});
+  dietaChart=new Chart(canvas,{
+    type:'doughnut',
+    data:{labels:labels,datasets:[{data:vals,backgroundColor:cols,borderWidth:3,borderColor:'#fff'}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'64%',
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.label+': '+c.raw+' ('+Math.round(c.raw/total*100)+'%)';}}}}}
+  });
+  legend.innerHTML='';
+  FOOD_ORDER.forEach(function(f){
+    var pct=Math.round(counts[f]/total*100);
+    var row=document.createElement('div');row.className='dl-row';
+    var ic=document.createElement('div');ic.className='dl-ic';
+    ic.appendChild(makeImg(FOOD_IMGS[f]||'',FOOD_EMOJIS[f]||'•','100%','100%',''));
+    var nm=document.createElement('div');nm.className='dl-name';nm.textContent=f;
+    var bar=document.createElement('div');bar.className='dl-bar';
+    bar.innerHTML='<i style="width:'+pct+'%;background:'+FOOD_COLORS[f]+'"></i>';
+    var pc=document.createElement('div');pc.className='dl-pct';pc.textContent=pct+'%';
+    var cn=document.createElement('div');cn.className='dl-cnt';cn.textContent='('+counts[f]+')';
+    row.appendChild(ic);row.appendChild(nm);row.appendChild(bar);row.appendChild(pc);row.appendChild(cn);
+    legend.appendChild(row);
+  });
+}
+
+// ── DIETA detail (stacked bar evolution) ───────────────────
+function openDietaDetail(){document.getElementById('dieta-overlay').classList.add('open');dietaDetailMode(dietaDetMode);}
+function closeDietaDetail(){document.getElementById('dieta-overlay').classList.remove('open');if(dietaBarChart){dietaBarChart.destroy();dietaBarChart=null;}}
+function dietaDetailMode(m){
+  dietaDetMode=m;
+  document.getElementById('db-week').className='chtab'+(m==='week'?' active':'');
+  document.getElementById('db-month').className='chtab'+(m==='month'?' active':'');
+  buildDietaBar();
+}
+function buildDietaBar(){
+  if(dietaBarChart){dietaBarChart.destroy();dietaBarChart=null;}
+  var logs=state.food.logs, now=Date.now();
+  var labels=[], datasets={};
+  FOOD_ORDER.forEach(function(f){datasets[f]=[];});
+  if(dietaDetMode==='week'){
+    for(var i=7;i>=0;i--){
+      var ws=getWeekStart(now-i*7*86400000), we=ws+7*86400000;
+      var wd=new Date(ws);labels.push(wd.getDate()+'/'+(wd.getMonth()+1));
+      var wl=logs.filter(function(l){return l.ts>=ws&&l.ts<we&&l.type;});
+      FOOD_ORDER.forEach(function(f){
+        var c=0;wl.forEach(function(l){l.type.split(', ').forEach(function(t){if(normFood(t)===f)c++;});});
+        datasets[f].push(c);
+      });
+    }
+  } else {
+    var mn=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+    for(var i=11;i>=0;i--){
+      var d=new Date(now);d.setMonth(d.getMonth()-i);labels.push(mn[d.getMonth()]);
+      var ms=new Date(d.getFullYear(),d.getMonth(),1).getTime(), me=new Date(d.getFullYear(),d.getMonth()+1,1).getTime();
+      var ml=logs.filter(function(l){return l.ts>=ms&&l.ts<me&&l.type;});
+      FOOD_ORDER.forEach(function(f){
+        var c=0;ml.forEach(function(l){l.type.split(', ').forEach(function(t){if(normFood(t)===f)c++;});});
+        datasets[f].push(c);
+      });
+    }
+  }
+  var ds=FOOD_ORDER.map(function(f){return{label:f,data:datasets[f],backgroundColor:FOOD_COLORS[f],borderRadius:3,borderSkipped:false};})
+    .filter(function(x){return x.data.some(function(v){return v>0;});});
+  dietaBarChart=new Chart(document.getElementById('dieta-bar-chart'),{
+    type:'bar',data:{labels:labels,datasets:ds},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,labels:{font:{size:9},boxWidth:10}}},
+      scales:{x:{stacked:true,ticks:{font:{size:9},color:'#B8937A',maxRotation:0},grid:{display:false}},
+        y:{stacked:true,ticks:{font:{size:10},color:'#B8937A',stepSize:1,precision:0},grid:{color:'#F0E0C8'},min:0}}}
+  });
+}
+
+// ── LOGROS (achievements) ──────────────────────────────────
+function totalFood(){return state.food.logs.length;}
+function foodCount(name){
+  var c=0;state.food.logs.forEach(function(l){if(l.type)l.type.split(', ').forEach(function(t){if(normFood(t)===name)c++;});});
+  return c;
+}
+function weekVarietyMax(){
+  var byWeek={};
+  state.food.logs.forEach(function(l){
+    if(!l.type)return;var ws=getWeekStart(l.ts);
+    if(!byWeek[ws])byWeek[ws]={};
+    l.type.split(', ').forEach(function(t){byWeek[ws][normFood(t)]=true;});
+  });
+  var max=0;Object.keys(byWeek).forEach(function(w){var n=Object.keys(byWeek[w]).length;if(n>max)max=n;});
+  return max;
+}
+function weekMinsMet(){
+  var rem=getRemainingFood();
+  return Object.keys(FOOD_WEEKLY).every(function(k){return rem[k]===0;});
+}
+function foodStreak(){
+  if(!state.food.logs.length)return 0;
+  var dayset={};state.food.logs.forEach(function(l){dayset[getDayStart(l.ts)]=true;});
+  var streak=0, day=getDayStart();
+  while(dayset[day]){streak++;day-=86400000;}
+  return streak;
+}
+const ACHIEVEMENTS=[
+  {id:'primer',   name:'Primer bocado',          icon:'🌱', desc:'Registra la primera comida',        check:function(){return totalFood()>=1;}},
+  {id:'verduras', name:'Amante de las verduras',  icon:'🥬', desc:'10 verduras registradas',           check:function(){return foodCount('Verdura')>=10;}},
+  {id:'variedad', name:'Variedad perfecta',       icon:'💗', desc:'Los 6 alimentos en una semana',     check:function(){return weekVarietyMax()>=6;}},
+  {id:'semana',   name:'Semana equilibrada',      icon:'🏅', desc:'Cumple los mínimos de la semana',   check:function(){return weekMinsMet();}},
+  {id:'fruta20',  name:'Frutero/a',               icon:'🍓', desc:'20 frutas registradas',             check:function(){return foodCount('Fruta')>=20;}},
+  {id:'gusano15', name:'Cazador de gusanos',      icon:'🪱', desc:'15 gusanos registrados',            check:function(){return foodCount('Gusano')>=15;}},
+  {id:'racha7',   name:'Racha de 7 días',         icon:'🔥', desc:'7 días seguidos con comida',        check:function(){return foodStreak()>=7;}},
+  {id:'gourmet',  name:'Chef gourmet',            icon:'👨‍🍳', desc:'50 comidas registradas',           check:function(){return totalFood()>=50;}},
+  {id:'centena',  name:'Centenario',              icon:'🏆', desc:'100 comidas registradas',           check:function(){return totalFood()>=100;}},
+];
+function achImg(a){return 'img/logro_'+a.id+'.png';}
+function loadAchievements(){try{var s=localStorage.getItem('chw6a');achievements=s?JSON.parse(s):{};}catch(e){achievements={};}}
+function saveAchievements(){try{localStorage.setItem('chw6a',JSON.stringify(achievements));}catch(e){}}
+function checkAchievements(){
+  var changed=false;
+  ACHIEVEMENTS.forEach(function(a){
+    if(!achievements[a.id]&&a.check()){achievements[a.id]=Date.now();changed=true;}
+  });
+  if(changed)saveAchievements();
+}
+function unlockedSorted(){
+  return ACHIEVEMENTS.filter(function(a){return achievements[a.id];})
+    .sort(function(x,y){return achievements[y.id]-achievements[x.id];});
+}
+function isNew(a){return achievements[a.id]&&(Date.now()-achievements[a.id]<48*3600000);}
+function renderLogrosRecent(){
+  checkAchievements();
+  var grid=document.getElementById('logros-recent');if(!grid)return;
+  var unlocked=unlockedSorted();
+  var show=unlocked.slice(0,3);
+  if(show.length<3){
+    ACHIEVEMENTS.filter(function(a){return !achievements[a.id];}).slice(0,3-show.length).forEach(function(a){show.push(a);});
+  }
+  grid.innerHTML='';
+  show.forEach(function(a){
+    var locked=!achievements[a.id];
+    var chip=document.createElement('div');chip.className='lg-chip'+(locked?' locked':'');
+    var ic=document.createElement('div');ic.className='lg-ic';
+    ic.appendChild(makeImg(achImg(a),a.icon,'100%','100%',''));
+    var nm=document.createElement('div');nm.className='lg-name';nm.textContent=a.name;
+    chip.appendChild(ic);chip.appendChild(nm);
+    if(isNew(a)){var nw=document.createElement('div');nw.className='lg-new';nw.textContent='¡Nuevo!';chip.appendChild(nw);}
+    grid.appendChild(chip);
+  });
+}
+function renderLogrosAll(){
+  checkAchievements();
+  var nUn=unlockedSorted().length;
+  document.getElementById('logros-sub').innerHTML=nUn+' de '+ACHIEVEMENTS.length+' desbloqueados';
+  var cont=document.getElementById('logros-all');cont.innerHTML='';
+  var ordered=unlockedSorted().concat(ACHIEVEMENTS.filter(function(a){return !achievements[a.id];}));
+  ordered.forEach(function(a){
+    var locked=!achievements[a.id];
+    var row=document.createElement('div');row.className='lg-full-row'+(locked?' locked':'');
+    var ic=document.createElement('div');ic.className='lg-full-ic';
+    ic.appendChild(makeImg(achImg(a),a.icon,'100%','100%',''));
+    var info=document.createElement('div');info.style.cssText='flex:1;min-width:0';
+    info.innerHTML='<div style="font-size:14px;font-weight:700;color:var(--text)">'+a.name+(isNew(a)?' <span class="lg-new">¡Nuevo!</span>':'')+'</div>'
+      +'<div style="font-size:11px;color:var(--text2);margin-top:2px">'+a.desc+'</div>';
+    var st=document.createElement('div');st.style.cssText='font-size:18px;flex-shrink:0';
+    st.textContent=locked?'🔒':'✓';st.style.color=locked?'var(--text3)':'var(--g)';
+    row.appendChild(ic);row.appendChild(info);row.appendChild(st);
+    cont.appendChild(row);
+  });
 }
 
 // ── CLEAN CHECKLIST ────────────────────────────────────────
@@ -1556,6 +1979,8 @@ function quickReg(){
 
 // ── INIT ───────────────────────────────────────────────────
 load();
+loadAchievements();
+checkAchievements();
 fetch('curiosidades.json').then(function(r){return r.json();}).then(function(data){
   curiosidades=data;
 }).catch(function(){curiosidades=[];});
