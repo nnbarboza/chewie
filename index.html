@@ -74,6 +74,54 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .shop-img{width:46px;height:46px;border-radius:12px;font-size:28px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
 .shop-img img{width:100%;height:100%;object-fit:cover}
 .bottom-nav{display:flex;background:var(--card);border-top:1px solid var(--border);padding:8px 0 calc(20px + env(safe-area-inset-bottom)) 0;margin-top:12px;position:sticky;bottom:0;z-index:10;align-items:flex-start}
+/* ===== HOME v2 ===== */
+.home-sub{text-align:center;font-family:var(--font-d);font-size:14px;color:var(--text2);font-weight:500;margin-top:-2px}
+.home-hero{display:flex;align-items:center;gap:4px;margin:12px 14px 0}
+.pts-card{flex:1;background:var(--card);border:1.5px solid var(--border);border-radius:20px;padding:14px 15px;box-shadow:0 4px 14px rgba(93,58,30,.05);cursor:pointer}
+.pts-top{display:flex;align-items:center;gap:11px}
+.pts-star{font-size:30px;line-height:1}
+.pts-num{font-family:var(--font-d);font-size:34px;font-weight:700;color:#5C3A1E;line-height:1}
+.pts-lbl{font-size:13px;font-weight:700;color:var(--accent)}
+.pts-div{height:1px;background:var(--border);margin:11px 0}
+.badge-row{display:flex;align-items:center;gap:9px}
+.badge-shield{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#B79CEB,#9B7FD9);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;overflow:hidden}
+.badge-shield img{width:100%;height:100%;object-fit:cover}
+.badge-name{font-family:var(--font-d);font-size:13.5px;font-weight:600;color:#5C3A1E;line-height:1.12}
+.lvl-bar{height:8px;border-radius:8px;background:#F0E2E8;overflow:hidden;margin-top:10px}
+.lvl-bar i{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,#B79CEB,#9B7FD9);transition:width .5s}
+.lvl-prog{font-size:11px;font-weight:700;color:#9B7FD9;text-align:center;margin-top:5px}
+.home-ham{width:144px;height:144px;flex-shrink:0;position:relative;display:flex;align-items:center;justify-content:center}
+.home-ham .ham-pic{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.home-ham .ham-pic img{width:100%;height:100%;object-fit:contain}
+.home-ham .hrt{position:absolute;opacity:.85;pointer-events:none;font-size:14px}
+.stat-bar{display:flex;background:var(--card);border:1.5px solid var(--border);border-radius:18px;margin:12px 14px 0;padding:11px 2px}
+.stat{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;border-right:1px solid var(--border);padding:0 3px}
+.stat:last-child{border-right:none}
+.stat-ic{font-size:18px;flex-shrink:0}
+.stat-v{font-family:var(--font-d);font-size:16px;font-weight:700;color:#5C3A1E;line-height:1.05}
+.stat-v.ok{color:var(--g)}
+.stat-l{font-size:9.5px;color:var(--text2);font-weight:600;line-height:1.06}
+.stat-l.ok{color:var(--g);font-weight:700}
+.home-sec-head{display:flex;align-items:center;justify-content:space-between;margin:16px 16px 10px}
+.hsh-title{font-family:var(--font-d);font-size:21px;font-weight:600;color:#5C3A1E}
+.ver-cal{background:#FFE5E5;color:var(--accent);font-size:12px;font-weight:700;padding:7px 12px;border-radius:20px;cursor:pointer;white-space:nowrap}
+.care-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;padding:0 14px}
+.care-cell{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:12px 8px 11px;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;transition:transform .1s}
+.care-cell:active{transform:scale(.97)}
+.care-cell.s-ok{border-color:#C0DD97}
+.care-cell.s-warn{border-color:#FAC775}
+.care-cell.s-alert{border-color:#F7C1C1}
+.cc-icon{width:62px;height:62px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:32px;overflow:hidden}
+.cc-icon img{width:100%;height:100%;object-fit:contain}
+.cc-name{font-size:13.5px;font-weight:700;color:var(--text)}
+.cc-when{font-size:11px;color:var(--text2);font-weight:500}
+.cc-check{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;margin-top:1px}
+.cc-check.ok{background:var(--gbg);color:var(--g)}
+.cc-check.warn{background:#FCEFD0;color:var(--w)}
+.cc-check.alert{background:#FBE0E0;color:var(--r)}
+.app-foot{position:fixed;right:9px;bottom:calc(7px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:6px;z-index:60}
+.ver-tag{font-size:10px;color:var(--text3);opacity:.7;font-weight:600}
+#btnRefresh{background:transparent;border:none;padding:2px 4px;font-size:14px;opacity:.55;cursor:pointer;line-height:1}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:4px 0}
 .nav-icon{width:42px;height:42px;display:flex;align-items:center;justify-content:center}
 .nav-icon img{width:42px;height:42px;object-fit:contain}
@@ -252,23 +300,42 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <div style="padding:16px 16px 0;text-align:center">
     <img src="img/title.png" alt="Chewie" style="max-width:220px;height:auto;display:inline-block" onerror="this.outerHTML='<div class=\'hero-name\'>·Chewie·</div>'">
   </div>
-  <div class="hamster-area">
-    <div class="score-left">
-      <div class="score-ring" onclick="showLevelInfo()" style="cursor:pointer">
-        <svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="22" fill="none" stroke="#EDE0D0" stroke-width="5"/><circle id="score-arc" cx="26" cy="26" r="22" fill="none" stroke="#E87878" stroke-width="5" stroke-linecap="round" stroke-dasharray="138 138" stroke-dashoffset="138" transform="rotate(-90 26 26)"/></svg>
-        <div class="score-pct" id="score-pct" style="color:#E87878">0</div>
+  <div class="home-sub">Hámster Sirio</div>
+
+  <div class="home-hero">
+    <div class="pts-card" onclick="showLevelInfo()">
+      <div class="pts-top">
+        <span class="pts-star">⭐</span>
+        <div><div class="pts-num" id="pts-num">0</div><div class="pts-lbl">Puntos</div></div>
       </div>
-      <div class="score-lbl" id="score-lbl">puntos</div>
-      <div style="text-align:center;margin-top:2px;font-size:9px;color:var(--text3);font-weight:600;line-height:1.1" id="level-name">Cuidadora<br>aprendiz</div>
+      <div class="pts-div"></div>
+      <div class="badge-row">
+        <div class="badge-shield" id="lvl-icon">🛡️</div>
+        <div class="badge-name" id="lvl-name">Cuidadora aprendiz</div>
+      </div>
+      <div class="lvl-bar"><i id="lvl-bar-fill" style="width:0%"></i></div>
+      <div class="lvl-prog" id="lvl-prog">0 / 0</div>
     </div>
-    <div class="ham-circle" id="ham-circle"><span style="font-size:80px">🐹</span></div>
-    <div class="speech-bubble" id="speech-bub">
-      <div style="font-size:15px;margin-bottom:2px">✨</div>
-      <strong>Cargando...</strong>
-      <span>Un momento</span>
+    <div class="home-ham" id="home-ham">
+      <span class="hrt" style="top:8px;left:0">💗</span>
+      <span class="hrt" style="top:0;right:18px;font-size:11px">💗</span>
+      <span class="hrt" style="bottom:16px;right:-2px">💗</span>
+      <div class="ham-pic" id="ham-pic"><span style="font-size:80px">🐹</span></div>
     </div>
   </div>
-  <div class="care-list" id="care-list" style="margin-top:8px"></div>
+
+  <div class="stat-bar">
+    <div class="stat"><div class="stat-ic">🔥</div><div><div class="stat-v" id="st-racha">0</div><div class="stat-l">días racha</div></div></div>
+    <div class="stat"><div class="stat-ic">📅</div><div><div class="stat-v">Hoy</div><div class="stat-l" id="st-hoy-l">—</div></div></div>
+    <div class="stat"><div class="stat-ic">🏆</div><div><div class="stat-v" id="st-logros">0</div><div class="stat-l">Logros</div></div></div>
+    <div class="stat"><div class="stat-ic">🎖️</div><div><div class="stat-v" id="st-semana">0%</div><div class="stat-l">Semana</div></div></div>
+  </div>
+
+  <div class="home-sec-head">
+    <div class="hsh-title">Cuidados de hoy</div>
+    <div class="ver-cal" onclick="goScreen('s-history')">📅 Ver calendario</div>
+  </div>
+  <div class="care-grid" id="care-list"></div>
   <div class="shop-banner" onclick="goScreen('s-expenses')">
     <div class="shop-img" id="shop-img-wrap"><span style="font-size:28px">🛍️</span></div>
     <div style="flex:1">
@@ -610,6 +677,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
   </div>
 </div>
+
+<div class="app-foot"><span class="ver-tag">v0.2</span><button id="btnRefresh" title="Actualizar app">🔄</button></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
@@ -987,7 +1056,21 @@ function goScreen(id){
   if(id==='s-logros')renderLogrosAll();
 }
 
+function careStreak(){
+  var dayset={};
+  CATS.forEach(function(cat){state[cat.id].logs.forEach(function(l){dayset[getDayStart(l.ts)]=true;});});
+  var streak=0, day=getDayStart();
+  if(!dayset[day])day-=86400000; // hoy aún sin registrar: la racha sigue viva hasta ayer
+  while(dayset[day]){streak++;day-=86400000;}
+  return streak;
+}
+function weekProgress(){
+  var counts=getWeekFoodCounts(), done=0, target=0;
+  Object.keys(FOOD_WEEKLY).forEach(function(k){target+=FOOD_WEEKLY[k];done+=Math.min(counts[k],FOOD_WEEKLY[k]);});
+  return target?Math.round(done/target*100):0;
+}
 function renderHome(){
+  checkAchievements();
   var list=document.getElementById('care-list');
   list.innerHTML='';
   var okCount=0;
@@ -996,42 +1079,53 @@ function renderHome(){
     var last=logs.length?logs[logs.length-1]:null;
     var status=getStatus(cat);
     if(status==='ok')okCount++;
-    var row=document.createElement('div');
-    row.className='care-row s-'+status;
-    var iconWrap=document.createElement('div');
-    iconWrap.className='cat-icon';iconWrap.style.background=cat.bg;
-    if(CAT_IMGS[cat.id]){iconWrap.appendChild(makeImg(CAT_IMGS[cat.id],cat.emoji,'100%','100%',''));}
-    else{iconWrap.innerHTML='<span style="font-size:26px">'+cat.emoji+'</span>';}
-    var info=document.createElement('div');info.className='care-info';
-    var extra='';
-    if(cat.foods&&last&&last.type)
-      extra='<div class="fpills">'+last.type.split(', ').map(function(t){return'<span class="fpill">'+t+'</span>';}).join('')+'</div>';
-    if(last&&last.note)extra+='<div style="font-size:10px;color:var(--text2);margin-top:2px;font-style:italic">"'+last.note+'"</div>';
-    info.innerHTML='<div class="care-name">'+cat.name+' <span class="care-chevron">›</span></div>'
-      +'<div class="care-when '+status+'">'+fmtDate(last?last.ts:null)+'</div>'+extra;
-    var bw=document.createElement('div');bw.className='badge-wrap';
-    bw.innerHTML=badgeHtml(status,last?last.ts:null)+'<div class="badge-sub">'+cat.freq+'</div>';
-    row.appendChild(iconWrap);row.appendChild(info);row.appendChild(bw);
-    row.onclick=function(){openDetail(cat);};
-    list.appendChild(row);
+    var cell=document.createElement('div');
+    cell.className='care-cell s-'+status;
+    var ic=document.createElement('div');ic.className='cc-icon';ic.style.background=cat.bg;
+    if(CAT_IMGS[cat.id])ic.appendChild(makeImg(CAT_IMGS[cat.id],cat.emoji,'100%','100%',''));
+    else ic.innerHTML='<span style="font-size:30px">'+cat.emoji+'</span>';
+    var nm=document.createElement('div');nm.className='cc-name';nm.textContent=cat.name;
+    var wh=document.createElement('div');wh.className='cc-when';wh.textContent=fmtDate(last?last.ts:null);
+    var ck=document.createElement('div');ck.className='cc-check '+status;ck.textContent=status==='ok'?'✓':'!';
+    cell.appendChild(ic);cell.appendChild(nm);cell.appendChild(wh);cell.appendChild(ck);
+    cell.onclick=function(){openDetail(cat);};
+    list.appendChild(cell);
   });
+
+  // ── Puntos + nivel/insignia ──
   var pts=calculatePoints();
-  var lvl=getLevel(pts);
-  var next=getNextLevel(pts);
-  document.getElementById('score-pct').textContent=pts;
-  var pct=next?((pts-lvl.min)/(next.min-lvl.min))*100:100;
-  var circ=2*Math.PI*22;
-  document.getElementById('score-arc').setAttribute('stroke-dashoffset',(circ*(1-pct/100)).toFixed(1));
-  document.getElementById('score-lbl').textContent='PUNTOS';
-  document.getElementById('level-name').innerHTML=lvl.icon+'<br>'+lvl.name.replace(' ','<br>');
+  var lvl=getLevel(pts), next=getNextLevel(pts);
+  document.getElementById('pts-num').textContent=pts;
+  document.getElementById('lvl-name').textContent=lvl.name;
+  var li=document.getElementById('lvl-icon');li.innerHTML='';
+  var lvImg=makeImg('img/nivel_'+(LEVELS.indexOf(lvl)+1)+'.png',lvl.icon,'100%','100%','');
+  lvImg.onerror=function(){li.textContent=lvl.icon;};
+  li.appendChild(lvImg);
+  if(next){
+    var pct=Math.max(0,Math.min(100,((pts-lvl.min)/(next.min-lvl.min))*100));
+    document.getElementById('lvl-bar-fill').style.width=pct+'%';
+    document.getElementById('lvl-prog').textContent=(pts-lvl.min)+' / '+(next.min-lvl.min);
+  } else {
+    document.getElementById('lvl-bar-fill').style.width='100%';
+    document.getElementById('lvl-prog').textContent='¡Nivel máximo!';
+  }
+
+  // ── Barra de stats ──
+  document.getElementById('st-racha').textContent=careStreak();
+  var hoyL=document.getElementById('st-hoy-l');
+  if(okCount===CATS.length){hoyL.textContent='Todo en orden';hoyL.className='stat-l ok';}
+  else {var p=CATS.length-okCount;hoyL.textContent=p+' pendiente'+(p>1?'s':'');hoyL.className='stat-l';}
+  document.getElementById('st-logros').textContent=unlockedSorted().length;
+  document.getElementById('st-semana').textContent=weekProgress()+'%';
+
+  // ── Hámster (mood) ──
   var mood=getMood();
-  var hc=document.getElementById('ham-circle');hc.style.background=mood.bg;hc.innerHTML='';
-  if(IMG_URLS[mood.img]){
-    var mimg=makeImg(IMG_URLS[mood.img],'Chewie','100%','100%','');
-    mimg.onerror=function(){hc.innerHTML='<span style="font-size:80px;line-height:148px">🐹</span>';};
-    hc.appendChild(mimg);
-  } else {hc.innerHTML='<span style="font-size:80px;line-height:148px">🐹</span>';}
-  document.getElementById('speech-bub').innerHTML='<div style="font-size:15px;margin-bottom:2px">'+mood.icon+'</div><strong>'+mood.title+'</strong><span>'+mood.sub+'</span>';
+  var hp=document.getElementById('ham-pic');hp.innerHTML='';
+  var ham=makeImg(IMG_URLS[mood.img]||'','🐹','100%','100%','');
+  ham.onerror=function(){hp.innerHTML='<span style="font-size:80px">🐹</span>';};
+  hp.appendChild(ham);
+
+  // ── Banner compras ──
   var shopWrap=document.getElementById('shop-img-wrap');shopWrap.innerHTML='';
   var simg=makeImg(CAT_IMGS.shop,'🛍️','100%','100%','12px');
   simg.onerror=function(){shopWrap.innerHTML='<span style="font-size:28px">🛍️</span>';};
@@ -1985,6 +2079,30 @@ fetch('curiosidades.json').then(function(r){return r.json();}).then(function(dat
   curiosidades=data;
 }).catch(function(){curiosidades=[];});
 renderHome();
+
+// ── BOTÓN ACTUALIZAR (limpia SW + cachés y recarga con cache-buster) ──
+// OJO: NO borra los datos de localStorage (chw6/chw6e/chw6a) porque hoy
+// esos datos SON la base de datos. Cuando migremos al backend, aquí se podrá
+// limpiar también el caché local de forma segura.
+var btnRefresh=document.getElementById('btnRefresh');
+if(btnRefresh){
+  btnRefresh.addEventListener('click',async function(){
+    btnRefresh.textContent='⏳';
+    try{
+      if('serviceWorker' in navigator){
+        var regs=await navigator.serviceWorker.getRegistrations();
+        for(var i=0;i<regs.length;i++)await regs[i].unregister();
+      }
+      if('caches' in window){
+        var keys=await caches.keys();
+        await Promise.all(keys.map(function(k){return caches.delete(k);}));
+      }
+    }catch(e){console.error(e);}
+    var url=new URL(window.location.href);
+    url.searchParams.set('_t',Date.now());
+    window.location.replace(url.toString());
+  });
+}
 </script>
 </body>
 </html>
