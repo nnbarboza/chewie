@@ -744,8 +744,12 @@ const CAT_IMGS={
 };
 
 const SCRIPT_URL='https://script.google.com/macros/s/AKfycbwrFa5jMZ45pLWqOsBojWB4MaHyd7NkW3nhwHd_vXN01qPUbESZUm9h9-g321yFJKjg/exec';
+// Backend = base de datos. Cuando despliegues el Code.gs nuevo, pega aquí la
+// URL /exec (puede ser la misma de arriba si reusas la implementación).
+const BACKEND_URL=SCRIPT_URL;
+const SYNC_ON=true;
 
-const LEVELS=[
+let LEVELS=[
   {min:0,    name:'Cuidadora aprendiz',          icon:'🌱'},
   {min:30,   name:'Cuidadora responsable',       icon:'🌿'},
   {min:80,   name:'Cuidadora pro',               icon:'⭐'},
@@ -904,12 +908,130 @@ function load(){
 function save(){try{localStorage.setItem('chw6',JSON.stringify(state));}catch(e){}}
 function saveExpenses(){try{localStorage.setItem('chw6e',JSON.stringify(expenses));}catch(e){}}
 
-function syncToSheets(payload){
-  var params=Object.keys(payload).map(function(k){
-    return encodeURIComponent(k)+'='+encodeURIComponent(payload[k]);
-  }).join('&');
-  fetch(SCRIPT_URL+'?'+params,{method:'GET',mode:'no-cors'}).catch(function(){});
+// ── BACKEND (Sheet = base de datos) ────────────────────────
+// Escrituras: cola persistente en localStorage (outbox). Si no hay red, se
+// reintenta luego. Lectura: bootstrap() al abrir; si falla, usa caché local.
+let outbox=[]; let flushing=false;
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+function loadQueue(){try{outbox=JSON.parse(localStorage.getItem('chw6q'))||[];}catch(e){outbox=[];}}
+function saveQueue(){try{localStorage.setItem('chw6q',JSON.stringify(outbox));}catch(e){}}
+function bk(action,payload){
+  if(!SYNC_ON)return;
+  outbox.push({action:action,payload:payload});saveQueue();flushQueue();
 }
+function flushQueue(){
+  if(!SYNC_ON||flushing||!outbox.length)return;
+  flushing=true;
+  var item=outbox[0];
+  fetch(BACKEND_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(item)})
+    .then(function(r){return r.json();})
+    .then(function(res){
+      flushing=false;
+      if(res&&res.ok){outbox.shift();saveQueue();if(outbox.length)flushQueue();}
+    })
+    .catch(function(){flushing=false;}); // sin red: se reintenta al próximo cambio o al abrir
+}
+// Compat: aún llamada en algún sitio; ahora no hace nada (lo gestiona bk()).
+function syncToSheets(){}
+
+function ensureIds(){
+  CATS.forEach(function(c){(state[c.id]?state[c.id].logs:[]).forEach(function(l){if(!l.id)l.id=uid();});});
+  expenses.forEach(function(e){if(!e.id)e.id=uid();});
+}
+
+function applyAction(a,p){
+  if(a==='addCuidado'){
+    if(state[p.catId]&&!state[p.catId].logs.some(function(l){return l.id===p.id;})){
+      var e={id:p.id,ts:Number(p.ts)};if(p.tipo)e.type=p.tipo;if(p.nota)e.note=p.nota;
+      state[p.catId].logs.push(e);
+    }
+  } else if(a==='editCuidado'){
+    CATS.forEach(function(c){var l=state[c.id].logs.find(function(x){return x.id===p.id;});
+      if(l){l.ts=Number(p.ts);if(p.tipo)l.type=p.tipo;else delete l.type;if(p.nota)l.note=p.nota;else delete l.note;}});
+  } else if(a==='delCuidado'){
+    CATS.forEach(function(c){state[c.id].logs=state[c.id].logs.filter(function(l){return l.id!==p.id;});});
+  } else if(a==='addGasto'){
+    if(!expenses.some(function(x){return x.id===p.id;}))
+      expenses.push({id:p.id,category:p.categoria,description:p.descripcion,amount:Number(p.importe),date:p.date});
+  } else if(a==='delGasto'){
+    expenses=expenses.filter(function(x){return x.id!==p.id;});
+  } else if(a==='unlockLogro'){
+    if(!achievements[p.id])achievements[p.id]=Number(p.ts);
+  }
+}
+function replayOutbox(){
+  outbox.forEach(function(it){applyAction(it.action,it.payload);});
+  CATS.forEach(function(c){state[c.id].logs.sort(function(a,b){return a.ts-b.ts;});});
+}
+function rebuildFromServer(data){
+  state={};CATS.forEach(function(c){state[c.id]={logs:[]};});
+  (data.cuidados||[]).forEach(function(r){
+    if(!state[r.catId])return;
+    var e={id:r.id,ts:Number(r.ts)};if(r.tipo)e.type=String(r.tipo);if(r.nota)e.note=String(r.nota);
+    state[r.catId].logs.push(e);
+  });
+  CATS.forEach(function(c){state[c.id].logs.sort(function(a,b){return a.ts-b.ts;});});
+  expenses=(data.gastos||[]).map(function(r){
+    return {id:r.id,category:r.categoria,description:r.descripcion,amount:Number(r.importe),date:r.date||r.fecha};
+  });
+  achievements={};if(data.logros)Object.keys(data.logros).forEach(function(k){achievements[k]=Number(data.logros[k]);});
+  if(data.niveles&&data.niveles.length){
+    LEVELS=data.niveles.map(function(n){return {min:Number(n.min),name:n.nombre,icon:n.icono};})
+      .sort(function(a,b){return a.min-b.min;});
+  }
+}
+function migrateLocalToServer(){
+  // Primer arranque con servidor vacío: sube el historial local como semilla.
+  ensureIds();
+  CATS.forEach(function(c){state[c.id].logs.forEach(function(l){
+    bk('addCuidado',{id:l.id,ts:l.ts,catId:c.id,categoria:c.name,tipo:l.type||'',nota:l.note||''});
+  });});
+  expenses.forEach(function(e){
+    bk('addGasto',{id:e.id,ts:new Date(e.date).getTime()||Date.now(),
+      fecha:fmtFecha(e.date),categoria:e.category,descripcion:e.description,importe:e.amount,date:e.date});
+  });
+  Object.keys(achievements).forEach(function(id){bk('unlockLogro',{id:id,ts:achievements[id]});});
+}
+function fmtFecha(date){
+  var d=new Date(date);if(isNaN(d))return String(date||'');
+  return d.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'});
+}
+function bootstrap(){
+  loadQueue();
+  loadAchievements();
+  if(!SYNC_ON){load();ensureIds();afterData();return;}
+  var hadLocal=!!localStorage.getItem('chw6')||!!localStorage.getItem('chw6e');
+  fetch(BACKEND_URL+'?action=bootstrap')
+    .then(function(r){return r.json();})
+    .then(function(data){
+      if(!data||!data.ok)throw new Error('bad bootstrap');
+      var serverEmpty=!(data.cuidados&&data.cuidados.length)&&!(data.gastos&&data.gastos.length);
+      if(serverEmpty&&hadLocal){
+        load();                 // semilla: usa el historial del dispositivo
+        if(data.niveles&&data.niveles.length)rebuildLevels(data.niveles);
+        migrateLocalToServer(); // y lo sube al backend
+      } else {
+        rebuildFromServer(data);
+        replayOutbox();         // conserva cambios locales aún no confirmados
+      }
+      save();saveExpenses();saveAchievements();
+      afterData();
+      flushQueue();
+    })
+    .catch(function(){
+      // offline / primer arranque sin red: caché local
+      load();ensureIds();afterData();flushQueue();
+    });
+}
+function rebuildLevels(niveles){
+  LEVELS=niveles.map(function(n){return {min:Number(n.min),name:n.nombre,icon:n.icono};})
+    .sort(function(a,b){return a.min-b.min;});
+}
+function afterData(){
+  checkAchievements();
+  renderHome();
+}
+
 
 // ── DAY LOGIC (reset at 7am) ───────────────────────────────
 function getDayStart(date){
@@ -1267,7 +1389,7 @@ function registerCare(btn){
   } else {
     selFoods=Array.from(document.querySelectorAll('#food-grid .ftog.on')).map(function(x){return x.dataset.t;});
   }
-  var entry={ts:Date.now()};
+  var entry={id:uid(),ts:Date.now()};
   if(selFoods.length)entry.type=selFoods.join(', ');
   if(!isFood){
     var note=document.getElementById('det-note').value.trim();
@@ -1277,14 +1399,7 @@ function registerCare(btn){
   if(state[curCat.id].logs.length>200)state[curCat.id].logs=state[curCat.id].logs.slice(-200);
   save();
   var pts=pointsForLog(curCat.id,entry);
-  var d=new Date(entry.ts);
-  syncToSheets({
-    type:'cuidado',
-    fecha:d.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}),
-    hora:d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}),
-    categoria:curCat.name,
-    detalle:[entry.type,entry.note].filter(Boolean).join(' | ')
-  });
+  bk('addCuidado',{id:entry.id,ts:entry.ts,catId:curCat.id,categoria:curCat.name,tipo:entry.type||'',nota:entry.note||''});
   selFoods=[];
 
   if(isFood){
@@ -1553,7 +1668,7 @@ function saveAchievements(){try{localStorage.setItem('chw6a',JSON.stringify(achi
 function checkAchievements(){
   var changed=false;
   ACHIEVEMENTS.forEach(function(a){
-    if(!achievements[a.id]&&a.check()){achievements[a.id]=Date.now();changed=true;}
+    if(!achievements[a.id]&&a.check()){achievements[a.id]=Date.now();changed=true;bk('unlockLogro',{id:a.id,ts:achievements[a.id]});}
   });
   if(changed)saveAchievements();
 }
@@ -1824,16 +1939,18 @@ function saveExp(){
   var cat=document.getElementById('ec').value,desc=document.getElementById('ed').value.trim(),
     amount=parseFloat(document.getElementById('ea').value),date=document.getElementById('ef').value;
   if(!amount||amount<=0||!date){alert('Rellena importe y fecha');return;}
-  expenses.push({category:cat,description:desc,amount:amount,date:date});
+  var exp={id:uid(),category:cat,description:desc,amount:amount,date:date};
+  expenses.push(exp);
   saveExpenses();
-  syncToSheets({
-    type:'gasto',
-    fecha:new Date(date).toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}),
-    categoria:cat,descripcion:desc,importe:amount
-  });
+  bk('addGasto',{id:exp.id,ts:new Date(date).getTime()||Date.now(),fecha:fmtFecha(date),categoria:cat,descripcion:desc,importe:amount,date:date});
   closeExp();renderExpenses();
 }
-function delExp(i){if(!confirm('¿Eliminar?'))return;expenses.splice(i,1);saveExpenses();renderExpenses();}
+function delExp(i){
+  if(!confirm('¿Eliminar?'))return;
+  var exp=expenses[i];
+  expenses.splice(i,1);saveExpenses();renderExpenses();
+  if(exp&&exp.id)bk('delGasto',{id:exp.id});
+}
 
 // ── HISTORY ────────────────────────────────────────────────
 var editLogCatId=null, editLogTs=null;
@@ -1863,25 +1980,21 @@ function saveEditLog(){
   var idx=logs.findIndex(function(l){return l.ts===editLogTs;});
   if(idx===-1){closeEditLog();return;}
   logs[idx].ts=newTs;
+  if(!logs[idx].id)logs[idx].id=uid();
   if(detail)logs[idx].type=detail; else delete logs[idx].type;
   if(note)logs[idx].note=note; else delete logs[idx].note;
   logs.sort(function(a,b){return a.ts-b.ts;});
   save();
+  var cat=CATS.find(function(c){return c.id===editLogCatId;});
+  bk('editCuidado',{id:logs[idx].id,ts:newTs,catId:editLogCatId,categoria:cat?cat.name:editLogCatId,tipo:detail,nota:note});
   closeEditLog();
   renderHistory();
 }
 
 function deleteLog(catId,ts){
   if(!confirm('¿Eliminar este registro?'))return;
-  var cat=CATS.find(function(c){return c.id===catId;});
   var log=state[catId].logs.find(function(l){return l.ts===ts;});
-  if(log){
-    var d=new Date(ts);
-    syncToSheets({type:'cuidado',
-      fecha:d.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}),
-      hora:d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}),
-      categoria:cat?cat.name:catId,detalle:'ANULADO'});
-  }
+  if(log&&log.id)bk('delCuidado',{id:log.id});
   state[catId].logs=state[catId].logs.filter(function(l){return l.ts!==ts;});
   save();renderHistory();
 }
@@ -2041,14 +2154,17 @@ function confirmImport(){
       var d=new Date(parseInt(parts[2]),parseInt(parts[1])-1,parseInt(parts[0]),parseInt(hParts[0]||0),parseInt(hParts[1]||0));
       if(isNaN(d.getTime()))return;
       var detalle=(cols[4]||'').replace(/^"|"$/g,'');
-      var entry={ts:d.getTime()};if(detalle)entry.note=detalle;
+      var entry={id:uid(),ts:d.getTime()};if(detalle)entry.note=detalle;
       state[cat.id].logs.push(entry);cuidados++;
+      bk('addCuidado',{id:entry.id,ts:entry.ts,catId:cat.id,categoria:cat.name,tipo:'',nota:detalle||''});
     } else if(tipo==='gasto'){
       var fecha=(cols[2]||'').split('/');if(fecha.length<3)return;
       var dateStr=fecha[2]+'-'+(fecha[1].padStart(2,'0'))+'-'+(fecha[0].padStart(2,'0'));
       var desc=(cols[4]||'').replace(/^"|"$/g,'');
       var amount=parseFloat((cols[5]||'0').replace('-',''))||0;
-      expenses.push({category:cols[1],description:desc,amount:amount,date:dateStr});gastos++;
+      var gid=uid();
+      expenses.push({id:gid,category:cols[1],description:desc,amount:amount,date:dateStr});gastos++;
+      bk('addGasto',{id:gid,ts:new Date(dateStr).getTime()||Date.now(),fecha:fmtFecha(dateStr),categoria:cols[1],descripcion:desc,importe:amount,date:dateStr});
     }
   });
   CATS.forEach(function(cat){
@@ -2072,18 +2188,14 @@ function quickReg(){
 }
 
 // ── INIT ───────────────────────────────────────────────────
-load();
-loadAchievements();
-checkAchievements();
 fetch('curiosidades.json').then(function(r){return r.json();}).then(function(data){
   curiosidades=data;
 }).catch(function(){curiosidades=[];});
-renderHome();
+bootstrap(); // lee del backend (o caché local si no hay red) y pinta la home
 
 // ── BOTÓN ACTUALIZAR (limpia SW + cachés y recarga con cache-buster) ──
-// OJO: NO borra los datos de localStorage (chw6/chw6e/chw6a) porque hoy
-// esos datos SON la base de datos. Cuando migremos al backend, aquí se podrá
-// limpiar también el caché local de forma segura.
+// No toca localStorage: al recargar, bootstrap() vuelve a leer del backend y
+// reaplica la cola de escrituras pendientes (chw6q). Así nunca se pierden datos.
 var btnRefresh=document.getElementById('btnRefresh');
 if(btnRefresh){
   btnRefresh.addEventListener('click',async function(){
