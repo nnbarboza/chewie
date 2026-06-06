@@ -127,6 +127,16 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 #sync-banner{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:390px;z-index:200;font-size:11px;font-weight:600;padding:8px 12px;text-align:center;line-height:1.3;cursor:pointer}
 #sync-banner.err{background:#FFE0E0;color:#9B2C2C}
 #sync-banner.ok{background:#E4F2D8;color:#2F6B2F}
+#splash{position:fixed;inset:0;background:var(--bg);z-index:500;display:flex;align-items:center;justify-content:center;transition:opacity .45s ease}
+#splash.hide{opacity:0;pointer-events:none}
+.splash-inner{text-align:center}
+.splash-ham{font-size:62px;line-height:1;animation:bob 1.2s ease-in-out infinite}
+.splash-ham img{width:84px;height:84px;object-fit:contain}
+.splash-title{font-family:var(--font-d);font-size:34px;font-weight:700;color:var(--text);margin-top:8px}
+.splash-spin{width:28px;height:28px;border:3px solid #EDE0D0;border-top-color:var(--accent);border-radius:50%;margin:20px auto 9px;animation:spin .8s linear infinite}
+.splash-msg{font-size:13px;color:var(--text2);font-weight:600}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:4px 0}
 .nav-icon{width:42px;height:42px;display:flex;align-items:center;justify-content:center}
 .nav-icon img{width:42px;height:42px;object-fit:contain}
@@ -607,7 +617,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
   <div class="prof-foot">
     <button id="btnRefresh" title="Actualizar app">🔄 Actualizar app</button>
-    <span class="ver-tag">v0.5</span>
+    <span class="ver-tag">v0.6</span>
   </div>
 </div>
 
@@ -688,6 +698,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 </div>
 
 <div id="sync-banner" style="display:none" onclick="this.style.display='none'"></div>
+<div id="splash"><div class="splash-inner">
+  <div class="splash-ham">🐹</div>
+  <div class="splash-title">Chewie</div>
+  <div class="splash-spin"></div>
+  <div class="splash-msg">Cargando…</div>
+</div></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
@@ -752,10 +768,10 @@ const CAT_IMGS={
   shop:'img/compras.webp',
 };
 
-const SCRIPT_URL='https://script.google.com/macros/s/AKfycbz0ysW-g7QFoV2IReQygVVbZl_9mrfkkKhaHqUCLx47p8VO5vOBzaNDjyrMt8VW0fsc/exec';
-// Backend = base de datos. Cuando despliegues el Code.gs nuevo, pega aquí la
-// URL /exec (puede ser la misma de arriba si reusas la implementación).
-const BACKEND_URL=https://script.google.com/macros/s/AKfycbz0ysW-g7QFoV2IReQygVVbZl_9mrfkkKhaHqUCLx47p8VO5vOBzaNDjyrMt8VW0fsc/exec;
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbwrFa5jMZ45pLWqOsBojWB4MaHyd7NkW3nhwHd_vXN01qPUbESZUm9h9-g321yFJKjg/exec';
+// Backend = base de datos. URL fija de tu implementación (/exec).
+// Si algún día creas una implementación NUEVA (otra URL), cámbiala solo aquí.
+const BACKEND_URL='https://script.google.com/macros/s/AKfycbz0ysW-g7QFoV2IReQygVVbZl_9mrfkkKhaHqUCLx47p8VO5vOBzaNDjyrMt8VW0fsc/exec';
 const SYNC_ON=true;
 
 let LEVELS=[
@@ -1011,12 +1027,32 @@ function syncStatus(msg,kind){
   b.className=kind||'';b.textContent=msg;b.style.display='block';
   if(kind==='ok')setTimeout(function(){if(b.className==='ok')b.style.display='none';},3000);
 }
+function hideSplash(){
+  var s=document.getElementById('splash');
+  if(s){s.classList.add('hide');setTimeout(function(){s.style.display='none';},450);}
+}
+function fetchWithTimeout(url,ms){
+  return new Promise(function(resolve,reject){
+    var done=false;
+    var t=setTimeout(function(){if(!done){done=true;reject(new Error('timeout '+(ms/1000)+'s'));}},ms);
+    fetch(url,{redirect:'follow'}).then(function(r){if(done)return;done=true;clearTimeout(t);resolve(r);})
+      .catch(function(e){if(done)return;done=true;clearTimeout(t);reject(e);});
+  });
+}
+// Arranque: pinta YA desde caché local (instantáneo), luego sincroniza en 2º plano.
 function bootstrap(){
   loadQueue();
+  load();
   loadAchievements();
-  if(!SYNC_ON){load();ensureIds();afterData();return;}
+  ensureIds();
+  checkAchievements();
+  renderHome();      // ← pantalla con datos al instante, sin esperar a la red
+  hideSplash();
+  if(SYNC_ON)syncWithBackend();
+}
+function syncWithBackend(){
   var hadLocal=!!localStorage.getItem('chw6')||!!localStorage.getItem('chw6e');
-  fetch(BACKEND_URL+'?action=bootstrap',{redirect:'follow'})
+  fetchWithTimeout(BACKEND_URL+'?action=bootstrap',12000)
     .then(function(r){return r.text().then(function(t){return {status:r.status,text:t};});})
     .then(function(res){
       var data;
@@ -1027,26 +1063,25 @@ function bootstrap(){
       }
       if(!data||!data.ok)throw new Error('JSON sin "ok"');
       if(data.catalogo)buildAchievementsFromCatalog(data.catalogo);
+      if(data.niveles&&data.niveles.length)rebuildLevels(data.niveles);
       var serverEmpty=!(data.cuidados&&data.cuidados.length)&&!(data.gastos&&data.gastos.length);
       if(serverEmpty&&hadLocal){
-        load();
-        if(data.niveles&&data.niveles.length)rebuildLevels(data.niveles);
-        migrateLocalToServer();
+        migrateLocalToServer();   // sube el historial local como semilla
       } else {
         rebuildFromServer(data);
-        replayOutbox();
+        replayOutbox();           // conserva cambios locales aún no confirmados
       }
       save();saveExpenses();saveAchievements();
-      afterData();
+      checkAchievements();
+      renderHome();
       flushQueue();
       var n=0;CATS.forEach(function(c){n+=state[c.id].logs.length;});
       syncStatus('✓ Conectado · '+n+' cuidados, '+expenses.length+' gastos','ok');
     })
     .catch(function(err){
-      // No se pudo leer del backend: usa caché local para no quedar en blanco
-      load();ensureIds();afterData();flushQueue();
+      flushQueue(); // reintenta lo pendiente; la app ya muestra la caché local
       var m=(err&&err.message)?err.message:'sin conexión';
-      syncStatus('⚠️ Backend no conectado — '+m,'err');
+      syncStatus('⚠️ Sin conexión con el backend — '+m+' (mostrando datos locales)','err');
     });
 }
 function rebuildLevels(niveles){
