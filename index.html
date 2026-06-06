@@ -75,28 +75,29 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .shop-img img{width:100%;height:100%;object-fit:cover}
 .bottom-nav{display:flex;background:var(--card);border-top:1px solid var(--border);padding:8px 0 calc(20px + env(safe-area-inset-bottom)) 0;margin-top:12px;position:sticky;bottom:0;z-index:10;align-items:flex-start}
 /* ===== HOME v2 ===== */
-.home-hero{display:flex;align-items:center;gap:2px;margin:14px 14px 0}
-.pts-card{flex:1;background:var(--card);border:1px solid #F1E7D8;border-radius:24px;padding:18px 18px 16px;box-shadow:0 6px 18px rgba(93,58,30,.07);cursor:pointer}
-.pts-top{display:flex;align-items:center;gap:12px}
-.pts-star{font-size:34px;line-height:1}
-.pts-num{font-family:var(--font-d);font-size:40px;font-weight:700;color:var(--text);line-height:.95}
+.home-hero{display:flex;align-items:center;gap:0;margin:14px 12px 0}
+.pts-card{flex:1;min-width:0;background:var(--card);border:1px solid #F1E7D8;border-radius:24px;padding:16px 15px 15px;box-shadow:0 6px 18px rgba(93,58,30,.07);cursor:pointer}
+.pts-top{display:flex;align-items:center;gap:11px}
+.pts-star{width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;font-size:34px;line-height:1;flex-shrink:0}
+.pts-star img{width:100%;height:100%;object-fit:contain}
+.pts-num{font-family:var(--font-d);font-size:38px;font-weight:700;color:var(--text);line-height:.95}
 .pts-lbl{font-size:14px;font-weight:700;color:var(--accent);margin-top:1px}
 .pts-div{height:1px;background:var(--border);margin:14px 0}
 .badge-row{display:flex;align-items:center;gap:10px}
-.badge-shield{width:42px;height:42px;border-radius:13px;background:linear-gradient(140deg,#B79CEB,#9277D6);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;overflow:hidden;box-shadow:0 3px 8px rgba(146,119,214,.3)}
-.badge-shield img{width:100%;height:100%;object-fit:cover}
-.badge-name{font-family:var(--font-d);font-size:14.5px;font-weight:600;color:var(--text);line-height:1.14}
+.badge-shield{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;overflow:hidden}
+.badge-shield img{width:100%;height:100%;object-fit:contain}
+.badge-name{font-family:var(--font-d);font-size:14px;font-weight:600;color:var(--text);line-height:1.14}
 .lvl-bar{height:9px;border-radius:9px;background:#EFE4F4;overflow:hidden;margin-top:12px}
 .lvl-bar i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,#B79CEB,#9277D6);transition:width .5s}
 .lvl-prog{font-size:11.5px;font-weight:700;color:#9277D6;text-align:center;margin-top:6px}
-.home-ham{width:152px;height:152px;flex-shrink:0;position:relative;display:flex;align-items:center;justify-content:center}
+.home-ham{width:178px;height:172px;flex-shrink:0;position:relative;display:flex;align-items:center;justify-content:center;overflow:visible}
 .home-ham .ham-pic{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
 .home-ham .ham-pic img{width:100%;height:100%;object-fit:contain}
-.home-ham .hrt{position:absolute;opacity:.9;pointer-events:none;font-size:15px}
 .stat-bar{display:flex;background:var(--card);border:1px solid #F1E7D8;border-radius:18px;margin:14px 14px 0;padding:12px 2px;box-shadow:0 4px 14px rgba(93,58,30,.05)}
 .stat{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;border-right:1px solid var(--border);padding:0 3px}
 .stat:last-child{border-right:none}
-.stat-ic{font-size:19px;flex-shrink:0}
+.stat-ic{width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+.stat-ic img{width:100%;height:100%;object-fit:contain}
 .stat-v{font-family:var(--font-d);font-size:17px;font-weight:700;color:var(--text);line-height:1.05}
 .stat-v.ok{color:var(--g)}
 .stat-l{font-size:9.5px;color:var(--text2);font-weight:600;line-height:1.06}
@@ -238,12 +239,16 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .fcard-h.center{justify-content:center;font-family:var(--font-d);font-weight:600;font-size:16px;color:#5C3A1E;gap:9px}
 .fcard-h.center::before,.fcard-h.center::after{content:'〰';color:var(--accent);font-size:12px}
 
-.wk2{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center}
+.wk2{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;text-align:center}
 .wk2 .wd{font-size:11px;color:var(--text3);font-weight:600;margin-bottom:4px}
-.wk2 .wc{aspect-ratio:1;border-radius:14px;background:var(--bg);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:21px;overflow:hidden}
+.wk2 .wc{aspect-ratio:.78;border-radius:12px;background:var(--bg);border:1.5px solid var(--border);display:grid;gap:2px;padding:3px;place-items:center;overflow:hidden}
 .wk2 .wc.today{border-color:var(--accent);background:#FFF1F1;box-shadow:0 0 0 2px rgba(232,120,120,.16)}
-.wk2 .wc img{width:74%;height:74%;object-fit:contain}
+.wk2 .wc img{width:100%;height:100%;object-fit:contain}
 .wk2 .wc .emp{color:#D8C4B0;font-size:13px}
+.fc-details{margin-top:10px;display:flex;flex-direction:column;gap:7px}
+.fc-det{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:8px 11px}
+.fc-det label{font-size:12px;font-weight:700;color:var(--text2);min-width:62px}
+.fc-det input{flex:1;border:none;background:transparent;font-size:13px;color:var(--text);outline:none;font-family:inherit}
 
 .food-chips{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
 .fchip{position:relative;border-radius:17px;border:1.5px solid var(--border);background:var(--card);padding:11px 6px 9px;text-align:center;cursor:pointer;transition:transform .12s,border-color .12s,box-shadow .12s}
@@ -307,7 +312,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <div class="home-hero">
     <div class="pts-card" onclick="showLevelInfo()">
       <div class="pts-top">
-        <span class="pts-star">⭐</span>
+        <span class="pts-star" id="pts-star">⭐</span>
         <div><div class="pts-num" id="pts-num">0</div><div class="pts-lbl">Puntos</div></div>
       </div>
       <div class="pts-div"></div>
@@ -319,18 +324,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <div class="lvl-prog" id="lvl-prog">0 / 0</div>
     </div>
     <div class="home-ham" id="home-ham">
-      <span class="hrt" style="top:8px;left:0">💗</span>
-      <span class="hrt" style="top:0;right:18px;font-size:11px">💗</span>
-      <span class="hrt" style="bottom:16px;right:-2px">💗</span>
       <div class="ham-pic" id="ham-pic"><span style="font-size:80px">🐹</span></div>
     </div>
   </div>
 
   <div class="stat-bar">
-    <div class="stat"><div class="stat-ic">🔥</div><div><div class="stat-v" id="st-racha">0</div><div class="stat-l">días racha</div></div></div>
-    <div class="stat"><div class="stat-ic">📅</div><div><div class="stat-v">Hoy</div><div class="stat-l" id="st-hoy-l">—</div></div></div>
-    <div class="stat"><div class="stat-ic">🏆</div><div><div class="stat-v" id="st-logros">0</div><div class="stat-l">Logros</div></div></div>
-    <div class="stat"><div class="stat-ic">🎖️</div><div><div class="stat-v" id="st-semana">0%</div><div class="stat-l">Semana</div></div></div>
+    <div class="stat"><div class="stat-ic" id="st-ic-racha">🔥</div><div><div class="stat-v" id="st-racha">0</div><div class="stat-l">días racha</div></div></div>
+    <div class="stat"><div class="stat-ic" id="st-ic-hoy">📅</div><div><div class="stat-v">Hoy</div><div class="stat-l" id="st-hoy-l">—</div></div></div>
+    <div class="stat"><div class="stat-ic" id="st-ic-logros">🏆</div><div><div class="stat-v" id="st-logros">0</div><div class="stat-l">Logros</div></div></div>
+    <div class="stat"><div class="stat-ic" id="st-ic-semana">🎖️</div><div><div class="stat-v" id="st-semana">0%</div><div class="stat-l">Semana</div></div></div>
   </div>
 
   <div class="home-sec-head">
@@ -417,6 +419,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <div class="fcard">
       <div class="fcard-h center">¿Qué ha comido Chewie?</div>
       <div class="food-chips" id="food-chips"></div>
+      <div class="fc-details" id="fc-details"></div>
       <div class="food-hint">Toca lo que le has dado para registrarlo</div>
       <button class="fsave" id="reg-btn-food" onclick="registerCare(this)"><span class="pl">+</span>Guardar comidita</button>
     </div>
@@ -604,7 +607,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
   <div class="prof-foot">
     <button id="btnRefresh" title="Actualizar app">🔄 Actualizar app</button>
-    <span class="ver-tag">v0.4</span>
+    <span class="ver-tag">v0.5</span>
   </div>
 </div>
 
@@ -749,7 +752,7 @@ const CAT_IMGS={
   shop:'img/compras.webp',
 };
 
-const SCRIPT_URL='https://script.google.com/macros/s/AKfycbz0ysW-g7QFoV2IReQygVVbZl_9mrfkkKhaHqUCLx47p8VO5vOBzaNDjyrMt8VW0fsc/exec';
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbwrFa5jMZ45pLWqOsBojWB4MaHyd7NkW3nhwHd_vXN01qPUbESZUm9h9-g321yFJKjg/exec';
 // Backend = base de datos. Cuando despliegues el Code.gs nuevo, pega aquí la
 // URL /exec (puede ser la misma de arriba si reusas la implementación).
 const BACKEND_URL=SCRIPT_URL;
@@ -882,7 +885,7 @@ function showLevelInfo(){
   var lvl=getLevel(pts);
   var next=getNextLevel(pts);
   var cur=document.getElementById('level-current');
-  cur.innerHTML='<div style="font-size:32px;margin-bottom:4px">'+lvl.icon+'</div>'
+  cur.innerHTML='<div style="margin-bottom:4px">'+imgHtml(levelImg(lvl),lvl.icon,'46px')+'</div>'
     +'<div style="font-size:16px;font-weight:700;color:#5C3A1E">'+lvl.name+'</div>'
     +'<div style="font-size:13px;color:var(--text2);margin-top:6px">'+pts+' puntos</div>'
     +(next?'<div style="font-size:11px;color:var(--text3);margin-top:4px">Faltan '+(next.min-pts)+' para "'+next.name+'"</div>':'<div style="font-size:11px;color:var(--g);margin-top:4px;font-weight:700">¡Nivel máximo alcanzado!</div>');
@@ -893,7 +896,7 @@ function showLevelInfo(){
     return'<div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:'
       +(isCurrent?'#FFF0E8':reached?'#F7FBF2':'var(--card)')+';border:1px solid '
       +(isCurrent?'#E87878':reached?'#C0DD97':'var(--border)')+';opacity:'+(reached?'1':'0.6')+'">'
-      +'<div style="font-size:20px">'+l.icon+'</div>'
+      +'<div style="width:26px;height:26px;display:flex;align-items:center;justify-content:center">'+imgHtml(levelImg(l),l.icon,'24px')+'</div>'
       +'<div style="flex:1;font-size:12px;font-weight:'+(isCurrent?'700':'600')+';color:var(--text)">'+l.name+'</div>'
       +'<div style="font-size:11px;color:var(--text2);font-weight:600">'+l.min+' pts</div></div>';
   }).join('');
@@ -902,7 +905,7 @@ function showLevelInfo(){
 function closeLevelInfo(){document.getElementById('level-modal').classList.remove('open');}
 
 
-let state={}, expenses=[], curCat=null, curTab='month', chart=null, selFoods=[];
+let state={}, expenses=[], curCat=null, curTab='month', chart=null, selFoods=[], foodDetails={};
 let pendingImportData=null, curiosidades=[], curioIdx=0, pieChartInst=null, monthlyChartInst=null;
 let dietaPeriod='mes', dietaChart=null, dietaBarChart=null, dietaDetMode='week', achievements={};
 
@@ -982,7 +985,7 @@ function rebuildFromServer(data){
   });
   achievements={};if(data.logros)Object.keys(data.logros).forEach(function(k){achievements[k]=Number(data.logros[k]);});
   if(data.niveles&&data.niveles.length){
-    LEVELS=data.niveles.map(function(n){return {min:Number(n.min),name:n.nombre,icon:n.icono};})
+    LEVELS=data.niveles.map(function(n){return {min:Number(n.min),name:n.nombre,icon:n.icono,img:n.imagen||""};})
       .sort(function(a,b){return a.min-b.min;});
   }
 }
@@ -1023,6 +1026,7 @@ function bootstrap(){
         throw new Error('respuesta no es JSON (HTTP '+res.status+'): "'+snip+'"');
       }
       if(!data||!data.ok)throw new Error('JSON sin "ok"');
+      if(data.catalogo)buildAchievementsFromCatalog(data.catalogo);
       var serverEmpty=!(data.cuidados&&data.cuidados.length)&&!(data.gastos&&data.gastos.length);
       if(serverEmpty&&hadLocal){
         load();
@@ -1046,7 +1050,7 @@ function bootstrap(){
     });
 }
 function rebuildLevels(niveles){
-  LEVELS=niveles.map(function(n){return {min:Number(n.min),name:n.nombre,icon:n.icono};})
+  LEVELS=niveles.map(function(n){return {min:Number(n.min),name:n.nombre,icon:n.icono,img:n.imagen||""};})
     .sort(function(a,b){return a.min-b.min;});
 }
 function afterData(){
@@ -1126,16 +1130,21 @@ function renderWeekCalendar(){
     var dayTs=ws+i*86400000, dayEnd=dayTs+86400000;
     var cell=document.createElement('div');
     cell.className='wc'+(dayTs===todayStart?' today':'');
-    var dayLogs=state.food.logs.filter(function(l){return l.ts>=dayTs&&l.ts<dayEnd&&l.type;});
-    var picked=null;
-    dayLogs.forEach(function(l){
-      l.type.split(', ').forEach(function(t){
-        var n=normFood(t);
-        if(!picked||(['Fruta','Verdura','Gusano','Chuche'].indexOf(n)!==-1&&['Semillas','Ramita'].indexOf(picked)!==-1))picked=n;
-      });
+    var seen={}, foods=[];
+    state.food.logs.forEach(function(l){
+      if(l.ts>=dayTs&&l.ts<dayEnd&&l.type){
+        l.type.split(', ').forEach(function(t){
+          var n=normFood(t);
+          if(n&&!seen[n]){seen[n]=1;foods.push(n);}
+        });
+      }
     });
-    if(picked){
-      cell.appendChild(makeImg(FOOD_IMGS[picked]||'',FOOD_EMOJIS[picked]||'🍽️','100%','100%',''));
+    if(foods.length){
+      var show=foods.slice(0,4);
+      cell.style.gridTemplateColumns=show.length<=1?'1fr':'1fr 1fr';
+      show.forEach(function(n){
+        cell.appendChild(makeImg(FOOD_IMGS[n]||'',FOOD_EMOJIS[n]||'🍽️','100%','100%','',14));
+      });
     } else if(dayTs<todayStart){
       cell.innerHTML='<span class="emp">·</span>';
     }
@@ -1181,6 +1190,13 @@ function makeImg(src,alt,w,h,radius,emojiSize){
   };
   img.src=src;
   return img;
+}
+function levelImg(lvl){return lvl.img||('img/nivel_'+(LEVELS.indexOf(lvl)+1)+'.webp');}
+// imagen como string HTML (para UIs construidas con innerHTML), con cadena webp->png->emoji
+function imgHtml(src,emoji,size){
+  size=size||'24px';
+  var oe="if(!this.dataset.p&&/\\.webp/i.test(this.src)){this.dataset.p=1;this.src=this.src.replace(/\\.webp/i,'.png');}else{this.outerHTML='"+emoji+"';}";
+  return '<img src="'+src+'" style="width:'+size+';height:'+size+';object-fit:contain;vertical-align:middle" onerror="'+oe+'">';
 }
 
 function getMood(){
@@ -1244,11 +1260,11 @@ function renderHome(){
   // ── Puntos + nivel/insignia ──
   var pts=calculatePoints();
   var lvl=getLevel(pts), next=getNextLevel(pts);
+  var ps=document.getElementById('pts-star');ps.innerHTML='';ps.appendChild(makeImg('img/estrella.webp','⭐','100%','100%','',30));
   document.getElementById('pts-num').textContent=pts;
   document.getElementById('lvl-name').textContent=lvl.name;
   var li=document.getElementById('lvl-icon');li.innerHTML='';
-  var lvImg=makeImg('img/nivel_'+(LEVELS.indexOf(lvl)+1)+'.webp',lvl.icon,'100%','100%','',20);
-  li.appendChild(lvImg);
+  li.appendChild(makeImg(levelImg(lvl),lvl.icon,'100%','100%','',24));
   if(next){
     var pct=Math.max(0,Math.min(100,((pts-lvl.min)/(next.min-lvl.min))*100));
     document.getElementById('lvl-bar-fill').style.width=pct+'%';
@@ -1259,6 +1275,10 @@ function renderHome(){
   }
 
   // ── Barra de stats ──
+  [['st-ic-racha','img/stat_racha.webp','🔥'],['st-ic-hoy','img/stat_hoy.webp','📅'],
+   ['st-ic-logros','img/stat_logros.webp','🏆'],['st-ic-semana','img/stat_semana.webp','🎖️']].forEach(function(s){
+    var el=document.getElementById(s[0]);if(el){el.innerHTML='';el.appendChild(makeImg(s[1],s[2],'100%','100%','',18));}
+  });
   document.getElementById('st-racha').textContent=careStreak();
   var hoyL=document.getElementById('st-hoy-l');
   if(okCount===CATS.length){hoyL.textContent='Todo en orden';hoyL.className='stat-l ok';}
@@ -1277,7 +1297,7 @@ function renderHome(){
 }
 
 function openDetail(cat){
-  curCat=cat;selFoods=[];
+  curCat=cat;selFoods=[];foodDetails={};
   goScreen('s-detail');
   document.getElementById('det-title').textContent=cat.name;
   document.getElementById('det-sub').innerHTML=cat.tag||cat.freq;
@@ -1390,8 +1410,26 @@ function renderFoodChips(){
     chip.onclick=function(){
       this.classList.toggle('on');
       selFoods=Array.from(document.querySelectorAll('#food-chips .fchip.on')).map(function(x){return x.dataset.t;});
+      renderFoodDetails();
     };
     grid.appendChild(chip);
+  });
+  renderFoodDetails();
+}
+// Inputs de detalle para Fruta/Verdura (qué fruta/verdura ha sido)
+const FOOD_DETAILABLE=['Fruta','Verdura'];
+function renderFoodDetails(){
+  var box=document.getElementById('fc-details');
+  if(!box)return;
+  box.innerHTML='';
+  FOOD_DETAILABLE.forEach(function(f){
+    if(selFoods.indexOf(f)===-1)return;
+    var row=document.createElement('div');row.className='fc-det';
+    var lab=document.createElement('label');lab.textContent='¿Qué '+f.toLowerCase()+'?';
+    var inp=document.createElement('input');inp.type='text';inp.placeholder=(f==='Fruta'?'manzana, plátano…':'brócoli, zanahoria…');
+    inp.value=foodDetails[f]||'';
+    inp.oninput=function(){foodDetails[f]=this.value;};
+    row.appendChild(lab);row.appendChild(inp);box.appendChild(row);
   });
 }
 
@@ -1411,7 +1449,14 @@ function registerCare(btn){
   }
   var entry={id:uid(),ts:Date.now()};
   if(selFoods.length)entry.type=selFoods.join(', ');
-  if(!isFood){
+  if(isFood){
+    var det=[];
+    FOOD_DETAILABLE.forEach(function(f){
+      if(selFoods.indexOf(f)!==-1 && foodDetails[f] && foodDetails[f].trim())
+        det.push(f+': '+foodDetails[f].trim());
+    });
+    if(det.length)entry.note=det.join(', ');
+  } else {
     var note=document.getElementById('det-note').value.trim();
     if(note)entry.note=note;
   }
@@ -1420,7 +1465,7 @@ function registerCare(btn){
   save();
   var pts=pointsForLog(curCat.id,entry);
   bk('addCuidado',{id:entry.id,ts:entry.ts,catId:curCat.id,categoria:curCat.name,tipo:entry.type||'',nota:entry.note||''});
-  selFoods=[];
+  selFoods=[];foodDetails={};
 
   if(isFood){
     document.querySelectorAll('#food-chips .fchip').forEach(function(x){x.classList.remove('on');});
@@ -1671,7 +1716,7 @@ function foodStreak(){
   while(dayset[day]){streak++;day-=86400000;}
   return streak;
 }
-const ACHIEVEMENTS=[
+let ACHIEVEMENTS=[
   {id:'primer',   name:'Primer bocado',          icon:'🌱', desc:'Registra la primera comida',        check:function(){return totalFood()>=1;}},
   {id:'verduras', name:'Amante de las verduras',  icon:'🥬', desc:'10 verduras registradas',           check:function(){return foodCount('Verdura')>=10;}},
   {id:'variedad', name:'Variedad perfecta',       icon:'💗', desc:'Los 6 alimentos en una semana',     check:function(){return weekVarietyMax()>=6;}},
@@ -1682,7 +1727,41 @@ const ACHIEVEMENTS=[
   {id:'gourmet',  name:'Chef gourmet',            icon:'👨‍🍳', desc:'50 comidas registradas',           check:function(){return totalFood()>=50;}},
   {id:'centena',  name:'Centenario',              icon:'🏆', desc:'100 comidas registradas',           check:function(){return totalFood()>=100;}},
 ];
-function achImg(a){return 'img/logro_'+a.id+'.webp';}
+function achImg(a){return a.img||('img/logro_'+a.id+'.webp');}
+function diasActivos(){
+  var d={};CATS.forEach(function(c){state[c.id].logs.forEach(function(l){d[getDayStart(l.ts)]=1;});});
+  return Object.keys(d).length;
+}
+function totalGasto(){return expenses.reduce(function(s,e){return s+(Number(e.amount)||0);},0);}
+// Evaluador genérico para logros definidos en el Sheet (Logros_Catalogo)
+function achCheck(tipo,objetivo,param){
+  objetivo=Number(objetivo)||0;
+  switch(tipo){
+    case 'total_comida':    return totalFood()>=objetivo;
+    case 'comida_tipo':     return foodCount(param)>=objetivo;
+    case 'variedad_semana': return weekVarietyMax()>=objetivo;
+    case 'mins_semana':     return weekMinsMet();
+    case 'racha_comida':    return foodStreak()>=objetivo;
+    case 'racha':           return careStreak()>=objetivo;
+    case 'total_categoria': return (state[param]?state[param].logs.length:0)>=objetivo;
+    case 'dias_activos':    return diasActivos()>=objetivo;
+    case 'gastos_num':      return expenses.length>=objetivo;
+    case 'gasto_total':     return totalGasto()>=objetivo;
+    case 'puntos':          return calculatePoints()>=objetivo;
+    case 'nivel':           return (LEVELS.indexOf(getLevel(calculatePoints()))+1)>=objetivo;
+    default:                return false;
+  }
+}
+function buildAchievementsFromCatalog(catalogo){
+  if(!catalogo||!catalogo.length)return; // sin catálogo: deja los de por defecto
+  ACHIEVEMENTS=catalogo.filter(function(r){return r.id;}).map(function(r){
+    return {
+      id:String(r.id), name:r.nombre||String(r.id), icon:r.icono||'🏅', desc:r.desc||'',
+      img:r.imagen||('img/logro_'+r.id+'.webp'),
+      check:(function(t,o,p){return function(){return achCheck(t,o,p);};})(r.tipo,r.objetivo,r.param)
+    };
+  });
+}
 function loadAchievements(){try{var s=localStorage.getItem('chw6a');achievements=s?JSON.parse(s):{};}catch(e){achievements={};}}
 function saveAchievements(){try{localStorage.setItem('chw6a',JSON.stringify(achievements));}catch(e){}}
 function checkAchievements(){
