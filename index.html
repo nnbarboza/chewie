@@ -198,6 +198,49 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .modal{background:var(--bg);border-radius:20px 20px 0 0;padding:18px 16px 28px;width:100%;max-width:390px;max-height:85vh;overflow-y:auto}
 .modal h3{font-size:17px;font-weight:700;margin-bottom:14px}
 .modal-close{float:right;font-size:20px;cursor:pointer;color:var(--text2)}
+/* ===== INSIGNIAS MODAL ===== */
+.ins-head{margin-bottom:14px}
+.ins-title{font-family:var(--font-d);font-size:23px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px}
+.ins-sub{font-size:13px;color:var(--text2);font-weight:500;margin-top:2px}
+.ins-hero{display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#FBEEDD,#F7E6CF);border-radius:18px;padding:14px;margin-bottom:16px}
+.ih-cur{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
+.ih-badge{width:78px;height:78px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.ih-badge img{width:100%;height:100%;object-fit:contain}
+.ih-info{min-width:0}
+.ih-actual{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.5px;color:var(--accent);border:1.5px solid var(--accent);border-radius:20px;padding:2px 9px;margin-bottom:6px}
+.ih-name{font-family:var(--font-d);font-size:19px;font-weight:700;color:#5C3A1E;line-height:1.1}
+.ih-pts{display:inline-block;margin-top:8px;background:rgba(255,255,255,.7);border-radius:20px;padding:4px 13px;font-size:13px;font-weight:700;color:#5C3A1E}
+.ih-next{flex-shrink:0;width:104px;border-left:1px solid #E6D3B8;padding-left:12px;text-align:center}
+.ih-next-lbl{font-size:10px;color:var(--text2);font-weight:600;margin-bottom:5px}
+.ih-next-badge{width:52px;height:52px;margin:0 auto;display:flex;align-items:center;justify-content:center}
+.ih-next-badge img{width:100%;height:100%;object-fit:contain}
+.ih-next-name{font-size:11px;font-weight:700;color:#5C3A1E;line-height:1.12;margin-top:4px}
+.ih-next-faltan{font-size:11px;color:var(--accent);font-weight:700;margin-top:3px}
+.ins-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.ins-card{position:relative;background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:11px 7px 10px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:5px}
+.ins-card.reached{background:#F4FAEE;border-color:#CDE3AB}
+.ins-card.current{background:#FFF6E6;border-color:#F2C16B}
+.ins-card.locked{background:#F7F3ED}
+.ins-badge{width:60px;height:60px;display:flex;align-items:center;justify-content:center}
+.ins-badge img{width:100%;height:100%;object-fit:contain}
+.ins-card.locked .ins-badge img{filter:grayscale(1) opacity(.5)}
+.ins-name{font-size:12px;font-weight:700;color:var(--text);line-height:1.12;min-height:2.1em;display:flex;align-items:center;text-align:center}
+.ins-when{font-size:9.5px;font-weight:600;line-height:1.25}
+.ins-when.ok{color:var(--g)}
+.ins-when.cur{color:var(--w)}
+.ins-when.lock{color:var(--text3)}
+.ins-pts{font-size:11px;font-weight:700;border-radius:20px;padding:3px 11px;margin-top:1px}
+.ins-pts.ok{background:#E4F2D8;color:#3F7A2E}
+.ins-pts.cur{background:#FBE9C7;color:#B5791A}
+.ins-pts.lock{background:#EEE7DC;color:var(--text3)}
+.ins-corner{position:absolute;top:7px;right:7px;width:21px;height:21px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff}
+.ins-corner.ok{background:#7CB342}
+.ins-corner.cur{background:#F2A93B}
+.ins-corner.lock{background:#C9BFAF;font-size:10px}
+.ins-howto{margin-top:16px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 12px;font-size:11px;color:var(--text2)}
+.ins-howto summary{font-weight:700;color:var(--text);font-size:12px;cursor:pointer}
+.ins-howto .hw-body{margin-top:8px;line-height:1.6}
+.ins-foot{text-align:center;font-size:12px;color:var(--text2);font-weight:600;margin-top:16px}
 .flabel{font-size:12px;color:var(--text2);margin-bottom:4px;display:block;margin-top:10px}
 .finput{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:9px 11px;font-size:14px;font-family:inherit;color:var(--text);background:var(--card)}
 .finput:focus{outline:none;border-color:var(--accent)}
@@ -617,28 +660,34 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
   <div class="prof-foot">
     <button id="btnRefresh" title="Actualizar app">🔄 Actualizar app</button>
-    <span class="ver-tag">v0.6</span>
+    <span class="ver-tag">v0.7</span>
   </div>
 </div>
 
-<!-- LEVEL INFO MODAL -->
+<!-- INSIGNIAS MODAL -->
 <div class="modal-bg" id="level-modal">
-  <div class="modal">
+  <div class="modal ins-modal">
     <span class="modal-close" onclick="closeLevelInfo()">✕</span>
-    <h3>🏆 Niveles de cuidadora</h3>
-    <div id="level-current" style="background:var(--sand);border-radius:12px;padding:14px;margin-bottom:14px;text-align:center"></div>
-    <div id="level-list" style="display:flex;flex-direction:column;gap:6px"></div>
-    <div style="margin-top:14px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;font-size:11px;color:var(--text2);line-height:1.5">
-      <strong style="color:var(--text);font-size:12px">📋 Cómo se ganan puntos:</strong><br>
-      • Comida (fruta/verdura/gusano): +2<br>
-      • Decoración: +3<br>
-      • Limpieza (jaula completa): +5<br>
-      • Limpieza (resto): +2<br>
-      • Roer, agua, arena: +1<br>
-      • Día completo OK: +1 extra<br>
-      • Semana entera OK: +10 combo<br>
-      • Retraso: -1 por día por categoría
+    <div class="ins-head">
+      <div class="ins-title">🏆 Insignias</div>
+      <div class="ins-sub" id="ins-sub">Has desbloqueado 0 de 0 insignias</div>
     </div>
+    <div class="ins-hero" id="ins-hero"></div>
+    <div class="ins-grid" id="ins-grid"></div>
+    <details class="ins-howto">
+      <summary>📋 Cómo se ganan puntos</summary>
+      <div class="hw-body">
+        • Comida (fruta/verdura/gusano): +2<br>
+        • Decoración: +3<br>
+        • Limpieza (jaula completa): +5<br>
+        • Limpieza (resto): +2<br>
+        • Roer, agua, arena: +1<br>
+        • Día completo OK: +1 extra<br>
+        • Semana entera OK: +10 combo<br>
+        • Retraso: -1 por día por categoría
+      </div>
+    </details>
+    <div class="ins-foot">💗 Sigue cuidando a Chewie para desbloquear nuevas insignias 💗</div>
   </div>
 </div>
 
@@ -896,26 +945,61 @@ function getNextLevel(pts){
   return null; // max level
 }
 
+function fmtDay(ts){
+  return new Date(ts).toLocaleDateString('es-ES',{day:'numeric',month:'short',year:'numeric'}).replace(/\./g,'');
+}
+// Estima la fecha en que se alcanzó cada nivel: reproduce los puntos base de los
+// registros en orden cronológico y anota cuándo el acumulado cruzó cada umbral.
+function levelUnlockDates(){
+  var events=[];
+  CATS.forEach(function(c){state[c.id].logs.forEach(function(l){events.push({ts:l.ts,pts:pointsForLog(c.id,l)});});});
+  events.sort(function(a,b){return a.ts-b.ts;});
+  var dates={}, cum=0;
+  var sorted=LEVELS.slice().sort(function(a,b){return a.min-b.min;});
+  events.forEach(function(e){
+    cum+=e.pts;
+    sorted.forEach(function(l){if(dates[l.min]===undefined && cum>=l.min)dates[l.min]=e.ts;});
+  });
+  return dates;
+}
 function showLevelInfo(){
   var pts=calculatePoints();
-  var lvl=getLevel(pts);
-  var next=getNextLevel(pts);
-  var cur=document.getElementById('level-current');
-  cur.innerHTML='<div style="margin-bottom:4px">'+imgHtml(levelImg(lvl),lvl.icon,'46px')+'</div>'
-    +'<div style="font-size:16px;font-weight:700;color:#5C3A1E">'+lvl.name+'</div>'
-    +'<div style="font-size:13px;color:var(--text2);margin-top:6px">'+pts+' puntos</div>'
-    +(next?'<div style="font-size:11px;color:var(--text3);margin-top:4px">Faltan '+(next.min-pts)+' para "'+next.name+'"</div>':'<div style="font-size:11px;color:var(--g);margin-top:4px;font-weight:700">¡Nivel máximo alcanzado!</div>');
-  var list=document.getElementById('level-list');
-  list.innerHTML=LEVELS.map(function(l){
+  var lvl=getLevel(pts), next=getNextLevel(pts);
+  var sorted=LEVELS.slice().sort(function(a,b){return a.min-b.min;});
+  var unlocked=sorted.filter(function(l){return pts>=l.min;}).length;
+  document.getElementById('ins-sub').textContent='Has desbloqueado '+unlocked+' de '+sorted.length+' insignia'+(sorted.length===1?'':'s');
+  var dates=levelUnlockDates();
+
+  var nextHtml = next
+    ? '<div class="ih-next"><div class="ih-next-lbl">Siguiente insignia</div>'
+      +'<div class="ih-next-badge">'+imgHtml(levelImg(next),next.icon,'52px')+'</div>'
+      +'<div class="ih-next-name">'+next.name+'</div>'
+      +'<div class="ih-next-faltan">Faltan '+(next.min-pts)+' pts</div></div>'
+    : '<div class="ih-next"><div class="ih-next-lbl">Siguiente</div><div class="ih-next-faltan" style="margin-top:16px">¡Nivel máximo! 🎉</div></div>';
+  document.getElementById('ins-hero').innerHTML='<div class="ih-cur">'
+    +'<div class="ih-badge">'+imgHtml(levelImg(lvl),lvl.icon,'78px')+'</div>'
+    +'<div class="ih-info"><span class="ih-actual">ACTUAL</span>'
+    +'<div class="ih-name">'+lvl.name+'</div>'
+    +'<div class="ih-pts">'+pts+' pts</div></div></div>'+nextHtml;
+
+  document.getElementById('ins-grid').innerHTML=sorted.map(function(l){
     var reached=pts>=l.min;
-    var isCurrent=l.name===lvl.name;
-    return'<div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:'
-      +(isCurrent?'#FFF0E8':reached?'#F7FBF2':'var(--card)')+';border:1px solid '
-      +(isCurrent?'#E87878':reached?'#C0DD97':'var(--border)')+';opacity:'+(reached?'1':'0.6')+'">'
-      +'<div style="width:26px;height:26px;display:flex;align-items:center;justify-content:center">'+imgHtml(levelImg(l),l.icon,'24px')+'</div>'
-      +'<div style="flex:1;font-size:12px;font-weight:'+(isCurrent?'700':'600')+';color:var(--text)">'+l.name+'</div>'
-      +'<div style="font-size:11px;color:var(--text2);font-weight:600">'+l.min+' pts</div></div>';
+    var isCur=(l.name===lvl.name && l.min===lvl.min);
+    var cls=isCur?'current':(reached?'reached':'locked');
+    var corner=isCur?'<div class="ins-corner cur">★</div>':(reached?'<div class="ins-corner ok">✓</div>':'<div class="ins-corner lock">🔒</div>');
+    var when, wcls;
+    if(reached){
+      wcls=isCur?'cur':'ok';
+      when=dates[l.min]?('Obtenida el<br>'+fmtDay(dates[l.min])):(isCur?'Insignia actual':'Desbloqueada');
+    } else { wcls='lock'; when='Aún no<br>desbloqueada'; }
+    var pcls=isCur?'cur':(reached?'ok':'lock');
+    return '<div class="ins-card '+cls+'">'+corner
+      +'<div class="ins-badge">'+imgHtml(levelImg(l),l.icon,'60px')+'</div>'
+      +'<div class="ins-name">'+l.name+'</div>'
+      +'<div class="ins-when '+wcls+'">'+when+'</div>'
+      +'<div class="ins-pts '+pcls+'">'+l.min+' pts</div></div>';
   }).join('');
+
   document.getElementById('level-modal').classList.add('open');
 }
 function closeLevelInfo(){document.getElementById('level-modal').classList.remove('open');}
