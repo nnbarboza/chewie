@@ -302,6 +302,50 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .fc-det{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:8px 11px}
 .fc-det label{font-size:12px;font-weight:700;color:var(--text2);min-width:62px}
 .fc-det input{flex:1;border:none;background:transparent;font-size:13px;color:var(--text);outline:none;font-family:inherit}
+/* ===== AGUA / CUIDADO PERIÓDICO ===== */
+.wd-hero{width:150px;height:150px;margin:4px auto 14px;display:flex;align-items:center;justify-content:center}
+.wd-hero img{width:100%;height:100%;object-fit:contain}
+.wd-last{background:var(--card);border:1px solid #F1E7D8;border-radius:18px;padding:15px 16px;margin:0 14px;box-shadow:0 4px 14px rgba(93,58,30,.05)}
+.wd-last-lbl{font-size:12px;color:var(--text2);font-weight:600}
+.wd-last-val{font-family:var(--font-d);font-size:23px;font-weight:700;color:var(--text);line-height:1.1;margin-top:2px}
+.wd-last-sub{font-size:12px;color:var(--text2);margin-top:3px}
+.wd-reg{display:flex;align-items:center;justify-content:center;gap:9px;width:calc(100% - 28px);margin:14px;background:var(--accent);color:#fff;border:none;border-radius:18px;padding:16px;font-size:17px;font-weight:700;font-family:var(--font-d);cursor:pointer;box-shadow:0 5px 16px rgba(232,120,120,.32)}
+.wd-reg span{font-size:18px}
+.wd-card{background:var(--card);border:1px solid #F1E7D8;border-radius:18px;padding:15px 16px;margin:0 14px 12px;box-shadow:0 4px 14px rgba(93,58,30,.05)}
+.wd-card-title{font-family:var(--font-d);font-size:16px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:7px}
+.wd-prog-top{display:flex;align-items:baseline;justify-content:space-between}
+.wd-prog-lbl2{font-family:var(--font-d);font-size:16px;font-weight:600;color:var(--text)}
+.wd-prog-num{font-family:var(--font-d);font-size:22px;font-weight:700;color:var(--accent)}
+.wd-prog-bar{height:11px;border-radius:11px;background:#EAEFF2;overflow:hidden;margin:11px 0 7px}
+.wd-prog-bar i{display:block;height:100%;border-radius:11px;background:linear-gradient(90deg,#7FC8E8,#5AA9D6);transition:width .5s}
+.wd-prog-lbl{font-size:12px;color:var(--text2);font-weight:600}
+.wd-cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
+.wd-cal-nav{display:flex;align-items:center;gap:6px;background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:4px 6px}
+.wd-cal-nav>span:first-child,.wd-cal-nav>span:last-child{cursor:pointer;color:var(--accent);font-weight:800;font-size:16px;padding:0 6px;user-select:none}
+.wd-cal-title{font-size:12px;font-weight:700;color:var(--text);min-width:92px;text-align:center}
+.wd-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.wd-cal-grid .wm-h{font-size:9.5px;color:var(--text3);font-weight:700;text-align:center;padding-bottom:2px}
+.wd-cal-grid .wm-c{aspect-ratio:1;border-radius:10px;background:var(--bg);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;position:relative}
+.wd-cal-grid .wm-c.empty{background:transparent;border:none}
+.wd-cal-grid .wm-c.today{border-color:var(--accent);background:#FFF1F1}
+.wd-cal-grid .wm-n{font-size:10px;color:var(--text2);font-weight:600;line-height:1}
+.wd-cal-grid .wm-drop{font-size:13px;line-height:1;margin-top:1px}
+.wd-year{display:flex;align-items:flex-end;gap:8px;height:108px;margin:14px 0 4px;padding:0 2px}
+.wy-col{flex:1;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end;gap:4px}
+.wy-val{font-size:11px;font-weight:700;color:var(--text2)}
+.wy-barwrap{width:100%;flex:1;display:flex;align-items:flex-end;justify-content:center}
+.wy-bar{width:62%;min-height:3px;border-radius:8px 8px 0 0;background:#F3C8C8}
+.wy-bar.cur{background:var(--accent)}
+.wy-lab{font-size:10px;color:var(--text3);font-weight:600}
+.wd-stats{display:flex;gap:10px;margin-top:6px;border-top:1px solid var(--border);padding-top:12px}
+.wd-stat{flex:1;display:flex;align-items:center;gap:9px}
+.wd-stat-ic{font-size:22px}
+.wd-stat-v{font-family:var(--font-d);font-size:18px;font-weight:700;color:var(--text);line-height:1}
+.wd-stat-l{font-size:10px;color:var(--text2);font-weight:600;line-height:1.15;margin-top:2px}
+.wd-foot{display:flex;align-items:center;gap:12px;background:#EAF4FB;border:1px solid #CFE6F3;border-radius:16px;padding:12px 14px;margin:4px 14px 14px}
+.wd-foot .wf-ham{width:46px;height:46px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.wd-foot .wf-ham img{width:100%;height:100%;object-fit:contain}
+.wd-foot .wf-msg{font-size:13px;color:#3D6B82;font-weight:600;line-height:1.3}
 
 .food-chips{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
 .fchip{position:relative;border-radius:17px;border:1.5px solid var(--border);background:var(--card);padding:11px 6px 9px;text-align:center;cursor:pointer;transition:transform .12s,border-color .12s,box-shadow .12s}
@@ -504,7 +548,48 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
   </div>
 
-  <!-- ===== NON-FOOD BLOCK (water, sand, clean, gnaw, deco) ===== -->
+  <!-- ===== WATER BLOCK (agua; reutilizable para cuidados periódicos) ===== -->
+  <div id="water-detail" style="display:none">
+    <div class="wd-hero" id="wd-hero"></div>
+    <div class="wd-last">
+      <div class="wd-last-info">
+        <div class="wd-last-lbl">Último registro</div>
+        <div class="wd-last-val" id="wd-last-val">—</div>
+        <div class="wd-last-sub" id="wd-last-sub"></div>
+      </div>
+    </div>
+    <button class="wd-reg" id="wd-reg-btn" onclick="registerCare(this)"><span>💧</span> Registrar agua</button>
+    <div class="wd-card">
+      <div class="wd-prog-top">
+        <div class="wd-prog-lbl2">Este mes</div>
+        <div class="wd-prog-num" id="wd-prog-num">0 / 0</div>
+      </div>
+      <div class="wd-prog-bar"><i id="wd-prog-fill" style="width:0%"></i></div>
+      <div class="wd-prog-lbl" id="wd-prog-lbl"></div>
+    </div>
+    <div class="wd-card">
+      <div class="wd-cal-head">
+        <div class="wd-card-title"><span>🗓️</span> Tu mes</div>
+        <div class="wd-cal-nav">
+          <span onclick="wdNav(-1)">‹</span>
+          <span class="wd-cal-title" id="wd-cal-title">—</span>
+          <span onclick="wdNav(1)">›</span>
+        </div>
+      </div>
+      <div class="wd-cal-grid" id="wd-cal-grid"></div>
+    </div>
+    <div class="wd-card">
+      <div class="wd-card-title"><span>📊</span> Resumen anual</div>
+      <div class="wd-year" id="wd-year"></div>
+      <div class="wd-stats">
+        <div class="wd-stat"><span class="wd-stat-ic">❤️</span><div><div class="wd-stat-v" id="wd-stat-cumpl">0%</div><div class="wd-stat-l">Cumplimiento del mes</div></div></div>
+        <div class="wd-stat"><span class="wd-stat-ic">💧</span><div><div class="wd-stat-v" id="wd-stat-prom">0</div><div class="wd-stat-l">Promedio mensual</div></div></div>
+      </div>
+    </div>
+    <div class="wd-foot" id="wd-foot"></div>
+  </div>
+
+  <!-- ===== NON-FOOD BLOCK (sand, clean, gnaw, deco) ===== -->
   <div id="nonfood-detail">
     <div class="last-card">
       <div><div class="last-lbl">Último registro</div><div class="last-val" id="det-last-val">—</div><div class="last-sub" id="det-last-sub"></div></div>
@@ -660,7 +745,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
   <div class="prof-foot">
     <button id="btnRefresh" title="Actualizar app">🔄 Actualizar app</button>
-    <span class="ver-tag">v0.7</span>
+    <span class="ver-tag">v0.8</span>
   </div>
 </div>
 
@@ -761,7 +846,7 @@ const RESET_HOUR = 7; // 7am = día nuevo
 
 const CATS=[
   {id:'food', emoji:'🍚', bg:'#FFE8E0', name:'Comida',           freqDays:1,   freq:'Cada día',        tag:'Cada día con <b>amor</b>',      foods:['Fruta','Verdura','Gusano','Chuche','Semillas','Ramita']},
-  {id:'water',emoji:'💧', bg:'#E0F0FF', name:'Agua',             freqDays:2,   freq:'Cada 2 días',     tag:'Cada 2 días, bien <b>fresquita</b>'},
+  {id:'water',emoji:'💧', bg:'#E0F0FF', name:'Agua',             freqDays:2,   freq:'Cada 2 días',     tag:'Cada 2 días, bien <b>fresquita</b>', rich:true},
   {id:'sand', emoji:'🏖️', bg:'#F0E8FF', name:'Arena',            freqDays:3,   freq:'Cada 3 días',     tag:'Cada 3 días, bien <b>limpita</b>'},
   {id:'clean',emoji:'🧹', bg:'#E0F5EE', name:'Limpieza',         freqDays:30,  freq:'1 vez al mes',    tag:'Una vez al mes con <b>cariño</b>',   cleans:['Sustrato','Jaula completa','Rueda','Bebedero','Frasco']},
   {id:'gnaw', emoji:'🪵', bg:'#FFF0DC', name:'Roer',             freqDays:7,   freq:'Según necesidad', tag:'Cuando lo <b>necesite</b>',          note:'¿Qué le pusiste para roer?'},
@@ -1005,7 +1090,7 @@ function showLevelInfo(){
 function closeLevelInfo(){document.getElementById('level-modal').classList.remove('open');}
 
 
-let state={}, expenses=[], curCat=null, curTab='month', chart=null, selFoods=[], foodDetails={};
+let state={}, expenses=[], curCat=null, curTab='month', chart=null, selFoods=[], foodDetails={}, wdMonth=null;
 let pendingImportData=null, curiosidades=[], curioIdx=0, pieChartInst=null, monthlyChartInst=null;
 let dietaPeriod='mes', dietaChart=null, dietaBarChart=null, dietaDetMode='week', achievements={};
 
@@ -1423,11 +1508,13 @@ function openDetail(cat){
   var foodBlock=document.getElementById('food-detail');
   var nonBlock=document.getElementById('nonfood-detail');
   var iconHead=document.getElementById('det-icon-header');
+  var waterBlock=document.getElementById('water-detail');
 
   if(cat.id==='food'){
     foodBlock.style.display='block';
     nonBlock.style.display='none';
     iconHead.style.display='none';
+    waterBlock.style.display='none';
     renderFoodHero();
     renderWeekCalendar();
     renderFoodChips();
@@ -1438,10 +1525,23 @@ function openDetail(cat){
     return;
   }
 
+  if(cat.rich){
+    foodBlock.style.display='none';
+    nonBlock.style.display='none';
+    iconHead.style.display='none';
+    waterBlock.style.display='block';
+    wdMonth=null;
+    var wb=document.getElementById('wd-reg-btn');
+    wb.innerHTML='<span>'+cat.emoji+'</span> Registrar '+cat.name;wb.style.background='';
+    renderWaterDetail();
+    return;
+  }
+
   // ── Non-food categories ──
   foodBlock.style.display='none';
   nonBlock.style.display='block';
   iconHead.style.display='block';
+  waterBlock.style.display='none';
   var diw=document.getElementById('det-icon-wrap');diw.style.background=cat.bg;diw.innerHTML='';
   if(CAT_IMGS[cat.id])diw.appendChild(makeImg(CAT_IMGS[cat.id],cat.emoji,'100%','100%',''));
   else diw.innerHTML='<span style="font-size:36px">'+cat.emoji+'</span>';
@@ -1593,6 +1693,13 @@ function registerCare(btn){
     btn.innerHTML='✓ +'+pts+' pts';btn.style.background='linear-gradient(135deg,#5FB85F,#4F9E4F)';
     setTimeout(function(){btn.innerHTML='<span class="pl">+</span>Guardar comidita';btn.style.background='';},2200);
   } else {
+    if(curCat.rich){
+      renderWaterDetail();
+      checkAchievements();
+      var rc=curCat;
+      btn.innerHTML='✓ +'+pts+' pts';btn.style.background='linear-gradient(135deg,#5FB85F,#4F9E4F)';
+      setTimeout(function(){btn.innerHTML='<span>'+rc.emoji+'</span> Registrar '+rc.name;btn.style.background='';},2000);
+    } else {
     document.querySelectorAll('#food-grid .ftog').forEach(function(x){x.classList.remove('on');});
     document.getElementById('det-note').value='';
     var last=state[curCat.id].logs[state[curCat.id].logs.length-1];
@@ -1602,9 +1709,108 @@ function registerCare(btn){
     buildChart();
     btn.textContent='✓ ¡Registrado! +'+pts+' pts';btn.style.background='#5A9E5A';
     setTimeout(function(){btn.textContent='Registrar '+curCat.name;btn.style.background='';},2200);
+    }
   }
 }
 
+function relTime(ts){
+  var d=daysAgoReset(ts);
+  if(d<=0)return'Hoy';
+  if(d===1)return'Ayer';
+  return'Hace '+d+' días';
+}
+function renderWaterDetail(){
+  var cat=curCat;
+  var logs=state[cat.id].logs.slice().sort(function(a,b){return a.ts-b.ts;});
+  var last=logs.length?logs[logs.length-1]:null;
+  // hero
+  var hero=document.getElementById('wd-hero');hero.innerHTML='';
+  hero.appendChild(makeImg(CAT_IMGS[cat.id]||'',cat.emoji,'100%','100%','',64));
+  // último registro
+  document.getElementById('wd-last-val').textContent=last?relTime(last.ts):'Sin registros';
+  document.getElementById('wd-last-sub').textContent=last?fmtFull(last.ts):'Empieza registrando ahora';
+  // progreso del mes actual
+  var now=new Date();
+  var mStart=new Date(now.getFullYear(),now.getMonth(),1).getTime();
+  var mEnd=new Date(now.getFullYear(),now.getMonth()+1,1).getTime();
+  var done=logs.filter(function(l){return l.ts>=mStart&&l.ts<mEnd;}).length;
+  var daysInMonth=new Date(now.getFullYear(),now.getMonth()+1,0).getDate();
+  var objetivo=Math.max(1,Math.ceil(daysInMonth/cat.freqDays));
+  var pct=Math.min(100,Math.round(done/objetivo*100));
+  document.getElementById('wd-prog-num').textContent=done+' / '+objetivo;
+  document.getElementById('wd-prog-fill').style.width=pct+'%';
+  document.getElementById('wd-prog-lbl').textContent= done>=objetivo
+    ? '¡Objetivo del mes cumplido! 🎉'
+    : ('Toca cada '+cat.freqDays+' días · te quedan '+(objetivo-done)+' este mes');
+  // calendario del mes
+  if(!wdMonth)wdMonth=new Date(now.getFullYear(),now.getMonth(),1);
+  renderWaterMonth();
+  // resumen anual (6 meses)
+  renderWaterYear();
+  // stats laterales
+  document.getElementById('wd-stat-cumpl').textContent=pct+'%';
+  var byMonth={};logs.forEach(function(l){var d=new Date(l.ts);byMonth[d.getFullYear()+'-'+d.getMonth()]=(byMonth[d.getFullYear()+'-'+d.getMonth()]||0)+1;});
+  var nm=Object.keys(byMonth).length;
+  document.getElementById('wd-stat-prom').textContent=nm?Math.round(logs.length/nm):0;
+  // pie de página
+  var st=getStatus(cat);
+  var foot=document.getElementById('wd-foot');foot.innerHTML='';
+  var wf=document.createElement('div');wf.className='wf-ham';
+  wf.appendChild(makeImg(IMG_URLS[st==='ok'?'happy':'thirsty'],'🐹','100%','100%','',34));
+  var msg=document.createElement('div');msg.className='wf-msg';
+  msg.textContent= st==='ok' ? '¡Gran trabajo! Chewie está feliz e hidratado 💧💙'
+    : (st==='warn' ? 'Toca cambiar el agua pronto 💧' : 'Chewie tiene sed, ¡cámbiale el agua! 💧');
+  foot.appendChild(wf);foot.appendChild(msg);
+}
+function wdNav(delta){
+  if(!wdMonth){var n=new Date();wdMonth=new Date(n.getFullYear(),n.getMonth(),1);}
+  wdMonth=new Date(wdMonth.getFullYear(),wdMonth.getMonth()+delta,1);
+  renderWaterMonth();
+}
+function renderWaterMonth(){
+  var cat=curCat;
+  var y=wdMonth.getFullYear(), m=wdMonth.getMonth();
+  var title=wdMonth.toLocaleDateString('es-ES',{month:'long',year:'numeric'});
+  document.getElementById('wd-cal-title').textContent=title.charAt(0).toUpperCase()+title.slice(1);
+  var grid=document.getElementById('wd-cal-grid');grid.innerHTML='';
+  ['LUN','MAR','MIÉ','JUE','VIE','SÁB','DOM'].forEach(function(d){
+    var h=document.createElement('div');h.className='wm-h';h.textContent=d;grid.appendChild(h);
+  });
+  var startDow=(new Date(y,m,1).getDay()+6)%7; // lunes=0
+  var daysInMonth=new Date(y,m+1,0).getDate();
+  var dayset={};
+  state[cat.id].logs.forEach(function(l){var d=new Date(l.ts);if(d.getFullYear()===y&&d.getMonth()===m)dayset[d.getDate()]=1;});
+  var today=new Date();var isThisMonth=(today.getFullYear()===y&&today.getMonth()===m);
+  for(var i=0;i<startDow;i++){var e=document.createElement('div');e.className='wm-c empty';grid.appendChild(e);}
+  for(var day=1;day<=daysInMonth;day++){
+    var c=document.createElement('div');c.className='wm-c'+(isThisMonth&&day===today.getDate()?' today':'');
+    var num=document.createElement('div');num.className='wm-n';num.textContent=day;c.appendChild(num);
+    if(dayset[day]){var dr=document.createElement('div');dr.className='wm-drop';dr.textContent=cat.emoji;c.appendChild(dr);}
+    grid.appendChild(c);
+  }
+}
+function renderWaterYear(){
+  var cat=curCat;var now=new Date();var months=[];
+  for(var i=5;i>=0;i--)months.push(new Date(now.getFullYear(),now.getMonth()-i,1));
+  var counts=months.map(function(d){
+    var s=new Date(d.getFullYear(),d.getMonth(),1).getTime();
+    var e=new Date(d.getFullYear(),d.getMonth()+1,1).getTime();
+    return state[cat.id].logs.filter(function(l){return l.ts>=s&&l.ts<e;}).length;
+  });
+  var max=Math.max(1,Math.max.apply(null,counts));
+  var wrap=document.getElementById('wd-year');wrap.innerHTML='';
+  months.forEach(function(d,i){
+    var col=document.createElement('div');col.className='wy-col';
+    var v=document.createElement('div');v.className='wy-val';v.textContent=counts[i];
+    var bw=document.createElement('div');bw.className='wy-barwrap';
+    var bar=document.createElement('div');bar.className='wy-bar'+(i===months.length-1?' cur':'');
+    bar.style.height=(counts[i]/max*100)+'%';
+    bw.appendChild(bar);
+    var lab=document.createElement('div');lab.className='wy-lab';
+    lab.textContent=d.toLocaleDateString('es-ES',{month:'short'}).replace('.','');
+    col.appendChild(v);col.appendChild(bw);col.appendChild(lab);wrap.appendChild(col);
+  });
+}
 function switchTab(t){
   curTab=t;
   document.getElementById('tab-m').className='chtab'+(t==='month'?' active':'');
