@@ -346,6 +346,38 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .wd-foot .wf-ham{width:46px;height:46px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
 .wd-foot .wf-ham img{width:100%;height:100%;object-fit:contain}
 .wd-foot .wf-msg{font-size:13px;color:#3D6B82;font-weight:600;line-height:1.3}
+/* ===== LIMPIEZA (zonas) ===== */
+.cd-general{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid #F1E7D8;border-radius:18px;padding:14px;margin:0 14px 14px;box-shadow:0 4px 14px rgba(93,58,30,.05)}
+.cd-gen-ic{width:46px;height:46px;border-radius:14px;background:#FFE9E4;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.cd-gen-info{flex:1;min-width:0}
+.cd-gen-lbl{font-size:11.5px;color:var(--text2);font-weight:600}
+.cd-gen-val{font-family:var(--font-d);font-size:20px;font-weight:700;color:var(--text);line-height:1.1}
+.cd-gen-sub{font-size:11px;color:var(--text2);margin-top:2px}
+.cd-status{flex-shrink:0;display:flex;align-items:center;gap:8px;border-radius:14px;padding:9px 11px}
+.cd-status.ok{background:#EEF7E4}
+.cd-status.warn{background:#FCF1DC}
+.cd-status.alert{background:#FBE6E6}
+.cd-st-ic{font-size:20px}
+.cd-st-t{font-family:var(--font-d);font-size:13px;font-weight:700;line-height:1.05}
+.cd-status.ok .cd-st-t{color:var(--g)}
+.cd-status.warn .cd-st-t{color:var(--w)}
+.cd-status.alert .cd-st-t{color:var(--r)}
+.cd-st-s{font-size:10px;color:var(--text2);font-weight:600;margin-top:1px}
+.cd-zones{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}
+.cd-zone{position:relative;background:var(--bg);border:1.5px solid var(--border);border-radius:16px;padding:12px 7px 11px;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;transition:transform .1s}
+.cd-zone:active{transform:scale(.96)}
+.cd-zone.sel{border-color:var(--accent);background:#FFF1F1;box-shadow:0 0 0 2px rgba(232,120,120,.15)}
+.cd-z-ic{width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-size:30px}
+.cd-z-ic img{width:100%;height:100%;object-fit:contain}
+.cd-z-name{font-size:13px;font-weight:700;color:var(--text)}
+.cd-z-when{font-size:10px;color:var(--text2);font-weight:500}
+.cd-z-pill{font-size:9.5px;font-weight:700;border-radius:20px;padding:3px 9px;margin-top:1px}
+.cd-z-pill.ok{background:#E4F2D8;color:#3F7A2E}
+.cd-z-pill.warn{background:#FBE9C7;color:#B5791A}
+.cd-z-pill.alert{background:#FBDADA;color:#C24141}
+.cd-z-check{position:absolute;top:6px;right:6px;width:20px;height:20px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:900;display:none;align-items:center;justify-content:center}
+.cd-zone.sel .cd-z-check{display:flex}
+.cd-hint{text-align:center;font-size:11px;color:var(--text3);margin-top:12px}
 
 .food-chips{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
 .fchip{position:relative;border-radius:17px;border:1.5px solid var(--border);background:var(--card);padding:11px 6px 9px;text-align:center;cursor:pointer;transition:transform .12s,border-color .12s,box-shadow .12s}
@@ -589,6 +621,26 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <div class="wd-foot" id="wd-foot"></div>
   </div>
 
+  <!-- ===== LIMPIEZA BLOCK (zonas) ===== -->
+  <div id="clean-detail" style="display:none">
+    <div class="wd-hero" id="cd-hero"></div>
+    <div class="cd-general">
+      <div class="cd-gen-ic">🗓️</div>
+      <div class="cd-gen-info">
+        <div class="cd-gen-lbl">Última limpieza general</div>
+        <div class="cd-gen-val" id="cd-last-val">—</div>
+        <div class="cd-gen-sub" id="cd-last-sub"></div>
+      </div>
+      <div class="cd-status" id="cd-status"></div>
+    </div>
+    <div class="wd-card">
+      <div class="wd-card-title"><span>🧽</span> Última limpieza por zona</div>
+      <div class="cd-zones" id="cd-zones"></div>
+      <div class="cd-hint">Toca las zonas que has limpiado y pulsa registrar</div>
+    </div>
+    <button class="wd-reg" id="cd-reg-btn" onclick="registerCare(this)"><span>✨</span> Registrar limpieza</button>
+  </div>
+
   <!-- ===== NON-FOOD BLOCK (sand, clean, gnaw, deco) ===== -->
   <div id="nonfood-detail">
     <div class="last-card">
@@ -745,7 +797,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
   <div class="prof-foot">
     <button id="btnRefresh" title="Actualizar app">🔄 Actualizar app</button>
-    <span class="ver-tag">v0.8</span>
+    <span class="ver-tag">v0.9</span>
   </div>
 </div>
 
@@ -848,7 +900,7 @@ const CATS=[
   {id:'food', emoji:'🍚', bg:'#FFE8E0', name:'Comida',           freqDays:1,   freq:'Cada día',        tag:'Cada día con <b>amor</b>',      foods:['Fruta','Verdura','Gusano','Chuche','Semillas','Ramita']},
   {id:'water',emoji:'💧', bg:'#E0F0FF', name:'Agua',             freqDays:2,   freq:'Cada 2 días',     tag:'Cada 2 días, bien <b>fresquita</b>', rich:true},
   {id:'sand', emoji:'🏖️', bg:'#F0E8FF', name:'Arena',            freqDays:3,   freq:'Cada 3 días',     tag:'Cada 3 días, bien <b>limpita</b>'},
-  {id:'clean',emoji:'🧹', bg:'#E0F5EE', name:'Limpieza',         freqDays:30,  freq:'1 vez al mes',    tag:'Una vez al mes con <b>cariño</b>',   cleans:['Sustrato','Jaula completa','Rueda','Bebedero','Frasco']},
+  {id:'clean',emoji:'🧹', bg:'#E0F5EE', name:'Limpieza',         freqDays:30,  freq:'1 vez al mes',    tag:'Una vez al mes con <b>cariño</b>',   zones:true, cleans:['Sustrato','Jaula completa','Rueda','Bebedero','Frasco']},
   {id:'gnaw', emoji:'🪵', bg:'#FFF0DC', name:'Roer',             freqDays:7,   freq:'Según necesidad', tag:'Cuando lo <b>necesite</b>',          note:'¿Qué le pusiste para roer?'},
   {id:'deco', emoji:'🏠', bg:'#FFE8F0', name:'Nueva decoración', freqDays:30,  freq:'Según necesidad', tag:'Cuando le <b>apetezca</b>',          note:'¿Qué decoración añadiste?'},
 ];
@@ -901,6 +953,16 @@ const CAT_IMGS={
   clean:'img/limpieza.webp', gnaw:'img/roer.webp', deco:'img/decoracion.webp',
   shop:'img/compras.webp',
 };
+// Zonas de limpieza. freqDays = cada cuántos días toca cada una (ajústalas a tu gusto).
+// key = texto que se busca en el historial (compatibilidad con registros antiguos).
+const CLEAN_ZONES=[
+  {name:'Sustrato', key:'Sustrato', emoji:'🌿',  freqDays:14, img:'img/clean_sustrato.webp'},
+  {name:'Jaula',    key:'Jaula',    emoji:'🏠',  freqDays:30, img:'img/clean_jaula.webp'},
+  {name:'Rueda',    key:'Rueda',    emoji:'☸️',  freqDays:21, img:'img/clean_rueda.webp'},
+  {name:'Bebedero', key:'Bebedero', emoji:'💧',  freqDays:14, img:'img/clean_bebedero.webp'},
+  {name:'Frasco',   key:'Frasco',   emoji:'🫙',  freqDays:30, img:'img/clean_frasco.webp'},
+  {name:'Casa',     key:'Casa',     emoji:'🏚️',  freqDays:30, img:'img/clean_casa.webp'}
+];
 
 const SCRIPT_URL='https://script.google.com/macros/s/AKfycbwrFa5jMZ45pLWqOsBojWB4MaHyd7NkW3nhwHd_vXN01qPUbESZUm9h9-g321yFJKjg/exec';
 // Backend = base de datos. URL fija de tu implementación (/exec).
@@ -935,7 +997,7 @@ function pointsForLog(catId, log){
     var types=log.type.split(', ');
     var pts=0;
     types.forEach(function(t){
-      if(t==='Jaula completa')pts+=5;
+      if(t==='Jaula completa'||t==='Jaula')pts+=5;
       else pts+=2;
     });
     return pts;
@@ -1509,12 +1571,14 @@ function openDetail(cat){
   var nonBlock=document.getElementById('nonfood-detail');
   var iconHead=document.getElementById('det-icon-header');
   var waterBlock=document.getElementById('water-detail');
+  var cleanBlock=document.getElementById('clean-detail');
 
   if(cat.id==='food'){
     foodBlock.style.display='block';
     nonBlock.style.display='none';
     iconHead.style.display='none';
     waterBlock.style.display='none';
+    cleanBlock.style.display='none';
     renderFoodHero();
     renderWeekCalendar();
     renderFoodChips();
@@ -1525,11 +1589,24 @@ function openDetail(cat){
     return;
   }
 
+  if(cat.zones){
+    foodBlock.style.display='none';
+    nonBlock.style.display='none';
+    iconHead.style.display='none';
+    waterBlock.style.display='none';
+    cleanBlock.style.display='block';
+    var cb=document.getElementById('cd-reg-btn');
+    cb.innerHTML='<span>✨</span> Registrar '+cat.name.toLowerCase();cb.style.background='';
+    renderCleanDetail();
+    return;
+  }
+
   if(cat.rich){
     foodBlock.style.display='none';
     nonBlock.style.display='none';
     iconHead.style.display='none';
     waterBlock.style.display='block';
+    cleanBlock.style.display='none';
     wdMonth=null;
     var wb=document.getElementById('wd-reg-btn');
     wb.innerHTML='<span>'+cat.emoji+'</span> Registrar '+cat.name;wb.style.background='';
@@ -1542,6 +1619,7 @@ function openDetail(cat){
   nonBlock.style.display='block';
   iconHead.style.display='block';
   waterBlock.style.display='none';
+  cleanBlock.style.display='none';
   var diw=document.getElementById('det-icon-wrap');diw.style.background=cat.bg;diw.innerHTML='';
   if(CAT_IMGS[cat.id])diw.appendChild(makeImg(CAT_IMGS[cat.id],cat.emoji,'100%','100%',''));
   else diw.innerHTML='<span style="font-size:36px">'+cat.emoji+'</span>';
@@ -1663,6 +1741,16 @@ function registerCare(btn){
       setTimeout(function(){btn.innerHTML=orig;},1500);
       return;
     }
+  } else if(curCat.zones){
+    selFoods=Array.from(document.querySelectorAll('#cd-zones .cd-zone.sel')).map(function(x){return x.dataset.z;});
+    if(!selFoods.length){
+      var origc=btn.innerHTML;
+      btn.innerHTML='Toca qué has limpiado 🧽';
+      setTimeout(function(){btn.innerHTML=origc;},1500);
+      return;
+    }
+  } else if(curCat.rich){
+    selFoods=[];
   } else {
     selFoods=Array.from(document.querySelectorAll('#food-grid .ftog.on')).map(function(x){return x.dataset.t;});
   }
@@ -1693,7 +1781,13 @@ function registerCare(btn){
     btn.innerHTML='✓ +'+pts+' pts';btn.style.background='linear-gradient(135deg,#5FB85F,#4F9E4F)';
     setTimeout(function(){btn.innerHTML='<span class="pl">+</span>Guardar comidita';btn.style.background='';},2200);
   } else {
-    if(curCat.rich){
+    if(curCat.zones){
+      renderCleanDetail();
+      checkAchievements();
+      var zc=curCat;
+      btn.innerHTML='✓ +'+pts+' pts';btn.style.background='linear-gradient(135deg,#5FB85F,#4F9E4F)';
+      setTimeout(function(){btn.innerHTML='<span>✨</span> Registrar '+zc.name.toLowerCase();btn.style.background='';},2000);
+    } else if(curCat.rich){
       renderWaterDetail();
       checkAchievements();
       var rc=curCat;
@@ -1713,6 +1807,52 @@ function registerCare(btn){
   }
 }
 
+function lastCleanForZone(key){
+  var best=null;
+  state.clean.logs.forEach(function(l){
+    if(l.type && l.type.indexOf(key)!==-1 && (!best||l.ts>best))best=l.ts;
+  });
+  return best;
+}
+function zoneStatus(zone,ts){
+  if(ts==null)return'alert';
+  var days=daysAgoReset(ts);
+  if(days>=zone.freqDays*1.5)return'alert';
+  if(days>=zone.freqDays)return'warn';
+  return'ok';
+}
+function renderCleanDetail(){
+  var cat=curCat;
+  var hero=document.getElementById('cd-hero');hero.innerHTML='';
+  hero.appendChild(makeImg(CAT_IMGS.clean||'',cat.emoji,'100%','100%','',64));
+  var logs=state.clean.logs;
+  var last=null;logs.forEach(function(l){if(!last||l.ts>last.ts)last=l;});
+  document.getElementById('cd-last-val').textContent=last?relTime(last.ts):'Sin registros';
+  document.getElementById('cd-last-sub').textContent=last?fmtFull(last.ts):'Empieza registrando ahora';
+  var st=getStatus(cat);
+  var sm={ok:['ok','✓','¡Al día!','Todo limpio ✨'],warn:['warn','🕐','Casi toca','Pronto a limpiar'],alert:['alert','⚠️','¡Toca!','Necesita limpieza']};
+  var s=sm[st];
+  var stEl=document.getElementById('cd-status');
+  stEl.className='cd-status '+s[0];
+  stEl.innerHTML='<div class="cd-st-ic">'+s[1]+'</div><div><div class="cd-st-t">'+s[2]+'</div><div class="cd-st-s">'+s[3]+'</div></div>';
+
+  var grid=document.getElementById('cd-zones');grid.innerHTML='';
+  var pm={ok:['ok','✓ Al día'],warn:['warn','🕐 Casi toca'],alert:['alert','⚠ Toca']};
+  CLEAN_ZONES.forEach(function(z){
+    var ts=lastCleanForZone(z.key);
+    var zst=zoneStatus(z,ts);
+    var card=document.createElement('div');card.className='cd-zone';card.dataset.z=z.name;
+    var chk=document.createElement('div');chk.className='cd-z-check';chk.textContent='✓';
+    var ic=document.createElement('div');ic.className='cd-z-ic';
+    ic.appendChild(makeImg(z.img||'',z.emoji,'100%','100%','',28));
+    var nm=document.createElement('div');nm.className='cd-z-name';nm.textContent=z.name;
+    var when=document.createElement('div');when.className='cd-z-when';when.textContent=ts?relTime(ts):'Sin registro';
+    var pill=document.createElement('div');pill.className='cd-z-pill '+pm[zst][0];pill.textContent=pm[zst][1];
+    card.appendChild(chk);card.appendChild(ic);card.appendChild(nm);card.appendChild(when);card.appendChild(pill);
+    card.onclick=function(){this.classList.toggle('sel');};
+    grid.appendChild(card);
+  });
+}
 function relTime(ts){
   var d=daysAgoReset(ts);
   if(d<=0)return'Hoy';
