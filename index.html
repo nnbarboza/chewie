@@ -311,6 +311,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .wd-last-sub{font-size:12px;color:var(--text2);margin-top:3px}
 .wd-reg{display:flex;align-items:center;justify-content:center;gap:9px;width:calc(100% - 28px);margin:14px;background:var(--accent);color:#fff;border:none;border-radius:18px;padding:16px;font-size:17px;font-weight:700;font-family:var(--font-d);cursor:pointer;box-shadow:0 5px 16px rgba(232,120,120,.32)}
 .wd-reg span{font-size:18px}
+.wd-detail{margin:0 14px 0;background:var(--card);border:1px solid #F1E7D8;border-radius:16px;padding:12px 14px;box-shadow:0 4px 14px rgba(93,58,30,.05)}
+.wd-detail label{display:block;font-size:12px;font-weight:700;color:var(--text2);margin-bottom:6px}
+.wd-detail input{width:100%;border:none;background:var(--bg);border-radius:10px;padding:11px 12px;font-size:14px;color:var(--text);outline:none;font-family:inherit;box-sizing:border-box}
+.tic{display:inline-flex;width:18px;height:18px;align-items:center;justify-content:center;vertical-align:-3px}
+.tic img{width:100%;height:100%;object-fit:contain}
+.ver-cal .tic{width:15px;height:15px;vertical-align:-2px;margin-right:2px}
 .wd-card{background:var(--card);border:1px solid #F1E7D8;border-radius:18px;padding:15px 16px;margin:0 14px 12px;box-shadow:0 4px 14px rgba(93,58,30,.05)}
 .wd-card-title{font-family:var(--font-d);font-size:16px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:7px}
 .wd-prog-top{display:flex;align-items:baseline;justify-content:space-between}
@@ -342,10 +348,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .wd-stat-ic{font-size:22px}
 .wd-stat-v{font-family:var(--font-d);font-size:18px;font-weight:700;color:var(--text);line-height:1}
 .wd-stat-l{font-size:10px;color:var(--text2);font-weight:600;line-height:1.15;margin-top:2px}
-.wd-foot{display:flex;align-items:center;gap:12px;background:#EAF4FB;border:1px solid #CFE6F3;border-radius:16px;padding:12px 14px;margin:4px 14px 14px}
+.wd-foot{display:flex;align-items:center;gap:12px;background:#FBF1E4;border:1px solid #F0E2CE;border-radius:16px;padding:12px 14px;margin:4px 14px 14px}
 .wd-foot .wf-ham{width:46px;height:46px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
 .wd-foot .wf-ham img{width:100%;height:100%;object-fit:contain}
-.wd-foot .wf-msg{font-size:13px;color:#3D6B82;font-weight:600;line-height:1.3}
+.wd-foot .wf-msg{font-size:13px;color:#7A5A3A;font-weight:600;line-height:1.3}
 /* ===== LIMPIEZA (zonas) ===== */
 .cd-general{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid #F1E7D8;border-radius:18px;padding:14px;margin:0 14px 14px;box-shadow:0 4px 14px rgba(93,58,30,.05)}
 .cd-gen-ic{width:46px;height:46px;border-radius:14px;background:#FFE9E4;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
@@ -466,7 +472,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
   <div class="home-sec-head">
     <div class="hsh-title">Cuidados de hoy <span class="hh">♥</span></div>
-    <div class="ver-cal" onclick="goScreen('s-history')">📅 Ver calendario</div>
+    <div class="ver-cal" onclick="goScreen('s-history')"><span class="tic" id="ver-cal-ic">📅</span>Ver calendario</div>
   </div>
   <div class="care-grid" id="care-list"></div>
   <div class="shop-banner" onclick="goScreen('s-expenses')">
@@ -478,23 +484,23 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <div style="color:var(--text3);font-size:18px">›</div>
   </div>
   <div class="bottom-nav">
-    <div class="nav-item" id="nav-inicio" onclick="goScreen('s-curiosidades')">
-      <div class="nav-icon"><img src="img/nav_inicio.png" alt="Curiosidades" onerror="this.outerHTML='🌟'"></div>
+    <div class="nav-item" onclick="openPhotos()">
+      <div class="nav-icon"><img src="img/nav_fotos.png" alt="Fotos" onerror="this.outerHTML='📷'"></div>
+      <div class="nav-lbl">Fotos</div>
+    </div>
+    <div class="nav-item" onclick="goScreen('s-curiosidades')">
+      <div class="nav-icon"><img src="img/nav_curiosidades.png" alt="Curiosidades" onerror="this.outerHTML='📖'"></div>
       <div class="nav-lbl">Curiosidades</div>
     </div>
-    <div class="nav-item" id="nav-historial" onclick="goScreen('s-history')">
+    <div class="nav-item" onclick="goScreen('s-history')">
       <div class="nav-icon"><img src="img/nav_historial.png" alt="Historial" onerror="this.outerHTML='📅'"></div>
       <div class="nav-lbl">Historial</div>
     </div>
-    <div class="nav-plus-wrap" onclick="quickReg()">
-      <div class="nav-plus">+</div>
-      <div class="nav-plus-lbl">Añadir</div>
-    </div>
-    <div class="nav-item" id="nav-consejos" onclick="openChatGPT()">
+    <div class="nav-item" onclick="openChatGPT()">
       <div class="nav-icon"><img src="img/nav_consejos.png" alt="Consejos" onerror="this.outerHTML='💡'"></div>
       <div class="nav-lbl">Consejos</div>
     </div>
-    <div class="nav-item" id="nav-perfil" onclick="goScreen('s-profile')">
+    <div class="nav-item" onclick="goScreen('s-profile')">
       <div class="nav-icon"><img src="img/nav_perfil.png" alt="Perfil" onerror="this.outerHTML='🐹'"></div>
       <div class="nav-lbl">Perfil</div>
     </div>
@@ -590,6 +596,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
         <div class="wd-last-sub" id="wd-last-sub"></div>
       </div>
     </div>
+    <div class="wd-detail" id="wd-detail-wrap" style="display:none">
+      <label id="wd-detail-lbl"></label>
+      <input type="text" id="wd-detail-input" placeholder="">
+    </div>
     <button class="wd-reg" id="wd-reg-btn" onclick="registerCare(this)"><span>💧</span> Registrar agua</button>
     <div class="wd-card">
       <div class="wd-prog-top">
@@ -601,7 +611,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <div class="wd-card">
       <div class="wd-cal-head">
-        <div class="wd-card-title"><span>🗓️</span> Tu mes</div>
+        <div class="wd-card-title"><span class="tic" id="wd-mes-ic">🗓️</span> Tu mes</div>
         <div class="wd-cal-nav">
           <span onclick="wdNav(-1)">‹</span>
           <span class="wd-cal-title" id="wd-cal-title">—</span>
@@ -611,7 +621,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <div class="wd-cal-grid" id="wd-cal-grid"></div>
     </div>
     <div class="wd-card">
-      <div class="wd-card-title"><span>📊</span> Resumen anual</div>
+      <div class="wd-card-title"><span class="tic" id="wd-res-ic">📊</span> Resumen anual</div>
       <div class="wd-year" id="wd-year"></div>
       <div class="wd-stats">
         <div class="wd-stat"><span class="wd-stat-ic">❤️</span><div><div class="wd-stat-v" id="wd-stat-cumpl">0%</div><div class="wd-stat-l">Cumplimiento del mes</div></div></div>
@@ -797,7 +807,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
   <div class="prof-foot">
     <button id="btnRefresh" title="Actualizar app">🔄 Actualizar app</button>
-    <span class="ver-tag">v0.9</span>
+    <span class="ver-tag">v1.0</span>
   </div>
 </div>
 
@@ -899,9 +909,9 @@ const RESET_HOUR = 7; // 7am = día nuevo
 const CATS=[
   {id:'food', emoji:'🍚', bg:'#FFE8E0', name:'Comida',           freqDays:1,   freq:'Cada día',        tag:'Cada día con <b>amor</b>',      foods:['Fruta','Verdura','Gusano','Chuche','Semillas','Ramita']},
   {id:'water',emoji:'💧', bg:'#E0F0FF', name:'Agua',             freqDays:2,   freq:'Cada 2 días',     tag:'Cada 2 días, bien <b>fresquita</b>', rich:true},
-  {id:'sand', emoji:'🏖️', bg:'#F0E8FF', name:'Arena',            freqDays:3,   freq:'Cada 3 días',     tag:'Cada 3 días, bien <b>limpita</b>'},
+  {id:'sand', emoji:'🏖️', bg:'#F0E8FF', name:'Arena',            freqDays:3,   freq:'Cada 3 días',     tag:'Cada 3 días, bien <b>limpita</b>', rich:true},
   {id:'clean',emoji:'🧹', bg:'#E0F5EE', name:'Limpieza',         freqDays:30,  freq:'1 vez al mes',    tag:'Una vez al mes con <b>cariño</b>',   zones:true, cleans:['Sustrato','Jaula completa','Rueda','Bebedero','Frasco']},
-  {id:'gnaw', emoji:'🪵', bg:'#FFF0DC', name:'Roer',             freqDays:7,   freq:'Según necesidad', tag:'Cuando lo <b>necesite</b>',          note:'¿Qué le pusiste para roer?'},
+  {id:'gnaw', emoji:'🪵', bg:'#FFF0DC', name:'Roer',             freqDays:7,   freq:'Según necesidad', tag:'Cuando lo <b>necesite</b>',          note:'¿Qué le pusiste para roer?', rich:true, detail:true},
   {id:'deco', emoji:'🏠', bg:'#FFE8F0', name:'Nueva decoración', freqDays:30,  freq:'Según necesidad', tag:'Cuando le <b>apetezca</b>',          note:'¿Qué decoración añadiste?'},
 ];
 
@@ -1458,6 +1468,10 @@ function makeImg(src,alt,w,h,radius,emojiSize){
   return img;
 }
 function levelImg(lvl){return lvl.img||('img/nivel_'+(LEVELS.indexOf(lvl)+1)+'.webp');}
+function setIcon(id,src,emoji,size){
+  var el=document.getElementById(id);if(!el)return;
+  el.innerHTML='';el.appendChild(makeImg(src,emoji,'100%','100%','',Math.round((size||16)*0.9)));
+}
 // imagen como string HTML (para UIs construidas con innerHTML), con cadena webp->png->emoji
 function imgHtml(src,emoji,size){
   size=size||'24px';
@@ -1560,6 +1574,7 @@ function renderHome(){
   // ── Banner compras ──
   var shopWrap=document.getElementById('shop-img-wrap');shopWrap.innerHTML='';
   shopWrap.appendChild(makeImg(CAT_IMGS.shop,'🛍️','100%','100%','12px',28));
+  setIcon('ver-cal-ic','img/ic_calendario.webp','📅',15);
 }
 
 function openDetail(cat){
@@ -1608,6 +1623,12 @@ function openDetail(cat){
     waterBlock.style.display='block';
     cleanBlock.style.display='none';
     wdMonth=null;
+    var dw=document.getElementById('wd-detail-wrap');
+    if(cat.detail){
+      dw.style.display='block';
+      document.getElementById('wd-detail-lbl').textContent=cat.note||'Detalle';
+      var di=document.getElementById('wd-detail-input');di.value='';di.placeholder=cat.note||'';
+    } else { dw.style.display='none'; }
     var wb=document.getElementById('wd-reg-btn');
     wb.innerHTML='<span>'+cat.emoji+'</span> Registrar '+cat.name;wb.style.background='';
     renderWaterDetail();
@@ -1763,6 +1784,11 @@ function registerCare(btn){
         det.push(f+': '+foodDetails[f].trim());
     });
     if(det.length)entry.note=det.join(', ');
+  } else if(curCat.rich){
+    if(curCat.detail){
+      var dn=document.getElementById('wd-detail-input').value.trim();
+      if(dn)entry.note=dn;
+    }
   } else {
     var note=document.getElementById('det-note').value.trim();
     if(note)entry.note=note;
@@ -1861,6 +1887,8 @@ function relTime(ts){
 }
 function renderWaterDetail(){
   var cat=curCat;
+  setIcon('wd-mes-ic','img/ic_mes.webp','🗓️',16);
+  setIcon('wd-res-ic','img/ic_resumen.webp','📊',16);
   var logs=state[cat.id].logs.slice().sort(function(a,b){return a.ts-b.ts;});
   var last=logs.length?logs[logs.length-1]:null;
   // hero
@@ -1868,7 +1896,8 @@ function renderWaterDetail(){
   hero.appendChild(makeImg(CAT_IMGS[cat.id]||'',cat.emoji,'100%','100%','',64));
   // último registro
   document.getElementById('wd-last-val').textContent=last?relTime(last.ts):'Sin registros';
-  document.getElementById('wd-last-sub').textContent=last?fmtFull(last.ts):'Empieza registrando ahora';
+  document.getElementById('wd-last-sub').textContent=last?(fmtFull(last.ts)+(last.note?(' · '+last.note):'')):'Empieza registrando ahora';
+  if(cat.detail){var di=document.getElementById('wd-detail-input');if(di)di.value='';}
   // progreso del mes actual
   var now=new Date();
   var mStart=new Date(now.getFullYear(),now.getMonth(),1).getTime();
@@ -1892,14 +1921,15 @@ function renderWaterDetail(){
   var byMonth={};logs.forEach(function(l){var d=new Date(l.ts);byMonth[d.getFullYear()+'-'+d.getMonth()]=(byMonth[d.getFullYear()+'-'+d.getMonth()]||0)+1;});
   var nm=Object.keys(byMonth).length;
   document.getElementById('wd-stat-prom').textContent=nm?Math.round(logs.length/nm):0;
-  // pie de página
+  // pie de página (mensaje según categoría y estado)
   var st=getStatus(cat);
+  var sp=SPECIAL.filter(function(s){return s.id===cat.id;})[0]||{};
   var foot=document.getElementById('wd-foot');foot.innerHTML='';
   var wf=document.createElement('div');wf.className='wf-ham';
-  wf.appendChild(makeImg(IMG_URLS[st==='ok'?'happy':'thirsty'],'🐹','100%','100%','',34));
+  wf.appendChild(makeImg(IMG_URLS[st==='ok'?'happy':(sp.img||'thirsty')],'🐹','100%','100%','',34));
   var msg=document.createElement('div');msg.className='wf-msg';
-  msg.textContent= st==='ok' ? '¡Gran trabajo! Chewie está feliz e hidratado 💧💙'
-    : (st==='warn' ? 'Toca cambiar el agua pronto 💧' : 'Chewie tiene sed, ¡cámbiale el agua! 💧');
+  msg.textContent= st==='ok' ? '¡Gran trabajo! Chewie está feliz y a gusto 💛'
+    : (st==='warn' ? ('Pronto toca: '+cat.name.toLowerCase()) : ((sp.title||'')+' '+(sp.sub||'')));
   foot.appendChild(wf);foot.appendChild(msg);
 }
 function wdNav(delta){
