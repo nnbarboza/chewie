@@ -393,6 +393,40 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .fh-row-foods{font-size:13px;font-weight:600;color:var(--text)}
 .fh-row-note{font-size:11.5px;color:var(--text2);margin-top:2px}
 .fh-row-when{font-size:10.5px;color:var(--text3);text-align:right;flex-shrink:0;line-height:1.35}
+/* ===== DECORACIÓN ===== */
+.dc-hero{margin:2px 14px 14px;height:170px;border-radius:20px;background:linear-gradient(135deg,#FBE9D2,#F6E0CF);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.dc-hero img{width:100%;height:100%;object-fit:cover}
+.dc-cards{display:flex;gap:11px;margin:0 14px}
+.dc-card{flex:1;background:var(--card);border:1px solid #F1E7D8;border-radius:18px;padding:14px;box-shadow:0 4px 14px rgba(93,58,30,.05);min-width:0}
+.dc-card-ic{font-size:24px;margin-bottom:6px}
+.dc-card-lbl{font-size:11.5px;color:var(--text2);font-weight:600}
+.dc-card-val{font-family:var(--font-d);font-size:19px;font-weight:700;color:var(--text);line-height:1.1;margin-top:2px}
+.dc-card-sub{font-size:11px;color:var(--text2);margin-top:3px}
+.dc-card-sub b{color:var(--accent);font-weight:700}
+.dc-status{display:inline-block;margin-top:8px;font-size:11px;font-weight:700;border-radius:20px;padding:4px 10px}
+.dc-status.ok{background:var(--gbg);color:var(--g)}
+.dc-status.warn{background:#FCF1DC;color:var(--w)}
+.dc-status.alert{background:#FBE8E8;color:var(--r)}
+.dc-pts-top{display:flex;align-items:center;gap:9px}
+.dc-star{font-size:30px;flex-shrink:0;width:38px;height:38px;display:flex;align-items:center;justify-content:center}
+.dc-star img{width:100%;height:100%;object-fit:contain}
+.dc-pts-val{font-family:var(--font-d);font-size:20px;font-weight:700;color:var(--accent);line-height:1}
+.dc-pts-acc{font-size:12px;color:var(--text);font-weight:600;border-top:1px dashed var(--border);margin-top:11px;padding-top:9px}
+.dc-tabs{display:flex;gap:10px;margin:16px 14px 12px}
+.dc-tab{flex:1;text-align:center;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:11px;font-size:13px;font-weight:700;color:var(--text2);cursor:pointer}
+.dc-tab.on{background:#EFE3F6;border-color:#D9C2E8;color:#7A4E9E}
+.dc-list{margin:0 14px}
+.dc-item{display:flex;align-items:center;gap:11px;padding:12px 13px;margin-bottom:8px;background:var(--card);border-radius:15px;box-shadow:0 2px 8px rgba(93,58,30,.04)}
+.dc-item-ic{width:42px;height:42px;border-radius:12px;background:#F6ECDF;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.dc-item-ic img{width:80%;height:80%;object-fit:contain}
+.dc-item-main{flex:1;min-width:0}
+.dc-item-name{font-size:14px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dc-item-date{font-size:11.5px;color:var(--text2);margin-top:2px}
+.dc-item-toggle{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;flex-shrink:0;border:1px solid var(--border)}
+.dc-item-toggle.jaula{background:#EFE3F6;border-color:#D9C2E8}
+.dc-item-toggle.guard{background:var(--bg)}
+.dc-empty{text-align:center;color:var(--text3);font-size:12.5px;padding:18px 0}
+.dc-histbtn{text-align:center;margin:6px 14px 24px;background:var(--bg);border:1px solid var(--border);color:var(--text2);font-size:13px;font-weight:700;border-radius:14px;padding:13px;cursor:pointer}
 .tic img{width:100%;height:100%;object-fit:contain}
 .ver-cal .tic{width:15px;height:15px;vertical-align:-2px;margin-right:2px}
 .wd-card{background:var(--card);border:1px solid #F1E7D8;border-radius:18px;padding:15px 16px;margin:0 14px 12px;box-shadow:0 4px 14px rgba(93,58,30,.05)}
@@ -426,8 +460,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .wd-stat-ic{font-size:22px}
 .wd-stat-v{font-family:var(--font-d);font-size:18px;font-weight:700;color:var(--text);line-height:1}
 .wd-stat-l{font-size:10px;color:var(--text2);font-weight:600;line-height:1.15;margin-top:2px}
-.wd-foot{display:flex;align-items:center;gap:8px;background:#FBF1E4;border:1px solid #F0E2CE;border-radius:14px;padding:6px 14px;margin:8px 14px 16px;overflow:visible}
-.wd-foot .wf-ham{width:62px;height:62px;flex-shrink:0;margin-top:-16px;margin-bottom:-8px;display:flex;align-items:center;justify-content:center}
+.wd-foot{display:flex;align-items:center;gap:6px;background:#FBF1E4;border:1px solid #F0E2CE;border-radius:30px;padding:3px 16px;margin:14px 14px 16px;overflow:visible}
+.wd-foot .wf-ham{width:66px;height:66px;flex-shrink:0;margin-top:-22px;margin-bottom:-12px;display:flex;align-items:center;justify-content:center}
 .wd-foot .wf-ham img{width:100%;height:100%;object-fit:contain}
 .wd-foot .wf-msg{font-size:11.5px;color:#7A5A3A;font-weight:600;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* ===== LIMPIEZA (zonas) ===== */
@@ -477,9 +511,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .fchip.on .fc-check{display:flex}
 .food-hint{text-align:center;font-size:12px;color:var(--text3);margin:13px 0 13px;display:flex;align-items:center;justify-content:center;gap:7px}
 .food-hint::before{content:'⭐';font-size:11px}.food-hint::after{content:'✨';font-size:11px}
-.fsave{display:block;width:100%;background:linear-gradient(135deg,#F0CBD8,#E8B6C8);color:var(--text);border:none;border-radius:17px;padding:14px;font-size:16px;font-weight:600;font-family:var(--font-d);cursor:pointer;box-shadow:0 5px 16px rgba(208,138,166,.42);transition:transform .1s}
+.fsave{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:linear-gradient(135deg,#F0CBD8,#E8B6C8);color:var(--text);border:none;border-radius:17px;padding:14px;font-size:16px;font-weight:600;font-family:var(--font-d);cursor:pointer;box-shadow:0 5px 16px rgba(208,138,166,.42);transition:transform .1s}
 .fsave:active{transform:scale(.98)}
 .fsave .pl{display:inline-flex;align-items:center;justify-content:center;width:23px;height:23px;border-radius:50%;background:rgba(255,255,255,.28);margin-right:9px;font-size:16px;vertical-align:middle;line-height:1}
+.plus-c{display:inline-flex;align-items:center;justify-content:center;width:25px;height:25px;border-radius:50%;background:rgba(61,43,31,.13);font-size:17px;font-weight:700;line-height:1;flex-shrink:0;padding-bottom:1px}
 
 .dieta-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:9px}
 .dieta-tabs{display:inline-flex;background:var(--bg);border-radius:20px;padding:3px;gap:2px}
@@ -634,7 +669,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <div class="food-chips" id="food-chips"></div>
       <div class="fc-details" id="fc-details"></div>
       <div class="food-hint">Toca lo que le has dado para registrarlo</div>
-      <button class="fsave" id="reg-btn-food" onclick="registerCare(this)"><span class="pl">+</span>Guardar comidita</button>
+      <button class="fsave" id="reg-btn-food" onclick="registerCare(this)"><span class="plus-c">+</span>Dar comidita</button>
     </div>
 
     <div class="fcard">
@@ -679,7 +714,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <label id="wd-detail-lbl"></label>
       <input type="text" id="wd-detail-input" placeholder="">
     </div>
-    <button class="wd-reg" id="wd-reg-btn" onclick="registerCare(this)"><span>💧</span> Registrar agua</button>
+    <button class="wd-reg" id="wd-reg-btn" onclick="registerCare(this)"><span class="plus-c">+</span> Dar agüita</button>
     <div class="wd-card">
       <div class="wd-prog-top">
         <div class="wd-prog-lbl2">Este mes</div>
@@ -727,7 +762,44 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <div class="cd-zones" id="cd-zones"></div>
       <div class="cd-hint">Toca las zonas que has limpiado y pulsa registrar</div>
     </div>
-    <button class="wd-reg" id="cd-reg-btn" onclick="registerCare(this)"><span>✨</span> Registrar limpieza</button>
+    <button class="wd-reg" id="cd-reg-btn" onclick="registerCare(this)"><span class="plus-c">+</span> Hacer limpieza</button>
+  </div>
+
+  <!-- ===== DECORACIÓN BLOCK (inventario) ===== -->
+  <div id="deco-detail" style="display:none">
+    <div class="dc-hero" id="dc-hero"></div>
+    <div class="dc-cards">
+      <div class="dc-card">
+        <div class="dc-card-ic">🗓️</div>
+        <div class="dc-card-body">
+          <div class="dc-card-lbl">Última decoración</div>
+          <div class="dc-card-val" id="dc-last-val">—</div>
+          <div class="dc-card-sub" id="dc-last-sub"></div>
+          <div class="dc-status" id="dc-status"></div>
+        </div>
+      </div>
+      <div class="dc-card">
+        <div class="dc-pts-top"><span class="dc-star" id="dc-star">⭐</span>
+          <div class="dc-card-body">
+            <div class="dc-card-lbl">Puntos obtenidos</div>
+            <div class="dc-pts-val" id="dc-pts-last">+0 pts</div>
+            <div class="dc-card-sub">en la última decoración</div>
+          </div>
+        </div>
+        <div class="dc-pts-acc" id="dc-pts-acc">0 pts acumulados</div>
+      </div>
+    </div>
+    <div class="wd-detail" id="dc-detail-wrap">
+      <label>¿Qué decoración añadiste?</label>
+      <input type="text" id="dc-detail-input" placeholder="">
+    </div>
+    <button class="wd-reg" id="dc-reg-btn" onclick="registerCare(this)"><span class="plus-c">+</span> Nueva decoración</button>
+    <div class="dc-tabs">
+      <span class="dc-tab on" id="dc-tab-jaula" onclick="decoTabSet('jaula')">En la jaula (<span id="dc-n-jaula">0</span>)</span>
+      <span class="dc-tab" id="dc-tab-guard" onclick="decoTabSet('guard')">Guardadas (<span id="dc-n-guard">0</span>)</span>
+    </div>
+    <div class="dc-list" id="dc-list"></div>
+    <div class="dc-histbtn" onclick="goScreen('s-history')">Ver historial completo ›</div>
   </div>
 
   <!-- ===== NON-FOOD BLOCK (sand, clean, gnaw, deco) ===== -->
@@ -820,7 +892,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
   </div>
 
-  <button class="ex-add" onclick="openExp()"><span>+</span> Añadir gasto</button>
+  <button class="ex-add" onclick="openExp()"><span class="plus-c">+</span> Añadir gasto</button>
 
   <div class="ex-block">
     <div class="ex-block-h"><span class="ex-bh-ic">📈</span> Evolución del gasto medio</div>
@@ -917,7 +989,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
   <div class="prof-foot">
     <button id="btnRefresh" title="Actualizar app">🔄 Actualizar app</button>
-    <span class="ver-tag">v1.4</span>
+    <span class="ver-tag">v1.5</span>
   </div>
 </div>
 
@@ -994,7 +1066,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 <div class="modal-bg" id="allexp-modal">
   <div class="modal">
     <span class="modal-close" onclick="closeAllExp()">✕</span>
-    <h3>🧾 Todas las compras</h3>
+    <h3>Todas las compras</h3>
     <div class="ae-filters">
       <select class="ae-sel" id="ae-fmonth" onchange="renderAllExp()"></select>
       <select class="ae-sel" id="ae-fcat" onchange="renderAllExp()"></select>
@@ -1007,7 +1079,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 <div class="modal-bg" id="foodhist-modal">
   <div class="modal">
     <span class="modal-close" onclick="closeFoodHist()">✕</span>
-    <h3>🍓 Historial de comidas</h3>
+    <h3>Historial de comidas</h3>
     <div id="fh-list"></div>
   </div>
 </div>
@@ -1038,12 +1110,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 const RESET_HOUR = 7; // 7am = día nuevo
 
 const CATS=[
-  {id:'food', emoji:'🍚', bg:'#FFE8E0', name:'Comida',           freqDays:1,   freq:'Cada día',        tag:'Cada día con <b>amor</b>',      foods:['Fruta','Verdura','Gusano','Chuche','Semillas','Ramita']},
-  {id:'water',emoji:'💧', bg:'#E0F0FF', name:'Agua',             freqDays:2,   freq:'Cada 2 días',     tag:'Cada 2 días, bien <b>fresquita</b>', rich:true},
-  {id:'sand', emoji:'🏖️', bg:'#F0E8FF', name:'Arena',            freqDays:3,   freq:'Cada 3 días',     tag:'Cada 3 días, bien <b>limpita</b>', rich:true},
-  {id:'clean',emoji:'🧹', bg:'#E0F5EE', name:'Limpieza',         freqDays:30,  freq:'1 vez al mes',    tag:'Una vez al mes con <b>cariño</b>',   zones:true, cleans:['Sustrato','Jaula completa','Rueda','Bebedero','Frasco']},
-  {id:'gnaw', emoji:'🪵', bg:'#FFF0DC', name:'Roer',             freqDays:7,   freq:'Según necesidad', tag:'Cuando lo <b>necesite</b>',          note:'¿Qué le pusiste para roer?', rich:true, detail:true},
-  {id:'deco', emoji:'🏠', bg:'#FFE8F0', name:'Nueva decoración', freqDays:30,  freq:'Según necesidad', tag:'Cuando le <b>apetezca</b>',          note:'¿Qué decoración añadiste?'},
+  {id:'food', emoji:'🍚', bg:'#FFE8E0', name:'Comida',           freqDays:1,   freq:'Cada día',        tag:'Cada día con <b>amor</b>',      cta:'Dar comidita', foods:['Fruta','Verdura','Gusano','Chuche','Semillas','Ramita']},
+  {id:'water',emoji:'💧', bg:'#E0F0FF', name:'Agua',             freqDays:2,   freq:'Cada 2 días',     tag:'Cada 2 días, bien <b>fresquita</b>', cta:'Dar agüita', rich:true},
+  {id:'sand', emoji:'🏖️', bg:'#F0E8FF', name:'Arena',            freqDays:3,   freq:'Cada 3 días',     tag:'Cada 3 días, bien <b>limpita</b>', cta:'Cambiar arena', rich:true},
+  {id:'clean',emoji:'🧹', bg:'#E0F5EE', name:'Limpieza',         freqDays:30,  freq:'1 vez al mes',    tag:'Una vez al mes con <b>cariño</b>',   cta:'Hacer limpieza', zones:true, cleans:['Sustrato','Jaula completa','Rueda','Bebedero','Frasco']},
+  {id:'gnaw', emoji:'🪵', bg:'#FFF0DC', name:'Roer',             freqDays:7,   freq:'Según necesidad', tag:'Cuando lo <b>necesite</b>',          cta:'Guardar', note:'¿Qué le pusiste para roer?', rich:true, detail:true},
+  {id:'deco', emoji:'🏠', bg:'#FFE8F0', name:'Decoración',       freqDays:30,  freq:'Según necesidad', tag:'Una vez al mes con <b>cariño</b>',    cta:'Nueva decoración', note:'¿Qué decoración añadiste?', deco:true},
 ];
 
 // Weekly food minimums (per week Mon-Sun)
@@ -1295,7 +1367,7 @@ function showLevelInfo(){
 function closeLevelInfo(){document.getElementById('level-modal').classList.remove('open');}
 
 
-let state={}, expenses=[], curCat=null, curTab='month', chart=null, selFoods=[], foodDetails={}, wdMonth=null, expPeriod='total', expShowAll=false, weekOffset=0;
+let state={}, expenses=[], curCat=null, curTab='month', chart=null, selFoods=[], foodDetails={}, wdMonth=null, expPeriod='total', expShowAll=false, weekOffset=0, decoTab='jaula';
 let pendingImportData=null, curiosidades=[], curioIdx=0, pieChartInst=null, monthlyChartInst=null;
 let dietaPeriod='mes', dietaChart=null, dietaBarChart=null, dietaDetMode='week', achievements={};
 
@@ -1743,6 +1815,7 @@ function openDetail(cat){
   var iconHead=document.getElementById('det-icon-header');
   var waterBlock=document.getElementById('water-detail');
   var cleanBlock=document.getElementById('clean-detail');
+  var decoBlock=document.getElementById('deco-detail');
 
   if(cat.id==='food'){
     foodBlock.style.display='block';
@@ -1750,6 +1823,7 @@ function openDetail(cat){
     iconHead.style.display='none';
     waterBlock.style.display='none';
     cleanBlock.style.display='none';
+    decoBlock.style.display='none';
     weekOffset=0;
     renderFoodHero();
     renderWeekCalendar();
@@ -1757,7 +1831,7 @@ function openDetail(cat){
     setDietaPeriod(dietaPeriod);
     renderLogrosRecent();
     var fb=document.getElementById('reg-btn-food');
-    fb.innerHTML='<span class="pl">+</span>Guardar comidita';fb.style.background='';
+    fb.innerHTML='<span class="plus-c">+</span>Dar comidita';fb.style.background='';
     return;
   }
 
@@ -1767,9 +1841,25 @@ function openDetail(cat){
     iconHead.style.display='none';
     waterBlock.style.display='none';
     cleanBlock.style.display='block';
+    decoBlock.style.display='none';
     var cb=document.getElementById('cd-reg-btn');
-    cb.innerHTML='<span>✨</span> Registrar '+cat.name.toLowerCase();cb.style.background='';
+    cb.innerHTML='<span class="plus-c">+</span> '+(cat.cta||'Hacer limpieza');cb.style.background='';
     renderCleanDetail();
+    return;
+  }
+
+  if(cat.deco){
+    foodBlock.style.display='none';
+    nonBlock.style.display='none';
+    iconHead.style.display='none';
+    waterBlock.style.display='none';
+    cleanBlock.style.display='none';
+    decoBlock.style.display='block';
+    document.getElementById('dc-detail-input').value='';
+    var db=document.getElementById('dc-reg-btn');
+    db.innerHTML='<span class="plus-c">+</span> '+(cat.cta||'Nueva decoración');db.style.background='';
+    decoTab='jaula';
+    renderDecoDetail();
     return;
   }
 
@@ -1779,6 +1869,7 @@ function openDetail(cat){
     iconHead.style.display='none';
     waterBlock.style.display='block';
     cleanBlock.style.display='none';
+    decoBlock.style.display='none';
     wdMonth=null;
     var dw=document.getElementById('wd-detail-wrap');
     if(cat.detail){
@@ -1787,7 +1878,7 @@ function openDetail(cat){
       var di=document.getElementById('wd-detail-input');di.value='';di.placeholder='';
     } else { dw.style.display='none'; }
     var wb=document.getElementById('wd-reg-btn');
-    wb.innerHTML=cat.detail?('<span>'+cat.emoji+'</span> Registrar'):('<span>'+cat.emoji+'</span> Registrar '+cat.name);wb.style.background='';
+    wb.innerHTML='<span class="plus-c">+</span> '+(cat.cta||'Registrar');wb.style.background='';
     renderWaterDetail();
     return;
   }
@@ -1798,6 +1889,7 @@ function openDetail(cat){
   iconHead.style.display='block';
   waterBlock.style.display='none';
   cleanBlock.style.display='none';
+  decoBlock.style.display='none';
   var diw=document.getElementById('det-icon-wrap');diw.style.background=cat.bg;diw.innerHTML='';
   if(CAT_IMGS[cat.id])diw.appendChild(makeImg(CAT_IMGS[cat.id],cat.emoji,'100%','100%',''));
   else diw.innerHTML='<span style="font-size:36px">'+cat.emoji+'</span>';
@@ -1929,6 +2021,14 @@ function registerCare(btn){
     }
   } else if(curCat.rich){
     selFoods=[];
+  } else if(curCat.deco){
+    selFoods=[];
+    if(!document.getElementById('dc-detail-input').value.trim()){
+      var origd=btn.innerHTML;
+      btn.innerHTML='Escribe qué añadiste 🌿';
+      setTimeout(function(){btn.innerHTML=origd;},1500);
+      return;
+    }
   } else {
     selFoods=Array.from(document.querySelectorAll('#food-grid .ftog.on')).map(function(x){return x.dataset.t;});
   }
@@ -1946,6 +2046,9 @@ function registerCare(btn){
       var dn=document.getElementById('wd-detail-input').value.trim();
       if(dn)entry.note=dn;
     }
+  } else if(curCat.deco){
+    var ddn=document.getElementById('dc-detail-input').value.trim();
+    if(ddn)entry.note=ddn;
   } else {
     var note=document.getElementById('det-note').value.trim();
     if(note)entry.note=note;
@@ -1962,20 +2065,27 @@ function registerCare(btn){
     renderFoodHero();renderWeekCalendar();renderFoodChips();renderDieta();
     checkAchievements();renderLogrosRecent();
     btn.innerHTML='✓ +'+pts+' pts';btn.style.background='linear-gradient(135deg,#5FB85F,#4F9E4F)';
-    setTimeout(function(){btn.innerHTML='<span class="pl">+</span>Guardar comidita';btn.style.background='';},2200);
+    setTimeout(function(){btn.innerHTML='<span class="plus-c">+</span>Dar comidita';btn.style.background='';},2200);
   } else {
     if(curCat.zones){
       renderCleanDetail();
       checkAchievements();
       var zc=curCat;
       btn.innerHTML='✓ +'+pts+' pts';btn.style.background='linear-gradient(135deg,#5FB85F,#4F9E4F)';
-      setTimeout(function(){btn.innerHTML='<span>✨</span> Registrar '+zc.name.toLowerCase();btn.style.background='';},2000);
+      setTimeout(function(){btn.innerHTML='<span class="plus-c">+</span> '+(zc.cta||'Hacer limpieza');btn.style.background='';},2000);
     } else if(curCat.rich){
       renderWaterDetail();
       checkAchievements();
       var rc=curCat;
       btn.innerHTML='✓ +'+pts+' pts';btn.style.background='linear-gradient(135deg,#5FB85F,#4F9E4F)';
-      setTimeout(function(){btn.innerHTML=rc.detail?('<span>'+rc.emoji+'</span> Registrar'):('<span>'+rc.emoji+'</span> Registrar '+rc.name);btn.style.background='';},2000);
+      setTimeout(function(){btn.innerHTML='<span class="plus-c">+</span> '+(rc.cta||'Registrar');btn.style.background='';},2000);
+    } else if(curCat.deco){
+      document.getElementById('dc-detail-input').value='';
+      renderDecoDetail();
+      checkAchievements();
+      var dc=curCat;
+      btn.innerHTML='✓ +'+pts+' pts';btn.style.background='linear-gradient(135deg,#5FB85F,#4F9E4F)';
+      setTimeout(function(){btn.innerHTML='<span class="plus-c">+</span> '+(dc.cta||'Nueva decoración');btn.style.background='';},2000);
     } else {
     document.querySelectorAll('#food-grid .ftog').forEach(function(x){x.classList.remove('on');});
     document.getElementById('det-note').value='';
@@ -2035,6 +2145,43 @@ function renderCleanDetail(){
     card.onclick=function(){this.classList.toggle('sel');};
     grid.appendChild(card);
   });
+}
+function loadDecoState(){try{return JSON.parse(localStorage.getItem('chw6deco')||'{}');}catch(e){return {};}}
+function saveDecoState(o){try{localStorage.setItem('chw6deco',JSON.stringify(o));}catch(e){}}
+function decoTabSet(t){decoTab=t;renderDecoDetail();}
+function decoMove(id){var o=loadDecoState();o[id]=!o[id];saveDecoState(o);renderDecoDetail();}
+function renderDecoDetail(){
+  var cat=curCat;
+  var logs=state.deco.logs;
+  var changed=false;logs.forEach(function(l){if(!l.id){l.id=uid();changed=true;}});if(changed)save();
+  var hero=document.getElementById('dc-hero');hero.innerHTML='';
+  hero.appendChild(makeImg('img/deco_hero.webp','🏠','100%','100%','',60));
+  var last=null;logs.forEach(function(l){if(!last||l.ts>last.ts)last=l;});
+  document.getElementById('dc-last-val').textContent=last?relTime(last.ts):'Sin decoraciones';
+  document.getElementById('dc-last-sub').innerHTML=(last&&last.note)?('Añadiste: <b>'+esc(last.note)+'</b>'):'';
+  var st=getStatus(cat);
+  var sm={ok:['ok','¡Estás al día!'],warn:['warn','Pronto toca'],alert:['alert','¡Toca decorar!']};
+  var stEl=document.getElementById('dc-status');stEl.className='dc-status '+sm[st][0];stEl.textContent='● '+sm[st][1];
+  var star=document.getElementById('dc-star');star.innerHTML='';star.appendChild(makeImg('img/estrella.webp','⭐','100%','100%','',26));
+  document.getElementById('dc-pts-last').textContent='+'+(last?pointsForLog('deco',last):0)+' pts';
+  document.getElementById('dc-pts-acc').textContent=logs.reduce(function(s,l){return s+pointsForLog('deco',l);},0)+' pts acumulados';
+  var ds=loadDecoState();
+  var enJaula=logs.filter(function(l){return !ds[l.id];});
+  var guard=logs.filter(function(l){return !!ds[l.id];});
+  document.getElementById('dc-n-jaula').textContent=enJaula.length;
+  document.getElementById('dc-n-guard').textContent=guard.length;
+  document.getElementById('dc-tab-jaula').className='dc-tab'+(decoTab==='jaula'?' on':'');
+  document.getElementById('dc-tab-guard').className='dc-tab'+(decoTab==='guard'?' on':'');
+  var items=(decoTab==='jaula'?enJaula:guard).slice().sort(function(a,b){return b.ts-a.ts;});
+  var list=document.getElementById('dc-list');
+  if(!items.length){list.innerHTML='<div class="dc-empty">'+(decoTab==='jaula'?'No hay decoraciones en la jaula.':'No hay decoraciones guardadas.')+'</div>';return;}
+  list.innerHTML=items.map(function(l){
+    var stored=!!ds[l.id];
+    return '<div class="dc-item"><div class="dc-item-ic">🪴</div>'
+      +'<div class="dc-item-main"><div class="dc-item-name">'+esc(l.note||'Decoración')+'</div>'
+      +'<div class="dc-item-date">Añadida el '+fmtDay(l.ts)+'</div></div>'
+      +'<div class="dc-item-toggle '+(stored?'guard':'jaula')+'" onclick="decoMove(\''+l.id+'\')" title="'+(stored?'Guardada · tocar para poner en jaula':'En la jaula · tocar para guardar')+'">'+(stored?'📦':'🏠')+'</div></div>';
+  }).join('');
 }
 function relTime(ts){
   var d=daysAgoReset(ts);
