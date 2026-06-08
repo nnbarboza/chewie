@@ -393,6 +393,30 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .fh-row-foods{font-size:13px;font-weight:600;color:var(--text)}
 .fh-row-note{font-size:11.5px;color:var(--text2);margin-top:2px}
 .fh-row-when{font-size:10.5px;color:var(--text3);text-align:right;flex-shrink:0;line-height:1.35}
+/* ===== HISTORIAL UNIFICADO ===== */
+.hist-filters{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.hist-sum{font-size:12.5px;color:var(--text2);font-weight:600;margin-bottom:8px}
+.hist-sum b{color:var(--accent);font-family:var(--font-d);font-size:15px}
+.hist-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.hist-row:last-child{border-bottom:none}
+.hist-ic{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.hist-ic.ic-foods{border-radius:10px;background:var(--bg);gap:1px;flex-wrap:wrap;padding:3px}
+.hist-ic.ic-foods img{width:16px;height:16px;object-fit:contain}
+.hist-main{flex:1;min-width:0}
+.hist-t{font-size:13.5px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hist-s{font-size:11.5px;color:var(--text2);margin-top:2px}
+.hist-meta{text-align:right;flex-shrink:0}
+.hist-amt{font-family:var(--font-d);font-size:14px;font-weight:700;color:var(--text)}
+.hist-when{font-size:10px;color:var(--text3);line-height:1.4}
+.hist-acts{display:flex;flex-direction:column;gap:4px;flex-shrink:0;margin-left:2px}
+.h-act{width:30px;height:30px;border-radius:9px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer}
+.h-act.del{background:#FBE8E8;border-color:#F2C9C9}
+/* deco item: dos filas */
+.dc-item-top{display:flex;align-items:flex-start;gap:8px}
+.dc-acts{display:flex;gap:6px;flex-shrink:0}
+.dc-seg{display:flex;gap:6px;margin-top:10px}
+.dc-seg-b{flex:1;text-align:center;font-size:11.5px;font-weight:700;color:var(--text2);background:var(--bg);border:1px solid var(--border);border-radius:11px;padding:7px;cursor:pointer}
+.dc-seg-b.on{background:#EFE3F6;border-color:#D9C2E8;color:#7A4E9E}
 /* ===== DECORACIÓN ===== */
 .dc-hero{margin:2px 14px 14px;height:170px;border-radius:20px;background:linear-gradient(135deg,#FBE9D2,#F6E0CF);overflow:hidden;display:flex;align-items:center;justify-content:center}
 .dc-hero img{width:100%;height:100%;object-fit:cover}
@@ -416,7 +440,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .dc-tab{flex:1;text-align:center;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:11px;font-size:13px;font-weight:700;color:var(--text2);cursor:pointer}
 .dc-tab.on{background:#EFE3F6;border-color:#D9C2E8;color:#7A4E9E}
 .dc-list{margin:0 14px}
-.dc-item{display:flex;align-items:center;gap:11px;padding:12px 13px;margin-bottom:8px;background:var(--card);border-radius:15px;box-shadow:0 2px 8px rgba(93,58,30,.04)}
+.dc-item{display:block;padding:13px;margin-bottom:9px;background:var(--card);border-radius:15px;box-shadow:0 2px 8px rgba(93,58,30,.04)}
 .dc-item-ic{width:42px;height:42px;border-radius:12px;background:#F6ECDF;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .dc-item-ic img{width:80%;height:80%;object-fit:contain}
 .dc-item-main{flex:1;min-width:0}
@@ -799,7 +823,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <span class="dc-tab" id="dc-tab-guard" onclick="decoTabSet('guard')">Guardadas (<span id="dc-n-guard">0</span>)</span>
     </div>
     <div class="dc-list" id="dc-list"></div>
-    <div class="dc-histbtn" onclick="goScreen('s-history')">Ver historial completo ›</div>
+    <div class="dc-histbtn" onclick="openHist('deco')">Ver historial completo ›</div>
   </div>
 
   <!-- ===== NON-FOOD BLOCK (sand, clean, gnaw, deco) ===== -->
@@ -989,7 +1013,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
   <div class="prof-foot">
     <button id="btnRefresh" title="Actualizar app">🔄 Actualizar app</button>
-    <span class="ver-tag">v1.5</span>
+    <span class="ver-tag">v1.6</span>
   </div>
 </div>
 
@@ -1024,14 +1048,16 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 <div class="modal-bg" id="edit-log-modal">
   <div class="modal">
     <span class="modal-close" onclick="closeEditLog()">✕</span>
-    <h3>✏️ Editar registro</h3>
+    <h3 id="edit-log-title">Editar registro</h3>
     <label class="flabel">Fecha</label>
     <input class="finput" type="date" id="edit-log-date">
     <label class="flabel">Hora</label>
     <input class="finput" type="time" id="edit-log-time">
-    <label class="flabel">Detalle (qué recibió)</label>
-    <input class="finput" type="text" id="edit-log-detail" placeholder="Ej: Gusano, Fruta">
-    <label class="flabel">Nota</label>
+    <div id="edit-log-detail-wrap">
+      <label class="flabel">Detalle (qué recibió)</label>
+      <input class="finput" type="text" id="edit-log-detail" placeholder="Ej: Gusano, Fruta">
+    </div>
+    <label class="flabel" id="edit-log-note-lbl">Nota</label>
     <input class="finput" type="text" id="edit-log-note" placeholder="Nota adicional">
     <button class="save-btn" onclick="saveEditLog()">Guardar cambios</button>
   </div>
@@ -1063,26 +1089,33 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 </div>
 
-<div class="modal-bg" id="allexp-modal">
+<div class="modal-bg" id="hist-modal">
   <div class="modal">
-    <span class="modal-close" onclick="closeAllExp()">✕</span>
-    <h3>Todas las compras</h3>
-    <div class="ae-filters">
-      <select class="ae-sel" id="ae-fmonth" onchange="renderAllExp()"></select>
-      <select class="ae-sel" id="ae-fcat" onchange="renderAllExp()"></select>
-    </div>
-    <div class="ae-sum" id="ae-sum"></div>
-    <div id="ae-list"></div>
+    <span class="modal-close" onclick="closeHist()">✕</span>
+    <h3 id="hist-title">Historial</h3>
+    <div class="hist-filters" id="hist-filters"></div>
+    <div class="hist-sum" id="hist-sum"></div>
+    <div id="hist-list2"></div>
   </div>
 </div>
 
-<div class="modal-bg" id="foodhist-modal">
+<div class="modal-bg" id="editexp-modal">
   <div class="modal">
-    <span class="modal-close" onclick="closeFoodHist()">✕</span>
-    <h3>Historial de comidas</h3>
-    <div id="fh-list"></div>
+    <span class="modal-close" onclick="closeEditExp()">✕</span>
+    <h3>Editar gasto</h3>
+    <label class="flabel">Categoría</label>
+    <select class="finput" id="ee-cat"></select>
+    <label class="flabel">Descripción</label>
+    <input class="finput" type="text" id="ee-desc" placeholder="Ej: Bolsa de pienso">
+    <label class="flabel">Importe (€)</label>
+    <input class="finput" type="number" id="ee-amount" step="0.01" min="0">
+    <label class="flabel">Fecha</label>
+    <input class="finput" type="date" id="ee-date">
+    <button class="save-btn" onclick="saveEditExp()">Guardar cambios</button>
   </div>
 </div>
+
+<div class="modal-bg" id="foodhist-modal" style="display:none"></div>
 
 <!-- IMPORT CONFIRM MODAL -->
 <div class="modal-bg" id="import-modal">
@@ -2177,10 +2210,17 @@ function renderDecoDetail(){
   if(!items.length){list.innerHTML='<div class="dc-empty">'+(decoTab==='jaula'?'No hay decoraciones en la jaula.':'No hay decoraciones guardadas.')+'</div>';return;}
   list.innerHTML=items.map(function(l){
     var stored=!!ds[l.id];
-    return '<div class="dc-item"><div class="dc-item-ic">🪴</div>'
-      +'<div class="dc-item-main"><div class="dc-item-name">'+esc(l.note||'Decoración')+'</div>'
-      +'<div class="dc-item-date">Añadida el '+fmtDay(l.ts)+'</div></div>'
-      +'<div class="dc-item-toggle '+(stored?'guard':'jaula')+'" onclick="decoMove(\''+l.id+'\')" title="'+(stored?'Guardada · tocar para poner en jaula':'En la jaula · tocar para guardar')+'">'+(stored?'📦':'🏠')+'</div></div>';
+    return '<div class="dc-item">'
+      +'<div class="dc-item-top">'
+        +'<div class="dc-item-main"><div class="dc-item-name">'+esc(l.note||'Decoración')+'</div>'
+        +'<div class="dc-item-date">Añadida el '+fmtDay(l.ts)+'</div></div>'
+        +'<div class="dc-acts"><span class="h-act" onclick="editDeco('+l.ts+')">✏️</span>'
+        +'<span class="h-act del" onclick="delLogHist(\'deco\','+l.ts+')">🗑️</span></div>'
+      +'</div>'
+      +'<div class="dc-seg">'
+        +'<span class="dc-seg-b'+(!stored?' on':'')+'" onclick="decoSet(\''+l.id+'\',false)">🏠 En la jaula</span>'
+        +'<span class="dc-seg-b'+(stored?' on':'')+'" onclick="decoSet(\''+l.id+'\',true)">📦 Guardada</span>'
+      +'</div></div>';
   }).join('');
 }
 function relTime(ts){
@@ -2285,23 +2325,113 @@ function renderWaterYear(){
     col.appendChild(v);col.appendChild(bw);col.appendChild(lab);wrap.appendChild(col);
   });
 }
-function openFoodHist(){renderFoodHist();document.getElementById('foodhist-modal').classList.add('open');}
-function closeFoodHist(){document.getElementById('foodhist-modal').classList.remove('open');}
-function renderFoodHist(){
-  var logs=state.food.logs.filter(function(l){return l.type;}).slice().sort(function(a,b){return b.ts-a.ts;});
-  var list=document.getElementById('fh-list');
-  if(!logs.length){list.innerHTML='<div class="ex-empty" style="padding:14px 0">Aún no hay comidas registradas.</div>';return;}
-  list.innerHTML=logs.map(function(l){
-    var foods=l.type.split(', ').map(function(t){return normFood(t)||t;});
-    var icons=foods.map(function(n){return imgHtml(FOOD_IMGS[n]||'',FOOD_EMOJIS[n]||'🍽️','20px');}).join('');
-    var when=new Date(l.ts).toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'}).replace(/\./g,'');
-    var time=new Date(l.ts).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
-    return '<div class="fh-row"><div class="fh-row-ic">'+icons+'</div>'
-      +'<div class="fh-row-main"><div class="fh-row-foods">'+foods.join(', ')+'</div>'
-      +(l.note?('<div class="fh-row-note">'+esc(l.note)+'</div>'):'')+'</div>'
-      +'<div class="fh-row-when">'+when+'<br>'+time+'</div></div>';
-  }).join('');
+var histKind='food', histFMonth='', histFCat='', histFEstado='';
+function openFoodHist(){openHist('food');}
+function openAllExp(){openHist('exp');}
+function openHist(kind){
+  histKind=kind; histFMonth=''; histFCat=''; histFEstado='';
+  document.getElementById('hist-title').textContent = kind==='food'?'Historial de comidas':(kind==='exp'?'Todas las compras':'Historial de decoraciones');
+  buildHistFilters();
+  renderHist();
+  document.getElementById('hist-modal').classList.add('open');
 }
+function closeHist(){document.getElementById('hist-modal').classList.remove('open');}
+function histRows(){
+  if(histKind==='exp') return expenses.map(function(e){return {kind:'exp',id:e.id,ts:new Date(e.date).getTime(),e:e};});
+  return state[histKind].logs.map(function(l){return {kind:histKind,ts:l.ts,id:l.id,l:l};});
+}
+function buildHistFilters(){
+  var mset={};
+  histRows().forEach(function(r){var d=new Date(r.ts);mset[d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)]=d;});
+  var mkeys=Object.keys(mset).sort().reverse();
+  var html='<select class="ae-sel" onchange="histFMonth=this.value;renderHist()"><option value="">Todos los meses</option>'
+    +mkeys.map(function(k){return '<option value="'+k+'">'+capM(mset[k].toLocaleDateString("es-ES",{month:"long",year:"numeric"}))+'</option>';}).join('')+'</select>';
+  if(histKind==='exp'){
+    html+='<select class="ae-sel" onchange="histFCat=this.value;renderHist()"><option value="">Todas las categorías</option>'
+      +EXP_CATS.map(function(c){return '<option value="'+c+'">'+c+'</option>';}).join('')+'</select>';
+  } else if(histKind==='deco'){
+    html+='<select class="ae-sel" onchange="histFEstado=this.value;renderHist()"><option value="">Todas</option><option value="jaula">En la jaula</option><option value="guard">Guardadas</option></select>';
+  }
+  document.getElementById('hist-filters').innerHTML=html;
+}
+function renderHist(){
+  var rows=histRows();
+  if(histFMonth) rows=rows.filter(function(r){var d=new Date(r.ts);return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)===histFMonth;});
+  if(histKind==='exp'&&histFCat) rows=rows.filter(function(r){return r.e.category===histFCat;});
+  if(histKind==='food') rows=rows.filter(function(r){return r.l.type;});
+  if(histKind==='deco'&&histFEstado){var ds=loadDecoState();rows=rows.filter(function(r){var s=!!ds[r.id];return histFEstado==='guard'?s:!s;});}
+  rows.sort(function(a,b){return b.ts-a.ts;});
+  var sum=document.getElementById('hist-sum');
+  if(histKind==='exp'){var tot=rows.reduce(function(s,r){return s+(parseFloat(r.e.amount)||0);},0);sum.innerHTML=rows.length+' compra'+(rows.length===1?'':'s')+' · <b>'+fmtEur(tot)+'</b>';}
+  else sum.textContent=rows.length+' registro'+(rows.length===1?'':'s');
+  var list=document.getElementById('hist-list2');
+  list.innerHTML=rows.length?rows.map(histRowHtml).join(''):'<div class="ex-empty" style="padding:16px 0">Sin registros.</div>';
+}
+function histRowHtml(r){
+  var d=new Date(r.ts);
+  var when=d.toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'}).replace(/\./g,'');
+  if(r.kind==='exp'){
+    var e=r.e,color=expCatColor(e.category);
+    return '<div class="hist-row"><div class="hist-ic" style="background:'+hexA(color,0.3)+'">'+catEmoji(e.category)+'</div>'
+      +'<div class="hist-main"><div class="hist-t">'+esc(e.description||catName(e.category))+'</div><div class="hist-s">'+esc(catName(e.category))+'</div></div>'
+      +'<div class="hist-meta"><div class="hist-amt">'+fmtEur(parseFloat(e.amount))+'</div><div class="hist-when">'+when+'</div></div>'
+      +'<div class="hist-acts"><span class="h-act" onclick="openEditExp(\''+e.id+'\')">✏️</span><span class="h-act del" onclick="delExpHist(\''+e.id+'\')">🗑️</span></div></div>';
+  }
+  if(r.kind==='food'){
+    var l=r.l,foods=l.type.split(', ').map(function(t){return normFood(t)||t;});
+    var icons=foods.map(function(n){return imgHtml(FOOD_IMGS[n]||'',FOOD_EMOJIS[n]||'🍽️','22px');}).join('');
+    var time=d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+    return '<div class="hist-row"><div class="hist-ic ic-foods">'+icons+'</div>'
+      +'<div class="hist-main"><div class="hist-t">'+esc(foods.join(', '))+'</div>'+(l.note?'<div class="hist-s">'+esc(l.note)+'</div>':'')+'</div>'
+      +'<div class="hist-meta"><div class="hist-when">'+when+'</div><div class="hist-when">'+time+'</div></div>'
+      +'<div class="hist-acts"><span class="h-act" onclick="openEditLog(\'food\','+l.ts+')">✏️</span><span class="h-act del" onclick="delLogHist(\'food\','+l.ts+')">🗑️</span></div></div>';
+  }
+  var dl=r.l,ds=loadDecoState(),stored=!!ds[r.id];
+  return '<div class="hist-row"><div class="hist-main"><div class="hist-t">'+esc(dl.note||'Decoración')+'</div><div class="hist-s">'+(stored?'Guardada':'En la jaula')+'</div></div>'
+    +'<div class="hist-meta"><div class="hist-when">'+when+'</div></div>'
+    +'<div class="hist-acts"><span class="h-act" onclick="openEditLog(\'deco\','+dl.ts+')">✏️</span><span class="h-act del" onclick="delLogHist(\'deco\','+dl.ts+')">🗑️</span></div></div>';
+}
+function delLogHist(catId,ts){
+  if(!confirm('¿Eliminar este registro?'))return;
+  var log=state[catId].logs.filter(function(l){return l.ts===ts;})[0];
+  if(log&&log.id){bk('delCuidado',{id:log.id});if(catId==='deco'){var o=loadDecoState();delete o[log.id];saveDecoState(o);}}
+  state[catId].logs=state[catId].logs.filter(function(l){return l.ts!==ts;});
+  save();renderHist();
+  if(catId==='deco'&&curCat&&curCat.deco)renderDecoDetail();
+  if(catId==='food'&&curCat&&curCat.id==='food'){renderFoodHero();renderWeekCalendar();renderFoodChips();renderDieta();}
+  renderHome();
+}
+function delExpHist(id){
+  if(!confirm('¿Eliminar este gasto?'))return;
+  var i=expenses.findIndex(function(e){return e.id===id;});if(i<0)return;
+  var exp=expenses[i];expenses.splice(i,1);saveExpenses();
+  if(exp.id)bk('delGasto',{id:exp.id});
+  renderHist();renderExpenses();
+}
+var editExpId=null;
+function openEditExp(id){
+  editExpId=id;var e=expenses.filter(function(x){return x.id===id;})[0];if(!e)return;
+  document.getElementById('ee-cat').innerHTML=EXP_CATS.map(function(c){return '<option'+(c===e.category?' selected':'')+'>'+c+'</option>';}).join('');
+  document.getElementById('ee-desc').value=e.description||'';
+  document.getElementById('ee-amount').value=e.amount;
+  document.getElementById('ee-date').value=e.date;
+  document.getElementById('editexp-modal').classList.add('open');
+}
+function closeEditExp(){document.getElementById('editexp-modal').classList.remove('open');}
+function saveEditExp(){
+  var e=expenses.filter(function(x){return x.id===editExpId;})[0];if(!e){closeEditExp();return;}
+  var amount=parseFloat(document.getElementById('ee-amount').value),date=document.getElementById('ee-date').value;
+  if(!amount||amount<=0||!date){alert('Rellena importe y fecha');return;}
+  e.category=document.getElementById('ee-cat').value;
+  e.description=document.getElementById('ee-desc').value.trim();
+  e.amount=amount;e.date=date;
+  saveExpenses();
+  bk('delGasto',{id:e.id});
+  bk('addGasto',{id:e.id,ts:new Date(date).getTime()||Date.now(),fecha:fmtFecha(date),categoria:e.category,descripcion:e.description,importe:amount,date:date});
+  closeEditExp();renderHist();renderExpenses();
+}
+function editDeco(ts){openEditLog('deco',ts);}
+function decoSet(id,stored){var o=loadDecoState();if(stored)o[id]=true;else delete o[id];saveDecoState(o);renderDecoDetail();}
 function switchTab(t){
   curTab=t;
   document.getElementById('tab-m').className='chtab'+(t==='month'?' active':'');
@@ -2886,27 +3016,8 @@ function renderExpList(){
   list.innerHTML=sorted.slice(0,3).map(expRowHtml).join('');
 }
 
-function openAllExp(){
-  var mset={};
-  expenses.forEach(function(e){var d=new Date(e.date);mset[d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)]=d;});
-  var mkeys=Object.keys(mset).sort().reverse();
-  document.getElementById('ae-fmonth').innerHTML='<option value="">Todos los meses</option>'+mkeys.map(function(k){return'<option value="'+k+'">'+capM(mset[k].toLocaleDateString('es-ES',{month:'long',year:'numeric'}))+'</option>';}).join('');
-  document.getElementById('ae-fcat').innerHTML='<option value="">Todas las categorías</option>'+EXP_CATS.map(function(c){return'<option value="'+c+'">'+c+'</option>';}).join('');
-  renderAllExp();
-  document.getElementById('allexp-modal').classList.add('open');
-}
-function closeAllExp(){document.getElementById('allexp-modal').classList.remove('open');}
-function renderAllExp(){
-  var fm=document.getElementById('ae-fmonth').value,fc=document.getElementById('ae-fcat').value;
-  var rows=expenses.filter(function(e){
-    if(fc&&e.category!==fc)return false;
-    if(fm){var d=new Date(e.date);if(d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)!==fm)return false;}
-    return true;
-  }).sort(function(a,b){return new Date(b.date)-new Date(a.date);});
-  var tot=rows.reduce(function(s,e){return s+(parseFloat(e.amount)||0);},0);
-  document.getElementById('ae-sum').innerHTML=rows.length+' compra'+(rows.length===1?'':'s')+' · <b>'+fmtEur(tot)+'</b>';
-  document.getElementById('ae-list').innerHTML=rows.length?rows.map(expRowHtml).join(''):'<div class="ex-empty">Sin compras con estos filtros.</div>';
-}
+function closeAllExp(){closeHist();}
+function renderAllExp(){renderHist();}
 
 function renderMonthlyChart(){
   if(monthlyChartInst){monthlyChartInst.destroy();monthlyChartInst=null;}
@@ -2996,6 +3107,10 @@ function openEditLog(catId, ts){
   editLogCatId=catId; editLogTs=ts;
   var log=state[catId].logs.find(function(l){return l.ts===ts;});
   if(!log)return;
+  var isDeco=catId==='deco';
+  document.getElementById('edit-log-title').textContent=isDeco?'Editar decoración':'Editar registro';
+  document.getElementById('edit-log-detail-wrap').style.display=isDeco?'none':'block';
+  document.getElementById('edit-log-note-lbl').textContent=isDeco?'Nombre de la decoración':'Nota';
   var d=new Date(ts);
   document.getElementById('edit-log-date').value=d.toISOString().split('T')[0];
   document.getElementById('edit-log-time').value=d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
@@ -3026,6 +3141,10 @@ function saveEditLog(){
   bk('editCuidado',{id:logs[idx].id,ts:newTs,catId:editLogCatId,categoria:cat?cat.name:editLogCatId,tipo:detail,nota:note});
   closeEditLog();
   renderHistory();
+  if(document.getElementById('hist-modal').classList.contains('open'))renderHist();
+  if(editLogCatId==='deco'&&curCat&&curCat.deco)renderDecoDetail();
+  if(editLogCatId==='food'&&curCat&&curCat.id==='food'){renderFoodHero();renderWeekCalendar();renderFoodChips();renderDieta();}
+  renderHome();
 }
 
 function deleteLog(catId,ts){
