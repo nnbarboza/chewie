@@ -26,7 +26,7 @@
   --font-d:'Fredoka','Baloo 2',system-ui,sans-serif;
 }
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);max-width:390px;margin:0 auto;min-height:100vh;overflow-x:hidden}
-.screen{display:none;width:100%}.screen.active{display:block}
+.screen{display:none;width:100%;padding-bottom:84px}.screen.active{display:block}
 .icon-btn{width:38px;height:38px;border-radius:12px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:var(--text2);flex-shrink:0}
 .top-bar{background:var(--bg);padding:12px 16px 0;display:flex;align-items:center;justify-content:space-between}
 .hero-name{font-size:32px;font-weight:700;color:#5C3A1E;letter-spacing:-.5px}
@@ -73,7 +73,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .shop-banner{margin:10px 12px 0;background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:11px 13px;display:flex;align-items:center;gap:10px;cursor:pointer}
 .shop-img{width:46px;height:46px;border-radius:12px;font-size:28px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
 .shop-img img{width:100%;height:100%;object-fit:cover}
-.bottom-nav{display:flex;background:var(--card);border-top:1px solid var(--border);padding:8px 0 calc(20px + env(safe-area-inset-bottom)) 0;margin-top:12px;position:sticky;bottom:0;z-index:10;align-items:flex-start}
+.bottom-nav{display:flex;background:var(--card);border-top:1px solid var(--border);padding:8px 0 calc(14px + env(safe-area-inset-bottom)) 0;position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:390px;z-index:50;align-items:flex-start;box-shadow:0 -3px 14px rgba(93,58,30,.06)}
 /* ===== HOME v2 ===== */
 .home-hero{display:flex;align-items:center;gap:0;margin:14px 12px 0}
 .pts-card{flex:1;min-width:0;background:var(--card);border:1px solid #F1E7D8;border-radius:24px;padding:16px 15px 15px;box-shadow:0 6px 18px rgba(93,58,30,.07);cursor:pointer}
@@ -93,6 +93,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .home-ham{width:178px;height:172px;flex-shrink:0;position:relative;display:flex;align-items:center;justify-content:center;overflow:visible}
 .home-ham .ham-pic{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
 .home-ham .ham-pic img{width:100%;height:100%;object-fit:contain}
+.ham-phrase{font-family:var(--font-d);font-size:13px;font-weight:600;color:var(--accent);text-align:center;margin-top:2px;line-height:1.1;min-height:15px}
 .stat-bar{display:flex;background:var(--card);border:1px solid #F1E7D8;border-radius:18px;margin:14px 14px 0;padding:12px 2px;box-shadow:0 4px 14px rgba(93,58,30,.05)}
 .stat{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;border-right:1px solid var(--border);padding:0 3px}
 .stat:last-child{border-right:none}
@@ -417,6 +418,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .dc-seg{display:flex;gap:6px;margin-top:10px}
 .dc-seg-b{flex:1;text-align:center;font-size:11.5px;font-weight:700;color:var(--text2);background:var(--bg);border:1px solid var(--border);border-radius:11px;padding:7px;cursor:pointer}
 .dc-seg-b.on{background:#EFE3F6;border-color:#D9C2E8;color:#7A4E9E}
+.ex-bh-ic img{width:18px;height:18px;object-fit:contain;vertical-align:-3px}
+.dc-card-ic img{width:26px;height:26px;object-fit:contain}
+.h-act img{width:16px;height:16px;object-fit:contain;display:block}
+.dc-seg-b img{width:15px;height:15px;object-fit:contain;vertical-align:-2px;margin-right:1px}
 /* ===== DECORACIÓN ===== */
 .dc-hero{margin:2px 14px 14px;height:170px;border-radius:20px;background:linear-gradient(135deg,#FBE9D2,#F6E0CF);overflow:hidden;display:flex;align-items:center;justify-content:center}
 .dc-hero img{width:100%;height:100%;object-fit:cover}
@@ -597,6 +602,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <div class="home-ham" id="home-ham">
       <div class="ham-pic" id="ham-pic"><span style="font-size:80px">🐹</span></div>
+      <div class="ham-phrase" id="ham-phrase"></div>
     </div>
   </div>
 
@@ -620,33 +626,11 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <div style="color:var(--text3);font-size:18px">›</div>
   </div>
-  <div class="bottom-nav">
-    <div class="nav-item" onclick="openPhotos()">
-      <div class="nav-icon"><img src="img/nav_fotos.png" alt="Fotos" onerror="this.outerHTML='📷'"></div>
-      <div class="nav-lbl">Fotos</div>
-    </div>
-    <div class="nav-item" onclick="goScreen('s-curiosidades')">
-      <div class="nav-icon"><img src="img/nav_curiosidades.png" alt="Curiosidades" onerror="this.outerHTML='📖'"></div>
-      <div class="nav-lbl">Curiosidades</div>
-    </div>
-    <div class="nav-item" onclick="goScreen('s-history')">
-      <div class="nav-icon"><img src="img/nav_historial.png" alt="Historial" onerror="this.outerHTML='📅'"></div>
-      <div class="nav-lbl">Historial</div>
-    </div>
-    <div class="nav-item" onclick="openChatGPT()">
-      <div class="nav-icon"><img src="img/nav_consejos.png" alt="Consejos" onerror="this.outerHTML='💡'"></div>
-      <div class="nav-lbl">Consejos</div>
-    </div>
-    <div class="nav-item" onclick="goScreen('s-profile')">
-      <div class="nav-icon"><img src="img/nav_perfil.png" alt="Perfil" onerror="this.outerHTML='🐹'"></div>
-      <div class="nav-lbl">Perfil</div>
-    </div>
-  </div>
 </div>
 
 <!-- CURIOSIDADES -->
 <div id="s-curiosidades" class="screen">
-  <div class="top-bar"><div class="icon-btn" onclick="goScreen('s-home')">←</div><div style="font-size:15px;font-weight:700">🌟 Curiosidades</div><div style="width:38px"></div></div>
+  <div class="top-bar"><div style="width:38px"></div><div style="font-size:15px;font-weight:700">🌟 Curiosidades</div><div style="width:38px"></div></div>
   <div style="padding:10px 14px 4px;font-size:12px;color:var(--text2)" id="curio-date"></div>
   <div class="curio-card" id="curio-card">
     <div class="curio-num" id="curio-num"></div>
@@ -663,7 +647,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 <!-- DETAIL -->
 <div id="s-detail" class="screen">
   <div class="det-head2">
-    <div class="det-back" onclick="goScreen('s-home')">←</div>
     <div class="dt-title"><span class="hh">♥</span><span id="det-title"></span><span class="hh">♥</span></div>
     <div class="dt-sub" id="det-sub"></div>
   </div>
@@ -794,7 +777,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <div class="dc-hero" id="dc-hero"></div>
     <div class="dc-cards">
       <div class="dc-card">
-        <div class="dc-card-ic">🗓️</div>
+        <div class="dc-card-ic"><img src="img/ic_ultima_deco.webp" onerror="this.outerHTML=&#39;🗓️&#39;"></div>
         <div class="dc-card-body">
           <div class="dc-card-lbl">Última decoración</div>
           <div class="dc-card-val" id="dc-last-val">—</div>
@@ -869,7 +852,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 <!-- LOGROS (full screen) -->
 <div id="s-logros" class="screen">
   <div class="det-head2">
-    <div class="det-back" onclick="goScreen('s-home')">←</div>
     <div class="dt-title"><span class="hh">♥</span><span>Logros</span><span class="hh">♥</span></div>
     <div class="dt-sub" id="logros-sub"></div>
   </div>
@@ -891,7 +873,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
 <!-- EXPENSES -->
 <div id="s-expenses" class="screen">
-  <div class="top-bar"><div class="icon-btn" onclick="goScreen('s-home')">←</div><div></div><div style="width:38px"></div></div>
+  <div class="top-bar"><div style="width:38px"></div><div></div><div style="width:38px"></div></div>
   <div class="ex-head">
     <div class="ex-head-l">
       <div class="ex-head-ic" id="ex-head-ic"></div>
@@ -904,7 +886,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 
   <div class="ex-block">
-    <div class="ex-block-h"><span class="ex-bh-ic">🛍️</span> Gasto por categoría
+    <div class="ex-block-h"><span class="ex-bh-ic"><img src="img/ic_categorias.webp" onerror="this.outerHTML=&#39;🛍️&#39;"></span> Gasto por categoría
       <div class="ex-toggle">
         <span id="ex-tg-month" onclick="setExpPeriod('month')">Mes</span>
         <span id="ex-tg-total" onclick="setExpPeriod('total')">Total</span>
@@ -919,7 +901,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <button class="ex-add" onclick="openExp()"><span class="plus-c">+</span> Añadir gasto</button>
 
   <div class="ex-block">
-    <div class="ex-block-h"><span class="ex-bh-ic">📈</span> Evolución del gasto medio</div>
+    <div class="ex-block-h"><span class="ex-bh-ic"><img src="img/ic_evolucion.webp" onerror="this.outerHTML=&#39;📈&#39;"></span> Evolución de gastos</div>
     <div class="ex-evo-wrap">
       <div class="ex-evo" id="ex-evo"></div>
       <div class="ex-evo-stat">
@@ -931,7 +913,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 
   <div class="ex-last">
-    <div class="ex-last-h"><span class="ex-bh-ic">🧾</span> Últimas compras <span class="ex-more-inline" id="ex-vertodas" onclick="openAllExp()">Ver todas ›</span></div>
+    <div class="ex-last-h"><span class="ex-bh-ic"><img src="img/ic_ultimas.webp" onerror="this.outerHTML=&#39;🧾&#39;"></span> Últimas compras <span class="ex-more-inline" id="ex-vertodas" onclick="openAllExp()">Ver todas ›</span></div>
     <div id="exp-list"></div>
   </div>
 </div>
@@ -948,14 +930,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
 <!-- HISTORY -->
 <div id="s-history" class="screen">
-  <div class="top-bar"><div class="icon-btn" onclick="goScreen('s-home')">←</div><div></div><div style="width:38px"></div></div>
+  <div class="top-bar"><div style="width:38px"></div><div></div><div style="width:38px"></div></div>
   <div style="padding:12px 16px"><h2 style="font-size:19px;font-weight:700">📅 Historial completo</h2></div>
   <div id="hist-list" style="padding:0 14px;padding-bottom:20px;display:flex;flex-direction:column;gap:8px"></div>
 </div>
 
 <!-- PROFILE -->
 <div id="s-profile" class="screen">
-  <div class="top-bar"><div class="icon-btn" onclick="goScreen('s-home')">←</div><div></div><div style="width:38px"></div></div>
+  <div class="top-bar"><div style="width:38px"></div><div></div><div style="width:38px"></div></div>
   <div style="padding:20px 16px;text-align:center">
     <div id="profile-ham" style="width:90px;height:90px;border-radius:50%;margin:0 auto 10px;font-size:60px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#F0FFF0">🐹</div>
     <div style="font-size:24px;font-weight:700;color:#5C3A1E">Chewie</div>
@@ -1013,7 +995,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
   <div class="prof-foot">
     <button id="btnRefresh" title="Actualizar app">🔄 Actualizar app</button>
-    <span class="ver-tag">v1.6</span>
+    <span class="ver-tag">v1.7</span>
   </div>
 </div>
 
@@ -1172,20 +1154,20 @@ const FOOD_COLORS = {'Fruta':'#F08A8A','Verdura':'#8FC46A','Gusano':'#B79CEB','C
 const FOOD_LEGACY = {'Pienso':'Semillas','Spray':'Ramita'};
 
 const MOODS=[
-  {min:6, img:'dying',   bg:'#FFEAEA', title:'¡Me estoy muriendo!', sub:'¡Necesito todo ya!',   icon:'💀'},
-  {min:4, img:'dying',   bg:'#FFE0E0', title:'¡Muchas cosas!',      sub:'¡Atiéndeme, porfa!',   icon:'😭'},
-  {min:3, img:'vworry',  bg:'#FFE8D8', title:'Muy preocupado...',   sub:'Faltan varias cosas',  icon:'😟'},
-  {min:2, img:'worry',   bg:'#FFF0DC', title:'Algo va mal...',      sub:'Revisa mis cuidados',  icon:'😕'},
+  {min:6, img:'dying',   bg:'#FFEAEA', title:'¡Me estoy muriendo!', sub:'¡Necesito todo ya!',   icon:'💀', phrase:'¡Veo una luz!'},
+  {min:4, img:'dying',   bg:'#FFE0E0', title:'¡Muchas cosas!',      sub:'¡Atiéndeme, porfa!',   icon:'😭', phrase:'¡Veo una luz!'},
+  {min:3, img:'vworry',  bg:'#FFE8D8', title:'Muy preocupado...',   sub:'Faltan varias cosas',  icon:'😟', phrase:'¡Estoy agobiado!'},
+  {min:2, img:'worry',   bg:'#FFF0DC', title:'Algo va mal...',      sub:'Revisa mis cuidados',  icon:'😕', phrase:'Algo no va bien...'},
 ];
 const SPECIAL=[
-  {id:'food',  img:'hungry',  bg:'#FFF5E0', title:'Tengo hambrecita',      sub:'¡Dame de comer!',      icon:'🍚'},
-  {id:'water', img:'thirsty', bg:'#EEF8FF', title:'Dame agüita',           sub:'¡Tengo seeed!',        icon:'💧'},
-  {id:'sand',  img:'meon',    bg:'#FFFDE0', title:'¡Tengo pipi!',          sub:'¡Cambia mi arena!',    icon:'💛'},
-  {id:'clean', img:'dirty',   bg:'#F0FFE8', title:'¡Huele mal!',           sub:'Necesito limpieza',    icon:'🦟'},
-  {id:'gnaw',  img:'toothed', bg:'#FFF0E8', title:'¡Quiero morder cosas!', sub:'Dame algo para roer',  icon:'🪵'},
-  {id:'deco',  img:'bored',   bg:'#F0F0FF', title:'¡Me aburro!',           sub:'Quiero algo nuevo',    icon:'😴'},
+  {id:'food',  img:'hungry',  bg:'#FFF5E0', title:'Tengo hambrecita',      sub:'¡Dame de comer!',      icon:'🍚', phrase:'Tengo hambrecita'},
+  {id:'water', img:'thirsty', bg:'#EEF8FF', title:'Dame agüita',           sub:'¡Tengo seeed!',        icon:'💧', phrase:'¡Dame agüita!'},
+  {id:'sand',  img:'meon',    bg:'#FFFDE0', title:'¡Tengo pipi!',          sub:'¡Cambia mi arena!',    icon:'💛', phrase:'Tengo pipi...'},
+  {id:'clean', img:'dirty',   bg:'#F0FFE8', title:'¡Huele mal!',           sub:'Necesito limpieza',    icon:'🦟', phrase:'Algo huele mal...'},
+  {id:'gnaw',  img:'toothed', bg:'#FFF0E8', title:'¡Quiero morder cosas!', sub:'Dame algo para roer',  icon:'🪵', phrase:'¡Quiero morder cositas!'},
+  {id:'deco',  img:'bored',   bg:'#F0F0FF', title:'¡Me aburro!',           sub:'Quiero algo nuevo',    icon:'😴', phrase:'¿Vamos de compras?'},
 ];
-const HAPPY={img:'happy', bg:'#F0FFF0', title:'¡Todo perfecto!', sub:'¡Buen trabajo, humana!', icon:'💚'};
+const HAPPY={img:'happy', bg:'#F0FFF0', title:'¡Todo perfecto!', sub:'¡Buen trabajo, humana!', icon:'💚', phrase:'¡Estoy muy feliz!'};
 
 const IMG_URLS={
   thirsty:'img/hamster_sediento.webp', worry:'img/hamster_preocupado.webp',
@@ -1744,6 +1726,9 @@ function getMood(){
 function goScreen(id){
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
   document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.bottom-nav .nav-item').forEach(function(n){n.classList.remove('active');});
+  var navMap={'s-home':'nav-inicio','s-profile':'nav-perfil'};
+  if(navMap[id]){var ne=document.getElementById(navMap[id]);if(ne)ne.classList.add('active');}
   if(id==='s-home'){if(chart){chart.destroy();chart=null;}renderHome();}
   if(id==='s-expenses')renderExpenses();
   if(id==='s-history')renderHistory();
@@ -1827,10 +1812,11 @@ function renderHome(){
     var sandBad=getStatus(CATS.filter(function(c){return c.id==='sand';})[0])!=='ok';
     if(cleanBad)      mood=SPECIAL.filter(function(s){return s.id==='clean';})[0];
     else if(sandBad)  mood=SPECIAL.filter(function(s){return s.id==='sand';})[0];
-    else              mood={img:'sleeping',title:'Chewie duerme',sub:'',icon:'😴'};
+    else              mood={img:'sleeping',title:'Chewie duerme',sub:'',icon:'😴',phrase:''};
   }
   var hp=document.getElementById('ham-pic');hp.innerHTML='';
   hp.appendChild(makeImg(IMG_URLS[mood.img]||'','🐹','100%','100%','',80));
+  var phEl=document.getElementById('ham-phrase');if(phEl)phEl.textContent=mood.phrase||'';
 
   // ── Banner compras ──
   var shopWrap=document.getElementById('shop-img-wrap');shopWrap.innerHTML='';
@@ -2214,12 +2200,12 @@ function renderDecoDetail(){
       +'<div class="dc-item-top">'
         +'<div class="dc-item-main"><div class="dc-item-name">'+esc(l.note||'Decoración')+'</div>'
         +'<div class="dc-item-date">Añadida el '+fmtDay(l.ts)+'</div></div>'
-        +'<div class="dc-acts"><span class="h-act" onclick="editDeco('+l.ts+')">✏️</span>'
-        +'<span class="h-act del" onclick="delLogHist(\'deco\','+l.ts+')">🗑️</span></div>'
+        +'<div class="dc-acts"><span class="h-act" onclick="editDeco('+l.ts+')">'+imgHtml('img/ic_editar.webp','✏️','16px')+'</span>'
+        +'<span class="h-act del" onclick="delLogHist(\'deco\','+l.ts+')">'+imgHtml('img/ic_borrar.webp','🗑️','16px')+'</span></div>'
       +'</div>'
       +'<div class="dc-seg">'
-        +'<span class="dc-seg-b'+(!stored?' on':'')+'" onclick="decoSet(\''+l.id+'\',false)">🏠 En la jaula</span>'
-        +'<span class="dc-seg-b'+(stored?' on':'')+'" onclick="decoSet(\''+l.id+'\',true)">📦 Guardada</span>'
+        +'<span class="dc-seg-b'+(!stored?' on':'')+'" onclick="decoSet(\''+l.id+'\',false)">'+imgHtml('img/ic_jaula.webp','🏠','15px')+' En la jaula</span>'
+        +'<span class="dc-seg-b'+(stored?' on':'')+'" onclick="decoSet(\''+l.id+'\',true)">'+imgHtml('img/ic_guardada.webp','📦','15px')+' Guardada</span>'
       +'</div></div>';
   }).join('');
 }
@@ -2330,7 +2316,7 @@ function openFoodHist(){openHist('food');}
 function openAllExp(){openHist('exp');}
 function openHist(kind){
   histKind=kind; histFMonth=''; histFCat=''; histFEstado='';
-  document.getElementById('hist-title').textContent = kind==='food'?'Historial de comidas':(kind==='exp'?'Todas las compras':'Historial de decoraciones');
+  document.getElementById('hist-title').textContent = kind==='food'?'Historial de comidas':(kind==='exp'?'Todas las compras':(kind==='deco'?'Historial de decoraciones':'Historial'));
   buildHistFilters();
   renderHist();
   document.getElementById('hist-modal').classList.add('open');
@@ -2338,6 +2324,13 @@ function openHist(kind){
 function closeHist(){document.getElementById('hist-modal').classList.remove('open');}
 function histRows(){
   if(histKind==='exp') return expenses.map(function(e){return {kind:'exp',id:e.id,ts:new Date(e.date).getTime(),e:e};});
+  if(histKind==='all'){
+    var out=[];
+    ['food','water','sand','clean','gnaw','deco'].forEach(function(cid){
+      (state[cid]?state[cid].logs:[]).forEach(function(l){out.push({kind:cid,ts:l.ts,id:l.id,l:l});});
+    });
+    return out;
+  }
   return state[histKind].logs.map(function(l){return {kind:histKind,ts:l.ts,id:l.id,l:l};});
 }
 function buildHistFilters(){
@@ -2349,6 +2342,9 @@ function buildHistFilters(){
   if(histKind==='exp'){
     html+='<select class="ae-sel" onchange="histFCat=this.value;renderHist()"><option value="">Todas las categorías</option>'
       +EXP_CATS.map(function(c){return '<option value="'+c+'">'+c+'</option>';}).join('')+'</select>';
+  } else if(histKind==='all'){
+    html+='<select class="ae-sel" onchange="histFCat=this.value;renderHist()"><option value="">Todos los cuidados</option>'
+      +CATS.map(function(c){return '<option value="'+c.id+'">'+c.name+'</option>';}).join('')+'</select>';
   } else if(histKind==='deco'){
     html+='<select class="ae-sel" onchange="histFEstado=this.value;renderHist()"><option value="">Todas</option><option value="jaula">En la jaula</option><option value="guard">Guardadas</option></select>';
   }
@@ -2358,6 +2354,7 @@ function renderHist(){
   var rows=histRows();
   if(histFMonth) rows=rows.filter(function(r){var d=new Date(r.ts);return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)===histFMonth;});
   if(histKind==='exp'&&histFCat) rows=rows.filter(function(r){return r.e.category===histFCat;});
+  if(histKind==='all'&&histFCat) rows=rows.filter(function(r){return r.kind===histFCat;});
   if(histKind==='food') rows=rows.filter(function(r){return r.l.type;});
   if(histKind==='deco'&&histFEstado){var ds=loadDecoState();rows=rows.filter(function(r){var s=!!ds[r.id];return histFEstado==='guard'?s:!s;});}
   rows.sort(function(a,b){return b.ts-a.ts;});
@@ -2367,29 +2364,42 @@ function renderHist(){
   var list=document.getElementById('hist-list2');
   list.innerHTML=rows.length?rows.map(histRowHtml).join(''):'<div class="ex-empty" style="padding:16px 0">Sin registros.</div>';
 }
+function histActs(editCall,delCall){
+  return '<div class="hist-acts"><span class="h-act" onclick="'+editCall+'">'+imgHtml('img/ic_editar.webp','✏️','16px')+'</span>'
+    +'<span class="h-act del" onclick="'+delCall+'">'+imgHtml('img/ic_borrar.webp','🗑️','16px')+'</span></div>';
+}
 function histRowHtml(r){
   var d=new Date(r.ts);
   var when=d.toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'}).replace(/\./g,'');
+  var time=d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
   if(r.kind==='exp'){
     var e=r.e,color=expCatColor(e.category);
     return '<div class="hist-row"><div class="hist-ic" style="background:'+hexA(color,0.3)+'">'+catEmoji(e.category)+'</div>'
       +'<div class="hist-main"><div class="hist-t">'+esc(e.description||catName(e.category))+'</div><div class="hist-s">'+esc(catName(e.category))+'</div></div>'
       +'<div class="hist-meta"><div class="hist-amt">'+fmtEur(parseFloat(e.amount))+'</div><div class="hist-when">'+when+'</div></div>'
-      +'<div class="hist-acts"><span class="h-act" onclick="openEditExp(\''+e.id+'\')">✏️</span><span class="h-act del" onclick="delExpHist(\''+e.id+'\')">🗑️</span></div></div>';
+      +histActs("openEditExp('"+e.id+"')","delExpHist('"+e.id+"')")+'</div>';
   }
   if(r.kind==='food'){
     var l=r.l,foods=l.type.split(', ').map(function(t){return normFood(t)||t;});
     var icons=foods.map(function(n){return imgHtml(FOOD_IMGS[n]||'',FOOD_EMOJIS[n]||'🍽️','22px');}).join('');
-    var time=d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
     return '<div class="hist-row"><div class="hist-ic ic-foods">'+icons+'</div>'
       +'<div class="hist-main"><div class="hist-t">'+esc(foods.join(', '))+'</div>'+(l.note?'<div class="hist-s">'+esc(l.note)+'</div>':'')+'</div>'
       +'<div class="hist-meta"><div class="hist-when">'+when+'</div><div class="hist-when">'+time+'</div></div>'
-      +'<div class="hist-acts"><span class="h-act" onclick="openEditLog(\'food\','+l.ts+')">✏️</span><span class="h-act del" onclick="delLogHist(\'food\','+l.ts+')">🗑️</span></div></div>';
+      +histActs("openEditLog('food',"+l.ts+")","delLogHist('food',"+l.ts+")")+'</div>';
   }
-  var dl=r.l,ds=loadDecoState(),stored=!!ds[r.id];
-  return '<div class="hist-row"><div class="hist-main"><div class="hist-t">'+esc(dl.note||'Decoración')+'</div><div class="hist-s">'+(stored?'Guardada':'En la jaula')+'</div></div>'
-    +'<div class="hist-meta"><div class="hist-when">'+when+'</div></div>'
-    +'<div class="hist-acts"><span class="h-act" onclick="openEditLog(\'deco\','+dl.ts+')">✏️</span><span class="h-act del" onclick="delLogHist(\'deco\','+dl.ts+')">🗑️</span></div></div>';
+  if(r.kind==='deco'){
+    var dl=r.l,ds=loadDecoState(),stored=!!ds[r.id];
+    return '<div class="hist-row"><div class="hist-main"><div class="hist-t">'+esc(dl.note||'Decoración')+'</div><div class="hist-s">'+(stored?'Guardada':'En la jaula')+'</div></div>'
+      +'<div class="hist-meta"><div class="hist-when">'+when+'</div></div>'
+      +histActs("openEditLog('deco',"+dl.ts+")","delLogHist('deco',"+dl.ts+")")+'</div>';
+  }
+  // genérico (agua, arena, limpieza, roer) — para historial general
+  var cl=r.l, cat=CATS.filter(function(c){return c.id===r.kind;})[0]||{name:r.kind,emoji:'🐹'};
+  var sub=cl.type?esc(cl.type):(cl.note?esc(cl.note):'');
+  return '<div class="hist-row"><div class="hist-ic" style="background:var(--bg)">'+imgHtml(CAT_IMGS[r.kind]||'',cat.emoji,'30px')+'</div>'
+    +'<div class="hist-main"><div class="hist-t">'+esc(cat.name)+'</div>'+(sub?'<div class="hist-s">'+sub+'</div>':'')+'</div>'
+    +'<div class="hist-meta"><div class="hist-when">'+when+'</div><div class="hist-when">'+time+'</div></div>'
+    +histActs("openEditLog('"+r.kind+"',"+cl.ts+")","delLogHist('"+r.kind+"',"+cl.ts+")")+'</div>';
 }
 function delLogHist(catId,ts){
   if(!confirm('¿Eliminar este registro?'))return;
@@ -3371,5 +3381,27 @@ if(btnRefresh){
   });
 }
 </script>
+<div class="bottom-nav" id="bottom-nav">
+  <div class="nav-item" id="nav-inicio" onclick="goScreen('s-home')">
+    <div class="nav-icon"><img src="img/nav_inicio.png" alt="Inicio" onerror="this.outerHTML='🏠'"></div>
+    <div class="nav-lbl">Inicio</div>
+  </div>
+  <div class="nav-item" id="nav-fotos" onclick="openPhotos()">
+    <div class="nav-icon"><img src="img/nav_fotos.png" alt="Fotitos" onerror="this.outerHTML='📷'"></div>
+    <div class="nav-lbl">Fotitos</div>
+  </div>
+  <div class="nav-item" id="nav-historial" onclick="openHist('all')">
+    <div class="nav-icon"><img src="img/nav_historial.png" alt="Historial" onerror="this.outerHTML='📅'"></div>
+    <div class="nav-lbl">Historial</div>
+  </div>
+  <div class="nav-item" id="nav-consejos" onclick="openChatGPT()">
+    <div class="nav-icon"><img src="img/nav_consejos.png" alt="Consejos" onerror="this.outerHTML='💡'"></div>
+    <div class="nav-lbl">Consejos</div>
+  </div>
+  <div class="nav-item" id="nav-perfil" onclick="goScreen('s-profile')">
+    <div class="nav-icon"><img src="img/nav_perfil.png" alt="Perfil" onerror="this.outerHTML='🐹'"></div>
+    <div class="nav-lbl">Perfil</div>
+  </div>
+</div>
 </body>
 </html>
