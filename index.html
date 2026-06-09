@@ -1131,7 +1131,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <div class="pt-ham" id="prof-thanks-ham"></div>
   </div>
-  <div style="text-align:center;padding:4px 0 10px"><span class="ver-tag">v2.2</span></div>
+  <div style="text-align:center;padding:4px 0 10px"><span class="ver-tag">v2.3</span></div>
 </div>
 
 <div class="modal-bg" id="quizhist-modal">
@@ -1604,6 +1604,10 @@ function applyAction(a,p){
     expenses=expenses.filter(function(x){return x.id!==p.id;});
   } else if(a==='unlockLogro'){
     if(!achievements[p.id])achievements[p.id]=Number(p.ts);
+  } else if(a==='addRespuesta'){
+    var q=loadQuiz();var prev=q.answered[p.qid];var ts=Number(p.ts)||Date.now();
+    if(!prev||ts>=prev.ts)q.answered[p.qid]={ok:!!Number(p.ok),ts:ts};
+    quiz=q;saveQuiz();
   }
 }
 function replayOutbox(){
@@ -1622,6 +1626,12 @@ function rebuildFromServer(data){
     return {id:r.id,category:r.categoria,description:r.descripcion,amount:Number(r.importe),date:r.date||r.fecha};
   });
   achievements={};if(data.logros)Object.keys(data.logros).forEach(function(k){achievements[k]=Number(data.logros[k]);});
+  if(data.respuestas){
+    var q=loadQuiz();
+    data.respuestas.forEach(function(r){var prev=q.answered[r.qid];var ts=Number(r.ts)||0;
+      if(!prev||ts>=prev.ts)q.answered[r.qid]={ok:!!Number(r.ok),ts:ts};});
+    quiz=q;saveQuiz();
+  }
   if(data.niveles&&data.niveles.length){
     LEVELS=data.niveles.map(function(n){return {min:Number(n.min),name:n.nombre,icon:n.icono,img:n.imagen||""};})
       .sort(function(a,b){return a.min-b.min;});
@@ -3478,21 +3488,21 @@ function closeSleepEdit(){document.getElementById('sleep-modal').classList.remov
 function saveSleepEdit(){var f=document.getElementById('sleep-in-from').value||'21:00';var t=document.getElementById('sleep-in-to').value||'08:00';saveSleep({from:f,to:t});closeSleepEdit();renderProfile();}
 
 // ── CURIOSIDADES ───────────────────────────────────────────
-var QUIZ_CATS=['Alimentación','Hábitat','Cuidados','Comportamiento','Juguetes'];
-var QUIZ_CAT_IC={'Alimentación':'🥕','Hábitat':'🏠','Cuidados':'💧','Comportamiento':'🌙','Juguetes':'🧩'};
+var QUIZ_CATS=['Comportamiento','Biología','Hábitat','Cuidados','Chewie'];
+var QUIZ_CAT_IC={'Comportamiento':'🌙','Biología':'🔬','Hábitat':'🏠','Cuidados':'💧','Chewie':'🐹'};
 var QUIZ_SEED=[
-  {id:'q1', tipo:'vf', categoria:'Alimentación', pregunta:'Los hámsters pueden almacenar comida en sus mejillas.', respuesta:true},
-  {id:'q2', tipo:'vf', categoria:'Alimentación', pregunta:'El chocolate es un buen premio para tu hámster.', respuesta:false},
-  {id:'q3', tipo:'abierta', categoria:'Alimentación', pregunta:'¿Cada cuánto se recomienda darle verdura fresca?', respuesta:'2-3 veces por semana, en cantidades pequeñas.'},
+  {id:'q1', tipo:'vf', categoria:'Biología', pregunta:'Los hámsters pueden almacenar comida en sus mejillas.', respuesta:true},
+  {id:'q2', tipo:'vf', categoria:'Biología', pregunta:'Los hámsters ven muy bien de lejos.', respuesta:false},
+  {id:'q3', tipo:'abierta', categoria:'Biología', pregunta:'¿Sus dientes incisivos dejan de crecer en algún momento?', respuesta:'No, crecen toda la vida; por eso necesitan roer.'},
   {id:'q4', tipo:'vf', categoria:'Hábitat', pregunta:'Una rueda con barrotes es más segura que una de superficie lisa.', respuesta:false},
   {id:'q5', tipo:'vf', categoria:'Hábitat', pregunta:'El sustrato debe ser profundo para que pueda hacer túneles.', respuesta:true},
   {id:'q6', tipo:'vf', categoria:'Cuidados', pregunta:'Hay que bañar al hámster con agua cada semana.', respuesta:false},
   {id:'q7', tipo:'abierta', categoria:'Cuidados', pregunta:'¿Con qué se asea un hámster sirio?', respuesta:'Con arena de baño, nunca con agua.'},
-  {id:'q8', tipo:'vf', categoria:'Comportamiento', pregunta:'Los hámsters sirios prefieren vivir solos.', respuesta:true},
-  {id:'q9', tipo:'vf', categoria:'Comportamiento', pregunta:'Que duerma de día siempre es señal de enfermedad.', respuesta:false},
-  {id:'q10', tipo:'vf', categoria:'Juguetes', pregunta:'Roer madera apta ayuda a desgastar sus dientes.', respuesta:true},
-  {id:'q11', tipo:'abierta', categoria:'Juguetes', pregunta:'Nombra un material seguro para roer.', respuesta:'Madera sin tratar, p. ej. manzano o avellano.'},
-  {id:'q12', tipo:'vf', categoria:'Cuidados', pregunta:'La temperatura ideal ronda los 20-24 °C.', respuesta:true}
+  {id:'q8', tipo:'vf', categoria:'Cuidados', pregunta:'La temperatura ideal ronda los 20-24 °C.', respuesta:true},
+  {id:'q9', tipo:'vf', categoria:'Comportamiento', pregunta:'Los hámsters sirios prefieren vivir solos.', respuesta:true},
+  {id:'q10', tipo:'vf', categoria:'Comportamiento', pregunta:'Que duerma de día siempre es señal de enfermedad.', respuesta:false},
+  {id:'q11', tipo:'vf', categoria:'Chewie', pregunta:'Chewie es un hámster sirio.', respuesta:true},
+  {id:'q12', tipo:'abierta', categoria:'Chewie', pregunta:'¿En qué mes cumple años Chewie?', respuesta:'En abril (el 4 de abril).'}
 ];
 var QUESTIONS=QUIZ_SEED.slice(), quiz={answered:{}}, quizPeriod='acc', quizQ=null, quizRevealed=false;
 function loadQuiz(){try{var q=JSON.parse(localStorage.getItem('chw6quiz'));if(q&&q.answered)return q;}catch(e){}return {answered:{}};}
@@ -3522,7 +3532,7 @@ function renderCuriosidades(){
   quiz=loadQuiz();
   var hero=document.getElementById('cu-hero');if(hero){hero.innerHTML='';hero.appendChild(makeImg('img/curiosidades_hero.webp','🐹','100%','100%','',70));}
   var st=quizStats(quizPeriod);
-  document.getElementById('cu-points').textContent=(st.ok*10).toLocaleString('es-ES');
+  document.getElementById('cu-points').textContent=(st.ok*5).toLocaleString('es-ES');
   document.getElementById('cu-correct').textContent=st.ok;
   document.getElementById('cu-tg-acc').className=quizPeriod==='acc'?'on':'';
   document.getElementById('cu-tg-mon').className=quizPeriod==='mon'?'on':'';
@@ -3563,10 +3573,11 @@ function cuAnswerVF(val){
   var q=quizQ;if(!q)return;
   var ok=(val===isTrueAns(q.respuesta));
   quiz.answered[q.id]={ok:ok,ts:Date.now()};saveQuiz();
+  bk('addRespuesta',{id:uid(),qid:q.id,ok:ok?1:0,ts:Date.now(),categoria:q.categoria});
   document.getElementById('cu-q-body').innerHTML='';
   var res=document.getElementById('cu-q-result');
   res.className='cu-q-result show '+(ok?'ok':'ko');
-  res.innerHTML=(ok?'<b>¡Correcto! 🎉</b> +10 puntos':'<b>Casi…</b> La respuesta correcta es <b>'+(isTrueAns(q.respuesta)?'Verdadero':'Falso')+'</b>.')
+  res.innerHTML=(ok?'<b>¡Correcto! 🎉</b> +5 puntos':'<b>Casi…</b> La respuesta correcta es <b>'+(isTrueAns(q.respuesta)?'Verdadero':'Falso')+'</b>.')
     +'<button class="cu-next" onclick="cuNext()">Siguiente pregunta →</button>';
   refreshQuizScores();
 }
@@ -3580,16 +3591,17 @@ function cuAnswerOpen(){
 function cuSelfGrade(ok){
   var q=quizQ;if(!q)return;
   quiz.answered[q.id]={ok:ok,ts:Date.now()};saveQuiz();
+  bk('addRespuesta',{id:uid(),qid:q.id,ok:ok?1:0,ts:Date.now(),categoria:q.categoria});
   var res=document.getElementById('cu-q-result');
   res.className='cu-q-result show '+(ok?'ok':'ko');
-  res.innerHTML='<b>Respuesta:</b> '+esc(q.respuesta)+'<br>'+(ok?'¡Bien! +10 puntos 🎉':'¡La próxima la sabrás! 💪')
+  res.innerHTML='<b>Respuesta:</b> '+esc(q.respuesta)+'<br>'+(ok?'¡Bien! +5 puntos 🎉':'¡La próxima la sabrás! 💪')
     +'<button class="cu-next" onclick="cuNext()">Siguiente pregunta →</button>';
   refreshQuizScores();
 }
 function cuNext(){quizQ=null;quizRevealed=false;renderCuriosidades();}
 function refreshQuizScores(){
   var st=quizStats(quizPeriod);
-  document.getElementById('cu-points').textContent=(st.ok*10).toLocaleString('es-ES');
+  document.getElementById('cu-points').textContent=(st.ok*5).toLocaleString('es-ES');
   document.getElementById('cu-correct').textContent=st.ok;
   var tot=st.ok+st.ko, okPct=tot?Math.round(st.ok/tot*100):0;
   document.getElementById('cu-bar-wrap').innerHTML='<div class="cu-bar"><div class="ok" style="width:'+okPct+'%"></div><div class="ko" style="width:'+(100-okPct)+'%"></div></div>'
@@ -3599,7 +3611,7 @@ function refreshQuizScores(){
 function renderQuizAlbum(){
   var st=quizStats(quizPeriod);
   var top=null,topPts=-1;
-  QUIZ_CATS.forEach(function(c){var p=st.perCat[c].ok*10;if(p>topPts){topPts=p;top=c;}});
+  QUIZ_CATS.forEach(function(c){var p=st.perCat[c].ok*5;if(p>topPts){topPts=p;top=c;}});
   document.getElementById('cu-album').innerHTML=QUIZ_CATS.map(function(c){
     var d=st.perCat[c], pts=d.ok*10, pct=d.tot?Math.round(d.ok/d.tot*100):0;
     return '<div class="cu-alb-row"><div class="cu-alb-ic">'+(QUIZ_CAT_IC[c]||'📘')+'</div>'
