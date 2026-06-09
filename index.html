@@ -91,7 +91,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .lvl-bar i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,#B79CEB,#9277D6);transition:width .5s}
 .lvl-prog{font-size:11.5px;font-weight:700;color:#9277D6;text-align:center;margin-top:6px}
 .home-ham{flex:1;min-width:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:visible}
-.home-ham .ham-pic{width:100%;height:150px;display:flex;align-items:center;justify-content:center}
+.home-ham .ham-pic{width:100%;height:172px;display:flex;align-items:center;justify-content:center}
 .home-ham .ham-pic img{width:100%;height:100%;object-fit:contain}
 .ham-phrase{font-family:var(--font-d);font-size:14px;font-weight:600;color:var(--accent);text-align:center;margin-top:-2px;line-height:1.15;min-height:16px}
 .stat-bar{display:flex;background:var(--card);border:1px solid #F1E7D8;border-radius:18px;margin:14px 14px 0;padding:12px 2px;box-shadow:0 4px 14px rgba(93,58,30,.05)}
@@ -443,6 +443,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .fh-row-when{font-size:10.5px;color:var(--text3);text-align:right;flex-shrink:0;line-height:1.35}
 /* ===== HISTORIAL UNIFICADO ===== */
 .hist-filters{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.hist-head{position:sticky;top:0;background:var(--bg);z-index:3;margin:-18px -16px 0;padding:16px 16px 6px}
+.hist-head h3{margin-bottom:12px}
+.hist-head .modal-close{position:absolute;top:14px;right:14px;float:none}
 .hist-sum{font-size:12.5px;color:var(--text2);font-weight:600;margin-bottom:8px}
 .hist-sum b{color:var(--accent);font-family:var(--font-d);font-size:15px}
 .hist-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
@@ -498,6 +501,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .dc-seg2-b{width:38px;height:38px;border-radius:11px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px}
 .dc-seg2-b.on{background:#EFE3F6;border-color:#D9C2E8}
 .dc-seg2-b img{width:20px;height:20px;object-fit:contain}
+.dc-badge{display:inline-block;font-size:9.5px;font-weight:700;border-radius:7px;padding:2px 6px;vertical-align:1px;margin-left:2px}
+.dc-badge.buy{background:#EFE3F6;color:#7A4E9E}
+.dc-badge.craft{background:#FCE7EF;color:#B85C82}
 .dc-item-ic{width:42px;height:42px;border-radius:12px;background:#F6ECDF;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .dc-item-ic img{width:80%;height:80%;object-fit:contain}
 .dc-item-main{flex:1;min-width:0}
@@ -654,7 +660,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <div class="home-ham" id="home-ham">
       <div class="ham-pic" id="ham-pic"><span style="font-size:80px">🐹</span></div>
-      <div class="ham-phrase" id="ham-phrase"></div>
     </div>
   </div>
 
@@ -667,7 +672,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
   <div class="home-sec-head">
     <div class="hsh-title">Cuidados de hoy <span class="hh">♥</span></div>
-    <div class="ver-cal" onclick="goScreen('s-history')"><span class="tic" id="ver-cal-ic">📅</span>Ver calendario</div>
+    <div class="ver-cal" onclick="openHist('all')"><span class="tic" id="ver-cal-ic">📅</span>Ver calendario</div>
   </div>
   <div class="care-grid" id="care-list"></div>
   <div class="shop-banner" onclick="goScreen('s-expenses')">
@@ -1000,7 +1005,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <div class="prof-card">
       <div class="pc-head"><span class="pc-ic" id="prof-cake">🎂</span><span class="pc-lbl">Edad</span></div>
       <div class="pc-big" id="age-main">—</div>
-      <div class="pc-sub" id="age-bday">Cumpleaños: 4 abril 2025</div>
+      <div class="pc-sub" id="age-bday">Cumpleaños: 4 abril 2026</div>
       <div class="pc-pill" id="age-next"></div>
     </div>
     <div class="prof-card prof-card-racha">
@@ -1047,7 +1052,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <div class="pt-ham" id="prof-thanks-ham"></div>
   </div>
-  <div style="text-align:center;padding:4px 0 10px"><span class="ver-tag">v2.0</span></div>
+  <div style="text-align:center;padding:4px 0 10px"><span class="ver-tag">v2.1</span></div>
 </div>
 
 <div class="modal-bg" id="sleep-modal">
@@ -1137,10 +1142,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
 <div class="modal-bg" id="hist-modal">
   <div class="modal">
-    <span class="modal-close" onclick="closeHist()">✕</span>
-    <h3 id="hist-title">Historial</h3>
-    <div class="hist-filters" id="hist-filters"></div>
-    <div class="hist-sum" id="hist-sum"></div>
+    <div class="hist-head">
+      <span class="modal-close" onclick="closeHist()">✕</span>
+      <h3 id="hist-title">Historial</h3>
+      <div class="hist-filters" id="hist-filters"></div>
+      <div class="hist-sum" id="hist-sum"></div>
+    </div>
     <div id="hist-list2"></div>
   </div>
 </div>
@@ -1884,7 +1891,7 @@ function renderHome(){
   }
   var hp=document.getElementById('ham-pic');hp.innerHTML='';
   hp.appendChild(makeImg(IMG_URLS[mood.img]||'','🐹','100%','100%','',80));
-  var phEl=document.getElementById('ham-phrase');if(phEl)phEl.textContent=mood.phrase||'';
+  var hpi=hp.querySelector('img');if(hpi)hpi.style.objectFit='contain';
 
   // ── Banner compras ──
   var shopWrap=document.getElementById('shop-img-wrap');shopWrap.innerHTML='';
@@ -2246,42 +2253,57 @@ function renderCleanDetail(){
   }
 }
 function loadDecoState(){try{return JSON.parse(localStorage.getItem('chw6deco')||'{}');}catch(e){return {};}}
+function decoItems(){
+  var out=[];
+  ((state.deco&&state.deco.logs)||[]).forEach(function(l){
+    if(!l.id)l.id=uid();
+    out.push({key:l.id, name:l.note||'Manualidad', ts:l.ts, source:'manual', ref:l});
+  });
+  expenses.forEach(function(e){
+    if(/Decoraci/i.test(e.category||'')){
+      out.push({key:'exp_'+e.id, name:e.description||'Decoración', ts:new Date(e.date).getTime(), source:'compra', ref:e});
+    }
+  });
+  return out;
+}
 function saveDecoState(o){try{localStorage.setItem('chw6deco',JSON.stringify(o));}catch(e){}}
 function decoTabSet(t){decoTab=t;renderDecoDetail();}
 function decoMove(id){var o=loadDecoState();o[id]=!o[id];saveDecoState(o);renderDecoDetail();}
 function renderDecoDetail(){
   var cat=curCat;
-  var logs=state.deco.logs;
+  var logs=(state.deco&&state.deco.logs)||[];
   var changed=false;logs.forEach(function(l){if(!l.id){l.id=uid();changed=true;}});if(changed)save();
   var hero=document.getElementById('dc-hero');hero.innerHTML='';
   hero.appendChild(makeImg('img/deco_hero.webp','🏠','100%','100%','',60));
-  var last=null;logs.forEach(function(l){if(!last||l.ts>last.ts)last=l;});
+  var items=decoItems();
+  var last=null;items.forEach(function(it){if(!last||it.ts>last.ts)last=it;});
   document.getElementById('dc-last-val').textContent=last?relTime(last.ts):'Sin decoraciones';
-  document.getElementById('dc-last-sub').innerHTML=(last&&last.note)?('Añadiste: <b>'+esc(last.note)+'</b>'):'';
+  document.getElementById('dc-last-sub').innerHTML=last?((last.source==='compra'?'Compraste: ':'Añadiste: ')+'<b>'+esc(last.name)+'</b>'):'';
   var st=getStatus(cat);
   var sm={ok:['ok','¡Estás al día!'],warn:['warn','Pronto toca'],alert:['alert','¡Toca decorar!']};
   var stEl=document.getElementById('dc-status');stEl.className='dc-status '+sm[st][0];stEl.textContent='● '+sm[st][1];
   var star=document.getElementById('dc-star');star.innerHTML='';star.appendChild(makeImg('img/estrella.webp','⭐','100%','100%','',26));
-  document.getElementById('dc-pts-last').textContent='+'+(last?pointsForLog('deco',last):0)+' pts';
+  document.getElementById('dc-pts-last').textContent='+'+((last&&last.source==='manual')?pointsForLog('deco',last.ref):0)+' pts';
   document.getElementById('dc-pts-acc').textContent=logs.reduce(function(s,l){return s+pointsForLog('deco',l);},0)+' pts acumulados';
   var ds=loadDecoState();
-  var enJaula=logs.filter(function(l){return !ds[l.id];});
-  var guard=logs.filter(function(l){return !!ds[l.id];});
+  var enJaula=items.filter(function(it){return !ds[it.key];});
+  var guard=items.filter(function(it){return !!ds[it.key];});
   document.getElementById('dc-n-jaula').textContent=enJaula.length;
   document.getElementById('dc-n-guard').textContent=guard.length;
   document.getElementById('dc-tab-jaula').className='dc-tab'+(decoTab==='jaula'?' on':'');
   document.getElementById('dc-tab-guard').className='dc-tab'+(decoTab==='guard'?' on':'');
-  var items=(decoTab==='jaula'?enJaula:guard).slice().sort(function(a,b){return b.ts-a.ts;});
+  var shown=(decoTab==='jaula'?enJaula:guard).slice().sort(function(a,b){return b.ts-a.ts;});
   var list=document.getElementById('dc-list');
-  if(!items.length){list.innerHTML='<div class="dc-empty">'+(decoTab==='jaula'?'No hay decoraciones en la jaula.':'No hay decoraciones guardadas.')+'</div>';return;}
-  list.innerHTML=items.map(function(l){
-    var stored=!!ds[l.id];
+  if(!shown.length){list.innerHTML='<div class="dc-empty">'+(decoTab==='jaula'?'No hay decoraciones en la jaula.':'No hay decoraciones guardadas.')+'</div>';return;}
+  list.innerHTML=shown.map(function(it){
+    var stored=!!ds[it.key];
+    var badge=it.source==='compra'?'<span class="dc-badge buy">Comprada</span>':'<span class="dc-badge craft">Manualidad</span>';
     return '<div class="dc-item">'
-      +'<div class="dc-item-main"><div class="dc-item-name">'+esc(l.note||'Decoración')+'</div>'
-      +'<div class="dc-item-date">Añadida el '+fmtDay(l.ts)+'</div></div>'
+      +'<div class="dc-item-main"><div class="dc-item-name">'+esc(it.name)+' '+badge+'</div>'
+      +'<div class="dc-item-date">'+(it.source==='compra'?'Comprada':'Añadida')+' el '+fmtDay(it.ts)+'</div></div>'
       +'<div class="dc-seg2">'
-        +'<span class="dc-seg2-b'+(!stored?' on':'')+'" title="En la jaula" onclick="decoSet(\''+l.id+'\',false)">'+imgHtml('img/ic_jaula.webp','🏠','20px')+'</span>'
-        +'<span class="dc-seg2-b'+(stored?' on':'')+'" title="Guardada" onclick="decoSet(\''+l.id+'\',true)">'+imgHtml('img/ic_guardada.webp','📦','20px')+'</span>'
+        +'<span class="dc-seg2-b'+(!stored?' on':'')+'" title="En la jaula" onclick="decoSet(\''+it.key+'\',false)">'+imgHtml('img/ic_jaula.webp','🏠','20px')+'</span>'
+        +'<span class="dc-seg2-b'+(stored?' on':'')+'" title="Guardada" onclick="decoSet(\''+it.key+'\',true)">'+imgHtml('img/ic_guardada.webp','📦','20px')+'</span>'
       +'</div></div>';
   }).join('');
 }
@@ -2416,6 +2438,7 @@ function histRows(){
     });
     return out;
   }
+  if(histKind==='deco') return decoItems().map(function(it){return {kind:'deco', ts:it.ts, id:it.key, it:it};});
   return ((state[histKind]&&state[histKind].logs)||[]).map(function(l){return {kind:histKind,ts:l.ts,id:l.id,l:l};});
 }
 function buildHistFilters(){
@@ -2474,10 +2497,14 @@ function histRowHtml(r){
       +histActs("openEditLog('food',"+l.ts+")","delLogHist('food',"+l.ts+")")+'</div>';
   }
   if(r.kind==='deco'){
-    var dl=r.l,ds=loadDecoState(),stored=!!ds[r.id];
-    return '<div class="hist-row"><div class="hist-main"><div class="hist-t">'+esc(dl.note||'Decoración')+'</div><div class="hist-s">'+(stored?'Guardada':'En la jaula')+'</div></div>'
+    var it=r.it||{name:(r.l&&r.l.note)||'Manualidad',ts:r.l?r.l.ts:r.ts,source:'manual',ref:r.l,key:r.id};
+    var ds=loadDecoState(),stored=!!ds[r.id];
+    var badge=it.source==='compra'?'<span class="dc-badge buy">Comprada</span>':'<span class="dc-badge craft">Manualidad</span>';
+    var editC=it.source==='compra'?("openEditExp('"+it.ref.id+"')"):("openEditLog('deco',"+it.ref.ts+")");
+    var delC=it.source==='compra'?("delExpHist('"+it.ref.id+"')"):("delLogHist('deco',"+it.ref.ts+")");
+    return '<div class="hist-row"><div class="hist-main"><div class="hist-t">'+esc(it.name)+' '+badge+'</div><div class="hist-s">'+(stored?'Guardada':'En la jaula')+'</div></div>'
       +'<div class="hist-meta"><div class="hist-when">'+when+'</div></div>'
-      +histActs("openEditLog('deco',"+dl.ts+")","delLogHist('deco',"+dl.ts+")")+'</div>';
+      +histActs(editC,delC)+'</div>';
   }
   // genérico (agua, arena, limpieza, roer) — para historial general
   var cl=r.l, cat=CATS.filter(function(c){return c.id===r.kind;})[0]||{name:r.kind,emoji:'🐹'};
@@ -2503,6 +2530,7 @@ function delExpHist(id){
   var exp=expenses[i];expenses.splice(i,1);saveExpenses();
   if(exp.id)bk('delGasto',{id:exp.id});
   renderHist();renderExpenses();
+  if(curCat&&curCat.deco)renderDecoDetail();
 }
 var editExpId=null;
 function openEditExp(id){
@@ -2525,6 +2553,7 @@ function saveEditExp(){
   bk('delGasto',{id:e.id});
   bk('addGasto',{id:e.id,ts:new Date(date).getTime()||Date.now(),fecha:fmtFecha(date),categoria:e.category,descripcion:e.description,importe:amount,date:date});
   closeEditExp();renderHist();renderExpenses();
+  if(curCat&&curCat.deco)renderDecoDetail();
 }
 function editDeco(ts){openEditLog('deco',ts);}
 function decoSet(id,stored){var o=loadDecoState();if(stored)o[id]=true;else delete o[id];saveDecoState(o);renderDecoDetail();}
@@ -3297,7 +3326,7 @@ function openPhotos(){
 function renderProfile(){
   var hero=document.getElementById('prof-hero');if(hero){hero.innerHTML='';hero.appendChild(makeImg('img/perfil_hero.webp','🐹','100%','100%','',90));}
   // Edad: meses + semanas restantes
-  var birth=new Date(2025,3,4), now=new Date();
+  var birth=new Date(2026,3,4), now=new Date();
   var months=(now.getFullYear()-birth.getFullYear())*12+(now.getMonth()-birth.getMonth());
   if(now.getDate()<birth.getDate())months--;
   if(months<0)months=0;
@@ -3336,7 +3365,7 @@ function renderProfile(){
   // Gasto acumulado
   var tot=expenses.reduce(function(s,e){return s+(parseFloat(e.amount)||0);},0);
   document.getElementById('prof-gasto').textContent=fmtEur(tot);
-  var since='abril 2025';
+  var since='abril 2026';
   if(expenses.length){var min=expenses.reduce(function(m,e){var t=new Date(e.date).getTime();return t<m?t:m;},Infinity);since=capM(new Date(min).toLocaleDateString('es-ES',{month:'long',year:'numeric'}));}
   document.getElementById('prof-gasto-since').textContent='Desde '+since;
   // Gracias
