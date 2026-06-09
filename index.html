@@ -198,50 +198,60 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 #edit-log-modal,#editexp-modal{z-index:120}
 .modal-bg.open{display:flex}
 /* ===== PERFIL ===== */
-.prof-refresh{position:absolute;top:12px;right:12px;z-index:5;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:6px 12px;font-size:11.5px;font-weight:600;color:var(--text2);font-family:var(--font-d);cursor:pointer;display:flex;align-items:center;gap:5px;box-shadow:0 2px 6px rgba(93,58,30,.06)}
-.prof-refresh #prof-refresh-ic{font-size:13px}
-.prof-hero{width:100%;height:200px;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-top:6px}
+.prof-top{display:flex;justify-content:flex-end;padding:10px 12px 0}
+.prof-refresh{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:7px 13px;font-size:11.5px;font-weight:600;color:var(--text2);font-family:var(--font-d);cursor:pointer;display:flex;align-items:center;gap:5px;box-shadow:0 2px 6px rgba(93,58,30,.06)}
+.prof-refresh #prof-refresh-ic{font-size:14px}
+.prof-hero{width:100%;height:188px;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-top:2px}
 .prof-hero img{width:100%;height:100%;object-fit:contain}
-.prof-title{font-family:var(--font-d);font-size:30px;font-weight:700;color:var(--text);text-align:center;margin-top:-4px}
+.prof-title{font-family:var(--font-d);font-size:30px;font-weight:700;color:var(--text);text-align:center;margin-top:-6px}
 .prof-sub{font-size:13px;color:var(--text2);text-align:center;margin:1px 0 6px;font-weight:500}
-.prof-row{display:flex;gap:11px;padding:11px 14px 0}
-.prof-card{flex:1;min-width:0;position:relative;background:var(--card);border:1px solid #F1E7D8;border-radius:18px;padding:15px 14px;box-shadow:0 4px 14px rgba(93,58,30,.05);overflow:hidden}
+.prof-row{display:flex;gap:11px;padding:11px 14px 0;align-items:stretch}
+.prof-card{flex:1;min-width:0;position:relative;background:var(--card);border:1px solid #F1E7D8;border-radius:18px;padding:14px;box-shadow:0 4px 14px rgba(93,58,30,.05);overflow:hidden}
 .prof-card-racha{background:linear-gradient(135deg,#FFF6E9,#FFEFDD);border-color:#F3E2C8}
-.pc-head{display:flex;align-items:center;gap:7px;margin-bottom:9px}
-.pc-ic{font-size:19px;line-height:1}
-.pc-ic img{width:21px;height:21px;object-fit:contain;vertical-align:-4px}
-.pc-lbl{font-size:12px;font-weight:500;color:var(--text2)}
-.pc-big{font-family:var(--font-d);font-size:23px;font-weight:700;color:var(--text);line-height:1.08;letter-spacing:-.3px}
+.pc-flex{display:flex;align-items:center;gap:10px}
+.pc-flex-main{flex:1;min-width:0}
+.pc-vis{flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.pc-vis-l{width:50px;height:50px}
+.pc-vis-r{width:52px;height:52px}
+.pc-vis img{width:100%;height:100%;object-fit:contain}
+.pc-ic{font-size:18px;line-height:1}
+.pc-ic-img{width:18px;height:18px;object-fit:contain;vertical-align:-3px;margin-right:3px}
+.pc-lbl{font-size:12px;font-weight:500;color:var(--text2);display:flex;align-items:center;gap:5px;margin-bottom:5px}
+.pc-big{font-family:var(--font-d);font-size:22px;font-weight:700;color:var(--text);line-height:1.08;letter-spacing:-.3px}
 .pc-sub{font-size:10.5px;color:var(--text3);margin-top:4px;font-weight:500}
-.pc-pill{margin-top:10px;background:#FDF0DA;color:#B0813A;font-size:10.5px;font-weight:600;border-radius:10px;padding:6px 9px;line-height:1.3}
-.pc-ham{position:absolute;right:-4px;bottom:-4px;width:58px;height:58px;opacity:.96}
+.pc-pill{margin-top:9px;background:#FDF0DA;color:#B0813A;font-size:10.5px;font-weight:600;border-radius:10px;padding:6px 9px;line-height:1.3}
+.pc-ham{position:absolute;right:-6px;bottom:-8px;width:78px;height:78px;opacity:.97}
 .pc-ham img{width:100%;height:100%;object-fit:contain}
-.pc-home-n{font-size:12.5px;color:var(--text2);line-height:1.7;font-weight:500}
+.pc-home-n{font-size:12px;color:var(--text2);line-height:1.55;font-weight:500}
 .pc-home-n b{font-family:var(--font-d);font-size:15px;color:var(--text);font-weight:700}
-.pc-link{margin-top:10px;display:inline-block;background:var(--cta);color:var(--text);font-size:11px;font-weight:700;border-radius:11px;padding:7px 11px;cursor:pointer}
+.pc-link{margin-top:8px;display:inline-block;background:var(--cta);color:var(--text);font-size:11px;font-weight:700;border-radius:11px;padding:6px 10px;cursor:pointer}
 .prof-block{margin:14px 14px 0;background:var(--card);border:1px solid #F1E7D8;border-radius:18px;padding:15px;box-shadow:0 4px 14px rgba(93,58,30,.05)}
 .prof-bh{font-family:var(--font-d);font-size:15.5px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;margin-bottom:13px}
 .prof-care-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
-.pcare{background:var(--bg);border-radius:14px;padding:11px 6px 10px;text-align:center;cursor:pointer;border:1px solid transparent;transition:border-color .15s}
+.pcare{background:var(--bg);border-radius:14px;padding:10px 9px;cursor:pointer;border:1px solid transparent;transition:border-color .15s;display:flex;align-items:center;gap:8px}
 .pcare:active{border-color:var(--cta)}
-.pcare-ic{width:32px;height:32px;margin:0 auto 5px;display:flex;align-items:center;justify-content:center}
+.pcare-ic{width:30px;height:30px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
 .pcare-ic img{width:100%;height:100%;object-fit:contain}
-.pcare-n{font-size:11px;color:var(--text2);font-weight:500}
-.pcare-v{font-family:var(--font-d);font-size:18px;font-weight:700;color:var(--text);line-height:1.15;margin-top:1px}
-.pcare-v small{font-size:9.5px;color:var(--text3);font-weight:500;font-family:var(--font)}
-.prof-sleep{display:flex;align-items:center;gap:13px;margin:14px 14px 0;background:#F4EFFB;border:1px solid #E7DEF4;border-radius:18px;padding:13px 15px}
+.pcare-main{min-width:0}
+.pcare-n{font-size:11px;color:var(--text2);font-weight:500;line-height:1.1}
+.pcare-v{font-family:var(--font-d);font-size:17px;font-weight:700;color:var(--text);line-height:1.15}
+.pcare-v small{font-size:9px;color:var(--text3);font-weight:500;font-family:var(--font)}
+.prof-sleep{display:flex;align-items:center;gap:12px;margin:14px 14px 0;background:#F4EFFB;border:1px solid #E7DEF4;border-radius:18px;padding:12px 14px}
 .prof-sleep .ps-ic{font-size:22px;flex-shrink:0;opacity:.9}
-.prof-sleep .ps-ic img{width:26px;height:26px;object-fit:contain}
-.ps-title{font-size:13px;font-weight:600;color:#7E64AE;line-height:1.15;flex-shrink:0}
-.ps-times{display:flex;gap:18px;margin-left:2px}
+.prof-sleep .ps-ic-img{width:26px;height:26px;object-fit:contain;vertical-align:middle}
+.ps-title{font-size:12.5px;font-weight:600;color:#7E64AE;line-height:1.15;flex-shrink:0}
+.ps-times{display:flex;gap:16px;margin-left:2px}
 .ps-t-lbl{font-size:10px;color:var(--text3);font-weight:500;margin-bottom:1px}
 .ps-t-val{font-family:var(--font-d);font-size:18px;font-weight:700;color:var(--text)}
-.ps-edit{margin-left:auto;flex-shrink:0;background:transparent;border:none;color:#8A6FB8;font-size:11.5px;font-weight:600;padding:6px 2px;cursor:pointer}
-.prof-thanks{display:flex;align-items:center;gap:8px;margin:15px 14px 0;background:linear-gradient(135deg,#FCE9F0,#FBE0EB);border:1px solid #F6CFDE;border-radius:16px;padding:9px 14px}
-.prof-thanks .pt-txt{flex:1}
+.ps-div{width:1px;align-self:stretch;background:#E0D4F0;margin:2px 0 2px auto}
+.ps-edit{flex-shrink:0;background:#EBE1F8;border:1px solid #DCcCEF;color:#7A4E9E;font-size:11px;font-weight:700;border-radius:12px;padding:8px 10px;cursor:pointer;display:flex;align-items:center;gap:6px;line-height:1.05;text-align:left}
+.ps-edit .ps-pen{font-size:15px}
+.prof-thanks{position:relative;margin:16px 14px 0;background:linear-gradient(135deg,#FCE9F0,#FBE0EB);border:1px solid #F6CFDE;border-radius:26px;padding:11px 70px 11px 16px;overflow:visible;text-align:center;min-height:30px}
+.prof-thanks .pt-txt{}
 .pt-t{font-family:var(--font-d);font-size:14.5px;font-weight:600;color:#B85C82}
-.pt-s{font-size:11px;color:#B0788E;margin-top:2px;font-weight:500}
-.prof-thanks .pt-ham{width:54px;height:54px;flex-shrink:0;margin:-6px -4px -6px 0}
+.pt-s{font-size:11.5px;color:#B0788E;margin-top:2px;font-weight:500}
+.pt-s b{font-family:var(--font-d);color:#B85C82;font-weight:700}
+.prof-thanks .pt-ham{position:absolute;right:6px;bottom:-6px;width:66px;height:66px}
 .prof-thanks .pt-ham img{width:100%;height:100%;object-fit:contain}
 /* ===== CURIOSIDADES ===== */
 .cu-hero{width:100%;height:155px;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-top:4px}
@@ -251,6 +261,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .cu-score{display:flex;align-items:center;gap:10px;margin:12px 14px 0;background:var(--card);border:1px solid #ECE3F5;border-radius:18px;padding:13px 14px;box-shadow:0 4px 14px rgba(93,58,30,.05)}
 .cu-score-cell{display:flex;align-items:center;gap:9px}
 .cu-sic{font-size:24px}
+.cu-sic img{width:26px;height:26px;object-fit:contain;vertical-align:middle}
 .cu-score-v{font-family:var(--font-d);font-size:21px;font-weight:700;color:var(--text);line-height:1}
 .cu-score-l{font-size:10.5px;color:var(--text2);font-weight:500}
 .cu-score-div{width:1px;height:30px;background:var(--border)}
@@ -298,9 +309,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .qh-main{flex:1;min-width:0}
 .qh-q{font-size:13px;color:var(--text);font-weight:600;line-height:1.3}
 .qh-cat{font-size:11px;color:var(--text3);margin-top:2px}
-.modal{background:var(--bg);border-radius:20px 20px 0 0;padding:18px 16px 28px;width:100%;max-width:390px;max-height:85vh;overflow-y:auto}
+.modal{background:var(--bg);border-radius:20px 20px 0 0;padding:18px 16px 28px;width:100%;max-width:390px;max-height:85vh;overflow-y:auto;position:relative}
 .modal h3{font-size:17px;font-weight:700;margin-bottom:14px}
-.modal-close{float:right;font-size:20px;cursor:pointer;color:var(--text2)}
+.modal-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;color:var(--text2);z-index:6;float:none;box-shadow:0 2px 6px rgba(93,58,30,.08)}
 /* ===== INSIGNIAS MODAL ===== */
 .ins-head{margin-bottom:14px}
 .ins-title{font-family:var(--font-d);font-size:23px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px}
@@ -498,9 +509,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .fh-row-when{font-size:10.5px;color:var(--text3);text-align:right;flex-shrink:0;line-height:1.35}
 /* ===== HISTORIAL UNIFICADO ===== */
 .hist-filters{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
-.hist-head{position:sticky;top:0;background:var(--bg);z-index:3;margin:-18px -16px 0;padding:16px 16px 6px}
-.hist-head h3{margin-bottom:12px}
-.hist-head .modal-close{position:absolute;top:14px;right:14px;float:none}
+.modal-hist{display:flex;flex-direction:column;padding:0;overflow:hidden}
+.modal-hist .hist-head{flex:0 0 auto;position:static;margin:0;padding:16px 16px 8px;background:var(--bg);border-radius:20px 20px 0 0}
+.modal-hist .hist-head h3{margin-bottom:12px}
+.modal-hist > #hist-list2,.modal-hist > #quizhist-list{flex:1 1 auto;overflow-y:auto;padding:2px 16px 26px}
 .hist-sum{font-size:12.5px;color:var(--text2);font-weight:600;margin-bottom:8px}
 .hist-sum b{color:var(--accent);font-family:var(--font-d);font-size:15px}
 .hist-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
@@ -748,12 +760,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
   <div class="cu-score">
     <div class="cu-score-cell">
-      <span class="cu-sic" id="cu-star">⭐</span>
+      <span class="cu-sic" id="cu-star"><img src="img/ic_puntos.webp" onerror="this.outerHTML='⭐'"></span>
       <div><div class="cu-score-v" id="cu-points">0</div><div class="cu-score-l">puntos</div></div>
     </div>
     <div class="cu-score-div"></div>
     <div class="cu-score-cell">
-      <span class="cu-sic" id="cu-target">🎯</span>
+      <span class="cu-sic" id="cu-target"><img src="img/ic_aciertos.webp" onerror="this.outerHTML='🎯'"></span>
       <div><div class="cu-score-v" id="cu-correct">0</div><div class="cu-score-l">aciertos</div></div>
     </div>
     <div class="cu-period">
@@ -772,7 +784,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 
   <div class="prof-block">
-    <div class="prof-bh"><span id="cu-album-ic">📖</span> Álbum de conocimientos</div>
+    <div class="prof-bh"><img class="pc-ic-img" src="img/ic_album.webp" onerror="this.outerHTML='📖'"> Álbum de conocimientos</div>
     <div class="cu-album" id="cu-album"></div>
     <div class="cu-hist-btn" onclick="openQuizHist()">Ver historial de preguntas ›</div>
   </div>
@@ -1074,21 +1086,23 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
 <!-- PROFILE -->
 <div id="s-profile" class="screen">
-  <button class="prof-refresh" id="btnRefresh" title="Actualizar app"><span id="prof-refresh-ic">↻</span> Actualizar</button>
-
+  <div class="prof-top"><button class="prof-refresh" id="btnRefresh" title="Actualizar app"><span id="prof-refresh-ic">↻</span> Actualizar</button></div>
   <div class="prof-hero" id="prof-hero"></div>
   <div class="prof-title">Chewie</div>
   <div class="prof-sub">Hámster sirio</div>
 
   <div class="prof-row">
-    <div class="prof-card">
-      <div class="pc-head"><span class="pc-ic" id="prof-cake">🎂</span><span class="pc-lbl">Edad</span></div>
-      <div class="pc-big" id="age-main">—</div>
-      <div class="pc-sub" id="age-bday">Cumpleaños: 4 abril 2026</div>
-      <div class="pc-pill" id="age-next"></div>
+    <div class="prof-card pc-flex">
+      <div class="pc-vis pc-vis-l" id="prof-cake"></div>
+      <div class="pc-flex-main">
+        <div class="pc-lbl">Edad</div>
+        <div class="pc-big" id="age-main">—</div>
+        <div class="pc-sub" id="age-bday">Cumpleaños: 4 abril 2026</div>
+        <div class="pc-pill" id="age-next"></div>
+      </div>
     </div>
     <div class="prof-card prof-card-racha">
-      <div class="pc-head"><span class="pc-ic" id="prof-fire">🔥</span><span class="pc-lbl">Mejor racha</span></div>
+      <div class="pc-lbl"><img class="pc-ic-img" src="img/ic_racha.webp" onerror="this.outerHTML='🔥'"> Mejor racha</div>
       <div class="pc-big" id="best-streak">—</div>
       <div class="pc-sub">días seguidos</div>
       <div class="pc-ham" id="prof-racha-ham"></div>
@@ -1096,46 +1110,53 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 
   <div class="prof-block">
-    <div class="prof-bh"><span class="pc-ic" id="prof-stats-ic">📊</span> Estadísticas de cuidados</div>
+    <div class="prof-bh"><img class="pc-ic-img" src="img/ic_stats.webp" onerror="this.outerHTML='📊'"> Estadísticas de cuidados</div>
     <div class="prof-care-grid" id="prof-stats"></div>
   </div>
 
   <div class="prof-sleep">
-    <span class="ps-ic" id="prof-moon">🌙</span>
+    <span class="ps-ic"><img class="ps-ic-img" src="img/ic_luna.webp" onerror="this.outerHTML='🌙'"></span>
     <div class="ps-title">Horario<br>de sueño</div>
     <div class="ps-times">
       <div class="ps-t"><div class="ps-t-lbl">Dormir</div><div class="ps-t-val" id="sleep-from">21:00</div></div>
       <div class="ps-t"><div class="ps-t-lbl">Despertar</div><div class="ps-t-val" id="sleep-to">08:00</div></div>
     </div>
-    <button class="ps-edit" onclick="openSleepEdit()">✎ Editar</button>
+    <div class="ps-div"></div>
+    <button class="ps-edit" onclick="openSleepEdit()"><span class="ps-pen">✎</span><span>Editar<br>horario</span></button>
   </div>
 
   <div class="prof-row">
-    <div class="prof-card">
-      <div class="pc-head"><span class="pc-ic" id="prof-home-ic">🏠</span><span class="pc-lbl">Hogar actual</span></div>
-      <div class="pc-home-n"><b id="home-deco-total">0</b> decoraciones</div>
-      <div class="pc-home-n"><b id="home-deco-active">0</b> activas en la jaula</div>
-      <div class="pc-link" id="prof-deco-link">Ver decoración →</div>
+    <div class="prof-card pc-flex">
+      <div class="pc-flex-main">
+        <div class="pc-lbl"><img class="pc-ic-img" src="img/ic_hogar.webp" onerror="this.outerHTML='🏠'"> Hogar actual</div>
+        <div class="pc-home-n"><b id="home-deco-total">0</b> decoraciones</div>
+        <div class="pc-home-n"><b id="home-deco-active">0</b> en la jaula</div>
+        <div class="pc-link" id="prof-deco-link">Ver decoración →</div>
+      </div>
+      <div class="pc-vis pc-vis-r" id="prof-home-vis"></div>
     </div>
-    <div class="prof-card">
-      <div class="pc-head"><span class="pc-ic" id="prof-wallet-ic">👛</span><span class="pc-lbl">Gasto acumulado</span></div>
-      <div class="pc-big" id="prof-gasto">—</div>
-      <div class="pc-sub" id="prof-gasto-since"></div>
+    <div class="prof-card pc-flex">
+      <div class="pc-flex-main">
+        <div class="pc-lbl"><img class="pc-ic-img" src="img/ic_cartera.webp" onerror="this.outerHTML='👛'"> Gasto acumulado</div>
+        <div class="pc-big" id="prof-gasto">—</div>
+        <div class="pc-sub" id="prof-gasto-since"></div>
+      </div>
+      <div class="pc-vis pc-vis-r" id="prof-gasto-vis"></div>
     </div>
   </div>
 
   <div class="prof-thanks">
     <div class="pt-txt">
       <div class="pt-t">Gracias por cuidar de Chewie</div>
-      <div class="pt-s" id="prof-total-care">Has realizado 0 cuidados</div>
+      <div class="pt-s" id="prof-total-care"></div>
     </div>
     <div class="pt-ham" id="prof-thanks-ham"></div>
   </div>
-  <div style="text-align:center;padding:4px 0 10px"><span class="ver-tag">v2.3</span></div>
+  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v2.4</span></div>
 </div>
 
 <div class="modal-bg" id="quizhist-modal">
-  <div class="modal">
+  <div class="modal modal-hist">
     <div class="hist-head">
       <span class="modal-close" onclick="closeQuizHist()">✕</span>
       <h3>Historial de preguntas</h3>
@@ -1230,7 +1251,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 </div>
 
 <div class="modal-bg" id="hist-modal">
-  <div class="modal">
+  <div class="modal modal-hist">
     <div class="hist-head">
       <span class="modal-close" onclick="closeHist()">✕</span>
       <h3 id="hist-title">Historial</h3>
@@ -1338,6 +1359,7 @@ const IMG_URLS={
   shopping:'img/hamster_comprando.webp',
   sleeping:'img/hamster_durmiendo.webp',
   loving:'img/hamster_amoroso.webp',
+  studious:'img/hamster_estudioso.webp',
 };
 const CAT_IMGS={
   food:'img/comida.webp', water:'img/agua.webp', sand:'img/arena.webp',
@@ -3437,18 +3459,21 @@ function renderProfile(){
   var nb=new Date(now.getFullYear(),3,4); if(nb<=now)nb=new Date(now.getFullYear()+1,3,4);
   var du=Math.ceil((nb-now)/86400000);
   document.getElementById('age-next').textContent='🎉 Faltan '+du+' días para su cumple';
+  var ck=document.getElementById('prof-cake');if(ck){ck.innerHTML='';ck.appendChild(makeImg('img/ic_pastel.webp','🎂','100%','100%','',42));}
   // Mejor racha
   document.getElementById('best-streak').textContent=bestStreak();
-  var rh=document.getElementById('prof-racha-ham');if(rh){rh.innerHTML='';rh.appendChild(makeImg(IMG_URLS.happy,'🐹','100%','100%','',40));}
+  var rh=document.getElementById('prof-racha-ham');if(rh){rh.innerHTML='';rh.appendChild(makeImg('img/hamster_racha.webp','🐹','100%','100%','',58));var rhi=rh.querySelector('img');if(rhi)rhi.style.objectFit='contain';}
   // Cuidados (enlazan a cada categoría)
   var grid=document.getElementById('prof-stats');grid.innerHTML='';
   CATS.forEach(function(cat){
     var cell=document.createElement('div');cell.className='pcare';
     var ic=document.createElement('div');ic.className='pcare-ic';
     ic.appendChild(makeImg(CAT_IMGS[cat.id]||'',cat.emoji,'100%','100%','',26));
+    var main=document.createElement('div');main.className='pcare-main';
     var nm=document.createElement('div');nm.className='pcare-n';nm.textContent=cat.name;
     var v=document.createElement('div');v.className='pcare-v';v.innerHTML=((state[cat.id]&&state[cat.id].logs.length)||0)+' <small>veces</small>';
-    cell.appendChild(ic);cell.appendChild(nm);cell.appendChild(v);
+    main.appendChild(nm);main.appendChild(v);
+    cell.appendChild(ic);cell.appendChild(main);
     cell.onclick=function(){openDetail(cat);};
     grid.appendChild(cell);
   });
@@ -3456,21 +3481,23 @@ function renderProfile(){
   var sl=loadSleep();
   document.getElementById('sleep-from').textContent=sl.from;
   document.getElementById('sleep-to').textContent=sl.to;
-  // Hogar (decoración)
-  var decoLogs=(state.deco&&state.deco.logs)||[], ds=loadDecoState();
-  document.getElementById('home-deco-total').textContent=decoLogs.length;
-  document.getElementById('home-deco-active').textContent=decoLogs.filter(function(l){return !ds[l.id];}).length;
+  // Hogar (decoración) — usa inventario combinado
+  var items=(typeof decoItems==='function')?decoItems():[], ds=loadDecoState();
+  document.getElementById('home-deco-total').textContent=items.length;
+  document.getElementById('home-deco-active').textContent=items.filter(function(it){return !ds[it.key];}).length;
   var dl=document.getElementById('prof-deco-link');if(dl)dl.onclick=function(){openDetail(CATS.filter(function(c){return c.id==='deco';})[0]);};
+  var hv=document.getElementById('prof-home-vis');if(hv){hv.innerHTML='';hv.appendChild(makeImg('img/decoracion.webp','🏠','100%','100%','',46));}
   // Gasto acumulado
   var tot=expenses.reduce(function(s,e){return s+(parseFloat(e.amount)||0);},0);
   document.getElementById('prof-gasto').textContent=fmtEur(tot);
   var since='abril 2026';
   if(expenses.length){var min=expenses.reduce(function(m,e){var t=new Date(e.date).getTime();return t<m?t:m;},Infinity);since=capM(new Date(min).toLocaleDateString('es-ES',{month:'long',year:'numeric'}));}
   document.getElementById('prof-gasto-since').textContent='Desde '+since;
-  // Gracias
+  var gv=document.getElementById('prof-gasto-vis');if(gv){gv.innerHTML='';gv.appendChild(makeImg('img/monedas.webp','💰','100%','100%','',44));}
+  // Gracias (número en negrita)
   var totalCare=CATS.reduce(function(s,c){return s+((state[c.id]&&state[c.id].logs.length)||0);},0);
-  document.getElementById('prof-total-care').textContent='Has realizado '+totalCare+' cuidados';
-  var th=document.getElementById('prof-thanks-ham');if(th){th.innerHTML='';th.appendChild(makeImg(IMG_URLS.loving,'🐹','100%','100%','',48));}
+  document.getElementById('prof-total-care').innerHTML='Has realizado <b>'+totalCare+'</b> cuidados';
+  var th=document.getElementById('prof-thanks-ham');if(th){th.innerHTML='';th.appendChild(makeImg(IMG_URLS.loving,'🐹','100%','100%','',52));var thi=th.querySelector('img');if(thi)thi.style.objectFit='contain';}
 }
 function bestStreak(){
   var dayset={};CATS.forEach(function(c){((state[c.id]&&state[c.id].logs)||[]).forEach(function(l){dayset[getDayStart(l.ts)]=true;});});
@@ -3490,6 +3517,7 @@ function saveSleepEdit(){var f=document.getElementById('sleep-in-from').value||'
 // ── CURIOSIDADES ───────────────────────────────────────────
 var QUIZ_CATS=['Comportamiento','Biología','Hábitat','Cuidados','Chewie'];
 var QUIZ_CAT_IC={'Comportamiento':'🌙','Biología':'🔬','Hábitat':'🏠','Cuidados':'💧','Chewie':'🐹'};
+var QUIZ_CAT_IMG={'Comportamiento':'img/cat_comportamiento.webp','Biología':'img/cat_biologia.webp','Hábitat':'img/cat_habitat.webp','Cuidados':'img/cat_cuidados.webp','Chewie':'img/cat_chewie.webp'};
 var QUIZ_SEED=[
   {id:'q1', tipo:'vf', categoria:'Biología', pregunta:'Los hámsters pueden almacenar comida en sus mejillas.', respuesta:true},
   {id:'q2', tipo:'vf', categoria:'Biología', pregunta:'Los hámsters ven muy bien de lejos.', respuesta:false},
@@ -3546,7 +3574,7 @@ function renderCuriosidades(){
   renderQuizAlbum();
   // footer cuqui
   var foot=document.getElementById('cu-foot');if(foot){foot.innerHTML='';
-    var wf=document.createElement('div');wf.className='wf-ham';wf.appendChild(makeImg(IMG_URLS.happy,'🐹','100%','100%','',34));
+    var wf=document.createElement('div');wf.className='wf-ham';wf.appendChild(makeImg(IMG_URLS.studious,'🐹','100%','100%','',34));
     var msg=document.createElement('div');msg.className='wf-msg';msg.textContent='¡Chewie está orgulloso de lo que aprendes! 💜';
     foot.appendChild(wf);foot.appendChild(msg);}
 }
@@ -3614,7 +3642,7 @@ function renderQuizAlbum(){
   QUIZ_CATS.forEach(function(c){var p=st.perCat[c].ok*5;if(p>topPts){topPts=p;top=c;}});
   document.getElementById('cu-album').innerHTML=QUIZ_CATS.map(function(c){
     var d=st.perCat[c], pts=d.ok*10, pct=d.tot?Math.round(d.ok/d.tot*100):0;
-    return '<div class="cu-alb-row"><div class="cu-alb-ic">'+(QUIZ_CAT_IC[c]||'📘')+'</div>'
+    return '<div class="cu-alb-row"><div class="cu-alb-ic">'+imgHtml(QUIZ_CAT_IMG[c]||'',QUIZ_CAT_IC[c]||'📘','24px')+'</div>'
       +'<div class="cu-alb-name">'+c+(top===c&&topPts>0?'<span class="cu-alb-top">★ TOP</span>':'')+'</div>'
       +'<div><div class="cu-alb-pts">'+pts+' pts</div><div class="cu-alb-pct">'+(d.tot?pct+'% aciertos':'—')+'</div></div></div>';
   }).join('');
