@@ -200,49 +200,104 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 /* ===== PERFIL ===== */
 .prof-refresh{position:absolute;top:12px;right:12px;z-index:5;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:6px 12px;font-size:11.5px;font-weight:600;color:var(--text2);font-family:var(--font-d);cursor:pointer;display:flex;align-items:center;gap:5px;box-shadow:0 2px 6px rgba(93,58,30,.06)}
 .prof-refresh #prof-refresh-ic{font-size:13px}
-.prof-hero{width:100%;height:210px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.prof-hero{width:100%;height:200px;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-top:6px}
 .prof-hero img{width:100%;height:100%;object-fit:contain}
-.prof-title{font-family:var(--font-d);font-size:30px;font-weight:700;color:var(--text);text-align:center;margin-top:-6px}
-.prof-sub{font-size:13.5px;color:var(--text2);text-align:center;margin:2px 0 4px}
-.prof-row{display:flex;gap:11px;padding:10px 14px 0}
-.prof-card{flex:1;min-width:0;position:relative;background:var(--card);border:1px solid #F1E7D8;border-radius:18px;padding:14px;box-shadow:0 4px 14px rgba(93,58,30,.05);overflow:hidden}
-.prof-card-racha{background:linear-gradient(135deg,#FFF6E9,#FFEFDD)}
-.pc-head{display:flex;align-items:center;gap:7px;margin-bottom:8px}
-.pc-ic{font-size:20px;line-height:1}
-.pc-ic img{width:22px;height:22px;object-fit:contain;vertical-align:-4px}
-.pc-lbl{font-size:12.5px;font-weight:600;color:var(--text2)}
-.pc-big{font-family:var(--font-d);font-size:26px;font-weight:700;color:var(--text);line-height:1.05}
-.pc-sub{font-size:11px;color:var(--text3);margin-top:3px}
-.pc-pill{margin-top:9px;background:#FFF4DD;color:#B07A2E;font-size:10.5px;font-weight:600;border-radius:9px;padding:5px 8px;line-height:1.3}
-.pc-ham{position:absolute;right:-6px;bottom:-6px;width:62px;height:62px;opacity:.95}
+.prof-title{font-family:var(--font-d);font-size:30px;font-weight:700;color:var(--text);text-align:center;margin-top:-4px}
+.prof-sub{font-size:13px;color:var(--text2);text-align:center;margin:1px 0 6px;font-weight:500}
+.prof-row{display:flex;gap:11px;padding:11px 14px 0}
+.prof-card{flex:1;min-width:0;position:relative;background:var(--card);border:1px solid #F1E7D8;border-radius:18px;padding:15px 14px;box-shadow:0 4px 14px rgba(93,58,30,.05);overflow:hidden}
+.prof-card-racha{background:linear-gradient(135deg,#FFF6E9,#FFEFDD);border-color:#F3E2C8}
+.pc-head{display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.pc-ic{font-size:19px;line-height:1}
+.pc-ic img{width:21px;height:21px;object-fit:contain;vertical-align:-4px}
+.pc-lbl{font-size:12px;font-weight:500;color:var(--text2)}
+.pc-big{font-family:var(--font-d);font-size:23px;font-weight:700;color:var(--text);line-height:1.08;letter-spacing:-.3px}
+.pc-sub{font-size:10.5px;color:var(--text3);margin-top:4px;font-weight:500}
+.pc-pill{margin-top:10px;background:#FDF0DA;color:#B0813A;font-size:10.5px;font-weight:600;border-radius:10px;padding:6px 9px;line-height:1.3}
+.pc-ham{position:absolute;right:-4px;bottom:-4px;width:58px;height:58px;opacity:.96}
 .pc-ham img{width:100%;height:100%;object-fit:contain}
-.pc-home-n{font-size:13px;color:var(--text);line-height:1.5}
-.pc-home-n b{font-family:var(--font-d);font-size:16px}
-.pc-link{margin-top:9px;display:inline-block;background:var(--cta);color:var(--text);font-size:11.5px;font-weight:700;border-radius:11px;padding:7px 11px;cursor:pointer}
+.pc-home-n{font-size:12.5px;color:var(--text2);line-height:1.7;font-weight:500}
+.pc-home-n b{font-family:var(--font-d);font-size:15px;color:var(--text);font-weight:700}
+.pc-link{margin-top:10px;display:inline-block;background:var(--cta);color:var(--text);font-size:11px;font-weight:700;border-radius:11px;padding:7px 11px;cursor:pointer}
 .prof-block{margin:14px 14px 0;background:var(--card);border:1px solid #F1E7D8;border-radius:18px;padding:15px;box-shadow:0 4px 14px rgba(93,58,30,.05)}
-.prof-bh{font-family:var(--font-d);font-size:16px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;margin-bottom:13px}
-.prof-care-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-.pcare{background:var(--bg);border-radius:14px;padding:11px 8px;text-align:center;cursor:pointer;border:1px solid transparent;transition:border-color .15s}
+.prof-bh{font-family:var(--font-d);font-size:15.5px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;margin-bottom:13px}
+.prof-care-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.pcare{background:var(--bg);border-radius:14px;padding:11px 6px 10px;text-align:center;cursor:pointer;border:1px solid transparent;transition:border-color .15s}
 .pcare:active{border-color:var(--cta)}
-.pcare-ic{width:34px;height:34px;margin:0 auto 5px;display:flex;align-items:center;justify-content:center}
+.pcare-ic{width:32px;height:32px;margin:0 auto 5px;display:flex;align-items:center;justify-content:center}
 .pcare-ic img{width:100%;height:100%;object-fit:contain}
-.pcare-n{font-size:11.5px;color:var(--text2);font-weight:600}
-.pcare-v{font-family:var(--font-d);font-size:17px;font-weight:700;color:var(--text);line-height:1.1}
-.pcare-v small{font-size:10px;color:var(--text3);font-weight:600}
-.prof-sleep{display:flex;align-items:center;gap:12px;margin:14px 14px 0;background:linear-gradient(135deg,#EFE9FA,#F3EEFB);border:1px solid #E3D8F2;border-radius:18px;padding:13px 14px}
-.prof-sleep .ps-ic{font-size:26px;flex-shrink:0}
-.prof-sleep .ps-ic img{width:30px;height:30px;object-fit:contain}
-.ps-title{font-family:var(--font-d);font-size:15px;font-weight:600;color:#6A4E9E;line-height:1.05;flex-shrink:0}
-.ps-times{display:flex;gap:16px;margin-left:4px}
-.ps-t-lbl{font-size:10.5px;color:var(--text2);font-weight:600}
-.ps-t-val{font-family:var(--font-d);font-size:20px;font-weight:700;color:var(--text)}
-.ps-edit{margin-left:auto;flex-shrink:0;background:#fff;border:1px solid #E3D8F2;color:#7A4E9E;font-size:11.5px;font-weight:700;border-radius:11px;padding:8px 11px;cursor:pointer}
-.prof-thanks{display:flex;align-items:center;gap:10px;margin:16px 14px 0;background:linear-gradient(135deg,#FCE7EF,#FBDDEA);border:1px solid #F5C9DC;border-radius:18px;padding:14px 16px}
+.pcare-n{font-size:11px;color:var(--text2);font-weight:500}
+.pcare-v{font-family:var(--font-d);font-size:18px;font-weight:700;color:var(--text);line-height:1.15;margin-top:1px}
+.pcare-v small{font-size:9.5px;color:var(--text3);font-weight:500;font-family:var(--font)}
+.prof-sleep{display:flex;align-items:center;gap:13px;margin:14px 14px 0;background:#F4EFFB;border:1px solid #E7DEF4;border-radius:18px;padding:13px 15px}
+.prof-sleep .ps-ic{font-size:22px;flex-shrink:0;opacity:.9}
+.prof-sleep .ps-ic img{width:26px;height:26px;object-fit:contain}
+.ps-title{font-size:13px;font-weight:600;color:#7E64AE;line-height:1.15;flex-shrink:0}
+.ps-times{display:flex;gap:18px;margin-left:2px}
+.ps-t-lbl{font-size:10px;color:var(--text3);font-weight:500;margin-bottom:1px}
+.ps-t-val{font-family:var(--font-d);font-size:18px;font-weight:700;color:var(--text)}
+.ps-edit{margin-left:auto;flex-shrink:0;background:transparent;border:none;color:#8A6FB8;font-size:11.5px;font-weight:600;padding:6px 2px;cursor:pointer}
+.prof-thanks{display:flex;align-items:center;gap:8px;margin:15px 14px 0;background:linear-gradient(135deg,#FCE9F0,#FBE0EB);border:1px solid #F6CFDE;border-radius:16px;padding:9px 14px}
 .prof-thanks .pt-txt{flex:1}
-.pt-t{font-family:var(--font-d);font-size:16px;font-weight:600;color:#B85C82}
-.pt-s{font-size:11.5px;color:#A86A82;margin-top:3px}
-.prof-thanks .pt-ham{width:72px;height:72px;flex-shrink:0}
+.pt-t{font-family:var(--font-d);font-size:14.5px;font-weight:600;color:#B85C82}
+.pt-s{font-size:11px;color:#B0788E;margin-top:2px;font-weight:500}
+.prof-thanks .pt-ham{width:54px;height:54px;flex-shrink:0;margin:-6px -4px -6px 0}
 .prof-thanks .pt-ham img{width:100%;height:100%;object-fit:contain}
+/* ===== CURIOSIDADES ===== */
+.cu-hero{width:100%;height:155px;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-top:4px}
+.cu-hero img{width:100%;height:100%;object-fit:contain}
+.cu-title{font-family:var(--font-d);font-size:29px;font-weight:700;color:#8466C4;text-align:center;margin-top:-4px}
+.cu-sub{font-size:13px;color:#A38AD0;text-align:center;margin:1px 0 4px;font-weight:500}
+.cu-score{display:flex;align-items:center;gap:10px;margin:12px 14px 0;background:var(--card);border:1px solid #ECE3F5;border-radius:18px;padding:13px 14px;box-shadow:0 4px 14px rgba(93,58,30,.05)}
+.cu-score-cell{display:flex;align-items:center;gap:9px}
+.cu-sic{font-size:24px}
+.cu-score-v{font-family:var(--font-d);font-size:21px;font-weight:700;color:var(--text);line-height:1}
+.cu-score-l{font-size:10.5px;color:var(--text2);font-weight:500}
+.cu-score-div{width:1px;height:30px;background:var(--border)}
+.cu-period{margin-left:auto;display:flex;background:var(--bg);border-radius:11px;padding:3px;font-size:11px;font-weight:600}
+.cu-period span{padding:5px 10px;border-radius:9px;color:var(--text2);cursor:pointer}
+.cu-period span.on{background:var(--cta);color:var(--text)}
+.cu-bar-wrap{margin:9px 14px 0}
+.cu-bar{display:flex;height:14px;border-radius:8px;overflow:hidden;background:var(--border)}
+.cu-bar .ok{background:#7CC47C}.cu-bar .ko{background:#E08A8A}
+.cu-bar-lbl{display:flex;justify-content:space-between;font-size:10.5px;color:var(--text2);font-weight:600;margin-top:5px}
+.cu-bar-lbl .ko-l{color:#C97A7A}.cu-bar-lbl .ok-l{color:#5A9E5A}
+.cu-q{margin:14px 14px 0;background:var(--card);border:1px solid #ECE3F5;border-radius:18px;padding:16px;box-shadow:0 4px 14px rgba(93,58,30,.05)}
+.cu-q-cat{display:inline-block;background:#F0E7FA;color:#7E5AB8;font-size:11.5px;font-weight:700;border-radius:20px;padding:5px 11px}
+.cu-q-type{font-size:11.5px;color:#A38AD0;font-weight:600;margin:11px 0 5px}
+.cu-q-text{font-family:var(--font-d);font-size:20px;font-weight:600;color:var(--text);line-height:1.3}
+.cu-q-body{margin-top:14px}
+.cu-vf{display:flex;gap:10px}
+.cu-vf button{flex:1;border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:700;color:#fff;cursor:pointer;font-family:var(--font-d)}
+.cu-vf .v{background:#7CC47C}.cu-vf .f{background:#E08A8A}
+.cu-open-in{width:100%;border:1.5px solid var(--border);border-radius:13px;padding:13px;font-size:14px;font-family:var(--font);background:var(--bg);box-sizing:border-box}
+.cu-open-send{width:100%;margin-top:9px;background:var(--cta);color:var(--text);border:none;border-radius:13px;padding:13px;font-size:14px;font-weight:700;font-family:var(--font-d);cursor:pointer}
+.cu-q-result{margin-top:13px;border-radius:13px;padding:13px;font-size:13px;line-height:1.4;display:none}
+.cu-q-result.show{display:block}
+.cu-q-result.ok{background:var(--gbg);color:#3E7A3E}
+.cu-q-result.ko{background:#FBE8E8;color:#B85555}
+.cu-q-result b{font-family:var(--font-d)}
+.cu-self{display:flex;gap:9px;margin-top:11px}
+.cu-self button{flex:1;border:none;border-radius:12px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font-d)}
+.cu-self .si{background:#7CC47C;color:#fff}.cu-self .no{background:#E08A8A;color:#fff}
+.cu-next{display:block;width:100%;margin-top:12px;text-align:center;background:transparent;border:none;color:#8466C4;font-size:13px;font-weight:700;font-family:var(--font-d);cursor:pointer}
+.cu-album{display:flex;flex-direction:column;gap:1px}
+.cu-alb-row{display:flex;align-items:center;gap:10px;padding:9px 2px;border-bottom:1px solid var(--border)}
+.cu-alb-row:last-child{border-bottom:none}
+.cu-alb-ic{width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.cu-alb-ic img{width:100%;height:100%;object-fit:contain}
+.cu-alb-name{flex:1;font-size:13px;font-weight:600;color:var(--text)}
+.cu-alb-top{font-size:10px;background:#FFF0DA;color:#B0813A;font-weight:700;border-radius:7px;padding:2px 6px;margin-left:5px}
+.cu-alb-pts{font-family:var(--font-d);font-size:15px;font-weight:700;color:#8466C4;text-align:right}
+.cu-alb-pct{font-size:10.5px;color:var(--text3);text-align:right;font-weight:500}
+.cu-hist-btn{text-align:center;color:#8466C4;font-size:12.5px;font-weight:700;font-family:var(--font-d);padding:12px 0 2px;margin-top:8px;border-top:1px solid var(--border);cursor:pointer}
+.qh-row{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--border)}
+.qh-row:last-child{border-bottom:none}
+.qh-mark{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;flex-shrink:0}
+.qh-mark.ok{background:#7CC47C}.qh-mark.ko{background:#E08A8A}
+.qh-main{flex:1;min-width:0}
+.qh-q{font-size:13px;color:var(--text);font-weight:600;line-height:1.3}
+.qh-cat{font-size:11px;color:var(--text3);margin-top:2px}
 .modal{background:var(--bg);border-radius:20px 20px 0 0;padding:18px 16px 28px;width:100%;max-width:390px;max-height:85vh;overflow-y:auto}
 .modal h3{font-size:17px;font-weight:700;margin-bottom:14px}
 .modal-close{float:right;font-size:20px;cursor:pointer;color:var(--text2)}
@@ -672,7 +727,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
   <div class="home-sec-head">
     <div class="hsh-title">Cuidados de hoy <span class="hh">♥</span></div>
-    <div class="ver-cal" onclick="openHist('all')"><span class="tic" id="ver-cal-ic">📅</span>Ver calendario</div>
+    <div class="ver-cal" onclick="openHist('all')"><span class="tic" id="ver-cal-ic">📅</span>Historial</div>
   </div>
   <div class="care-grid" id="care-list"></div>
   <div class="shop-banner" onclick="goScreen('s-expenses')">
@@ -687,18 +742,42 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
 <!-- CURIOSIDADES -->
 <div id="s-curiosidades" class="screen">
-  <div class="top-bar"><div style="width:38px"></div><div style="font-size:15px;font-weight:700">🌟 Curiosidades</div><div style="width:38px"></div></div>
-  <div style="padding:10px 14px 4px;font-size:12px;color:var(--text2)" id="curio-date"></div>
-  <div class="curio-card" id="curio-card">
-    <div class="curio-num" id="curio-num"></div>
-    <div class="curio-text" id="curio-text"></div>
-    <div class="curio-consejo" id="curio-consejo"></div>
+  <div class="cu-hero" id="cu-hero"></div>
+  <div class="cu-title">Curiosidades</div>
+  <div class="cu-sub">Aprende cosas nuevas sobre hámsters 💛</div>
+
+  <div class="cu-score">
+    <div class="cu-score-cell">
+      <span class="cu-sic" id="cu-star">⭐</span>
+      <div><div class="cu-score-v" id="cu-points">0</div><div class="cu-score-l">puntos</div></div>
+    </div>
+    <div class="cu-score-div"></div>
+    <div class="cu-score-cell">
+      <span class="cu-sic" id="cu-target">🎯</span>
+      <div><div class="cu-score-v" id="cu-correct">0</div><div class="cu-score-l">aciertos</div></div>
+    </div>
+    <div class="cu-period">
+      <span id="cu-tg-acc" class="on" onclick="cuPeriodSet('acc')">Total</span>
+      <span id="cu-tg-mon" onclick="cuPeriodSet('mon')">Mes</span>
+    </div>
   </div>
-  <div class="curio-nav">
-    <button class="curio-btn" onclick="curioNav(-1)">← Anterior</button>
-    <span style="font-size:11px;color:var(--text3)" id="curio-counter"></span>
-    <button class="curio-btn" onclick="curioNav(1)">Siguiente →</button>
+  <div class="cu-bar-wrap" id="cu-bar-wrap"></div>
+
+  <div class="cu-q" id="cu-q">
+    <div class="cu-q-cat" id="cu-q-cat"></div>
+    <div class="cu-q-type" id="cu-q-type"></div>
+    <div class="cu-q-text" id="cu-q-text"></div>
+    <div class="cu-q-body" id="cu-q-body"></div>
+    <div class="cu-q-result" id="cu-q-result"></div>
   </div>
+
+  <div class="prof-block">
+    <div class="prof-bh"><span id="cu-album-ic">📖</span> Álbum de conocimientos</div>
+    <div class="cu-album" id="cu-album"></div>
+    <div class="cu-hist-btn" onclick="openQuizHist()">Ver historial de preguntas ›</div>
+  </div>
+
+  <div class="wd-foot" id="cu-foot"></div>
 </div>
 
 <!-- DETAIL -->
@@ -1052,7 +1131,17 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <div class="pt-ham" id="prof-thanks-ham"></div>
   </div>
-  <div style="text-align:center;padding:4px 0 10px"><span class="ver-tag">v2.1</span></div>
+  <div style="text-align:center;padding:4px 0 10px"><span class="ver-tag">v2.2</span></div>
+</div>
+
+<div class="modal-bg" id="quizhist-modal">
+  <div class="modal">
+    <div class="hist-head">
+      <span class="modal-close" onclick="closeQuizHist()">✕</span>
+      <h3>Historial de preguntas</h3>
+    </div>
+    <div id="quizhist-list"></div>
+  </div>
 </div>
 
 <div class="modal-bg" id="sleep-modal">
@@ -1803,7 +1892,7 @@ function goScreen(id){
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
   document.getElementById(id).classList.add('active');
   document.querySelectorAll('.bottom-nav .nav-item').forEach(function(n){n.classList.remove('active');});
-  var navMap={'s-home':'nav-inicio','s-profile':'nav-perfil'};
+  var navMap={'s-home':'nav-inicio','s-profile':'nav-perfil','s-curiosidades':'nav-curiosidades'};
   if(navMap[id]){var ne=document.getElementById(navMap[id]);if(ne)ne.classList.add('active');}
   if(id==='s-home'){if(chart){chart.destroy();chart=null;}renderHome();}
   if(id==='s-expenses')renderExpenses();
@@ -2248,7 +2337,7 @@ function renderCleanDetail(){
     wf.appendChild(makeImg(IMG_URLS[st==='ok'?'happy':(sp.img||'dirty')],'🐹','100%','100%','',34));
     var msg=document.createElement('div');msg.className='wf-msg';
     msg.textContent= st==='ok' ? '¡Todo limpio! Chewie está a gustito 💛'
-      : (st==='warn' ? 'Pronto toca limpieza' : ((sp.title||'')+' '+(sp.sub||'')));
+      : (sp.phrase || sp.title || '');
     foot.appendChild(wf);foot.appendChild(msg);
   }
 }
@@ -2357,7 +2446,7 @@ function renderWaterDetail(){
   wf.appendChild(makeImg(IMG_URLS[st==='ok'?'happy':(sp.img||'thirsty')],'🐹','100%','100%','',34));
   var msg=document.createElement('div');msg.className='wf-msg';
   msg.textContent= st==='ok' ? '¡Gran trabajo! Chewie está feliz y a gusto 💛'
-    : (st==='warn' ? ('Pronto toca: '+cat.name.toLowerCase()) : ((sp.title||'')+' '+(sp.sub||'')));
+    : (sp.phrase || sp.title || '');
   foot.appendChild(wf);foot.appendChild(msg);
 }
 function wdNav(delta){
@@ -3389,15 +3478,146 @@ function closeSleepEdit(){document.getElementById('sleep-modal').classList.remov
 function saveSleepEdit(){var f=document.getElementById('sleep-in-from').value||'21:00';var t=document.getElementById('sleep-in-to').value||'08:00';saveSleep({from:f,to:t});closeSleepEdit();renderProfile();}
 
 // ── CURIOSIDADES ───────────────────────────────────────────
-function renderCuriosidades(){
-  if(!curiosidades.length)return;
-  var today=new Date();
-  var dayOfYear=Math.floor((today-new Date(today.getFullYear(),0,0))/86400000);
-  var todayIdx=dayOfYear%curiosidades.length;
-  if(curioIdx===0)curioIdx=todayIdx;
-  showCurio(curioIdx);
-  document.getElementById('curio-date').textContent=today.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'});
+var QUIZ_CATS=['Alimentación','Hábitat','Cuidados','Comportamiento','Juguetes'];
+var QUIZ_CAT_IC={'Alimentación':'🥕','Hábitat':'🏠','Cuidados':'💧','Comportamiento':'🌙','Juguetes':'🧩'};
+var QUIZ_SEED=[
+  {id:'q1', tipo:'vf', categoria:'Alimentación', pregunta:'Los hámsters pueden almacenar comida en sus mejillas.', respuesta:true},
+  {id:'q2', tipo:'vf', categoria:'Alimentación', pregunta:'El chocolate es un buen premio para tu hámster.', respuesta:false},
+  {id:'q3', tipo:'abierta', categoria:'Alimentación', pregunta:'¿Cada cuánto se recomienda darle verdura fresca?', respuesta:'2-3 veces por semana, en cantidades pequeñas.'},
+  {id:'q4', tipo:'vf', categoria:'Hábitat', pregunta:'Una rueda con barrotes es más segura que una de superficie lisa.', respuesta:false},
+  {id:'q5', tipo:'vf', categoria:'Hábitat', pregunta:'El sustrato debe ser profundo para que pueda hacer túneles.', respuesta:true},
+  {id:'q6', tipo:'vf', categoria:'Cuidados', pregunta:'Hay que bañar al hámster con agua cada semana.', respuesta:false},
+  {id:'q7', tipo:'abierta', categoria:'Cuidados', pregunta:'¿Con qué se asea un hámster sirio?', respuesta:'Con arena de baño, nunca con agua.'},
+  {id:'q8', tipo:'vf', categoria:'Comportamiento', pregunta:'Los hámsters sirios prefieren vivir solos.', respuesta:true},
+  {id:'q9', tipo:'vf', categoria:'Comportamiento', pregunta:'Que duerma de día siempre es señal de enfermedad.', respuesta:false},
+  {id:'q10', tipo:'vf', categoria:'Juguetes', pregunta:'Roer madera apta ayuda a desgastar sus dientes.', respuesta:true},
+  {id:'q11', tipo:'abierta', categoria:'Juguetes', pregunta:'Nombra un material seguro para roer.', respuesta:'Madera sin tratar, p. ej. manzano o avellano.'},
+  {id:'q12', tipo:'vf', categoria:'Cuidados', pregunta:'La temperatura ideal ronda los 20-24 °C.', respuesta:true}
+];
+var QUESTIONS=QUIZ_SEED.slice(), quiz={answered:{}}, quizPeriod='acc', quizQ=null, quizRevealed=false;
+function loadQuiz(){try{var q=JSON.parse(localStorage.getItem('chw6quiz'));if(q&&q.answered)return q;}catch(e){}return {answered:{}};}
+function saveQuiz(){try{localStorage.setItem('chw6quiz',JSON.stringify(quiz));}catch(e){}}
+function questionById(id){return QUESTIONS.filter(function(q){return q.id===id;})[0];}
+function isTrueAns(r){r=String(r).toLowerCase().trim();return r==='true'||r==='v'||r==='verdadero'||r==='si'||r==='sí'||r==='1';}
+function quizStats(period){
+  var s={ok:0,ko:0,perCat:{}};
+  QUIZ_CATS.forEach(function(c){s.perCat[c]={ok:0,tot:0};});
+  Object.keys(quiz.answered).forEach(function(id){
+    var a=quiz.answered[id], q=questionById(id); if(!q)return;
+    if(period==='mon'){var d=new Date(a.ts),n=new Date();if(d.getMonth()!==n.getMonth()||d.getFullYear()!==n.getFullYear())return;}
+    if(a.ok)s.ok++;else s.ko++;
+    if(s.perCat[q.categoria]){s.perCat[q.categoria].tot++;if(a.ok)s.perCat[q.categoria].ok++;}
+  });
+  return s;
 }
+function cuPeriodSet(p){quizPeriod=p;renderCuriosidades();}
+function pickQuestion(){
+  if(quizQ && !quiz.answered[quizQ.id]) return quizQ;
+  var pend=QUESTIONS.filter(function(q){return !quiz.answered[q.id];});
+  if(!pend.length){quizQ=null;return null;}
+  var today=new Date();var doy=Math.floor((today-new Date(today.getFullYear(),0,0))/86400000);
+  quizQ=pend[doy%pend.length];quizRevealed=false;return quizQ;
+}
+function renderCuriosidades(){
+  quiz=loadQuiz();
+  var hero=document.getElementById('cu-hero');if(hero){hero.innerHTML='';hero.appendChild(makeImg('img/curiosidades_hero.webp','🐹','100%','100%','',70));}
+  var st=quizStats(quizPeriod);
+  document.getElementById('cu-points').textContent=(st.ok*10).toLocaleString('es-ES');
+  document.getElementById('cu-correct').textContent=st.ok;
+  document.getElementById('cu-tg-acc').className=quizPeriod==='acc'?'on':'';
+  document.getElementById('cu-tg-mon').className=quizPeriod==='mon'?'on':'';
+  // barra aciertos vs erróneas
+  var tot=st.ok+st.ko, okPct=tot?Math.round(st.ok/tot*100):0;
+  document.getElementById('cu-bar-wrap').innerHTML= tot
+    ? '<div class="cu-bar"><div class="ok" style="width:'+okPct+'%"></div><div class="ko" style="width:'+(100-okPct)+'%"></div></div>'
+      +'<div class="cu-bar-lbl"><span class="ok-l">✓ '+st.ok+' aciertos</span><span class="ko-l">'+st.ko+' fallos ✗</span></div>'
+    : '<div class="cu-bar-lbl" style="justify-content:center">Aún no has respondido preguntas</div>';
+  renderQuizCard();
+  renderQuizAlbum();
+  // footer cuqui
+  var foot=document.getElementById('cu-foot');if(foot){foot.innerHTML='';
+    var wf=document.createElement('div');wf.className='wf-ham';wf.appendChild(makeImg(IMG_URLS.happy,'🐹','100%','100%','',34));
+    var msg=document.createElement('div');msg.className='wf-msg';msg.textContent='¡Chewie está orgulloso de lo que aprendes! 💜';
+    foot.appendChild(wf);foot.appendChild(msg);}
+}
+function renderQuizCard(){
+  var q=pickQuestion();
+  var body=document.getElementById('cu-q-body'), res=document.getElementById('cu-q-result');
+  if(!q){
+    document.getElementById('cu-q-cat').textContent='¡Completado!';
+    document.getElementById('cu-q-type').textContent='';
+    document.getElementById('cu-q-text').textContent='Has respondido todas las preguntas disponibles. ¡Vuelve pronto a por más! 🌸';
+    body.innerHTML='';res.className='cu-q-result';res.innerHTML='';return;
+  }
+  document.getElementById('cu-q-cat').textContent=(QUIZ_CAT_IC[q.categoria]||'')+' '+q.categoria;
+  document.getElementById('cu-q-type').textContent=q.tipo==='vf'?'Verdadero o falso':'Pregunta del día';
+  document.getElementById('cu-q-text').textContent=q.pregunta;
+  res.className='cu-q-result';res.innerHTML='';
+  if(q.tipo==='vf'){
+    body.innerHTML='<div class="cu-vf"><button class="v" onclick="cuAnswerVF(true)">✓ Verdadero</button><button class="f" onclick="cuAnswerVF(false)">✗ Falso</button></div>';
+  } else {
+    body.innerHTML='<input class="cu-open-in" id="cu-open-in" placeholder="Escribe tu respuesta..."><button class="cu-open-send" onclick="cuAnswerOpen()">Comprobar</button>';
+  }
+}
+function cuAnswerVF(val){
+  var q=quizQ;if(!q)return;
+  var ok=(val===isTrueAns(q.respuesta));
+  quiz.answered[q.id]={ok:ok,ts:Date.now()};saveQuiz();
+  document.getElementById('cu-q-body').innerHTML='';
+  var res=document.getElementById('cu-q-result');
+  res.className='cu-q-result show '+(ok?'ok':'ko');
+  res.innerHTML=(ok?'<b>¡Correcto! 🎉</b> +10 puntos':'<b>Casi…</b> La respuesta correcta es <b>'+(isTrueAns(q.respuesta)?'Verdadero':'Falso')+'</b>.')
+    +'<button class="cu-next" onclick="cuNext()">Siguiente pregunta →</button>';
+  refreshQuizScores();
+}
+function cuAnswerOpen(){
+  var q=quizQ;if(!q)return;
+  var res=document.getElementById('cu-q-result');
+  res.className='cu-q-result show ok';
+  res.innerHTML='<b>Respuesta:</b> '+esc(q.respuesta)+'<div class="cu-self"><button class="si" onclick="cuSelfGrade(true)">Lo sabía ✓</button><button class="no" onclick="cuSelfGrade(false)">No lo sabía ✗</button></div>';
+  document.getElementById('cu-q-body').innerHTML='';
+}
+function cuSelfGrade(ok){
+  var q=quizQ;if(!q)return;
+  quiz.answered[q.id]={ok:ok,ts:Date.now()};saveQuiz();
+  var res=document.getElementById('cu-q-result');
+  res.className='cu-q-result show '+(ok?'ok':'ko');
+  res.innerHTML='<b>Respuesta:</b> '+esc(q.respuesta)+'<br>'+(ok?'¡Bien! +10 puntos 🎉':'¡La próxima la sabrás! 💪')
+    +'<button class="cu-next" onclick="cuNext()">Siguiente pregunta →</button>';
+  refreshQuizScores();
+}
+function cuNext(){quizQ=null;quizRevealed=false;renderCuriosidades();}
+function refreshQuizScores(){
+  var st=quizStats(quizPeriod);
+  document.getElementById('cu-points').textContent=(st.ok*10).toLocaleString('es-ES');
+  document.getElementById('cu-correct').textContent=st.ok;
+  var tot=st.ok+st.ko, okPct=tot?Math.round(st.ok/tot*100):0;
+  document.getElementById('cu-bar-wrap').innerHTML='<div class="cu-bar"><div class="ok" style="width:'+okPct+'%"></div><div class="ko" style="width:'+(100-okPct)+'%"></div></div>'
+    +'<div class="cu-bar-lbl"><span class="ok-l">✓ '+st.ok+' aciertos</span><span class="ko-l">'+st.ko+' fallos ✗</span></div>';
+  renderQuizAlbum();
+}
+function renderQuizAlbum(){
+  var st=quizStats(quizPeriod);
+  var top=null,topPts=-1;
+  QUIZ_CATS.forEach(function(c){var p=st.perCat[c].ok*10;if(p>topPts){topPts=p;top=c;}});
+  document.getElementById('cu-album').innerHTML=QUIZ_CATS.map(function(c){
+    var d=st.perCat[c], pts=d.ok*10, pct=d.tot?Math.round(d.ok/d.tot*100):0;
+    return '<div class="cu-alb-row"><div class="cu-alb-ic">'+(QUIZ_CAT_IC[c]||'📘')+'</div>'
+      +'<div class="cu-alb-name">'+c+(top===c&&topPts>0?'<span class="cu-alb-top">★ TOP</span>':'')+'</div>'
+      +'<div><div class="cu-alb-pts">'+pts+' pts</div><div class="cu-alb-pct">'+(d.tot?pct+'% aciertos':'—')+'</div></div></div>';
+  }).join('');
+}
+function openQuizHist(){
+  var ids=Object.keys(quiz.answered).sort(function(a,b){return quiz.answered[b].ts-quiz.answered[a].ts;});
+  var list=document.getElementById('quizhist-list');
+  if(!ids.length){list.innerHTML='<div class="ex-empty" style="padding:16px 0">Aún no has respondido preguntas.</div>';}
+  else list.innerHTML=ids.map(function(id){var a=quiz.answered[id],q=questionById(id);if(!q)return '';
+    return '<div class="qh-row"><div class="qh-mark '+(a.ok?'ok':'ko')+'">'+(a.ok?'✓':'✗')+'</div>'
+      +'<div class="qh-main"><div class="qh-q">'+esc(q.pregunta)+'</div><div class="qh-cat">'+(QUIZ_CAT_IC[q.categoria]||'')+' '+q.categoria+'</div></div></div>';
+  }).join('');
+  document.getElementById('quizhist-modal').classList.add('open');
+}
+function closeQuizHist(){document.getElementById('quizhist-modal').classList.remove('open');}
 
 function showCurio(idx){
   curioIdx=((idx%curiosidades.length)+curiosidades.length)%curiosidades.length;
@@ -3500,9 +3720,11 @@ function quickReg(){
 }
 
 // ── INIT ───────────────────────────────────────────────────
-fetch('curiosidades.json').then(function(r){return r.json();}).then(function(data){
-  curiosidades=data;
-}).catch(function(){curiosidades=[];});
+// Preguntas del juego: intenta backend (?action=curiosidades), si no usa el set local
+fetch(BACKEND_URL+'?action=curiosidades').then(function(r){return r.json();}).then(function(data){
+  if(Array.isArray(data)&&data.length&&data[0]&&data[0].pregunta){QUESTIONS=data;}
+  if(document.getElementById('s-curiosidades').classList.contains('active'))renderCuriosidades();
+}).catch(function(){});
 bootstrap(); // lee del backend (o caché local si no hay red) y pinta la home
 
 // ── BOTÓN ACTUALIZAR (limpia SW + cachés y recarga con cache-buster) ──
@@ -3537,9 +3759,9 @@ if(btnRefresh){
     <div class="nav-icon"><img src="img/nav_fotos.png" alt="Fotitos" onerror="this.outerHTML='📷'"></div>
     <div class="nav-lbl">Fotitos</div>
   </div>
-  <div class="nav-item" id="nav-historial" onclick="openHist('all')">
-    <div class="nav-icon"><img src="img/nav_historial.png" alt="Historial" onerror="this.outerHTML='📅'"></div>
-    <div class="nav-lbl">Historial</div>
+  <div class="nav-item" id="nav-curiosidades" onclick="goScreen('s-curiosidades')">
+    <div class="nav-icon"><img src="img/nav_curiosidades.png" alt="Curiosidades" onerror="this.outerHTML='📖'"></div>
+    <div class="nav-lbl">Curiosidades</div>
   </div>
   <div class="nav-item" id="nav-consejos" onclick="openChatGPT()">
     <div class="nav-icon"><img src="img/nav_consejos.png" alt="Consejos" onerror="this.outerHTML='💡'"></div>
