@@ -197,6 +197,52 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:100;align-items:flex-end;justify-content:center}
 #edit-log-modal,#editexp-modal{z-index:120}
 .modal-bg.open{display:flex}
+/* ===== PERFIL ===== */
+.prof-refresh{position:absolute;top:12px;right:12px;z-index:5;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:6px 12px;font-size:11.5px;font-weight:600;color:var(--text2);font-family:var(--font-d);cursor:pointer;display:flex;align-items:center;gap:5px;box-shadow:0 2px 6px rgba(93,58,30,.06)}
+.prof-refresh #prof-refresh-ic{font-size:13px}
+.prof-hero{width:100%;height:210px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.prof-hero img{width:100%;height:100%;object-fit:contain}
+.prof-title{font-family:var(--font-d);font-size:30px;font-weight:700;color:var(--text);text-align:center;margin-top:-6px}
+.prof-sub{font-size:13.5px;color:var(--text2);text-align:center;margin:2px 0 4px}
+.prof-row{display:flex;gap:11px;padding:10px 14px 0}
+.prof-card{flex:1;min-width:0;position:relative;background:var(--card);border:1px solid #F1E7D8;border-radius:18px;padding:14px;box-shadow:0 4px 14px rgba(93,58,30,.05);overflow:hidden}
+.prof-card-racha{background:linear-gradient(135deg,#FFF6E9,#FFEFDD)}
+.pc-head{display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.pc-ic{font-size:20px;line-height:1}
+.pc-ic img{width:22px;height:22px;object-fit:contain;vertical-align:-4px}
+.pc-lbl{font-size:12.5px;font-weight:600;color:var(--text2)}
+.pc-big{font-family:var(--font-d);font-size:26px;font-weight:700;color:var(--text);line-height:1.05}
+.pc-sub{font-size:11px;color:var(--text3);margin-top:3px}
+.pc-pill{margin-top:9px;background:#FFF4DD;color:#B07A2E;font-size:10.5px;font-weight:600;border-radius:9px;padding:5px 8px;line-height:1.3}
+.pc-ham{position:absolute;right:-6px;bottom:-6px;width:62px;height:62px;opacity:.95}
+.pc-ham img{width:100%;height:100%;object-fit:contain}
+.pc-home-n{font-size:13px;color:var(--text);line-height:1.5}
+.pc-home-n b{font-family:var(--font-d);font-size:16px}
+.pc-link{margin-top:9px;display:inline-block;background:var(--cta);color:var(--text);font-size:11.5px;font-weight:700;border-radius:11px;padding:7px 11px;cursor:pointer}
+.prof-block{margin:14px 14px 0;background:var(--card);border:1px solid #F1E7D8;border-radius:18px;padding:15px;box-shadow:0 4px 14px rgba(93,58,30,.05)}
+.prof-bh{font-family:var(--font-d);font-size:16px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;margin-bottom:13px}
+.prof-care-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.pcare{background:var(--bg);border-radius:14px;padding:11px 8px;text-align:center;cursor:pointer;border:1px solid transparent;transition:border-color .15s}
+.pcare:active{border-color:var(--cta)}
+.pcare-ic{width:34px;height:34px;margin:0 auto 5px;display:flex;align-items:center;justify-content:center}
+.pcare-ic img{width:100%;height:100%;object-fit:contain}
+.pcare-n{font-size:11.5px;color:var(--text2);font-weight:600}
+.pcare-v{font-family:var(--font-d);font-size:17px;font-weight:700;color:var(--text);line-height:1.1}
+.pcare-v small{font-size:10px;color:var(--text3);font-weight:600}
+.prof-sleep{display:flex;align-items:center;gap:12px;margin:14px 14px 0;background:linear-gradient(135deg,#EFE9FA,#F3EEFB);border:1px solid #E3D8F2;border-radius:18px;padding:13px 14px}
+.prof-sleep .ps-ic{font-size:26px;flex-shrink:0}
+.prof-sleep .ps-ic img{width:30px;height:30px;object-fit:contain}
+.ps-title{font-family:var(--font-d);font-size:15px;font-weight:600;color:#6A4E9E;line-height:1.05;flex-shrink:0}
+.ps-times{display:flex;gap:16px;margin-left:4px}
+.ps-t-lbl{font-size:10.5px;color:var(--text2);font-weight:600}
+.ps-t-val{font-family:var(--font-d);font-size:20px;font-weight:700;color:var(--text)}
+.ps-edit{margin-left:auto;flex-shrink:0;background:#fff;border:1px solid #E3D8F2;color:#7A4E9E;font-size:11.5px;font-weight:700;border-radius:11px;padding:8px 11px;cursor:pointer}
+.prof-thanks{display:flex;align-items:center;gap:10px;margin:16px 14px 0;background:linear-gradient(135deg,#FCE7EF,#FBDDEA);border:1px solid #F5C9DC;border-radius:18px;padding:14px 16px}
+.prof-thanks .pt-txt{flex:1}
+.pt-t{font-family:var(--font-d);font-size:16px;font-weight:600;color:#B85C82}
+.pt-s{font-size:11.5px;color:#A86A82;margin-top:3px}
+.prof-thanks .pt-ham{width:72px;height:72px;flex-shrink:0}
+.prof-thanks .pt-ham img{width:100%;height:100%;object-fit:contain}
 .modal{background:var(--bg);border-radius:20px 20px 0 0;padding:18px 16px 28px;width:100%;max-width:390px;max-height:85vh;overflow-y:auto}
 .modal h3{font-size:17px;font-weight:700;margin-bottom:14px}
 .modal-close{float:right;font-size:20px;cursor:pointer;color:var(--text2)}
@@ -944,65 +990,76 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
 <!-- PROFILE -->
 <div id="s-profile" class="screen">
-  <div class="top-bar"><div style="width:38px"></div><div></div><div style="width:38px"></div></div>
-  <div style="padding:20px 16px;text-align:center">
-    <div id="profile-ham" style="width:90px;height:90px;border-radius:50%;margin:0 auto 10px;font-size:60px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#F0FFF0">🐹</div>
-    <div style="font-size:24px;font-weight:700;color:#5C3A1E">Chewie</div>
-    <div style="font-size:13px;color:var(--text2);margin-top:4px">Hámster sirio 🐹</div>
-  </div>
+  <button class="prof-refresh" id="btnRefresh" title="Actualizar app"><span id="prof-refresh-ic">↻</span> Actualizar</button>
 
-  <!-- Age counters -->
-  <div style="padding:0 14px 10px">
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px">
-      <div style="font-size:13px;font-weight:600;margin-bottom:12px;color:var(--text2)">🎂 Edad de Chewie</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;text-align:center;margin-bottom:12px">
-        <div style="background:var(--bg);border-radius:10px;padding:10px 6px">
-          <div style="font-size:22px;font-weight:700;color:#5C3A1E" id="age-months">—</div>
-          <div style="font-size:10px;color:var(--text2)">meses</div>
-        </div>
-        <div style="background:var(--bg);border-radius:10px;padding:10px 6px">
-          <div style="font-size:22px;font-weight:700;color:#5C3A1E" id="age-weeks">—</div>
-          <div style="font-size:10px;color:var(--text2)">semanas</div>
-        </div>
-      </div>
-      <div style="font-size:11px;color:var(--text3);text-align:center" id="age-next-bday"></div>
+  <div class="prof-hero" id="prof-hero"></div>
+  <div class="prof-title">Chewie</div>
+  <div class="prof-sub">Hámster sirio</div>
+
+  <div class="prof-row">
+    <div class="prof-card">
+      <div class="pc-head"><span class="pc-ic" id="prof-cake">🎂</span><span class="pc-lbl">Edad</span></div>
+      <div class="pc-big" id="age-main">—</div>
+      <div class="pc-sub" id="age-bday">Cumpleaños: 4 abril 2025</div>
+      <div class="pc-pill" id="age-next"></div>
+    </div>
+    <div class="prof-card prof-card-racha">
+      <div class="pc-head"><span class="pc-ic" id="prof-fire">🔥</span><span class="pc-lbl">Mejor racha</span></div>
+      <div class="pc-big" id="best-streak">—</div>
+      <div class="pc-sub">días seguidos</div>
+      <div class="pc-ham" id="prof-racha-ham"></div>
     </div>
   </div>
 
-  <!-- Photos shortcut -->
-  <div style="padding:0 14px 10px">
-    <button onclick="openPhotos()" style="width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:13px;padding:13px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left">
-      <span style="font-size:26px">📸</span>
-      <div>
-        <div style="font-size:14px;font-weight:600;color:var(--text)">Fotos de Chewie</div>
-        <div style="font-size:11px;color:var(--text2)">Abrir galería de fotos</div>
-      </div>
-      <div style="margin-left:auto;color:var(--text3);font-size:18px">›</div>
-    </button>
+  <div class="prof-block">
+    <div class="prof-bh"><span class="pc-ic" id="prof-stats-ic">📊</span> Estadísticas de cuidados</div>
+    <div class="prof-care-grid" id="prof-stats"></div>
   </div>
 
-  <!-- Stats -->
-  <div style="padding:0 14px 10px">
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px">
-      <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text2)">Estadísticas de cuidado</div>
-      <div id="prof-stats"></div>
+  <div class="prof-sleep">
+    <span class="ps-ic" id="prof-moon">🌙</span>
+    <div class="ps-title">Horario<br>de sueño</div>
+    <div class="ps-times">
+      <div class="ps-t"><div class="ps-t-lbl">Dormir</div><div class="ps-t-val" id="sleep-from">21:00</div></div>
+      <div class="ps-t"><div class="ps-t-lbl">Despertar</div><div class="ps-t-val" id="sleep-to">08:00</div></div>
+    </div>
+    <button class="ps-edit" onclick="openSleepEdit()">✎ Editar</button>
+  </div>
+
+  <div class="prof-row">
+    <div class="prof-card">
+      <div class="pc-head"><span class="pc-ic" id="prof-home-ic">🏠</span><span class="pc-lbl">Hogar actual</span></div>
+      <div class="pc-home-n"><b id="home-deco-total">0</b> decoraciones</div>
+      <div class="pc-home-n"><b id="home-deco-active">0</b> activas en la jaula</div>
+      <div class="pc-link" id="prof-deco-link">Ver decoración →</div>
+    </div>
+    <div class="prof-card">
+      <div class="pc-head"><span class="pc-ic" id="prof-wallet-ic">👛</span><span class="pc-lbl">Gasto acumulado</span></div>
+      <div class="pc-big" id="prof-gasto">—</div>
+      <div class="pc-sub" id="prof-gasto-since"></div>
     </div>
   </div>
-  <div style="padding:0 14px 6px;font-size:13px;font-weight:600;color:var(--text2)">💾 Copia de seguridad</div>
-  <div class="csv-section" style="padding-bottom:30px">
-    <button class="csv-btn" onclick="exportCSV()">
-      <span>📤</span>
-      <div><div>Exportar datos</div><small>Descarga un CSV con todos los registros y gastos</small></div>
-    </button>
-    <label class="csv-btn import" style="cursor:pointer">
-      <span>📥</span>
-      <div><div>Importar datos</div><small>Restaura desde un CSV exportado anteriormente</small></div>
-      <input type="file" accept=".csv" style="display:none" onchange="importCSV(event)">
-    </label>
+
+  <div class="prof-thanks">
+    <div class="pt-txt">
+      <div class="pt-t">Gracias por cuidar de Chewie</div>
+      <div class="pt-s" id="prof-total-care">Has realizado 0 cuidados</div>
+    </div>
+    <div class="pt-ham" id="prof-thanks-ham"></div>
   </div>
-  <div class="prof-foot">
-    <button id="btnRefresh" title="Actualizar app">🔄 Actualizar app</button>
-    <span class="ver-tag">v1.8</span>
+  <div style="text-align:center;padding:4px 0 10px"><span class="ver-tag">v1.9</span></div>
+</div>
+
+<div class="modal-bg" id="sleep-modal">
+  <div class="modal">
+    <span class="modal-close" onclick="closeSleepEdit()">✕</span>
+    <h3>Horario de sueño</h3>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.4">Ajusta cuándo duerme Chewie. Mientras duerme se le verá descansando en la pantalla de inicio.</div>
+    <label class="flabel">Se duerme a las</label>
+    <input class="finput" type="time" id="sleep-in-from">
+    <label class="flabel">Se despierta a las</label>
+    <input class="finput" type="time" id="sleep-in-to">
+    <button class="save-btn" onclick="saveSleepEdit()">Guardar horario</button>
   </div>
 </div>
 
@@ -1184,6 +1241,7 @@ const IMG_URLS={
   dirty:'img/hamster_sucio.webp', meon:'img/hamster_meon.webp',
   shopping:'img/hamster_comprando.webp',
   sleeping:'img/hamster_durmiendo.webp',
+  loving:'img/hamster_amoroso.webp',
 };
 const CAT_IMGS={
   food:'img/comida.webp', water:'img/agua.webp', sand:'img/arena.webp',
@@ -1816,9 +1874,8 @@ function renderHome(){
 
   // ── Hámster (mood) ──
   var mood=getMood();
-  // De día (9–19) Chewie duerme: solo arena o limpieza pendientes lo despiertan
-  var hr=new Date().getHours();
-  if(hr>=9 && hr<19){
+  // Chewie duerme según el horario configurable; solo arena o limpieza pendientes lo despiertan
+  if(isSleepingNow()){
     var cleanBad=getStatus(CATS.filter(function(c){return c.id==='clean';})[0])!=='ok';
     var sandBad=getStatus(CATS.filter(function(c){return c.id==='sand';})[0])!=='ok';
     if(cleanBad)      mood=SPECIAL.filter(function(s){return s.id==='clean';})[0];
@@ -2336,9 +2393,9 @@ function openAllExp(){openHist('exp');}
 function openHist(kind){
   histKind=kind; histFMonth=''; histFCat=''; histFEstado=''; histFDay='';
   document.getElementById('hist-title').textContent = kind==='food'?'Historial de comidas':(kind==='exp'?'Todas las compras':(kind==='deco'?'Historial de decoraciones':'Historial'));
-  buildHistFilters();
-  renderHist();
   document.getElementById('hist-modal').classList.add('open');
+  try{ buildHistFilters(); renderHist(); }
+  catch(e){ document.getElementById('hist-filters').innerHTML=''; document.getElementById('hist-sum').textContent=''; document.getElementById('hist-list2').innerHTML='<div class="ex-empty" style="padding:16px 0">No se pudo cargar el historial.</div>'; }
 }
 function openFoodDay(ts){
   var d=new Date(ts);
@@ -2346,8 +2403,8 @@ function openFoodDay(ts){
   histFDay=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
   document.getElementById('hist-title').textContent='Comidas · '+d.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'}).replace(/^./,function(c){return c.toUpperCase();});
   document.getElementById('hist-filters').innerHTML='';
-  renderHist();
   document.getElementById('hist-modal').classList.add('open');
+  try{ renderHist(); }catch(e){ document.getElementById('hist-list2').innerHTML='<div class="ex-empty" style="padding:16px 0">No se pudo cargar.</div>'; }
 }
 function closeHist(){document.getElementById('hist-modal').classList.remove('open');}
 function histRows(){
@@ -2355,11 +2412,11 @@ function histRows(){
   if(histKind==='all'){
     var out=[];
     ['food','water','sand','clean','gnaw','deco'].forEach(function(cid){
-      (state[cid]?state[cid].logs:[]).forEach(function(l){out.push({kind:cid,ts:l.ts,id:l.id,l:l});});
+      ((state[cid]&&state[cid].logs)||[]).forEach(function(l){out.push({kind:cid,ts:l.ts,id:l.id,l:l});});
     });
     return out;
   }
-  return state[histKind].logs.map(function(l){return {kind:histKind,ts:l.ts,id:l.id,l:l};});
+  return ((state[histKind]&&state[histKind].logs)||[]).map(function(l){return {kind:histKind,ts:l.ts,id:l.id,l:l};});
 }
 function buildHistFilters(){
   var mset={};
@@ -3238,37 +3295,69 @@ function openPhotos(){
 }
 
 function renderProfile(){
-  var ham=document.getElementById('profile-ham');ham.innerHTML='';
-  ham.appendChild(makeImg(IMG_URLS.happy,'🐹','90px','90px','50%',60));
-
-  // Age counters
-  var birthday=new Date(2026,3,4); // 4 abril 2026
-  var now=new Date();
-  var diffMs=now-birthday;
-  var diffDays=Math.max(0,Math.floor(diffMs/86400000));
-  var weeks=Math.floor(diffDays/7);
-  var months=Math.floor(diffDays/30.44);
-
-  // Days until next birthday
-  var nextBday=new Date(now.getFullYear(),3,4);
-  if(nextBday<=now)nextBday=new Date(now.getFullYear()+1,3,4);
-  var daysUntil=Math.ceil((nextBday-now)/86400000);
-
-  document.getElementById('age-months').textContent=months;
-  document.getElementById('age-weeks').textContent=weeks;
-  document.getElementById('age-next-bday').textContent=
-    '🎂 Próximo cumple: 4 de abril de '+nextBday.getFullYear()+' ('+daysUntil+' días)';
-
-  document.getElementById('prof-stats').innerHTML=CATS.map(function(cat){
-    var imgTag=CAT_IMGS[cat.id]
-      ?'<img src="'+CAT_IMGS[cat.id]+'" style="width:20px;height:20px;border-radius:5px;object-fit:cover" onerror="this.outerHTML=\''+cat.emoji+'\'">'
-      :'<span>'+cat.emoji+'</span>';
-    return'<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:0.5px solid var(--border)">'
-      +'<span style="font-size:13px;display:flex;align-items:center;gap:6px">'+imgTag+' '+cat.name+'</span>'
-      +'<span style="font-size:13px;font-weight:600;color:var(--text2)">'+state[cat.id].logs.length+' veces</span>'
-      +'</div>';
-  }).join('');
+  var hero=document.getElementById('prof-hero');if(hero){hero.innerHTML='';hero.appendChild(makeImg('img/perfil_hero.webp','🐹','100%','100%','',90));}
+  // Edad: meses + semanas restantes
+  var birth=new Date(2025,3,4), now=new Date();
+  var months=(now.getFullYear()-birth.getFullYear())*12+(now.getMonth()-birth.getMonth());
+  if(now.getDate()<birth.getDate())months--;
+  if(months<0)months=0;
+  var anchor=new Date(birth.getFullYear(),birth.getMonth()+months,birth.getDate());
+  var weeks=Math.floor(Math.max(0,Math.floor((now-anchor)/86400000))/7);
+  var ageTxt=months+' '+(months===1?'mes':'meses');
+  if(weeks>0)ageTxt+=' · '+weeks+' '+(weeks===1?'semana':'semanas');
+  document.getElementById('age-main').textContent=ageTxt;
+  var nb=new Date(now.getFullYear(),3,4); if(nb<=now)nb=new Date(now.getFullYear()+1,3,4);
+  var du=Math.ceil((nb-now)/86400000);
+  document.getElementById('age-next').textContent='🎉 Faltan '+du+' días para su cumple';
+  // Mejor racha
+  document.getElementById('best-streak').textContent=bestStreak();
+  var rh=document.getElementById('prof-racha-ham');if(rh){rh.innerHTML='';rh.appendChild(makeImg(IMG_URLS.happy,'🐹','100%','100%','',40));}
+  // Cuidados (enlazan a cada categoría)
+  var grid=document.getElementById('prof-stats');grid.innerHTML='';
+  CATS.forEach(function(cat){
+    var cell=document.createElement('div');cell.className='pcare';
+    var ic=document.createElement('div');ic.className='pcare-ic';
+    ic.appendChild(makeImg(CAT_IMGS[cat.id]||'',cat.emoji,'100%','100%','',26));
+    var nm=document.createElement('div');nm.className='pcare-n';nm.textContent=cat.name;
+    var v=document.createElement('div');v.className='pcare-v';v.innerHTML=((state[cat.id]&&state[cat.id].logs.length)||0)+' <small>veces</small>';
+    cell.appendChild(ic);cell.appendChild(nm);cell.appendChild(v);
+    cell.onclick=function(){openDetail(cat);};
+    grid.appendChild(cell);
+  });
+  // Horario de sueño
+  var sl=loadSleep();
+  document.getElementById('sleep-from').textContent=sl.from;
+  document.getElementById('sleep-to').textContent=sl.to;
+  // Hogar (decoración)
+  var decoLogs=(state.deco&&state.deco.logs)||[], ds=loadDecoState();
+  document.getElementById('home-deco-total').textContent=decoLogs.length;
+  document.getElementById('home-deco-active').textContent=decoLogs.filter(function(l){return !ds[l.id];}).length;
+  var dl=document.getElementById('prof-deco-link');if(dl)dl.onclick=function(){openDetail(CATS.filter(function(c){return c.id==='deco';})[0]);};
+  // Gasto acumulado
+  var tot=expenses.reduce(function(s,e){return s+(parseFloat(e.amount)||0);},0);
+  document.getElementById('prof-gasto').textContent=fmtEur(tot);
+  var since='abril 2025';
+  if(expenses.length){var min=expenses.reduce(function(m,e){var t=new Date(e.date).getTime();return t<m?t:m;},Infinity);since=capM(new Date(min).toLocaleDateString('es-ES',{month:'long',year:'numeric'}));}
+  document.getElementById('prof-gasto-since').textContent='Desde '+since;
+  // Gracias
+  var totalCare=CATS.reduce(function(s,c){return s+((state[c.id]&&state[c.id].logs.length)||0);},0);
+  document.getElementById('prof-total-care').textContent='Has realizado '+totalCare+' cuidados';
+  var th=document.getElementById('prof-thanks-ham');if(th){th.innerHTML='';th.appendChild(makeImg(IMG_URLS.loving,'🐹','100%','100%','',48));}
 }
+function bestStreak(){
+  var dayset={};CATS.forEach(function(c){((state[c.id]&&state[c.id].logs)||[]).forEach(function(l){dayset[getDayStart(l.ts)]=true;});});
+  var days=Object.keys(dayset).map(Number).sort(function(a,b){return a-b;});
+  var best=0,run=0,prev=null;
+  days.forEach(function(d){if(prev!==null&&d-prev===86400000)run++;else run=1;if(run>best)best=run;prev=d;});
+  return best;
+}
+function loadSleep(){try{var s=JSON.parse(localStorage.getItem('chw6sleep'));if(s&&s.from&&s.to)return s;}catch(e){}return {from:'21:00',to:'08:00'};}
+function saveSleep(o){try{localStorage.setItem('chw6sleep',JSON.stringify(o));}catch(e){}}
+function hmMin(str){var p=(str||'0:0').split(':');return (+p[0])*60+(+p[1]);}
+function isSleepingNow(){var s=loadSleep();var now=new Date();var cur=now.getHours()*60+now.getMinutes();var f=hmMin(s.from),t=hmMin(s.to);if(f===t)return false;return f<t?(cur>=f&&cur<t):(cur>=f||cur<t);}
+function openSleepEdit(){var s=loadSleep();document.getElementById('sleep-in-from').value=s.from;document.getElementById('sleep-in-to').value=s.to;document.getElementById('sleep-modal').classList.add('open');}
+function closeSleepEdit(){document.getElementById('sleep-modal').classList.remove('open');}
+function saveSleepEdit(){var f=document.getElementById('sleep-in-from').value||'21:00';var t=document.getElementById('sleep-in-to').value||'08:00';saveSleep({from:f,to:t});closeSleepEdit();renderProfile();}
 
 // ── CURIOSIDADES ───────────────────────────────────────────
 function renderCuriosidades(){
