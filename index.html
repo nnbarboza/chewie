@@ -1047,7 +1047,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <div class="pt-ham" id="prof-thanks-ham"></div>
   </div>
-  <div style="text-align:center;padding:4px 0 10px"><span class="ver-tag">v1.9</span></div>
+  <div style="text-align:center;padding:4px 0 10px"><span class="ver-tag">v2.0</span></div>
 </div>
 
 <div class="modal-bg" id="sleep-modal">
@@ -2466,10 +2466,10 @@ function histRowHtml(r){
       +histActs("openEditExp('"+e.id+"')","delExpHist('"+e.id+"')")+'</div>';
   }
   if(r.kind==='food'){
-    var l=r.l,foods=l.type.split(', ').map(function(t){return normFood(t)||t;});
+    var l=r.l,foods=(l.type||'').split(', ').map(function(t){return normFood(t)||t;}).filter(Boolean);
     var icons=foods.map(function(n){return imgHtml(FOOD_IMGS[n]||'',FOOD_EMOJIS[n]||'🍽️','22px');}).join('');
-    return '<div class="hist-row"><div class="hist-ic ic-foods">'+icons+'</div>'
-      +'<div class="hist-main"><div class="hist-t">'+esc(foods.join(', '))+'</div>'+(l.note?'<div class="hist-s">'+esc(l.note)+'</div>':'')+'</div>'
+    return '<div class="hist-row"><div class="hist-ic ic-foods">'+(icons||'🍽️')+'</div>'
+      +'<div class="hist-main"><div class="hist-t">'+esc(foods.length?foods.join(', '):'Comida')+'</div>'+(l.note?'<div class="hist-s">'+esc(l.note)+'</div>':'')+'</div>'
       +'<div class="hist-meta"><div class="hist-when">'+when+'</div><div class="hist-when">'+time+'</div></div>'
       +histActs("openEditLog('food',"+l.ts+")","delLogHist('food',"+l.ts+")")+'</div>';
   }
