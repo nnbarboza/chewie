@@ -244,10 +244,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .prof-thanks .pt-ham{width:54px;height:54px;flex-shrink:0;margin:-6px -4px -6px 0}
 .prof-thanks .pt-ham img{width:100%;height:100%;object-fit:contain}
 /* ===== CURIOSIDADES ===== */
-.cu-hero{width:100%;height:155px;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-top:4px}
+.cu-hero{width:100%;height:172px;display:flex;align-items:center;justify-content:center;overflow:visible;margin:8px 0 8px}
 .cu-hero img{width:100%;height:100%;object-fit:contain}
-.cu-title{font-family:var(--font-d);font-size:29px;font-weight:700;color:#8466C4;text-align:center;margin-top:-4px}
-.cu-sub{font-size:13px;color:#A38AD0;text-align:center;margin:1px 0 4px;font-weight:500}
+.cu-title{font-family:var(--font-d);font-size:30px;font-weight:700;color:var(--text);text-align:center;margin-top:2px}
+.cu-sub{font-size:13px;color:var(--text2);text-align:center;margin:2px 0 4px;font-weight:500}
 .cu-score{display:flex;align-items:center;gap:10px;margin:12px 14px 0;background:var(--card);border:1px solid #ECE3F5;border-radius:18px;padding:13px 14px;box-shadow:0 4px 14px rgba(93,58,30,.05)}
 .cu-score-cell{display:flex;align-items:center;gap:9px}
 .cu-sic{font-size:24px}
@@ -258,9 +258,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .cu-period{margin-left:auto;display:flex;background:var(--bg);border-radius:11px;padding:3px;font-size:11px;font-weight:600}
 .cu-period span{padding:5px 10px;border-radius:9px;color:var(--text2);cursor:pointer}
 .cu-period span.on{background:var(--cta);color:var(--text)}
-.cu-bar-wrap{margin:9px 14px 0}
-.cu-bar{display:flex;height:14px;border-radius:8px;overflow:hidden;background:var(--border)}
-.cu-bar .ok{background:#7CC47C}.cu-bar .ko{background:#E08A8A}
+.cu-bar-wrap{margin:0 14px 0}
+.cu-bar{display:flex;height:16px;border-radius:9px;overflow:hidden;background:var(--border);box-shadow:inset 0 1px 2px rgba(0,0,0,.05)}
+.cu-bar .ok{background:linear-gradient(90deg,#9AD79A,#6FBF6F)}.cu-bar .ko{background:linear-gradient(90deg,#EFA0A0,#DD8080)}
 .cu-bar-lbl{display:flex;justify-content:space-between;font-size:10.5px;color:var(--text2);font-weight:600;margin-top:5px}
 .cu-bar-lbl .ko-l{color:#C97A7A}.cu-bar-lbl .ok-l{color:#5A9E5A}
 .cu-q{margin:14px 14px 0;background:var(--card);border:1px solid #ECE3F5;border-radius:18px;padding:16px;box-shadow:0 4px 14px rgba(93,58,30,.05)}
@@ -558,6 +558,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .dc-seg2-b{width:38px;height:38px;border-radius:11px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px}
 .dc-seg2-b.on{background:#EFE3F6;border-color:#D9C2E8}
 .dc-seg2-b img{width:20px;height:20px;object-fit:contain}
+.dc-move{flex-shrink:0;width:42px;height:42px;border-radius:13px;background:#EFE3F6;border:1px solid #DECDEE;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:19px}
+.dc-move img{width:22px;height:22px;object-fit:contain}
 .dc-badge{display:inline-block;font-size:9.5px;font-weight:700;border-radius:7px;padding:2px 6px;vertical-align:1px;margin-left:2px}
 .dc-badge.buy{background:#EFE3F6;color:#7A4E9E}
 .dc-badge.craft{background:#FCE7EF;color:#B85C82}
@@ -659,6 +661,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .fsave:active{transform:scale(.98)}
 .fsave .pl{display:inline-flex;align-items:center;justify-content:center;width:23px;height:23px;border-radius:50%;background:rgba(255,255,255,.28);margin-right:9px;font-size:16px;vertical-align:middle;line-height:1}
 .plus-c{display:inline-flex;align-items:center;justify-content:center;width:25px;height:25px;border-radius:50%;background:rgba(61,43,31,.13);font-size:17px;font-weight:700;line-height:1;flex-shrink:0;padding-bottom:1px}
+.wd-reg,.fsave,.ex-add,.save-btn,.reg-btn,.add-btn{position:relative}
+.wd-reg::after,.fsave::after,.ex-add::after,.save-btn::after,.reg-btn::after,.add-btn::after{content:'';position:absolute;inset:4px;border:1.5px dashed rgba(255,255,255,.85);border-radius:inherit;pointer-events:none}
 
 .dieta-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:9px}
 .dieta-tabs{display:inline-flex;background:var(--bg);border-radius:20px;padding:3px;gap:2px}
@@ -763,8 +767,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <span id="cu-tg-mon" onclick="cuPeriodSet('mon')">Mes</span>
     </div>
   </div>
-  <div class="cu-bar-wrap" id="cu-bar-wrap"></div>
-
   <div class="cu-q" id="cu-q">
     <div class="cu-q-cat" id="cu-q-cat"></div>
     <div class="cu-q-type" id="cu-q-type"></div>
@@ -772,6 +774,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <div class="cu-q-body" id="cu-q-body"></div>
     <div class="cu-q-result" id="cu-q-result"></div>
   </div>
+  <div class="cu-bar-wrap" id="cu-bar-wrap"></div>
 
   <div class="prof-block">
     <div class="prof-bh"><img class="pc-ic-img" src="img/ic_album.webp" onerror="this.outerHTML='📖'"> Álbum de conocimientos</div>
@@ -814,7 +817,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <div class="food-chips" id="food-chips"></div>
       <div class="fc-details" id="fc-details"></div>
       <div class="food-hint">Toca lo que le has dado para registrarlo</div>
-      <button class="fsave" id="reg-btn-food" onclick="registerCare(this)"><span class="plus-c">+</span>Dar comidita</button>
+      <button class="fsave" id="reg-btn-food" onclick="registerCare(this)">Dar comidita</button>
     </div>
 
     <div class="fcard">
@@ -859,7 +862,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <label id="wd-detail-lbl"></label>
       <input type="text" id="wd-detail-input" placeholder="">
     </div>
-    <button class="wd-reg" id="wd-reg-btn" onclick="registerCare(this)"><span class="plus-c">+</span> Dar agüita</button>
+    <button class="wd-reg" id="wd-reg-btn" onclick="registerCare(this)">Dar agüita</button>
     <div class="wd-card">
       <div class="wd-prog-top">
         <div class="wd-prog-lbl2">Este mes</div>
@@ -907,7 +910,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <div class="cd-zones" id="cd-zones"></div>
       <div class="cd-hint">Toca las zonas que has limpiado y pulsa registrar</div>
     </div>
-    <button class="wd-reg" id="cd-reg-btn" onclick="registerCare(this)"><span class="plus-c">+</span> Hacer limpieza</button>
+    <button class="wd-reg" id="cd-reg-btn" onclick="registerCare(this)">Hacer limpieza</button>
     <div class="wd-foot" id="cd-foot"></div>
   </div>
 
@@ -939,7 +942,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <label>¿Qué decoración añadiste?</label>
       <input type="text" id="dc-detail-input" placeholder="">
     </div>
-    <button class="wd-reg" id="dc-reg-btn" onclick="registerCare(this)"><span class="plus-c">+</span> Nueva decoración</button>
+    <button class="wd-reg" id="dc-reg-btn" onclick="registerCare(this)">Añadir decoración</button>
     <div class="dc-tabs">
       <span class="dc-tab on" id="dc-tab-jaula" onclick="decoTabSet('jaula')">En la jaula (<span id="dc-n-jaula">0</span>)</span>
       <span class="dc-tab" id="dc-tab-guard" onclick="decoTabSet('guard')">Guardadas (<span id="dc-n-guard">0</span>)</span>
@@ -1037,7 +1040,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
   </div>
 
-  <button class="ex-add" onclick="openExp()"><span class="plus-c">+</span> Añadir gasto</button>
+  <button class="ex-add" onclick="openExp()">Añadir gasto</button>
 
   <div class="ex-block">
     <div class="ex-block-h"><span class="ex-bh-ic"><img src="img/ic_evolucion.webp" onerror="this.outerHTML=&#39;📈&#39;"></span> Evolución de gastos</div>
@@ -1133,7 +1136,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <div class="pt-ham" id="prof-thanks-ham"></div>
   </div>
-  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v2.5</span></div>
+  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v2.6</span></div>
 </div>
 
 <div class="modal-bg" id="quizhist-modal">
@@ -1292,7 +1295,7 @@ const CATS=[
   {id:'sand', emoji:'🏖️', bg:'#F0E8FF', name:'Arena',            freqDays:3,   freq:'Cada 3 días',     tag:'Cada 3 días, bien <b>limpita</b>', cta:'Cambiar arena', rich:true},
   {id:'clean',emoji:'🧹', bg:'#E0F5EE', name:'Limpieza',         freqDays:30,  freq:'1 vez al mes',    tag:'Una vez al mes con <b>cariño</b>',   cta:'Hacer limpieza', zones:true, cleans:['Sustrato','Jaula completa','Rueda','Bebedero','Frasco']},
   {id:'gnaw', emoji:'🪵', bg:'#FFF0DC', name:'Roer',             freqDays:7,   freq:'Según necesidad', tag:'Cuando lo <b>necesite</b>',          cta:'Guardar', note:'¿Qué le pusiste para roer?', rich:true, detail:true},
-  {id:'deco', emoji:'🏠', bg:'#FFE8F0', name:'Decoración',       freqDays:30,  freq:'Según necesidad', tag:'Una vez al mes con <b>cariño</b>',    cta:'Nueva decoración', note:'¿Qué decoración añadiste?', deco:true},
+  {id:'deco', emoji:'🏠', bg:'#FFE8F0', name:'Decoración',       freqDays:30,  freq:'Según necesidad', tag:'Una vez al mes con <b>cariño</b>',    cta:'Añadir decoración', note:'¿Qué decoración añadiste?', deco:true},
 ];
 
 // Weekly food minimums (per week Mon-Sun)
@@ -2027,7 +2030,7 @@ function openDetail(cat){
     setDietaPeriod(dietaPeriod);
     renderLogrosRecent();
     var fb=document.getElementById('reg-btn-food');
-    fb.innerHTML='<span class="plus-c">+</span>Dar comidita';fb.style.background='';
+    fb.innerHTML='Dar comidita';fb.style.background='';
     return;
   }
 
@@ -2039,7 +2042,7 @@ function openDetail(cat){
     cleanBlock.style.display='block';
     decoBlock.style.display='none';
     var cb=document.getElementById('cd-reg-btn');
-    cb.innerHTML='<span class="plus-c">+</span> '+(cat.cta||'Hacer limpieza');cb.style.background='';
+    cb.innerHTML=''+(cat.cta||'Hacer limpieza');cb.style.background='';
     renderCleanDetail();
     return;
   }
@@ -2053,7 +2056,7 @@ function openDetail(cat){
     decoBlock.style.display='block';
     document.getElementById('dc-detail-input').value='';
     var db=document.getElementById('dc-reg-btn');
-    db.innerHTML='<span class="plus-c">+</span> '+(cat.cta||'Nueva decoración');db.style.background='';
+    db.innerHTML=''+(cat.cta||'Añadir decoración');db.style.background='';
     decoTab='jaula';
     renderDecoDetail();
     return;
@@ -2074,7 +2077,7 @@ function openDetail(cat){
       var di=document.getElementById('wd-detail-input');di.value='';di.placeholder='';
     } else { dw.style.display='none'; }
     var wb=document.getElementById('wd-reg-btn');
-    wb.innerHTML='<span class="plus-c">+</span> '+(cat.cta||'Registrar');wb.style.background='';
+    wb.innerHTML=''+(cat.cta||'Registrar');wb.style.background='';
     renderWaterDetail();
     return;
   }
@@ -2261,27 +2264,27 @@ function registerCare(btn){
     renderFoodHero();renderWeekCalendar();renderFoodChips();renderDieta();
     checkAchievements();renderLogrosRecent();
     btn.innerHTML='✓ +'+pts+' pts';btn.style.background='linear-gradient(135deg,#5FB85F,#4F9E4F)';
-    setTimeout(function(){btn.innerHTML='<span class="plus-c">+</span>Dar comidita';btn.style.background='';},2200);
+    setTimeout(function(){btn.innerHTML='Dar comidita';btn.style.background='';},2200);
   } else {
     if(curCat.zones){
       renderCleanDetail();
       checkAchievements();
       var zc=curCat;
       btn.innerHTML='✓ +'+pts+' pts';btn.style.background='linear-gradient(135deg,#5FB85F,#4F9E4F)';
-      setTimeout(function(){btn.innerHTML='<span class="plus-c">+</span> '+(zc.cta||'Hacer limpieza');btn.style.background='';},2000);
+      setTimeout(function(){btn.innerHTML=''+(zc.cta||'Hacer limpieza');btn.style.background='';},2000);
     } else if(curCat.rich){
       renderWaterDetail();
       checkAchievements();
       var rc=curCat;
       btn.innerHTML='✓ +'+pts+' pts';btn.style.background='linear-gradient(135deg,#5FB85F,#4F9E4F)';
-      setTimeout(function(){btn.innerHTML='<span class="plus-c">+</span> '+(rc.cta||'Registrar');btn.style.background='';},2000);
+      setTimeout(function(){btn.innerHTML=''+(rc.cta||'Registrar');btn.style.background='';},2000);
     } else if(curCat.deco){
       document.getElementById('dc-detail-input').value='';
       renderDecoDetail();
       checkAchievements();
       var dc=curCat;
       btn.innerHTML='✓ +'+pts+' pts';btn.style.background='linear-gradient(135deg,#5FB85F,#4F9E4F)';
-      setTimeout(function(){btn.innerHTML='<span class="plus-c">+</span> '+(dc.cta||'Nueva decoración');btn.style.background='';},2000);
+      setTimeout(function(){btn.innerHTML=''+(dc.cta||'Añadir decoración');btn.style.background='';},2000);
     } else {
     document.querySelectorAll('#food-grid .ftog').forEach(function(x){x.classList.remove('on');});
     document.getElementById('det-note').value='';
@@ -2362,7 +2365,7 @@ function decoItems(){
     out.push({key:l.id, name:l.note||'Manualidad', ts:l.ts, source:'manual', ref:l});
   });
   expenses.forEach(function(e){
-    if(/Decoraci/i.test(e.category||'')){
+    if(/(decoraci|jaula y accesorios|jaula)/i.test(e.category||'')){
       out.push({key:'exp_'+e.id, name:e.description||'Decoración', ts:new Date(e.date).getTime(), source:'compra', ref:e});
     }
   });
@@ -2400,13 +2403,13 @@ function renderDecoDetail(){
   list.innerHTML=shown.map(function(it){
     var stored=!!ds[it.key];
     var badge=it.source==='compra'?'<span class="dc-badge buy">Comprada</span>':'<span class="dc-badge craft">Manualidad</span>';
+    var btn = decoTab==='jaula'
+      ? '<span class="dc-move" title="Guardar" onclick="decoSet(\''+it.key+'\',true)">'+imgHtml('img/ic_guardada.webp','📦','20px')+'</span>'
+      : '<span class="dc-move" title="Poner en la jaula" onclick="decoSet(\''+it.key+'\',false)">'+imgHtml('img/ic_jaula.webp','🏠','20px')+'</span>';
     return '<div class="dc-item">'
       +'<div class="dc-item-main"><div class="dc-item-name">'+esc(it.name)+' '+badge+'</div>'
       +'<div class="dc-item-date">'+(it.source==='compra'?'Comprada':'Añadida')+' el '+fmtDay(it.ts)+'</div></div>'
-      +'<div class="dc-seg2">'
-        +'<span class="dc-seg2-b'+(!stored?' on':'')+'" title="En la jaula" onclick="decoSet(\''+it.key+'\',false)">'+imgHtml('img/ic_jaula.webp','🏠','20px')+'</span>'
-        +'<span class="dc-seg2-b'+(stored?' on':'')+'" title="Guardada" onclick="decoSet(\''+it.key+'\',true)">'+imgHtml('img/ic_guardada.webp','📦','20px')+'</span>'
-      +'</div></div>';
+      +btn+'</div>';
   }).join('');
 }
 function relTime(ts){
@@ -3495,17 +3498,17 @@ var QUIZ_CATS=['Comportamiento','Biología','Hábitat','Cuidados','Chewie'];
 var QUIZ_CAT_IC={'Comportamiento':'🌙','Biología':'🔬','Hábitat':'🏠','Cuidados':'💧','Chewie':'🐹'};
 var QUIZ_CAT_IMG={'Comportamiento':'img/cat_comportamiento.webp','Biología':'img/cat_biologia.webp','Hábitat':'img/cat_habitat.webp','Cuidados':'img/cat_cuidados.webp','Chewie':'img/cat_chewie.webp'};
 var QUIZ_SEED=[
-  {id:'q1', tipo:'vf', categoria:'Biología', pregunta:'Los hámsters pueden almacenar comida en sus mejillas.', respuesta:true},
-  {id:'q2', tipo:'vf', categoria:'Biología', pregunta:'Los hámsters ven muy bien de lejos.', respuesta:false},
-  {id:'q3', tipo:'abierta', categoria:'Biología', pregunta:'¿Sus dientes incisivos dejan de crecer en algún momento?', respuesta:'No, crecen toda la vida; por eso necesitan roer.'},
-  {id:'q4', tipo:'vf', categoria:'Hábitat', pregunta:'Una rueda con barrotes es más segura que una de superficie lisa.', respuesta:false},
-  {id:'q5', tipo:'vf', categoria:'Hábitat', pregunta:'El sustrato debe ser profundo para que pueda hacer túneles.', respuesta:true},
-  {id:'q6', tipo:'vf', categoria:'Cuidados', pregunta:'Hay que bañar al hámster con agua cada semana.', respuesta:false},
+  {id:'q1', tipo:'vf', categoria:'Biología', pregunta:'Los hámsters pueden almacenar comida en sus mejillas.', correcta:true, respuesta:'¡Verdadero! Tienen abazones donde guardan comida para llevarla a su despensa. 🐹'},
+  {id:'q2', tipo:'vf', categoria:'Biología', pregunta:'Los hámsters ven muy bien de lejos.', correcta:false, respuesta:'Falso. Son bastante miopes; se guían sobre todo por el olfato y el oído. 👀'},
+  {id:'q3', tipo:'vf', categoria:'Biología', pregunta:'Sus dientes incisivos crecen durante toda su vida.', correcta:true, respuesta:'¡Verdadero! Por eso necesitan roer cosas seguras para desgastarlos. 🦷'},
+  {id:'q4', tipo:'vf', categoria:'Hábitat', pregunta:'Una rueda con barrotes es más segura que una lisa.', correcta:false, respuesta:'Falso. Las lisas son más seguras: en las de barrotes pueden engancharse las patitas.'},
+  {id:'q5', tipo:'vf', categoria:'Hábitat', pregunta:'El sustrato debe ser profundo para que pueda hacer túneles.', correcta:true, respuesta:'¡Verdadero! Excavar es natural en ellos; cuanto más sustrato, mejor.'},
+  {id:'q6', tipo:'vf', categoria:'Cuidados', pregunta:'Hay que bañar al hámster con agua cada semana.', correcta:false, respuesta:'Falso. El agua es peligrosa para ellos; se asean con arena de baño.'},
   {id:'q7', tipo:'abierta', categoria:'Cuidados', pregunta:'¿Con qué se asea un hámster sirio?', respuesta:'Con arena de baño, nunca con agua.'},
-  {id:'q8', tipo:'vf', categoria:'Cuidados', pregunta:'La temperatura ideal ronda los 20-24 °C.', respuesta:true},
-  {id:'q9', tipo:'vf', categoria:'Comportamiento', pregunta:'Los hámsters sirios prefieren vivir solos.', respuesta:true},
-  {id:'q10', tipo:'vf', categoria:'Comportamiento', pregunta:'Que duerma de día siempre es señal de enfermedad.', respuesta:false},
-  {id:'q11', tipo:'vf', categoria:'Chewie', pregunta:'Chewie es un hámster sirio.', respuesta:true},
+  {id:'q8', tipo:'vf', categoria:'Cuidados', pregunta:'La temperatura ideal ronda los 20-24 °C.', correcta:true, respuesta:'¡Verdadero! Entre 20 y 24 °C están a gusto; evita frío y calor extremos.'},
+  {id:'q9', tipo:'vf', categoria:'Comportamiento', pregunta:'Los hámsters sirios prefieren vivir solos.', correcta:true, respuesta:'¡Verdadero! Son territoriales y conviven mal con otros hámsters.'},
+  {id:'q10', tipo:'vf', categoria:'Comportamiento', pregunta:'Que duerma de día siempre es señal de enfermedad.', correcta:false, respuesta:'Falso. Son crepusculares/nocturnos: dormir de día es totalmente normal.'},
+  {id:'q11', tipo:'vf', categoria:'Chewie', pregunta:'Chewie es un hámster sirio.', correcta:true, respuesta:'¡Verdadero! Chewie es un precioso hámster sirio. 🧡'},
   {id:'q12', tipo:'abierta', categoria:'Chewie', pregunta:'¿En qué mes cumple años Chewie?', respuesta:'En abril (el 4 de abril).'}
 ];
 var QUESTIONS=QUIZ_SEED.slice(), quiz={answered:{}}, quizPeriod='acc', quizQ=null, quizRevealed=false;
@@ -3534,7 +3537,7 @@ function pickQuestion(){
 }
 function renderCuriosidades(){
   quiz=loadQuiz();
-  var hero=document.getElementById('cu-hero');if(hero){hero.innerHTML='';hero.appendChild(makeImg('img/curiosidades_hero.webp','🐹','100%','100%','',70));}
+  var hero=document.getElementById('cu-hero');if(hero){hero.innerHTML='';hero.appendChild(makeImg('img/curiosidades_hero.webp','🐹','100%','100%','',70));var hi=hero.querySelector('img');if(hi)hi.style.objectFit='contain';}
   var st=quizStats(quizPeriod);
   document.getElementById('cu-points').textContent=(st.ok*5).toLocaleString('es-ES');
   document.getElementById('cu-correct').textContent=st.ok;
@@ -3575,13 +3578,13 @@ function renderQuizCard(){
 }
 function cuAnswerVF(val){
   var q=quizQ;if(!q)return;
-  var ok=(val===isTrueAns(q.respuesta));
+  var ok=(val===isTrueAns(q.correcta));
   quiz.answered[q.id]={ok:ok,ts:Date.now()};saveQuiz();
   bk('addRespuesta',{id:uid(),qid:q.id,ok:ok?1:0,ts:Date.now(),categoria:q.categoria});
   document.getElementById('cu-q-body').innerHTML='';
   var res=document.getElementById('cu-q-result');
   res.className='cu-q-result show '+(ok?'ok':'ko');
-  res.innerHTML=(ok?'<b>¡Correcto! 🎉</b> +5 puntos':'<b>Casi…</b> La respuesta correcta es <b>'+(isTrueAns(q.respuesta)?'Verdadero':'Falso')+'</b>.')
+  res.innerHTML='<b>'+(ok?'¡Correcto! 🎉 +5 puntos':'Casi…')+'</b><br>'+esc(q.respuesta||'')
     +'<button class="cu-next" onclick="cuNext()">Siguiente pregunta →</button>';
   refreshQuizScores();
 }
@@ -3617,7 +3620,7 @@ function renderQuizAlbum(){
   var top=null,topPts=-1;
   QUIZ_CATS.forEach(function(c){var p=st.perCat[c].ok*5;if(p>topPts){topPts=p;top=c;}});
   document.getElementById('cu-album').innerHTML=QUIZ_CATS.map(function(c){
-    var d=st.perCat[c], pts=d.ok*10, pct=d.tot?Math.round(d.ok/d.tot*100):0;
+    var d=st.perCat[c], pts=d.ok*5, pct=d.tot?Math.round(d.ok/d.tot*100):0;
     return '<div class="cu-alb-row"><div class="cu-alb-ic">'+imgHtml(QUIZ_CAT_IMG[c]||'',QUIZ_CAT_IC[c]||'📘','24px')+'</div>'
       +'<div class="cu-alb-name">'+c+(top===c&&topPts>0?'<span class="cu-alb-top">★ TOP</span>':'')+'</div>'
       +'<div><div class="cu-alb-pts">'+pts+' pts</div><div class="cu-alb-pct">'+(d.tot?pct+'% aciertos':'—')+'</div></div></div>';
