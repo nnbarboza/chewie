@@ -1137,7 +1137,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <div class="pt-ham" id="prof-thanks-ham"></div>
   </div>
-  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v2.8</span></div>
+  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v2.9</span></div>
 </div>
 
 <div class="modal-bg" id="quizhist-modal">
@@ -1368,185 +1368,163 @@ const SCRIPT_URL='https://script.google.com/macros/s/AKfycbwrFa5jMZ45pLWqOsBojWB
 const BACKEND_URL='https://script.google.com/macros/s/AKfycbz0ysW-g7QFoV2IReQygVVbZl_9mrfkkKhaHqUCLx47p8VO5vOBzaNDjyrMt8VW0fsc/exec';
 const SYNC_ON=true;
 
-let LEVELS=[
-  {min:0,    name:'Cuidadora aprendiz',          icon:'🌱'},
-  {min:30,   name:'Cuidadora responsable',       icon:'🌿'},
-  {min:80,   name:'Cuidadora pro',               icon:'⭐'},
-  {min:150,  name:'Protectora peluda',           icon:'🛡️'},
-  {min:250,  name:'Jefa de cuidados hamsteriles',icon:'👑'},
-  {min:400,  name:'Encantadora de hámsters',     icon:'✨'},
-  {min:600,  name:'Guardiana de Chewie',         icon:'🦸'},
-  {min:900,  name:'Maestra del bienestar',       icon:'🏆'},
-  {min:1300, name:'Leyenda hamsteril',           icon:'🌟'},
-  {min:1800, name:'Diosa de los hámsters',       icon:'🐹'},
+// ════ GAMIFICACIÓN (rediseño v2.9) ════
+// Niveles infinitos por fórmula. coste(n→n+1)=25+3·(n−1); acumulado:
+const LVL_COEF=3;
+function pointsForLevel(n){n=Math.max(1,Math.round(n));return Math.round(25*(n-1)+(LVL_COEF/2)*(n-1)*(n-2));}
+function levelFromPoints(p){var n=1;while(pointsForLevel(n+1)<=p)n++;return n;}
+// Nombres/insignias por nivel (los rellena el usuario en la hoja Niveles). Más allá → "Nivel N".
+let NIVELES=[
+  {nombre:'Cuidador aprendiz',     icono:'🌱'},
+  {nombre:'Cuidador responsable',  icono:'🌿'},
+  {nombre:'Cuidador pro',          icono:'⭐'},
+  {nombre:'Protector peludo',      icono:'🛡️'},
+  {nombre:'Jefe de cuidados',      icono:'👑'},
+  {nombre:'Encantador de hámsters',icono:'✨'},
+  {nombre:'Guardián de Chewie',    icono:'🦸'},
+  {nombre:'Maestro del bienestar', icono:'🏆'},
+  {nombre:'Leyenda hamsteril',     icono:'🌟'},
+  {nombre:'Diosa de los hámsters', icono:'🐹'}
 ];
+function levelMeta(n){return NIVELES[n-1]||null;}
+function levelName(n){var m=levelMeta(n);return (m&&m.nombre)?m.nombre:('Nivel '+n);}
+function levelIcon(n){var m=levelMeta(n);return (m&&m.icono)?m.icono:'⭐';}
+function levelImg(n){var m=levelMeta(n);return (m&&m.imagen)?m.imagen:('img/nivel_'+n+'.webp');}
 
+// Puntos por acción (NOMINAL, para el feedback "+N" y estimar fechas de nivel)
+var ZONE_PTS={'Jaula completa':12,'Jaula':12,'Sustrato':10,'Rueda':9,'Bebedero':8,'Frasco':8,'Casa':9};
+function zoneFreq(z){for(var i=0;i<CLEAN_ZONES.length;i++){if(CLEAN_ZONES[i].key===z||CLEAN_ZONES[i].name===z)return CLEAN_ZONES[i].freqDays;}return (z==='Jaula completa')?30:21;}
 function pointsForLog(catId, log){
-  if(catId==='food'&&log.type){
-    var types=log.type.split(', ');
-    var pts=0;
-    types.forEach(function(t){
-      if(['Fruta','Verdura','Gusano'].indexOf(t)!==-1)pts+=2;
-      else pts+=1; // Pienso, Chuche, Spray
-    });
-    return pts;
-  }
-  if(catId==='clean'&&log.type){
-    var types=log.type.split(', ');
-    var pts=0;
-    types.forEach(function(t){
-      if(t==='Jaula completa'||t==='Jaula')pts+=5;
-      else pts+=2;
-    });
-    return pts;
-  }
-  if(catId==='deco')return 3;
-  if(catId==='gnaw')return 1;
-  if(catId==='water')return 1;
-  if(catId==='sand')return 1;
-  if(catId==='clean')return 2; // fallback
+  if(catId==='food')return 3;
+  if(catId==='water')return 5;
+  if(catId==='sand')return 6;
+  if(catId==='gnaw')return 8;
+  if(catId==='clean'){if(!log||!log.type)return 8;var p=0;String(log.type).split(', ').forEach(function(z){p+=ZONE_PTS[z]||8;});return p;}
+  if(catId==='deco')return 5;
   return 1;
 }
 
-function calculatePoints(){
+// ── Helpers de días ──
+function dayIdx(ts){return Math.round(getDayStart(ts)/86400000);}
+function firstDayIndex(){var m=null;CATS.forEach(function(c){((state[c.id]&&state[c.id].logs)||[]).forEach(function(l){var d=dayIdx(l.ts);if(m===null||d<m)m=d;});});return m;}
+function ymKey(di){var dt=new Date(di*86400000);return dt.getFullYear()*12+dt.getMonth();}
+
+// ── Puntos de cuidados (anti-farmeo: tope comida + solo si "tocaba") ──
+function carePoints(){
   var total=0;
-  // Base points from logs
-  CATS.forEach(function(cat){
-    state[cat.id].logs.forEach(function(l){
-      total+=pointsForLog(cat.id, l);
-    });
+  // COMIDA: 1ª del día +3, extra +1, tope +5/día
+  var fbd={};((state.food&&state.food.logs)||[]).forEach(function(l){var d=dayIdx(l.ts);fbd[d]=(fbd[d]||0)+1;});
+  Object.keys(fbd).forEach(function(d){total+=Math.min(3+(fbd[d]-1),5);});
+  // AGUA/ARENA/ROER: full sólo si han pasado freqDays desde el anterior
+  [['water',2,5],['sand',3,6],['gnaw',7,8]].forEach(function(cfg){
+    var logs=((state[cfg[0]]&&state[cfg[0]].logs)||[]).slice().sort(function(a,b){return a.ts-b.ts;});
+    var prev=null;
+    logs.forEach(function(l){var di=dayIdx(l.ts);total+=(prev===null||(di-prev)>=cfg[1])?cfg[2]:1;prev=di;});
   });
-  // Penalty for current overdue (today only, simple)
-  CATS.forEach(function(cat){
-    var logs=state[cat.id].logs;
-    if(!logs.length){total-=1; return;}
-    var lastTs=logs[logs.length-1].ts;
-    var daysLate=daysAgoReset(lastTs)-cat.freqDays;
-    if(daysLate>0)total-=daysLate;
+  // LIMPIEZA: por zona, full sólo si tocaba esa zona
+  var lastZ={};
+  ((state.clean&&state.clean.logs)||[]).slice().sort(function(a,b){return a.ts-b.ts;}).forEach(function(l){
+    var di=dayIdx(l.ts);var zs=String(l.type||'').split(', ').filter(Boolean);if(!zs.length)zs=['Jaula'];
+    zs.forEach(function(z){var f=zoneFreq(z),p=ZONE_PTS[z]||8;total+=(lastZ[z]===undefined||(di-lastZ[z])>=f)?p:1;lastZ[z]=di;});
   });
-  // Bonus: full days OK (count days where all categories were ok at end of day)
-  // Simplified: count days where all CATS have at least one log within their freq window from that day
-  var allDays={};
-  CATS.forEach(function(cat){
-    state[cat.id].logs.forEach(function(l){
-      var ds=getDayStart(l.ts);
-      if(!allDays[ds])allDays[ds]={};
-      allDays[ds][cat.id]=true;
-    });
-  });
-  var fullDays=0;
-  Object.keys(allDays).forEach(function(ds){
-    // a day is "full" if every CAT has a log within freqDays before that day
-    var ok=CATS.every(function(cat){
-      var logs=state[cat.id].logs;
-      var found=logs.some(function(l){
-        var diff=(parseInt(ds)-getDayStart(l.ts))/86400000;
-        return diff>=0&&diff<cat.freqDays;
-      });
-      return found;
-    });
-    if(ok)fullDays++;
-  });
-  total+=fullDays;
-  // Weekly combo bonus
-  var weekMap={};
-  Object.keys(allDays).forEach(function(ds){
-    var ws=getWeekStart(parseInt(ds));
-    if(!weekMap[ws])weekMap[ws]={days:[]};
-    weekMap[ws].days.push(parseInt(ds));
-  });
-  Object.keys(weekMap).forEach(function(ws){
-    if(weekMap[ws].days.length>=7){
-      // Check all 7 days are full
-      var allFull=true;
-      for(var i=0;i<7;i++){
-        var dayTs=parseInt(ws)+i*86400000;
-        var ok=CATS.every(function(cat){
-          var logs=state[cat.id].logs;
-          return logs.some(function(l){
-            var diff=(dayTs-getDayStart(l.ts))/86400000;
-            return diff>=0&&diff<cat.freqDays;
-          });
-        });
-        if(!ok){allFull=false;break;}
-      }
-      if(allFull)total+=10;
-    }
-  });
-  return Math.max(0,total);
+  // DECORACIÓN / manualidades
+  total+=((state.deco&&state.deco.logs)||[]).length*5;
+  return total;
 }
 
-function getLevel(pts){
-  var level=LEVELS[0];
-  for(var i=LEVELS.length-1;i>=0;i--){
-    if(pts>=LEVELS[i].min){level=LEVELS[i];break;}
+// ── Días "al día": al cierre del día no había nada vencido (comida, agua, arena, roer, limpieza) ──
+var STREAK_CATS=[['food',1],['water',2],['sand',3],['gnaw',7],['clean',30]];
+function completeDaySet(){
+  var set={},first=firstDayIndex();if(first===null)return set;
+  var today=dayIdx(Date.now());
+  var arr={},ptr={};
+  STREAK_CATS.forEach(function(c){arr[c[0]]=((state[c[0]]&&state[c[0]].logs)||[]).map(function(l){return dayIdx(l.ts);}).sort(function(a,b){return a-b;});ptr[c[0]]=-1;});
+  for(var d=first;d<=today;d++){
+    var okAll=true;
+    STREAK_CATS.forEach(function(c){
+      var a=arr[c[0]];while(ptr[c[0]]+1<a.length&&a[ptr[c[0]]+1]<=d)ptr[c[0]]++;
+      var last=ptr[c[0]]>=0?a[ptr[c[0]]]:null;
+      if(last===null||(d-last)>=c[1])okAll=false;
+    });
+    if(okAll)set[d]=true;
   }
-  return level;
+  return set;
 }
-function getNextLevel(pts){
-  for(var i=0;i<LEVELS.length;i++){
-    if(LEVELS[i].min>pts)return LEVELS[i];
+// Racha con indulto mensual (1 día de gracia por mes natural)
+function streakInfo(){
+  var comp=completeDaySet(),first=firstDayIndex();
+  if(first===null)return {current:0,best:0};
+  var today=dayIdx(Date.now()),monthUsed={},streak=0,best=0;
+  for(var d=first;d<=today;d++){
+    if(comp[d]){streak++;if(streak>best)best=streak;}
+    else if(d===today){/* hoy en curso: no rompe */}
+    else{var ym=ymKey(d);if(!monthUsed[ym]){monthUsed[ym]=true;/* indulto: no suma, no rompe */}else{streak=0;}}
   }
-  return null; // max level
+  return {current:streak,best:best};
 }
+function careStreak(){return streakInfo().current;}
+function bestStreak(){return streakInfo().best;}
+function streakMilestoneBonus(best){var b=0;if(best>=3)b+=10;if(best>=7)b+=25;if(best>=14)b+=50;if(best>=30)b+=Math.floor(best/30)*100;return b;}
+function quizCorrectCount(){var q;try{q=JSON.parse(localStorage.getItem('chw6quiz'));}catch(e){}if(!q||!q.answered)q=(typeof quiz!=='undefined'&&quiz)?quiz:{answered:{}};var n=0;Object.keys(q.answered||{}).forEach(function(k){if(q.answered[k]&&q.answered[k].ok)n++;});return n;}
+
+// ── TOTAL (mueve el nivel) = cuidados + día completo + hitos de racha + curiosidades ──
+function computePoints(){
+  var total=carePoints();
+  total+=Object.keys(completeDaySet()).length*8;
+  total+=streakMilestoneBonus(streakInfo().best);
+  total+=quizCorrectCount()*5;
+  return Math.max(0,Math.round(total));
+}
+function calculatePoints(){return computePoints();}
 
 function fmtDay(ts){
   return new Date(ts).toLocaleDateString('es-ES',{day:'numeric',month:'short',year:'numeric'}).replace(/\./g,'');
 }
-// Estima la fecha en que se alcanzó cada nivel: reproduce los puntos base de los
-// registros en orden cronológico y anota cuándo el acumulado cruzó cada umbral.
-function levelUnlockDates(){
+// Estima cuándo se alcanzó cada nivel reproduciendo cuidados + aciertos en orden cronológico.
+function levelUnlockDates(maxN){
   var events=[];
-  CATS.forEach(function(c){state[c.id].logs.forEach(function(l){events.push({ts:l.ts,pts:pointsForLog(c.id,l)});});});
+  CATS.forEach(function(c){((state[c.id]&&state[c.id].logs)||[]).forEach(function(l){events.push({ts:l.ts,pts:pointsForLog(c.id,l)});});});
+  try{var q=JSON.parse(localStorage.getItem('chw6quiz'));if(q&&q.answered)Object.keys(q.answered).forEach(function(k){var a=q.answered[k];if(a&&a.ok)events.push({ts:a.ts,pts:5});});}catch(e){}
   events.sort(function(a,b){return a.ts-b.ts;});
-  var dates={}, cum=0;
-  var sorted=LEVELS.slice().sort(function(a,b){return a.min-b.min;});
-  events.forEach(function(e){
-    cum+=e.pts;
-    sorted.forEach(function(l){if(dates[l.min]===undefined && cum>=l.min)dates[l.min]=e.ts;});
-  });
+  var dates={},cum=0,nextN=2;
+  events.forEach(function(e){cum+=e.pts;while(nextN<=maxN&&cum>=pointsForLevel(nextN)){dates[nextN]=e.ts;nextN++;}});
   return dates;
 }
 function showLevelInfo(){
   var pts=calculatePoints();
-  var lvl=getLevel(pts), next=getNextLevel(pts);
-  var sorted=LEVELS.slice().sort(function(a,b){return a.min-b.min;});
-  var unlocked=sorted.filter(function(l){return pts>=l.min;}).length;
-  document.getElementById('ins-sub').textContent='Has desbloqueado '+unlocked+' de '+sorted.length+' insignia'+(sorted.length===1?'':'s');
-  var dates=levelUnlockDates();
-
-  var nextHtml = next
-    ? '<div class="ih-next"><div class="ih-next-lbl">Siguiente insignia</div>'
-      +'<div class="ih-next-badge">'+imgHtml(levelImg(next),next.icon,'52px')+'</div>'
-      +'<div class="ih-next-name">'+next.name+'</div>'
-      +'<div class="ih-next-faltan">Faltan '+(next.min-pts)+' pts</div></div>'
-    : '<div class="ih-next"><div class="ih-next-lbl">Siguiente</div><div class="ih-next-faltan" style="margin-top:16px">¡Nivel máximo! 🎉</div></div>';
+  var cur=levelFromPoints(pts);
+  var maxN=Math.max(NIVELES.length,cur+3);
+  document.getElementById('ins-sub').textContent='Estás en el nivel '+cur;
+  var dates=levelUnlockDates(maxN);
+  var nextThr=pointsForLevel(cur+1);
+  var nextHtml='<div class="ih-next"><div class="ih-next-lbl">Siguiente nivel</div>'
+    +'<div class="ih-next-badge">'+imgHtml(levelImg(cur+1),levelIcon(cur+1),'52px')+'</div>'
+    +'<div class="ih-next-name">'+levelName(cur+1)+'</div>'
+    +'<div class="ih-next-faltan">Faltan '+(nextThr-pts)+' pts</div></div>';
   document.getElementById('ins-hero').innerHTML='<div class="ih-cur">'
-    +'<div class="ih-badge">'+imgHtml(levelImg(lvl),lvl.icon,'78px')+'</div>'
-    +'<div class="ih-info"><span class="ih-actual">ACTUAL</span>'
-    +'<div class="ih-name">'+lvl.name+'</div>'
+    +'<div class="ih-badge">'+imgHtml(levelImg(cur),levelIcon(cur),'78px')+'</div>'
+    +'<div class="ih-info"><span class="ih-actual">NIVEL '+cur+'</span>'
+    +'<div class="ih-name">'+levelName(cur)+'</div>'
     +'<div class="ih-pts">'+pts+' pts</div></div></div>'+nextHtml;
-
-  document.getElementById('ins-grid').innerHTML=sorted.map(function(l){
-    var reached=pts>=l.min;
-    var isCur=(l.name===lvl.name && l.min===lvl.min);
+  var rows=[];
+  for(var n=1;n<=maxN;n++){
+    var thr=pointsForLevel(n),reached=pts>=thr,isCur=(n===cur);
     var cls=isCur?'current':(reached?'reached':'locked');
     var corner=isCur?'<div class="ins-corner cur">★</div>':(reached?'<div class="ins-corner ok">✓</div>':'<div class="ins-corner lock">🔒</div>');
-    var when, wcls;
-    if(reached){
-      wcls=isCur?'cur':'ok';
-      when=dates[l.min]?('Obtenida el<br>'+fmtDay(dates[l.min])):(isCur?'Insignia actual':'Desbloqueada');
-    } else { wcls='lock'; when='Aún no<br>desbloqueada'; }
+    var when,wcls;
+    if(reached){wcls=isCur?'cur':'ok';when=dates[n]?('Alcanzado el<br>'+fmtDay(dates[n])):(isCur?'Nivel actual':'Alcanzado');}
+    else{wcls='lock';when='Aún no<br>alcanzado';}
     var pcls=isCur?'cur':(reached?'ok':'lock');
-    return '<div class="ins-card '+cls+'">'+corner
-      +'<div class="ins-badge">'+imgHtml(levelImg(l),l.icon,'60px')+'</div>'
-      +'<div class="ins-name">'+l.name+'</div>'
+    rows.push('<div class="ins-card '+cls+'">'+corner
+      +'<div class="ins-badge">'+imgHtml(levelImg(n),levelIcon(n),'60px')+'</div>'
+      +'<div class="ins-name">'+levelName(n)+'</div>'
       +'<div class="ins-when '+wcls+'">'+when+'</div>'
-      +'<div class="ins-pts '+pcls+'">'+l.min+' pts</div></div>';
-  }).join('');
-
+      +'<div class="ins-pts '+pcls+'">'+thr+' pts</div></div>');
+  }
+  document.getElementById('ins-grid').innerHTML=rows.join('');
   document.getElementById('level-modal').classList.add('open');
 }
+
 function closeLevelInfo(){document.getElementById('level-modal').classList.remove('open');}
 
 
@@ -1639,10 +1617,12 @@ function rebuildFromServer(data){
       if(!prev||ts>=prev.ts)q.answered[r.qid]={ok:!!Number(r.ok),ts:ts};});
     quiz=q;saveQuiz();
   }
-  if(data.niveles&&data.niveles.length){
-    LEVELS=data.niveles.map(function(n){return {min:Number(n.min),name:n.nombre,icon:n.icono,img:n.imagen||""};})
-      .sort(function(a,b){return a.min-b.min;});
-  }
+  if(data.niveles&&data.niveles.length){NIVELES=mapNiveles(data.niveles);}
+}
+function mapNiveles(niveles){
+  return niveles.map(function(n,i){return {nivel:Number(n.nivel||i+1), nombre:n.nombre||'', icono:n.icono||'', imagen:n.imagen||''};})
+    .sort(function(a,b){return a.nivel-b.nivel;})
+    .map(function(n){return {nombre:n.nombre,icono:n.icono||'⭐',imagen:n.imagen};});
 }
 function migrateLocalToServer(){
   // Primer arranque con servidor vacío: sube el historial local como semilla.
@@ -1723,10 +1703,7 @@ function syncWithBackend(){
       syncStatus('⚠️ Sin conexión con el backend — '+m+' (mostrando datos locales)','err');
     });
 }
-function rebuildLevels(niveles){
-  LEVELS=niveles.map(function(n){return {min:Number(n.min),name:n.nombre,icon:n.icono,img:n.imagen||""};})
-    .sort(function(a,b){return a.min-b.min;});
-}
+function rebuildLevels(niveles){NIVELES=mapNiveles(niveles);}
 function afterData(){
   checkAchievements();
   renderHome();
@@ -1882,7 +1859,6 @@ function makeImg(src,alt,w,h,radius,emojiSize){
   img.src=src;
   return img;
 }
-function levelImg(lvl){return lvl.img||('img/nivel_'+(LEVELS.indexOf(lvl)+1)+'.webp');}
 function setIcon(id,src,emoji,size){
   var el=document.getElementById(id);if(!el)return;
   el.innerHTML='';el.appendChild(makeImg(src,emoji,'100%','100%','',Math.round((size||16)*0.9)));
@@ -1919,14 +1895,6 @@ function goScreen(id){
   if(id==='s-logros')renderLogrosAll();
 }
 
-function careStreak(){
-  var dayset={};
-  CATS.forEach(function(cat){state[cat.id].logs.forEach(function(l){dayset[getDayStart(l.ts)]=true;});});
-  var streak=0, day=getDayStart();
-  if(!dayset[day])day-=86400000; // hoy aún sin registrar: la racha sigue viva hasta ayer
-  while(dayset[day]){streak++;day-=86400000;}
-  return streak;
-}
 function weekProgress(){
   var counts=getWeekFoodCounts(), done=0, target=0;
   Object.keys(FOOD_WEEKLY).forEach(function(k){target+=FOOD_WEEKLY[k];done+=Math.min(counts[k],FOOD_WEEKLY[k]);});
@@ -1957,20 +1925,17 @@ function renderHome(){
 
   // ── Puntos + nivel/insignia ──
   var pts=calculatePoints();
-  var lvl=getLevel(pts), next=getNextLevel(pts);
+  var cur=levelFromPoints(pts);
+  var curThr=pointsForLevel(cur), nextThr=pointsForLevel(cur+1);
   var ps=document.getElementById('pts-star');ps.innerHTML='';ps.appendChild(makeImg('img/estrella.webp','⭐','100%','100%','',30));
   document.getElementById('pts-num').textContent=pts;
-  document.getElementById('lvl-name').textContent=lvl.name;
+  document.getElementById('lvl-name').textContent=levelName(cur);
   var li=document.getElementById('lvl-icon');li.innerHTML='';
-  li.appendChild(makeImg(levelImg(lvl),lvl.icon,'100%','100%','',24));
-  if(next){
-    var pct=Math.max(0,Math.min(100,((pts-lvl.min)/(next.min-lvl.min))*100));
-    document.getElementById('lvl-bar-fill').style.width=pct+'%';
-    document.getElementById('lvl-prog').textContent=(pts-lvl.min)+' / '+(next.min-lvl.min);
-  } else {
-    document.getElementById('lvl-bar-fill').style.width='100%';
-    document.getElementById('lvl-prog').textContent='¡Nivel máximo!';
-  }
+  li.appendChild(makeImg(levelImg(cur),levelIcon(cur),'100%','100%','',24));
+  var span=Math.max(1,nextThr-curThr);
+  var pct=Math.max(0,Math.min(100,((pts-curThr)/span)*100));
+  document.getElementById('lvl-bar-fill').style.width=pct+'%';
+  document.getElementById('lvl-prog').textContent='Nv '+cur+' · '+(pts-curThr)+'/'+span;
 
   // ── Barra de stats ──
   [['st-ic-racha','img/stat_racha.webp','🔥'],['st-ic-hoy','img/stat_hoy.webp','📅'],
@@ -2925,7 +2890,7 @@ function achCheck(tipo,objetivo,param){
     case 'gastos_num':      return expenses.length>=objetivo;
     case 'gasto_total':     return totalGasto()>=objetivo;
     case 'puntos':          return calculatePoints()>=objetivo;
-    case 'nivel':           return (LEVELS.indexOf(getLevel(calculatePoints()))+1)>=objetivo;
+    case 'nivel':           return levelFromPoints(calculatePoints())>=objetivo;
     default:                return false;
   }
 }
@@ -3478,13 +3443,6 @@ function renderProfile(){
   var totalCare=CATS.reduce(function(s,c){return s+((state[c.id]&&state[c.id].logs.length)||0);},0);
   document.getElementById('prof-total-care').textContent='Has realizado '+totalCare+' cuidados';
   var th=document.getElementById('prof-thanks-ham');if(th){th.innerHTML='';th.appendChild(makeImg(IMG_URLS.loving,'🐹','100%','100%','',48));}
-}
-function bestStreak(){
-  var dayset={};CATS.forEach(function(c){((state[c.id]&&state[c.id].logs)||[]).forEach(function(l){dayset[getDayStart(l.ts)]=true;});});
-  var days=Object.keys(dayset).map(Number).sort(function(a,b){return a-b;});
-  var best=0,run=0,prev=null;
-  days.forEach(function(d){if(prev!==null&&d-prev===86400000)run++;else run=1;if(run>best)best=run;prev=d;});
-  return best;
 }
 function loadSleep(){try{var s=JSON.parse(localStorage.getItem('chw6sleep'));if(s&&s.from&&s.to)return s;}catch(e){}return {from:'21:00',to:'08:00'};}
 function saveSleep(o){try{localStorage.setItem('chw6sleep',JSON.stringify(o));}catch(e){}}
