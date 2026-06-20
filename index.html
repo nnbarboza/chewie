@@ -286,7 +286,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .cu-album{display:flex;flex-direction:column;gap:1px}
 .cu-alb-row{display:flex;align-items:center;gap:10px;padding:9px 2px;border-bottom:1px solid var(--border)}
 .cu-alb-row:last-child{border-bottom:none}
-.cu-alb-ic{width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.cu-alb-ic{width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
 .cu-alb-ic img{width:100%;height:100%;object-fit:contain}
 .cu-alb-name{flex:1;font-size:13px;font-weight:600;color:var(--text)}
 .cu-alb-top{font-size:10px;background:#FFF0DA;color:#B0813A;font-weight:700;border-radius:7px;padding:2px 6px;margin-left:5px}
@@ -997,6 +997,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 <!-- LOGROS (full screen) -->
 <div id="s-logros" class="screen">
   <div class="det-head2">
+    <div class="det-back" onclick="goScreen('s-home')">‹</div>
     <div class="dt-title"><span class="hh">♥</span><span>Logros</span><span class="hh">♥</span></div>
     <div class="dt-sub" id="logros-sub"></div>
   </div>
@@ -1090,13 +1091,13 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
   <div class="prof-row">
     <div class="prof-card">
-      <div class="pc-head"><span class="pc-ic" id="prof-cake">🎂</span><span class="pc-lbl">Edad</span></div>
+      <div class="pc-head"><span class="pc-ic" id="prof-cake"><img src="img/ic_pastel.webp" onerror="this.replaceWith(document.createTextNode('🎂'))"></span><span class="pc-lbl">Edad</span></div>
       <div class="pc-big" id="age-main">—</div>
       <div class="pc-sub" id="age-bday">Cumpleaños: 4 abril 2026</div>
       <div class="pc-pill" id="age-next"></div>
     </div>
     <div class="prof-card prof-card-racha">
-      <div class="pc-head"><span class="pc-ic" id="prof-fire">🔥</span><span class="pc-lbl">Mejor racha</span></div>
+      <div class="pc-head"><span class="pc-ic" id="prof-fire"><img src="img/ic_racha.webp" onerror="this.replaceWith(document.createTextNode('🔥'))"></span><span class="pc-lbl">Mejor racha</span></div>
       <div class="pc-big" id="best-streak">—</div>
       <div class="pc-sub">días seguidos</div>
       <div class="pc-ham" id="prof-racha-ham"></div>
@@ -1104,12 +1105,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 
   <div class="prof-block">
-    <div class="prof-bh"><span class="pc-ic" id="prof-stats-ic">📊</span> Estadísticas de cuidados</div>
+    <div class="prof-bh"><span class="pc-ic" id="prof-stats-ic"><img src="img/ic_stats.webp" onerror="this.replaceWith(document.createTextNode('📊'))"></span> Estadísticas de cuidados</div>
     <div class="prof-care-grid" id="prof-stats"></div>
   </div>
 
   <div class="prof-sleep">
-    <span class="ps-ic" id="prof-moon">🌙</span>
+    <span class="ps-ic" id="prof-moon"><img src="img/ic_luna.webp" onerror="this.replaceWith(document.createTextNode('🌙'))"></span>
     <div class="ps-title">Horario<br>de sueño</div>
     <div class="ps-times">
       <div class="ps-t"><div class="ps-t-lbl">Dormir</div><div class="ps-t-val" id="sleep-from">21:00</div></div>
@@ -1120,13 +1121,13 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
   <div class="prof-row">
     <div class="prof-card">
-      <div class="pc-head"><span class="pc-ic" id="prof-home-ic">🏠</span><span class="pc-lbl">Hogar actual</span></div>
+      <div class="pc-head"><span class="pc-ic" id="prof-home-ic"><img src="img/ic_hogar.webp" onerror="this.replaceWith(document.createTextNode('🏠'))"></span><span class="pc-lbl">Hogar actual</span></div>
       <div class="pc-home-n"><b id="home-deco-total">0</b> decoraciones</div>
       <div class="pc-home-n"><b id="home-deco-active">0</b> activas en la jaula</div>
       <div class="pc-link" id="prof-deco-link">Ver decoración →</div>
     </div>
     <div class="prof-card">
-      <div class="pc-head"><span class="pc-ic" id="prof-wallet-ic">👛</span><span class="pc-lbl">Gasto acumulado</span></div>
+      <div class="pc-head"><span class="pc-ic" id="prof-wallet-ic"><img src="img/ic_cartera.webp" onerror="this.replaceWith(document.createTextNode('👛'))"></span><span class="pc-lbl">Gasto acumulado</span></div>
       <div class="pc-big" id="prof-gasto">—</div>
       <div class="pc-sub" id="prof-gasto-since"></div>
     </div>
@@ -1139,7 +1140,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <div class="pt-ham" id="prof-thanks-ham"></div>
   </div>
-  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v3.0</span></div>
+  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v3.1</span></div>
 </div>
 
 <div class="modal-bg" id="quizhist-modal">
@@ -1855,11 +1856,12 @@ function makeImg(src,alt,w,h,radius,emojiSize){
   var img=document.createElement('img');
   img.alt=alt;
   img.style.cssText='width:'+w+';height:'+h+';object-fit:cover;'+(radius?'border-radius:'+radius+';':'');
-  var triedPng=false;
+  var triedPng=false, retried=false;
+  img.onload=function(){this._ok=true;};
   img.onerror=function(){
-    if(!triedPng && /\.webp(\?|$)/i.test(this.src)){
-      triedPng=true; this.src=this.src.replace(/\.webp(\?|$)/i,'.png$1'); return;
-    }
+    if(this._ok)return; // ya se mostró bien: ignora errores transitorios al re-renderizar
+    if(!triedPng && /\.webp(\?|$)/i.test(this.src)){triedPng=true;this.src=this.src.replace(/\.webp(\?|$)/i,'.png$1');return;}
+    if(!retried){retried=true;var self=this,s=this.src;setTimeout(function(){if(!self._ok)self.src=s;},250);return;}
     var sp=document.createElement('span');
     sp.textContent=alt;sp.style.fontSize=(emojiSize||26)+'px';sp.style.lineHeight='1';
     if(this.parentNode)this.parentNode.replaceChild(sp,this);
@@ -1874,8 +1876,11 @@ function setIcon(id,src,emoji,size){
 // imagen como string HTML (para UIs construidas con innerHTML), con cadena webp->png->emoji
 function imgHtml(src,emoji,size){
   size=size||'24px';
-  var oe="if(!this.dataset.p&&/\\.webp/i.test(this.src)){this.dataset.p=1;this.src=this.src.replace(/\\.webp/i,'.png');}else{this.outerHTML='"+emoji+"';}";
-  return '<img src="'+src+'" style="width:'+size+';height:'+size+';object-fit:contain;vertical-align:middle" onerror="'+oe+'">';
+  var oe="if(this.dataset.ok)return;"
+    +"if(!this.dataset.p&&/\\.webp/i.test(this.src)){this.dataset.p=1;this.src=this.src.replace(/\\.webp/i,'.png');}"
+    +"else if(!this.dataset.r){this.dataset.r=1;var s=this.src,t=this;setTimeout(function(){if(!t.dataset.ok)t.src=s;},250);}"
+    +"else{this.outerHTML='"+emoji+"';}";
+  return '<img src="'+src+'" onload="this.dataset.ok=1" style="width:'+size+';height:'+size+';object-fit:contain;vertical-align:middle" onerror="'+oe+'">';
 }
 
 function getMood(){
@@ -1943,7 +1948,7 @@ function renderHome(){
   var span=Math.max(1,nextThr-curThr);
   var pct=Math.max(0,Math.min(100,((pts-curThr)/span)*100));
   document.getElementById('lvl-bar-fill').style.width=pct+'%';
-  document.getElementById('lvl-prog').textContent='Nv '+cur+' · '+(pts-curThr)+'/'+span;
+  document.getElementById('lvl-prog').textContent=(pts-curThr)+' / '+span;
 
   // ── Barra de stats ──
   [['st-ic-racha','img/stat_racha.webp','🔥'],['st-ic-hoy','img/stat_hoy.webp','📅'],
@@ -3419,7 +3424,7 @@ function renderProfile(){
   document.getElementById('age-next').textContent='🎉 Faltan '+du+' días para su cumple';
   // Mejor racha
   document.getElementById('best-streak').textContent=bestStreak();
-  var rh=document.getElementById('prof-racha-ham');if(rh){rh.innerHTML='';rh.appendChild(makeImg(IMG_URLS.happy,'🐹','100%','100%','',40));}
+  var rh=document.getElementById('prof-racha-ham');if(rh){rh.innerHTML='';rh.appendChild(makeImg('img/hamster_racha.webp','🐹','100%','100%','',40));}
   // Cuidados (enlazan a cada categoría)
   var grid=document.getElementById('prof-stats');grid.innerHTML='';
   CATS.forEach(function(cat){
@@ -3533,7 +3538,7 @@ function renderQuizCard(){
     document.getElementById('cu-q-text').textContent='Has respondido todas las preguntas disponibles. ¡Vuelve pronto a por más! 🌸';
     body.innerHTML='';res.className='cu-q-result';res.innerHTML='';return;
   }
-  document.getElementById('cu-q-cat').textContent=(QUIZ_CAT_IC[q.categoria]||'')+' '+q.categoria;
+  document.getElementById('cu-q-cat').textContent=q.categoria;
   document.getElementById('cu-q-type').textContent=q.tipo==='vf'?'Verdadero o falso':'Pregunta del día';
   document.getElementById('cu-q-text').textContent=q.pregunta;
   res.className='cu-q-result';res.innerHTML='';
@@ -3588,7 +3593,7 @@ function renderQuizAlbum(){
   QUIZ_CATS.forEach(function(c){var p=st.perCat[c].ok*5;if(p>topPts){topPts=p;top=c;}});
   document.getElementById('cu-album').innerHTML=QUIZ_CATS.map(function(c){
     var d=st.perCat[c], pts=d.ok*5, pct=d.tot?Math.round(d.ok/d.tot*100):0;
-    return '<div class="cu-alb-row"><div class="cu-alb-ic">'+imgHtml(QUIZ_CAT_IMG[c]||'',QUIZ_CAT_IC[c]||'📘','24px')+'</div>'
+    return '<div class="cu-alb-row"><div class="cu-alb-ic">'+imgHtml(QUIZ_CAT_IMG[c]||'',QUIZ_CAT_IC[c]||'📘','34px')+'</div>'
       +'<div class="cu-alb-name">'+c+(top===c&&topPts>0?'<span class="cu-alb-top">★ TOP</span>':'')+'</div>'
       +'<div><div class="cu-alb-pts">'+pts+' pts</div><div class="cu-alb-pct">'+(d.tot?pct+'% aciertos':'—')+'</div></div></div>';
   }).join('');
