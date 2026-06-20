@@ -1140,7 +1140,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <div class="pt-ham" id="prof-thanks-ham"></div>
   </div>
-  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v3.1</span></div>
+  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v3.2</span></div>
 </div>
 
 <div class="modal-bg" id="quizhist-modal">
@@ -1940,11 +1940,11 @@ function renderHome(){
   var pts=calculatePoints();
   var cur=levelFromPoints(pts);
   var curThr=pointsForLevel(cur), nextThr=pointsForLevel(cur+1);
-  var ps=document.getElementById('pts-star');ps.innerHTML='';ps.appendChild(makeImg('img/estrella.webp','⭐','100%','100%','',30));
+  var ps=document.getElementById('pts-star');if(!ps._done){ps.innerHTML='';ps.appendChild(makeImg('img/estrella.webp','⭐','100%','100%','',30));ps._done=true;}
   document.getElementById('pts-num').textContent=pts;
   document.getElementById('lvl-name').textContent=levelName(cur);
-  var li=document.getElementById('lvl-icon');li.innerHTML='';
-  li.appendChild(makeImg(levelImg(cur),levelIcon(cur),'100%','100%','',24));
+  var li=document.getElementById('lvl-icon');
+  if(li._lvl!==cur||!li.firstChild){li.innerHTML='';li.appendChild(makeImg(levelImg(cur),levelIcon(cur),'100%','100%','',24));li._lvl=cur;}
   var span=Math.max(1,nextThr-curThr);
   var pct=Math.max(0,Math.min(100,((pts-curThr)/span)*100));
   document.getElementById('lvl-bar-fill').style.width=pct+'%';
@@ -1953,7 +1953,7 @@ function renderHome(){
   // ── Barra de stats ──
   [['st-ic-racha','img/stat_racha.webp','🔥'],['st-ic-hoy','img/stat_hoy.webp','📅'],
    ['st-ic-logros','img/stat_logros.webp','🏆'],['st-ic-semana','img/stat_semana.webp','🎖️']].forEach(function(s){
-    var el=document.getElementById(s[0]);if(el){el.innerHTML='';el.appendChild(makeImg(s[1],s[2],'100%','100%','',18));}
+    var el=document.getElementById(s[0]);if(el&&!el._done){el.innerHTML='';el.appendChild(makeImg(s[1],s[2],'100%','100%','',18));el._done=true;}
   });
   document.getElementById('st-racha').textContent=careStreak();
   var pend=CATS.length-okCount;
