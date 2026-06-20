@@ -323,6 +323,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .ih-next-faltan{font-size:11px;color:var(--accent);font-weight:700;margin-top:3px}
 .ins-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
 .ins-card{position:relative;background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:11px 7px 10px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:5px}
+.ins-card.next-myst{border-style:dashed;background:var(--bg)}
+.ins-card.next-myst .ins-name{color:var(--text2)}
 .ins-card.reached{background:#F4FAEE;border-color:#CDE3AB}
 .ins-card.current{background:#FFF6E6;border-color:#F2C16B}
 .ins-card.locked{background:#F7F3ED}
@@ -1137,7 +1139,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <div class="pt-ham" id="prof-thanks-ham"></div>
   </div>
-  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v2.9</span></div>
+  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v3.0</span></div>
 </div>
 
 <div class="modal-bg" id="quizhist-modal">
@@ -1493,12 +1495,13 @@ function levelUnlockDates(maxN){
 function showLevelInfo(){
   var pts=calculatePoints();
   var cur=levelFromPoints(pts);
-  var maxN=Math.max(NIVELES.length,cur+3);
+  var MYST='img/nivel_siguiente.webp';
   document.getElementById('ins-sub').textContent='Estás en el nivel '+cur;
-  var dates=levelUnlockDates(maxN);
+  var dates=levelUnlockDates(cur);
   var nextThr=pointsForLevel(cur+1);
+  // Hero: siguiente nivel como incógnita (mantiene la sorpresa de la insignia)
   var nextHtml='<div class="ih-next"><div class="ih-next-lbl">Siguiente nivel</div>'
-    +'<div class="ih-next-badge">'+imgHtml(levelImg(cur+1),levelIcon(cur+1),'52px')+'</div>'
+    +'<div class="ih-next-badge myst">'+imgHtml(MYST,'❓','52px')+'</div>'
     +'<div class="ih-next-name">'+levelName(cur+1)+'</div>'
     +'<div class="ih-next-faltan">Faltan '+(nextThr-pts)+' pts</div></div>';
   document.getElementById('ins-hero').innerHTML='<div class="ih-cur">'
@@ -1507,20 +1510,25 @@ function showLevelInfo(){
     +'<div class="ih-name">'+levelName(cur)+'</div>'
     +'<div class="ih-pts">'+pts+' pts</div></div></div>'+nextHtml;
   var rows=[];
-  for(var n=1;n<=maxN;n++){
-    var thr=pointsForLevel(n),reached=pts>=thr,isCur=(n===cur);
-    var cls=isCur?'current':(reached?'reached':'locked');
-    var corner=isCur?'<div class="ins-corner cur">★</div>':(reached?'<div class="ins-corner ok">✓</div>':'<div class="ins-corner lock">🔒</div>');
-    var when,wcls;
-    if(reached){wcls=isCur?'cur':'ok';when=dates[n]?('Alcanzado el<br>'+fmtDay(dates[n])):(isCur?'Nivel actual':'Alcanzado');}
-    else{wcls='lock';when='Aún no<br>alcanzado';}
-    var pcls=isCur?'cur':(reached?'ok':'lock');
+  // Insignias ya conseguidas (1..actual) con su emblema real
+  for(var n=1;n<=cur;n++){
+    var isCur=(n===cur);
+    var cls=isCur?'current':'reached';
+    var corner=isCur?'<div class="ins-corner cur">★</div>':'<div class="ins-corner ok">✓</div>';
+    var wcls=isCur?'cur':'ok';
+    var when=dates[n]?('Alcanzado el<br>'+fmtDay(dates[n])):(isCur?'Nivel actual':'Alcanzado');
     rows.push('<div class="ins-card '+cls+'">'+corner
       +'<div class="ins-badge">'+imgHtml(levelImg(n),levelIcon(n),'60px')+'</div>'
       +'<div class="ins-name">'+levelName(n)+'</div>'
       +'<div class="ins-when '+wcls+'">'+when+'</div>'
-      +'<div class="ins-pts '+pcls+'">'+thr+' pts</div></div>');
+      +'<div class="ins-pts '+wcls+'">'+pointsForLevel(n)+' pts</div></div>');
   }
+  // Siguiente: incógnita (solo nombre + interrogante)
+  rows.push('<div class="ins-card next-myst">'
+    +'<div class="ins-corner lock">?</div>'
+    +'<div class="ins-badge">'+imgHtml(MYST,'❓','60px')+'</div>'
+    +'<div class="ins-name">'+levelName(cur+1)+'</div>'
+    +'<div class="ins-when lock">Próximo nivel</div></div>');
   document.getElementById('ins-grid').innerHTML=rows.join('');
   document.getElementById('level-modal').classList.add('open');
 }
