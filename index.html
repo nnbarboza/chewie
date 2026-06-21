@@ -1140,7 +1140,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <div class="pt-ham" id="prof-thanks-ham"></div>
   </div>
-  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v3.2</span></div>
+  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v3.3</span></div>
 </div>
 
 <div class="modal-bg" id="quizhist-modal">
@@ -1492,6 +1492,14 @@ function levelUnlockDates(maxN){
   var dates={},cum=0,nextN=2;
   events.forEach(function(e){cum+=e.pts;while(nextN<=maxN&&cum>=pointsForLevel(nextN)){dates[nextN]=e.ts;nextN++;}});
   return dates;
+}
+var _lvlPreloadedFor=-1;
+function preloadLevelImages(){
+  var cur=levelFromPoints(calculatePoints());
+  if(_lvlPreloadedFor===cur)return; _lvlPreloadedFor=cur;
+  var srcs=['img/nivel_siguiente.webp'];
+  for(var n=1;n<=cur;n++)srcs.push(levelImg(n));
+  srcs.forEach(function(s){try{var im=new Image();im.src=s;}catch(e){}});
 }
 function showLevelInfo(){
   var pts=calculatePoints();
@@ -1878,7 +1886,7 @@ function imgHtml(src,emoji,size){
   size=size||'24px';
   var oe="if(this.dataset.ok)return;"
     +"if(!this.dataset.p&&/\\.webp/i.test(this.src)){this.dataset.p=1;this.src=this.src.replace(/\\.webp/i,'.png');}"
-    +"else if(!this.dataset.r){this.dataset.r=1;var s=this.src,t=this;setTimeout(function(){if(!t.dataset.ok)t.src=s;},250);}"
+    +"else if((this.dataset.r|0)<2){this.dataset.r=(this.dataset.r|0)+1;var s=this.src,t=this,d=300*(this.dataset.r|0);setTimeout(function(){if(!t.dataset.ok)t.src=s;},d);}"
     +"else{this.outerHTML='"+emoji+"';}";
   return '<img src="'+src+'" onload="this.dataset.ok=1" style="width:'+size+';height:'+size+';object-fit:contain;vertical-align:middle" onerror="'+oe+'">';
 }
@@ -1949,6 +1957,7 @@ function renderHome(){
   var pct=Math.max(0,Math.min(100,((pts-curThr)/span)*100));
   document.getElementById('lvl-bar-fill').style.width=pct+'%';
   document.getElementById('lvl-prog').textContent=(pts-curThr)+' / '+span;
+  preloadLevelImages();
 
   // ── Barra de stats ──
   [['st-ic-racha','img/stat_racha.webp','🔥'],['st-ic-hoy','img/stat_hoy.webp','📅'],
