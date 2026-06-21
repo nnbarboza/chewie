@@ -1140,7 +1140,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <div class="pt-ham" id="prof-thanks-ham"></div>
   </div>
-  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v3.3</span></div>
+  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v3.4</span></div>
 </div>
 
 <div class="modal-bg" id="quizhist-modal">
@@ -1392,7 +1392,7 @@ let NIVELES=[
 function levelMeta(n){return NIVELES[n-1]||null;}
 function levelName(n){var m=levelMeta(n);return (m&&m.nombre)?m.nombre:('Nivel '+n);}
 function levelIcon(n){var m=levelMeta(n);return (m&&m.icono)?m.icono:'⭐';}
-function levelImg(n){var m=levelMeta(n);return (m&&m.imagen)?m.imagen:('img/nivel_'+n+'.webp');}
+function levelImg(n){var m=levelMeta(n);if(m&&m.imagen){var s=String(m.imagen).trim();if(s&&!/^https?:|\//.test(s))s='img/'+s;return s;}return 'img/nivel_'+n+'.webp';}
 
 // Puntos por acción (NOMINAL, para el feedback "+N" y estimar fechas de nivel)
 var ZONE_PTS={'Jaula completa':12,'Jaula':12,'Sustrato':10,'Rueda':9,'Bebedero':8,'Frasco':8,'Casa':9};
