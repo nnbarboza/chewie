@@ -344,10 +344,20 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .ins-corner.ok{background:#7CB342}
 .ins-corner.cur{background:#F2A93B}
 .ins-corner.lock{background:#C9BFAF;font-size:10px}
-.ins-howto{margin-top:16px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 12px;font-size:11px;color:var(--text2)}
-.ins-howto summary{font-weight:700;color:var(--text);font-size:12px;cursor:pointer}
-.ins-howto .hw-body{margin-top:8px;line-height:1.6}
-.ins-foot{text-align:center;font-size:12px;color:var(--text2);font-weight:600;margin-top:16px}
+.ins-howto{margin:18px 0 0;background:var(--card);border:1px solid #F1E7D8;border-radius:16px;padding:4px 2px;box-shadow:0 4px 14px rgba(93,58,30,.05);overflow:hidden}
+.ins-howto summary{font-family:var(--font-d);font-weight:600;color:var(--text);font-size:14px;cursor:pointer;list-style:none;display:flex;align-items:center;gap:9px;padding:12px 14px}
+.ins-howto summary::-webkit-details-marker{display:none}
+.ins-howto summary .hw-ic{width:22px;height:22px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.ins-howto summary .hw-ic img{width:100%;height:100%;object-fit:contain}
+.ins-howto summary .hw-arr{margin-left:auto;color:var(--text3);transition:transform .2s}
+.ins-howto[open] summary .hw-arr{transform:rotate(90deg)}
+.hw-body{padding:2px 14px 14px}
+.hw-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--border)}
+.hw-row:first-child{border-top:none}
+.hw-row .hw-emo{font-size:17px;width:24px;text-align:center;flex-shrink:0}
+.hw-row .hw-txt{flex:1;font-size:12.5px;color:var(--text2);font-weight:500;line-height:1.3}
+.hw-row .hw-pts{font-family:var(--font-d);font-weight:700;font-size:13px;color:var(--g);background:var(--gbg);border-radius:10px;padding:3px 9px;flex-shrink:0}
+.ins-foot{display:flex;align-items:center;justify-content:center;gap:8px;text-align:center;font-size:12.5px;color:var(--accent);font-weight:600;margin:16px 8px 4px;background:linear-gradient(135deg,#FCE9F0,#FBE0EB);border:1px solid #F6CFDE;border-radius:16px;padding:11px 14px}
 .flabel{font-size:12px;color:var(--text2);margin-bottom:4px;display:block;margin-top:10px}
 .finput{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:9px 11px;font-size:14px;font-family:inherit;color:var(--text);background:var(--card)}
 .finput:focus{outline:none;border-color:var(--accent)}
@@ -607,6 +617,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .wd-stats{display:flex;gap:10px;margin-top:6px;border-top:1px solid var(--border);padding-top:12px}
 .wd-stat{flex:1;display:flex;align-items:center;gap:9px}
 .wd-stat-ic{font-size:22px}
+.wd-stat-ic img{width:24px;height:24px;object-fit:contain;vertical-align:middle}
+.cd-gen-ic img{width:26px;height:26px;object-fit:contain}
 .wd-stat-v{font-family:var(--font-d);font-size:18px;font-weight:700;color:var(--text);line-height:1}
 .wd-stat-l{font-size:10px;color:var(--text2);font-weight:600;line-height:1.15;margin-top:2px}
 .wd-foot{display:flex;align-items:center;gap:6px;background:#FBF1E4;border:1px solid #F0E2CE;border-radius:30px;padding:3px 16px;margin:32px 14px 18px;overflow:visible}
@@ -889,8 +901,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <div class="wd-card-title"><span class="tic" id="wd-res-ic">📊</span> Resumen anual</div>
       <div class="wd-year" id="wd-year"></div>
       <div class="wd-stats">
-        <div class="wd-stat"><span class="wd-stat-ic">❤️</span><div><div class="wd-stat-v" id="wd-stat-cumpl">0%</div><div class="wd-stat-l">Cumplimiento del mes</div></div></div>
-        <div class="wd-stat"><span class="wd-stat-ic">💧</span><div><div class="wd-stat-v" id="wd-stat-prom">0</div><div class="wd-stat-l">Promedio mensual</div></div></div>
+        <div class="wd-stat"><span class="wd-stat-ic"><img src="img/ic_cumplimiento.webp" onerror="this.outerHTML=&#39;❤️&#39;"></span><div><div class="wd-stat-v" id="wd-stat-cumpl">0%</div><div class="wd-stat-l">Cumplimiento del mes</div></div></div>
+        <div class="wd-stat"><span class="wd-stat-ic"><img src="img/ic_promedio.webp" onerror="this.outerHTML=&#39;💧&#39;"></span><div><div class="wd-stat-v" id="wd-stat-prom">0</div><div class="wd-stat-l">Promedio mensual</div></div></div>
       </div>
     </div>
     <div class="wd-foot" id="wd-foot"></div>
@@ -900,7 +912,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <div id="clean-detail" style="display:none">
     <div class="wd-hero" id="cd-hero"></div>
     <div class="cd-general">
-      <div class="cd-gen-ic">🗓️</div>
+      <div class="cd-gen-ic"><img src="img/ic_calendario_limpieza.webp" onerror="this.outerHTML=&#39;🗓️&#39;"></div>
       <div class="cd-gen-info">
         <div class="cd-gen-lbl">Última limpieza general</div>
         <div class="cd-gen-val" id="cd-last-val">—</div>
@@ -1140,7 +1152,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <div class="pt-ham" id="prof-thanks-ham"></div>
   </div>
-  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v3.4</span></div>
+  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v3.5</span></div>
 </div>
 
 <div class="modal-bg" id="quizhist-modal">
@@ -1171,22 +1183,23 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <div class="modal ins-modal">
     <span class="modal-close" onclick="closeLevelInfo()">✕</span>
     <div class="ins-head">
-      <div class="ins-title">🏆 Insignias</div>
+      <div class="ins-title"><img class="pc-ic-img" src="img/ic_insignias.webp" onerror="this.outerHTML='🏆'"> Insignias</div>
       <div class="ins-sub" id="ins-sub">Has desbloqueado 0 de 0 insignias</div>
     </div>
     <div class="ins-hero" id="ins-hero"></div>
     <div class="ins-grid" id="ins-grid"></div>
     <details class="ins-howto">
-      <summary>📋 Cómo se ganan puntos</summary>
+      <summary><span class="hw-ic"><img src="img/ic_como_puntos.webp" onerror="this.outerHTML='📋'"></span>Cómo se ganan puntos<span class="hw-arr">›</span></summary>
       <div class="hw-body">
-        • Comida (fruta/verdura/gusano): +2<br>
-        • Decoración: +3<br>
-        • Limpieza (jaula completa): +5<br>
-        • Limpieza (resto): +2<br>
-        • Roer, agua, arena: +1<br>
-        • Día completo OK: +1 extra<br>
-        • Semana entera OK: +10 combo<br>
-        • Retraso: -1 por día por categoría
+        <div class="hw-row"><span class="hw-emo">🍓</span><span class="hw-txt">Comida (1ª del día)<br><small>extra +1 · máx. +5/día</small></span><span class="hw-pts">+3</span></div>
+        <div class="hw-row"><span class="hw-emo">💧</span><span class="hw-txt">Agua, si tocaba <small>(antes de tiempo +1)</small></span><span class="hw-pts">+5</span></div>
+        <div class="hw-row"><span class="hw-emo">🏖️</span><span class="hw-txt">Arena, si tocaba</span><span class="hw-pts">+6</span></div>
+        <div class="hw-row"><span class="hw-emo">🦷</span><span class="hw-txt">Roer, si tocaba</span><span class="hw-pts">+8</span></div>
+        <div class="hw-row"><span class="hw-emo">🧽</span><span class="hw-txt">Limpieza por zona</span><span class="hw-pts">+8–12</span></div>
+        <div class="hw-row"><span class="hw-emo">🏠</span><span class="hw-txt">Decoración o manualidad</span><span class="hw-pts">+5</span></div>
+        <div class="hw-row"><span class="hw-emo">✨</span><span class="hw-txt">Día completo <small>(todo al día)</small></span><span class="hw-pts">+8</span></div>
+        <div class="hw-row"><span class="hw-emo">🧠</span><span class="hw-txt">Curiosidad acertada</span><span class="hw-pts">+5</span></div>
+        <div class="hw-row"><span class="hw-emo">🔥</span><span class="hw-txt">Hitos de racha <small>(3, 7, 14, 30 días…)</small></span><span class="hw-pts">+10–100</span></div>
       </div>
     </details>
     <div class="ins-foot">💗 Sigue cuidando a Chewie para desbloquear nuevas insignias 💗</div>
@@ -1373,8 +1386,8 @@ const SYNC_ON=true;
 
 // ════ GAMIFICACIÓN (rediseño v2.9) ════
 // Niveles infinitos por fórmula. coste(n→n+1)=25+3·(n−1); acumulado:
-const LVL_COEF=3;
-function pointsForLevel(n){n=Math.max(1,Math.round(n));return Math.round(25*(n-1)+(LVL_COEF/2)*(n-1)*(n-2));}
+const LVL_BASE=50, LVL_COEF=4;
+function pointsForLevel(n){n=Math.max(1,Math.round(n));return Math.round(LVL_BASE*(n-1)+(LVL_COEF/2)*(n-1)*(n-2));}
 function levelFromPoints(p){var n=1;while(pointsForLevel(n+1)<=p)n++;return n;}
 // Nombres/insignias por nivel (los rellena el usuario en la hoja Niveles). Más allá → "Nivel N".
 let NIVELES=[
@@ -1392,7 +1405,7 @@ let NIVELES=[
 function levelMeta(n){return NIVELES[n-1]||null;}
 function levelName(n){var m=levelMeta(n);return (m&&m.nombre)?m.nombre:('Nivel '+n);}
 function levelIcon(n){var m=levelMeta(n);return (m&&m.icono)?m.icono:'⭐';}
-function levelImg(n){var m=levelMeta(n);if(m&&m.imagen){var s=String(m.imagen).trim();if(s&&!/^https?:|\//.test(s))s='img/'+s;return s;}return 'img/nivel_'+n+'.webp';}
+function levelImg(n){var m=levelMeta(n);if(m&&m.imagen){var s=String(m.imagen).trim().replace(/\.wepb$/i,'.webp');if(s&&!/^https?:|\//.test(s))s='img/'+s;return s;}return 'img/nivel_'+n+'.webp';}
 
 // Puntos por acción (NOMINAL, para el feedback "+N" y estimar fechas de nivel)
 var ZONE_PTS={'Jaula completa':12,'Jaula':12,'Sustrato':10,'Rueda':9,'Bebedero':8,'Frasco':8,'Casa':9};
@@ -2346,6 +2359,15 @@ function renderCleanDetail(){
   }
 }
 function loadDecoState(){try{return JSON.parse(localStorage.getItem('chw6deco')||'{}');}catch(e){return {};}}
+function toTs(v){
+  if(typeof v==='number')return v;
+  if(!v)return 0;
+  var t=new Date(v).getTime();
+  if(!isNaN(t))return t;
+  var m=String(v).toLowerCase().match(/(\d{1,2})\s+([a-zé]+)\.?\s+(\d{4})/);
+  if(m){var mes={ene:0,feb:1,mar:2,abr:3,may:4,jun:5,jul:6,ago:7,sep:8,oct:9,nov:10,dic:11}[m[2].slice(0,3)];if(mes!=null)return new Date(+m[3],mes,+m[1]).getTime();}
+  return 0;
+}
 function decoItems(){
   var out=[];
   ((state.deco&&state.deco.logs)||[]).forEach(function(l){
@@ -2354,7 +2376,7 @@ function decoItems(){
   });
   expenses.forEach(function(e){
     if(/(decoraci|jaula y accesorios|jaula)/i.test(e.category||'')){
-      out.push({key:'exp_'+e.id, name:e.description||'Decoración', ts:new Date(e.date).getTime(), source:'compra', ref:e});
+      out.push({key:'exp_'+e.id, name:e.description||'Decoración', ts:toTs(e.date), source:'compra', ref:e});
     }
   });
   return out;
