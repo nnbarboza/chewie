@@ -214,7 +214,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .pc-big{font-family:var(--font-d);font-size:23px;font-weight:700;color:var(--text);line-height:1.08;letter-spacing:-.3px}
 .pc-sub{font-size:10.5px;color:var(--text3);margin-top:4px;font-weight:500}
 .pc-pill{margin-top:10px;background:#FDF0DA;color:#B0813A;font-size:10.5px;font-weight:600;border-radius:10px;padding:6px 9px;line-height:1.3}
-.pc-ham{position:absolute;right:-4px;bottom:-4px;width:58px;height:58px;opacity:.96}
+.pc-ham{position:absolute;right:-6px;bottom:-6px;width:78px;height:78px;opacity:.97}
 .pc-ham img{width:100%;height:100%;object-fit:contain}
 .pc-home-n{font-size:12.5px;color:var(--text2);line-height:1.7;font-weight:500}
 .pc-home-n b{font-family:var(--font-d);font-size:15px;color:var(--text);font-weight:700}
@@ -847,7 +847,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
             <div class="dieta-tab" id="dt-ano" onclick="setDietaPeriod('ano')">Año</div>
             <div class="dieta-tab" id="dt-total" onclick="setDietaPeriod('total')">Total</div>
           </div>
-          <div class="dieta-cal" onclick="openDietaDetail()" title="Ver evolución">🗓️</div>
+          <div class="dieta-cal" onclick="openDietaDetail()" title="Ver evolución"><img src="img/ic_dieta_evo.webp" style="width:20px;height:20px;object-fit:contain" onerror="this.replaceWith(document.createTextNode('🗓️'))"></div>
         </div>
       </div>
       <div class="dieta-body" id="dieta-body">
@@ -924,7 +924,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <div class="cd-status" id="cd-status"></div>
     </div>
     <div class="wd-card">
-      <div class="wd-card-title"><span>🧽</span> Última limpieza por zona</div>
+      <div class="wd-card-title"><span class="tic"><img src="img/ic_zonas.webp" onerror="this.outerHTML=&#39;🧽&#39;"></span> Última limpieza por zona</div>
       <div class="cd-zones" id="cd-zones"></div>
       <div class="cd-hint">Toca las zonas que has limpiado y pulsa registrar</div>
     </div>
@@ -1021,14 +1021,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
 <!-- DIETA DETAIL OVERLAY -->
 <div class="chart-overlay" id="dieta-overlay">
-  <div class="chart-box">
-    <h3>📈 Evolución de la dieta</h3>
+  <div class="chart-box" style="position:relative">
+    <span class="modal-close" onclick="closeDietaDetail()">✕</span>
+    <h3 class="hist-h3"><img class="hist-h3-ic" src="img/ic_dieta_evo.webp" onerror="this.outerHTML='🗓️'"> <span>Evolución de la dieta</span></h3>
     <div style="position:relative;height:220px;margin-bottom:10px"><canvas id="dieta-bar-chart"></canvas></div>
     <div style="display:flex;gap:7px;margin-bottom:6px">
       <div class="chtab active" id="db-week" onclick="dietaDetailMode('week')" style="flex:1">8 semanas</div>
       <div class="chtab" id="db-month" onclick="dietaDetailMode('month')" style="flex:1">12 meses</div>
     </div>
-    <button onclick="closeDietaDetail()" style="margin-top:8px;width:100%;padding:10px;border:none;border-radius:10px;background:var(--sand);font-size:14px;font-weight:600;cursor:pointer">Cerrar</button>
   </div>
 </div>
 
@@ -1155,7 +1155,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <div class="pt-ham" id="prof-thanks-ham"></div>
   </div>
-  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v3.6</span></div>
+  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v3.7</span></div>
 </div>
 
 <div class="modal-bg" id="quizhist-modal">
@@ -1264,8 +1264,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <div class="hist-head">
       <span class="modal-close" onclick="closeHist()">✕</span>
       <h3 class="hist-h3"><img class="hist-h3-ic" src="img/ic_calendario.webp" onerror="this.outerHTML='📅'"> <span id="hist-title">Historial</span></h3>
-      <div class="hist-filters" id="hist-filters"></div>
       <div class="hist-sum" id="hist-sum"></div>
+      <div class="hist-filters" id="hist-filters"></div>
     </div>
     <div id="hist-list2"></div>
   </div>
@@ -2346,6 +2346,7 @@ function renderCleanDetail(){
     var chk=document.createElement('div');chk.className='cd-z-check';chk.textContent='✓';
     var ic=document.createElement('div');ic.className='cd-z-ic';
     ic.appendChild(makeImg(z.img||'',z.emoji,'100%','100%','',28));
+    var zi=ic.querySelector('img');if(zi)zi.style.objectFit='contain';
     var nm=document.createElement('div');nm.className='cd-z-name';nm.textContent=z.name;
     var when=document.createElement('div');when.className='cd-z-when';when.textContent=ts?relTime(ts):'Sin registro';
     var pill=document.createElement('div');pill.className='cd-z-pill '+pm[zst][0];pill.textContent=pm[zst][1];
@@ -2597,7 +2598,7 @@ function renderHist(){
   rows.sort(function(a,b){return b.ts-a.ts;});
   var sum=document.getElementById('hist-sum');
   if(histKind==='exp'){var tot=rows.reduce(function(s,r){return s+(parseFloat(r.e.amount)||0);},0);sum.innerHTML=rows.length+' compra'+(rows.length===1?'':'s')+' · <b>'+fmtEur(tot)+'</b>';}
-  else sum.textContent=rows.length+' registro'+(rows.length===1?'':'s');
+  else sum.innerHTML='<b>'+rows.length+'</b> registro'+(rows.length===1?'':'s');
   var list=document.getElementById('hist-list2');
   list.innerHTML=rows.length?rows.map(histRowHtml).join(''):'<div class="ex-empty" style="padding:16px 0">'+(histFDay?'No registraste comidas ese día.':'Sin registros.')+'</div>';
 }
@@ -2877,7 +2878,7 @@ function buildDietaBar(){
       });
     }
   }
-  var ds=FOOD_ORDER.map(function(f){return{label:f,data:datasets[f],backgroundColor:FOOD_COLORS[f],borderRadius:3,borderSkipped:false};})
+  var ds=FOOD_ORDER.map(function(f){return{label:f,data:datasets[f],backgroundColor:FOOD_COLORS[f],borderRadius:0,borderSkipped:false};})
     .filter(function(x){return x.data.some(function(v){return v>0;});});
   dietaBarChart=new Chart(document.getElementById('dieta-bar-chart'),{
     type:'bar',data:{labels:labels,datasets:ds},
@@ -3145,6 +3146,18 @@ var CAT_COLORS=['#E87878','#F5A623','#7ED321','#4A90D9','#9B59B6','#2ECC71','#E7
 // Paleta suave (pastel) para el donut e iconos, alineada a EXP_CATS
 var EXP_PALETTE=['#F3C49A','#EFA6A6','#CBB9E8','#D8C1A4','#A9CCE8','#B7D89B','#9FD8C6','#CDC2B2'];
 var EXP_CATS=['🍚 Comida','🏖️ Arena','🪵 Juguetes / Roer','🏠 Decoración','💧 Sprays','🌿 Sustrato','🏡 Jaula y accesorios','📦 Otro'];
+// Imágenes por categoría de gasto (con emoji de respaldo). Sube estos archivos a img/.
+var EXP_CAT_IMG={
+  '🍚 Comida':'gasto_comida.webp',
+  '🏖️ Arena':'gasto_arena.webp',
+  '🪵 Juguetes / Roer':'gasto_juguetes.webp',
+  '🏠 Decoración':'gasto_decoracion.webp',
+  '💧 Sprays':'gasto_sprays.webp',
+  '🌿 Sustrato':'gasto_sustrato.webp',
+  '🏡 Jaula y accesorios':'gasto_jaula.webp',
+  '📦 Otro':'gasto_otro.webp'
+};
+function expCatIcon(cat,size){return imgHtml('img/'+(EXP_CAT_IMG[cat]||''),catEmoji(cat),size||'20px');}
 
 function fmtEur(n){n=Math.round(n*100)/100;return (n%1===0?n:n.toFixed(2))+' €';}
 function capM(s){return s?s.charAt(0).toUpperCase()+s.slice(1):s;}
@@ -3171,7 +3184,7 @@ function renderExpenses(){
 function renderExpBreakdown(){
   var now=new Date();var mStart=new Date(now.getFullYear(),now.getMonth(),1).getTime();
   var fil=expPeriod==='month'?expenses.filter(function(e){return new Date(e.date).getTime()>=mStart;}):expenses;
-  var rows=EXP_CATS.map(function(c,i){return{name:catName(c),emoji:catEmoji(c),color:EXP_PALETTE[i],val:0};});
+  var rows=EXP_CATS.map(function(c,i){return{cat:c,name:catName(c),emoji:catEmoji(c),color:EXP_PALETTE[i],val:0};});
   fil.forEach(function(e){var idx=EXP_CATS.indexOf(e.category);if(idx>=0)rows[idx].val+=(parseFloat(e.amount)||0);});
   rows=rows.filter(function(r){return r.val>0;}).sort(function(a,b){return b.val-a.val;});
   expBreakdownRows=rows;
@@ -3181,7 +3194,7 @@ function renderExpBreakdown(){
   document.getElementById('ex-bars').innerHTML=rows.length?rows.map(function(r,i){
     var dim=(expSel>=0&&expSel!==i)?' dim':'';
     return'<div class="ex-bar-row'+dim+'" onclick="expDonutSelect('+i+')">'
-      +'<div class="ex-bar-ic" style="background:'+hexA(r.color,0.32)+'">'+r.emoji+'</div>'
+      +'<div class="ex-bar-ic" style="background:'+hexA(r.color,0.32)+'">'+expCatIcon(r.cat,'20px')+'</div>'
       +'<div class="ex-bar-name">'+esc(r.name)+'</div>'
       +'<div class="ex-bar-track"><div class="ex-bar-fill" style="width:'+(r.val/max*100)+'%"></div></div>'
       +'<div class="ex-bar-amt">'+fmtEur(r.val)+'</div></div>';
@@ -3190,6 +3203,7 @@ function renderExpBreakdown(){
 
 function expDonutSelect(i){expSel=(expSel===i)?-1:i;renderExpBreakdown();}
 
+function fmtEur0(v){return Math.round(v).toLocaleString('es-ES')+' €';}
 function donutSVG(rows,total){
   var cx=75,cy=75,r=52,sw=30,C=2*Math.PI*r,cum=0,segs='',labels='';
   rows.forEach(function(rw,idx){
@@ -3201,11 +3215,11 @@ function donutSVG(rows,total){
   });
   var center;
   if(expSel>=0&&rows[expSel]){var s=rows[expSel];
-    center='<text x="75" y="67" font-size="17" font-family="Fredoka,sans-serif" font-weight="700" fill="#3D2B1F" text-anchor="middle">'+fmtEur(s.val)+'</text>'
+    center='<text x="75" y="67" font-size="17" font-family="Fredoka,sans-serif" font-weight="700" fill="#3D2B1F" text-anchor="middle">'+fmtEur0(s.val)+'</text>'
       +'<text x="75" y="83" font-size="9" fill="#8A6A55" text-anchor="middle">'+esc(s.name.length>11?s.name.slice(0,10)+'…':s.name)+'</text>'
       +'<text x="75" y="95" font-size="9" font-weight="700" fill="#8A6A55" text-anchor="middle">'+Math.round(s.val/total*100)+'%</text>';
   }else{
-    center='<text x="75" y="72" font-size="19" font-family="Fredoka,sans-serif" font-weight="700" fill="#3D2B1F" text-anchor="middle">'+fmtEur(total)+'</text>'
+    center='<text x="75" y="72" font-size="19" font-family="Fredoka,sans-serif" font-weight="700" fill="#3D2B1F" text-anchor="middle">'+fmtEur0(total)+'</text>'
       +'<text x="75" y="89" font-size="10" fill="#8A6A55" text-anchor="middle">Total</text>';
   }
   return'<svg viewBox="0 0 150 150" width="100%" height="100%">'+segs+center+labels+'</svg>';
@@ -3253,7 +3267,7 @@ function renderExpEvolution(){
 function expRowHtml(e){
   var color=expCatColor(e.category);
   return'<div class="exp-row">'
-    +'<div class="exp-ic" style="background:'+hexA(color,0.32)+'">'+catEmoji(e.category)+'</div>'
+    +'<div class="exp-ic" style="background:'+hexA(color,0.32)+'">'+expCatIcon(e.category,'22px')+'</div>'
     +'<div class="exp-rmain"><div class="exp-rname">'+esc(e.description||catName(e.category))+'</div><div class="exp-rcat">'+esc(catName(e.category))+'</div></div>'
     +'<div class="exp-rright"><div class="exp-ramt">'+fmtEur(parseFloat(e.amount))+'</div>'
     +'<div class="exp-rdate">'+new Date(e.date).toLocaleDateString('es-ES',{day:'numeric',month:'short',year:'numeric'}).replace('.','')+'</div>'
@@ -3468,7 +3482,7 @@ function renderProfile(){
   document.getElementById('age-next').textContent='🎉 Faltan '+du+' días para su cumple';
   // Mejor racha
   document.getElementById('best-streak').textContent=bestStreak();
-  var rh=document.getElementById('prof-racha-ham');if(rh){rh.innerHTML='';rh.appendChild(makeImg('img/hamster_racha.webp','🐹','100%','100%','',40));}
+  var rh=document.getElementById('prof-racha-ham');if(rh){rh.innerHTML='';rh.appendChild(makeImg('img/hamster_racha.webp','🐹','100%','100%','',54));var rhi=rh.querySelector('img');if(rhi)rhi.style.objectFit='contain';}
   // Cuidados (enlazan a cada categoría)
   var grid=document.getElementById('prof-stats');grid.innerHTML='';
   CATS.forEach(function(cat){
