@@ -358,6 +358,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .hw-row .hw-txt{flex:1;font-size:12.5px;color:var(--text2);font-weight:500;line-height:1.3}
 .hw-row .hw-pts{font-family:var(--font-d);font-weight:700;font-size:13px;color:var(--g);background:var(--gbg);border-radius:10px;padding:3px 9px;flex-shrink:0}
 .ins-foot{display:flex;align-items:center;justify-content:center;gap:8px;text-align:center;font-size:12.5px;color:var(--accent);font-weight:600;margin:16px 8px 4px;background:linear-gradient(135deg,#FCE9F0,#FBE0EB);border:1px solid #F6CFDE;border-radius:16px;padding:11px 14px}
+.ins-thanks{margin:18px 0 6px}
 .flabel{font-size:12px;color:var(--text2);margin-bottom:4px;display:block;margin-top:10px}
 .finput{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:9px 11px;font-size:14px;font-family:inherit;color:var(--text);background:var(--card)}
 .finput:focus{outline:none;border-color:var(--accent)}
@@ -515,6 +516,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .modal-hist{display:flex;flex-direction:column;padding:0;overflow:hidden}
 .modal-hist .hist-head{flex:0 0 auto;position:static;margin:0;padding:16px 16px 8px;background:var(--bg);border-radius:20px 20px 0 0}
 .modal-hist .hist-head h3{margin-bottom:12px}
+.hist-h3{display:flex;align-items:center;gap:8px}
+.hist-h3-ic{width:22px;height:22px;object-fit:contain;flex-shrink:0}
 .modal-hist > #hist-list2,.modal-hist > #quizhist-list{flex:1 1 auto;overflow-y:auto;padding:2px 16px 26px}
 .hist-sum{font-size:12.5px;color:var(--text2);font-weight:600;margin-bottom:8px}
 .hist-sum b{color:var(--accent);font-family:var(--font-d);font-size:15px}
@@ -600,9 +603,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .wd-cal-nav{display:flex;align-items:center;gap:6px;background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:4px 6px}
 .wd-cal-nav>span:first-child,.wd-cal-nav>span:last-child{cursor:pointer;color:var(--accent);font-weight:800;font-size:16px;padding:0 6px;user-select:none}
 .wd-cal-title{font-size:12px;font-weight:700;color:var(--text);min-width:92px;text-align:center}
-.wd-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
-.wd-cal-grid .wm-h{font-size:9.5px;color:var(--text3);font-weight:700;text-align:center;padding-bottom:2px}
-.wd-cal-grid .wm-c{aspect-ratio:1;border-radius:10px;background:var(--bg);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;position:relative}
+.wd-cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;width:100%}
+.wd-cal-grid .wm-h{font-size:9.5px;color:var(--text3);font-weight:700;text-align:center;padding-bottom:2px;min-width:0}
+.wd-cal-grid .wm-c{aspect-ratio:1;min-width:0;min-height:0;border-radius:10px;background:var(--bg);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;position:relative;overflow:hidden}
 .wd-cal-grid .wm-c.empty{background:transparent;border:none}
 .wd-cal-grid .wm-c.today{border-color:var(--accent);background:#FFF1F1}
 .wd-cal-grid .wm-n{font-size:10px;color:var(--text2);font-weight:600;line-height:1}
@@ -1152,14 +1155,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <div class="pt-ham" id="prof-thanks-ham"></div>
   </div>
-  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v3.5</span></div>
+  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v3.6</span></div>
 </div>
 
 <div class="modal-bg" id="quizhist-modal">
   <div class="modal modal-hist">
     <div class="hist-head">
       <span class="modal-close" onclick="closeQuizHist()">✕</span>
-      <h3>Historial de preguntas</h3>
+      <h3 class="hist-h3"><img class="hist-h3-ic" src="img/ic_calendario.webp" onerror="this.outerHTML='📅'"> <span>Historial de preguntas</span></h3>
     </div>
     <div id="quizhist-list"></div>
   </div>
@@ -1184,7 +1187,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <span class="modal-close" onclick="closeLevelInfo()">✕</span>
     <div class="ins-head">
       <div class="ins-title"><img class="pc-ic-img" src="img/ic_insignias.webp" onerror="this.outerHTML='🏆'"> Insignias</div>
-      <div class="ins-sub" id="ins-sub">Has desbloqueado 0 de 0 insignias</div>
     </div>
     <div class="ins-hero" id="ins-hero"></div>
     <div class="ins-grid" id="ins-grid"></div>
@@ -1202,7 +1204,13 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
         <div class="hw-row"><span class="hw-emo">🔥</span><span class="hw-txt">Hitos de racha <small>(3, 7, 14, 30 días…)</small></span><span class="hw-pts">+10–100</span></div>
       </div>
     </details>
-    <div class="ins-foot">💗 Sigue cuidando a Chewie para desbloquear nuevas insignias 💗</div>
+    <div class="prof-thanks ins-thanks">
+      <div class="pt-txt">
+        <div class="pt-t">Sigue cuidando a Chewie</div>
+        <div class="pt-s">para desbloquear nuevas insignias</div>
+      </div>
+      <div class="pt-ham" id="ins-thanks-ham"></div>
+    </div>
   </div>
 </div>
 
@@ -1255,7 +1263,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <div class="modal modal-hist">
     <div class="hist-head">
       <span class="modal-close" onclick="closeHist()">✕</span>
-      <h3 id="hist-title">Historial</h3>
+      <h3 class="hist-h3"><img class="hist-h3-ic" src="img/ic_calendario.webp" onerror="this.outerHTML='📅'"> <span id="hist-title">Historial</span></h3>
       <div class="hist-filters" id="hist-filters"></div>
       <div class="hist-sum" id="hist-sum"></div>
     </div>
@@ -1518,7 +1526,7 @@ function showLevelInfo(){
   var pts=calculatePoints();
   var cur=levelFromPoints(pts);
   var MYST='img/nivel_siguiente.webp';
-  document.getElementById('ins-sub').textContent='Estás en el nivel '+cur;
+  var th=document.getElementById('ins-thanks-ham');if(th){th.innerHTML='';th.appendChild(makeImg(IMG_URLS.loving,'🐹','100%','100%','',52));var thi=th.querySelector('img');if(thi)thi.style.objectFit='contain';}
   var dates=levelUnlockDates(cur);
   var nextThr=pointsForLevel(cur+1);
   // Hero: siguiente nivel como incógnita (mantiene la sorpresa de la insignia)
@@ -2524,11 +2532,11 @@ function renderWaterYear(){
     col.appendChild(v);col.appendChild(bw);col.appendChild(lab);wrap.appendChild(col);
   });
 }
-var histKind='food', histFMonth='', histFCat='', histFEstado='', histFDay='';
+var histKind='food', histFMonth='', histFCat='', histFEstado='', histFDay='', histFTipo='';
 function openFoodHist(){openHist('food');}
 function openAllExp(){openHist('exp');}
 function openHist(kind){
-  histKind=kind; histFMonth=''; histFCat=''; histFEstado=''; histFDay='';
+  histKind=kind; histFMonth=''; histFCat=''; histFEstado=''; histFDay=''; histFTipo='';
   document.getElementById('hist-title').textContent = kind==='food'?'Historial de comidas':(kind==='exp'?'Todas las compras':(kind==='deco'?'Historial de decoraciones':'Historial'));
   document.getElementById('hist-modal').classList.add('open');
   try{ buildHistFilters(); renderHist(); }
@@ -2536,7 +2544,7 @@ function openHist(kind){
 }
 function openFoodDay(ts){
   var d=new Date(ts);
-  histKind='food'; histFMonth=''; histFCat=''; histFEstado='';
+  histKind='food'; histFMonth=''; histFCat=''; histFEstado=''; histFTipo='';
   histFDay=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
   document.getElementById('hist-title').textContent='Comidas · '+d.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'}).replace(/^./,function(c){return c.toUpperCase();});
   document.getElementById('hist-filters').innerHTML='';
@@ -2570,6 +2578,10 @@ function buildHistFilters(){
       +CATS.map(function(c){return '<option value="'+c.id+'">'+c.name+'</option>';}).join('')+'</select>';
   } else if(histKind==='deco'){
     html+='<select class="ae-sel" onchange="histFEstado=this.value;renderHist()"><option value="">Todas</option><option value="jaula">En la jaula</option><option value="guard">Guardadas</option></select>';
+  } else if(histKind==='food'){
+    var foods=(CATS.filter(function(c){return c.id==='food';})[0]||{}).foods||[];
+    html+='<select class="ae-sel" onchange="histFTipo=this.value;renderHist()"><option value="">Todos los tipos</option>'
+      +foods.map(function(f){return '<option value="'+f+'">'+f+'</option>';}).join('')+'</select>';
   }
   document.getElementById('hist-filters').innerHTML=html;
 }
@@ -2580,6 +2592,7 @@ function renderHist(){
   if(histKind==='exp'&&histFCat) rows=rows.filter(function(r){return r.e.category===histFCat;});
   if(histKind==='all'&&histFCat) rows=rows.filter(function(r){return r.kind===histFCat;});
   if(histKind==='food') rows=rows.filter(function(r){return r.l.type;});
+  if(histKind==='food'&&histFTipo) rows=rows.filter(function(r){return r.l.type===histFTipo;});
   if(histKind==='deco'&&histFEstado){var ds=loadDecoState();rows=rows.filter(function(r){var s=!!ds[r.id];return histFEstado==='guard'?s:!s;});}
   rows.sort(function(a,b){return b.ts-a.ts;});
   var sum=document.getElementById('hist-sum');
