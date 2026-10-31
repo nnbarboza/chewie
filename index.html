@@ -661,6 +661,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .cd-zone.sel .cd-z-check{display:flex}
 .cd-hint{text-align:center;font-size:11px;color:var(--text3);margin-top:12px}
 
+.food-day{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px}
+.food-day .fd-lbl{font-size:12.5px;color:var(--text2);font-weight:500}
+.food-day select{font-family:var(--font-d);font-weight:600;font-size:13px;color:var(--text);background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:7px 11px;cursor:pointer;-webkit-appearance:none;appearance:none}
+.food-day.past select{border-color:var(--accent);color:#7A2A2A;background:#FDEFF4}
 .food-chips{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
 .fchip{position:relative;border-radius:17px;border:1.5px solid var(--border);background:var(--card);padding:11px 6px 9px;text-align:center;cursor:pointer;transition:transform .12s,border-color .12s,box-shadow .12s}
 .fchip:active{transform:scale(.95)}
@@ -832,6 +836,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
     <div class="fcard">
       <div class="fcard-h center">¿Qué ha comido Chewie?</div>
+      <div class="food-day" id="food-day"></div>
       <div class="food-chips" id="food-chips"></div>
       <div class="fc-details" id="fc-details"></div>
       <div class="food-hint">Toca lo que le has dado para registrarlo</div>
@@ -880,6 +885,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <label id="wd-detail-lbl"></label>
       <input type="text" id="wd-detail-input" placeholder="">
     </div>
+    <div class="food-day" id="wd-day"></div>
     <button class="wd-reg" id="wd-reg-btn" onclick="registerCare(this)">Dar agüita</button>
     <div class="wd-card">
       <div class="wd-prog-top">
@@ -928,6 +934,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <div class="cd-zones" id="cd-zones"></div>
       <div class="cd-hint">Toca las zonas que has limpiado y pulsa registrar</div>
     </div>
+    <div class="food-day" id="cd-day"></div>
     <button class="wd-reg" id="cd-reg-btn" onclick="registerCare(this)">Hacer limpieza</button>
     <div class="wd-foot" id="cd-foot"></div>
   </div>
@@ -960,6 +967,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <label>¿Qué decoración añadiste?</label>
       <input type="text" id="dc-detail-input" placeholder="">
     </div>
+    <div class="food-day" id="dc-day"></div>
     <button class="wd-reg" id="dc-reg-btn" onclick="registerCare(this)">Añadir decoración</button>
     <div class="dc-tabs">
       <span class="dc-tab on" id="dc-tab-jaula" onclick="decoTabSet('jaula')">En la jaula (<span id="dc-n-jaula">0</span>)</span>
@@ -996,6 +1004,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
         <div style="font-size:12px;color:var(--text2);margin-bottom:5px" id="note-lbl">Notas</div>
         <textarea class="free-note" id="det-note" rows="2" placeholder="Escribe aquí..."></textarea>
       </div>
+      <div class="food-day" id="reg-day"></div>
       <button class="reg-btn" id="reg-btn" onclick="registerCare(this)">Registrar</button>
     </div>
     <div class="chart-sec">
@@ -1155,7 +1164,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <div class="pt-ham" id="prof-thanks-ham"></div>
   </div>
-  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v3.7</span></div>
+  <div style="text-align:center;padding:6px 0 10px"><span class="ver-tag">v3.9</span></div>
 </div>
 
 <div class="modal-bg" id="quizhist-modal">
@@ -2014,7 +2023,7 @@ function renderHome(){
 }
 
 function openDetail(cat){
-  curCat=cat;selFoods=[];foodDetails={};
+  curCat=cat;selFoods=[];foodDetails={};foodDayOffset=0;
   goScreen('s-detail');
   document.getElementById('det-title').textContent=cat.name;
   document.getElementById('det-sub').innerHTML=cat.tag||cat.freq;
@@ -2163,7 +2172,31 @@ function renderFoodHero(){
 }
 
 // ── FOOD CHIPS ──
+var foodDayOffset=0; // 0 = hoy; N = hace N días. Compartido por todas las categorías.
+function careDayId(){
+  if(!curCat)return 'food-day';
+  if(curCat.id==='food')return 'food-day';
+  if(curCat.zones)return 'cd-day';
+  if(curCat.deco)return 'dc-day';
+  if(curCat.rich)return 'wd-day';
+  return 'reg-day';
+}
+function renderCareDay(){
+  var wrap=document.getElementById(careDayId());if(!wrap)return;
+  var opts='';
+  for(var i=0;i<=6;i++){
+    var lbl;
+    if(i===0)lbl='Hoy';
+    else if(i===1)lbl='Ayer';
+    else lbl=capM(new Date(Date.now()-i*86400000).toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'short'}).replace('.',''));
+    opts+='<option value="'+i+'"'+(i===foodDayOffset?' selected':'')+'>'+lbl+'</option>';
+  }
+  wrap.className='food-day'+(foodDayOffset>0?' past':'');
+  wrap.innerHTML='<span class="fd-lbl">📅 Día:</span><select onchange="foodDayOffset=+this.value;renderCareDay()">'+opts+'</select>';
+}
+function renderFoodDay(){renderCareDay();}
 function renderFoodChips(){
+  renderCareDay();
   var grid=document.getElementById('food-chips');
   grid.innerHTML='';
   var rem=getRemainingFood();
@@ -2241,6 +2274,7 @@ function registerCare(btn){
     selFoods=Array.from(document.querySelectorAll('#food-grid .ftog.on')).map(function(x){return x.dataset.t;});
   }
   var entry={id:uid(),ts:Date.now()};
+  if(foodDayOffset>0)entry.ts=Date.now()-foodDayOffset*86400000;
   if(selFoods.length)entry.type=selFoods.join(', ');
   if(isFood){
     var det=[];
@@ -2263,12 +2297,14 @@ function registerCare(btn){
   }
   state[curCat.id].logs.push(entry);
   if(state[curCat.id].logs.length>200)state[curCat.id].logs=state[curCat.id].logs.slice(-200);
+  foodDayOffset=0;
   save();
   var pts=pointsForLog(curCat.id,entry);
   bk('addCuidado',{id:entry.id,ts:entry.ts,catId:curCat.id,categoria:curCat.name,tipo:entry.type||'',nota:entry.note||''});
   selFoods=[];foodDetails={};
 
   if(isFood){
+    foodDayOffset=0;
     document.querySelectorAll('#food-chips .fchip').forEach(function(x){x.classList.remove('on');});
     renderFoodHero();renderWeekCalendar();renderFoodChips();renderDieta();
     checkAchievements();renderLogrosRecent();
@@ -2323,6 +2359,7 @@ function zoneStatus(zone,ts){
   return'ok';
 }
 function renderCleanDetail(){
+  renderCareDay();
   var cat=curCat;
   var hero=document.getElementById('cd-hero');hero.innerHTML='';
   hero.appendChild(makeImg(CAT_IMGS.clean||'',cat.emoji,'100%','100%','',64));
@@ -2394,6 +2431,7 @@ function saveDecoState(o){try{localStorage.setItem('chw6deco',JSON.stringify(o))
 function decoTabSet(t){decoTab=t;renderDecoDetail();}
 function decoMove(id){var o=loadDecoState();o[id]=!o[id];saveDecoState(o);renderDecoDetail();}
 function renderDecoDetail(){
+  renderCareDay();
   var cat=curCat;
   var logs=(state.deco&&state.deco.logs)||[];
   var changed=false;logs.forEach(function(l){if(!l.id){l.id=uid();changed=true;}});if(changed)save();
@@ -2438,6 +2476,7 @@ function relTime(ts){
   return'Hace '+d+' días';
 }
 function renderWaterDetail(){
+  renderCareDay();
   var cat=curCat;
   setIcon('wd-mes-ic','img/ic_mes.webp','🗓️',16);
   setIcon('wd-res-ic','img/ic_resumen.webp','📊',16);
